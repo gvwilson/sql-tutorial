@@ -24,7 +24,8 @@ create table scientists(
 drop table if exists experiments;
 create table experiments(
        experiment_id text not null,	-- unique ID
-       experiment_name text not null	-- experiment's name
+       experiment_name text not null,	-- experiment's name
+       experiment_date text not null	-- date of experiment
 );
 .import data/experiments.csv experiments
 
