@@ -19,6 +19,7 @@ create table scientists(
        hired text      			-- hire date (if known)
 );
 .import data/scientists.csv scientists
+update scientists set hired=null where hired="";
 
 -- Kinds of experiments.
 drop table if exists experiments;
