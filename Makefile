@@ -4,6 +4,9 @@
 # SQLite executable
 SQLITE := sqlite3
 
+# Script to regenerate output files
+RERUN := scripts/rerun.py
+
 # Database file
 DB := ./lab.db
 
@@ -22,7 +25,7 @@ CSV := $(patsubst %,${CSV_DIR}/%.csv,${TABLES})
 SRC := $(wildcard ${SRC_DIR}/*.sql)
 
 # Generated output.
-OUTPUT := $(patsubst %.sql,${OUT_DIR}/%.txt,${SRC})
+MARKDOWN := $(patsubst ${SRC_DIR}/%.sql,${OUT_DIR}/%.md,${SRC})
 
 # ----------------------------------------------------------------------
 
@@ -40,11 +43,11 @@ ${DB}: scripts/make-db.sql ${CSV}
 
 ## examples: re-run out-of-date examples
 .PHONY: examples
-examples: ${OUTPUT}
+examples: ${MARKDOWN}
 
-${OUT_DIR}/%.txt: %.sql ${DB}
+${OUT_DIR}/%.md: %.sql ${DB} ${RERUN}
 	@mkdir -p ${OUT_DIR}
-	${SQLITE} ${DB} < $< > $@
+	python ${RERUN} --dbfile ${DB} --infile $< --outfile $@
 
 ## clean: tidy up
 .PHONY: clean
@@ -56,3 +59,17 @@ clean:
 .PHONY: sterile
 sterile: clean
 	@rm -rf ${OUT_DIR}
+
+## settings: show variables
+.PHONY: settings
+settings:
+	@echo "SQLITE" ${SQLITE}
+	@echo "RERUN" ${RERUN}
+	@echo "DB" ${DB}
+	@echo "CSV_DIR" ${CSV_DIR}
+	@echo "SRC_DIR" ${SRC_DIR}
+	@echo "OUT_DIR" ${OUT_DIR}
+	@echo "TABLES" ${TABLES}
+	@echo "CSV" ${CSV}
+	@echo "SRC" ${SRC}
+	@echo "MARKDOWN" ${MARKDOWN}
