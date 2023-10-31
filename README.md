@@ -6,9 +6,9 @@
 
 ```sql
 CREATE TABLE machines(
-       machine_id text not null,	-- unique ID
-       machine_name text not null,	-- machine's name
-       acquired text			-- purchase date (if known)
+       machine_id text not null,        -- unique ID
+       machine_name text not null,      -- machine's name
+       acquired text                    -- purchase date (if known)
 );
 ```
 
@@ -23,10 +23,10 @@ CREATE TABLE machines(
 
 ```sql
 CREATE TABLE scientists(
-       scientist_id text not null,	-- unique ID
-       personal text not null,		-- personal name
-       family text not null,		-- family name
-       hired text      			-- hire date (if known)
+       scientist_id text not null,      -- unique ID
+       personal text not null,          -- personal name
+       family text not null,            -- family name
+       hired text                       -- hire date (if known)
 );
 ```
 
@@ -41,9 +41,9 @@ CREATE TABLE scientists(
 
 ```sql
 CREATE TABLE experiments(
-       experiment_id text not null,	-- unique ID
-       experiment_name text not null,	-- experiment's name
-       experiment_date text not null	-- date of experiment
+       experiment_id text not null,     -- unique ID
+       experiment_name text not null,   -- experiment's name
+       experiment_date text not null    -- date of experiment
 );
 ```
 
@@ -60,8 +60,8 @@ CREATE TABLE experiments(
 
 ```sql
 CREATE TABLE performed(
-       scientist_id text not null,	-- scientist key
-       experiment_id text not null	-- experiment key
+       scientist_id text not null,      -- scientist key
+       experiment_id text not null      -- experiment key
 );
 ```
 
@@ -82,8 +82,8 @@ CREATE TABLE performed(
 
 ```sql
 CREATE TABLE used(
-       experiment_id text not null,	-- experiment key
-       machine_id text not null		-- machine key
+       experiment_id text not null,     -- experiment key
+       machine_id text not null         -- machine key
 );
 ```
 
@@ -102,8 +102,8 @@ CREATE TABLE used(
 
 ```sql
 CREATE TABLE notes(
-       experiment_id integer not null,	-- experiment key
-       note text not null    	 	-- comment about experiment
+       experiment_id text not null,     -- experiment key
+       note text not null               -- comment about experiment
 );
 ```
 

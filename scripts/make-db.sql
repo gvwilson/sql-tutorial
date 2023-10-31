@@ -48,7 +48,7 @@ create table used(
 -- Notes about experiments.
 drop table if exists notes;
 create table notes(
-       experiment_id integer not null,	-- experiment key
+       experiment_id text not null,	-- experiment key
        note text not null    	 	-- comment about experiment
 );
 .import data/notes.csv notes
