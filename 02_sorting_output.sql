@@ -12,7 +12,7 @@ order by personal;
 */
 
 select
-    scientist_id,
+    sci_id,
     family,
     personal,
     hired

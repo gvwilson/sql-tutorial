@@ -11,31 +11,31 @@
  The output should show 6 tables with the following columns (all of
  which are of type `text`):
 
-| table       | contains                     | column          | purpose   		  |
-| ----------- | ---------------------------- | --------------- | ------------------------ |
-| machines    | Machines in lab              | machine_id      | unique ID 		  |
-|             |                              | machine_name    | machine's name 	  |
-|             |                              | acquired        | purchase date 		  |
-| scientists  | Scientists in lab            | scientist_id    | unique ID 		  |
-|             |                              | personal        | personal name 		  |
-|             |                              | family          | family name 		  |
-|             |                              | hired           | hire date 		  |
-| experiments | Kinds of experiments         | experiment_id   | unique ID 		  |
-|             |                              | experiment_name | experiment name 	  |
-|             |                              | experiment_date | date of experiment 	  |
-| performed   | Who performed experiments    | scientist_id    | scientist key 		  |
-|             |                              | experiment_id   | experiment key 	  |
-| used        | Machines used in experiments | machine_id      | machine key 		  |
-|             |                              | experiment_id   | experiment key 	  |
-| notes       | Notes about experiments      | experiment_id   | experiment key           |
-|             |                              | note            | comment about experiment |
+| table       | contains                     | column    | purpose                  |
+| ----------- | ---------------------------- | ----------| ------------------------ |
+| machines    | Machines in lab              | mach_id   | unique ID                |
+|             |                              | mach_name | machine's name           |
+|             |                              | acquired  | purchase date            |
+| scientists  | Scientists in lab            | sci_id    | unique ID                |
+|             |                              | personal  | personal name            |
+|             |                              | family    | family name              |
+|             |                              | hired     | hire date                |
+| experiments | Kinds of experiments         | exp_id    | unique ID                |
+|             |                              | exp_name  | experiment name          |
+|             |                              | exp_date  | date of experiment       |
+| performed   | Who performed experiments    | sci_id    | scientist key            |
+|             |                              | exp_id    | experiment key           |
+| used        | Machines used in experiments | mach_id   | machine key              |
+|             |                              | exp_id    | experiment key           |
+| notes       | Notes about experiments      | exp_id    | experiment key           |
+|             |                              | note      | comment about experiment |
 
 SQLite displays each table by showing the SQL used to create it, e.g.,
 the `notes` table is shown as:
 
 CREATE TABLE notes(
-       experiment_id text not null,     -- experiment key
-       note text not null               -- comment about experiment
+       exp_id text not null,     -- experiment key
+       note text not null        -- comment about experiment
 );
 
 */

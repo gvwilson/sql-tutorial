@@ -5,7 +5,7 @@
 */
 
 select
-    scientist_id,
+    sci_id,
     personal,
     family,
     hired
@@ -22,7 +22,7 @@ from scientists;
 .mode table
 
 select
-    scientist_id,
+    sci_id,
     personal,
     family,
     hired
@@ -43,5 +43,5 @@ select * from scientists;
 select
     family,
     personal,
-    scientist_id
+    sci_id
 from scientists;
