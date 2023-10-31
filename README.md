@@ -33,9 +33,9 @@ CREATE TABLE scientists(
 | scientist_id | personal |  family   |   hired    |
 |--------------|----------|-----------|------------|
 | sci9091      | Grace    | Barshan   |            |
-| sci1729      | Alain    | Couteau   | 2019-09-01 |
 | sci4411      | Norbu    | Pilaratan | 2021-07-12 |
 | sci4212      | Nica     | Berbelos  | 2021-07-12 |
+| sci1729      | Alain    | Berbelos  | 2022-03-01 |
 
 ### Experiments
 
