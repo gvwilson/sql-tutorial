@@ -12,8 +12,8 @@ DB := ./lab.db
 
 # Directories.
 CSV_DIR := data
-SRC_DIR := .
-OUT_DIR := _out
+SRC_DIR := src
+OUT_DIR := _md
 
 # Tables
 TABLES := machines scientists experiments performed used notes
@@ -45,7 +45,7 @@ ${DB}: scripts/make-db.sql ${CSV}
 .PHONY: examples
 examples: ${MARKDOWN}
 
-${OUT_DIR}/%.md: %.sql ${DB} ${RERUN}
+${OUT_DIR}/%.md: ${SRC_DIR}/%.sql ${DB} ${RERUN}
 	@mkdir -p ${OUT_DIR}
 	python ${RERUN} --dbfile ${DB} --infile $< --outfile $@
 
