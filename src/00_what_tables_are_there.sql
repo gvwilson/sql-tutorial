@@ -1,5 +1,5 @@
 /*
- # Our Database
+ ## Our Database
 
  The commands to manage a database vary significantly from one DB
  manager to another. We are using SQLite, which has over 60 special

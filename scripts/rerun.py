@@ -38,7 +38,7 @@ def process(args, kind, body):
 
 def process_md(args, text):
     """Reformat text."""
-    return text.replace("\n ", "\n")
+    return text.replace("\n ", "\n").strip()
 
 
 def process_sql(args, text):
@@ -46,8 +46,8 @@ def process_sql(args, text):
     cmd = [SQLITE, args.dbfile]
     p = subprocess.run(cmd, input=text.encode(ENCODING), capture_output=True)
     result = p.stdout.decode(ENCODING)
-    code = f"```{{sql}}\n{text.rstrip()}\n```\n"
-    output = f"```{{text}}\n{result.rstrip()}\n```" if result.strip() else ""
+    code = f"```sql\n{text.rstrip()}\n```\n"
+    output = f"```text\n{result.rstrip()}\n```" if result.strip() else ""
     return f"{code}{output}"
 
 
@@ -79,11 +79,15 @@ def read_chunks(infile):
 
 def save_page(outfile, text):
     """Save generated result."""
+    permalink = outfile.split("/")[-1].split(".")[0]
+    header = f'---\npermalink: "/{permalink}/"\n---\n'
     if outfile:
         with open(outfile, "w") as writer:
-            print(text, file=writer)
+            writer.write(header)
+            writer.write(text)
     else:
-        print(text)
+        writer.write(header)
+        writer.write(text)
 
 
 if __name__ == "__main__":

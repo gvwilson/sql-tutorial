@@ -1,5 +1,5 @@
 /*
- # Filtering with Where
+ ## Filtering with Where
 */
 
 .mode table

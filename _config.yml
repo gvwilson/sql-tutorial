@@ -1,0 +1,26 @@
+title: SQL Tutorial
+repository: gvwilson/sql-tutorial
+author:
+  name: Greg Wilson
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
+
+markdown: kramdown
+highlighter: rouge
+
+include:
+  - _md
+
+exclude:
+  - CODE_OF_CONDUCT.md
+  - LICENSE.md
+  - README.md
+  - '.#*'
+  - '*~'
+
+permalink: pretty

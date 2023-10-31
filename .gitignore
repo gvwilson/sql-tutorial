@@ -1,3 +1,5 @@
 *.db
 *~
+.jekyll-cache
 _md
+_site

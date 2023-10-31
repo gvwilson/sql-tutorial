@@ -1,5 +1,5 @@
 /*
- # Sorting Output
+ ## Sorting Output
 */
 
 .mode table

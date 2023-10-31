@@ -1,7 +1,8 @@
 # By default, show available commands
 .DEFAULT: commands
 
-# SQLite executable
+# Tools
+JEKYLL := jekyll
 SQLITE := sqlite3
 
 # Script to regenerate output files
@@ -48,6 +49,16 @@ examples: ${MARKDOWN}
 ${OUT_DIR}/%.md: ${SRC_DIR}/%.sql ${DB} ${RERUN}
 	@mkdir -p ${OUT_DIR}
 	python ${RERUN} --dbfile ${DB} --infile $< --outfile $@
+
+## build: rebuild the site
+.PHONY: build
+build: ${MARKDOWN}
+	${JEKYLL} build
+
+## serve: rebuild and serve the site
+.PHONY: serve
+serve: ${MARKDOWN}
+	${JEKYLL} serve
 
 ## clean: tidy up
 .PHONY: clean
