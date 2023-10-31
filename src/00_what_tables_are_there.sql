@@ -1,17 +1,17 @@
 /*
- ## Our Database
+## Our Database
 
- The commands to manage a database vary significantly from one DB
- manager to another. We are using SQLite, which has over 60 special
- commands. Let's start by showing the *schema* of our sample database,
- which is a fancy word for "what tables exist and what they contain".
+The commands to manage a database vary significantly from one DB
+manager to another. We are using SQLite, which has over 60 special
+commands. Let's start by showing the *schema* of our sample database,
+which is a fancy word for "what tables exist and what they contain".
 */
 
 .schema
 
 /*
- The output should show 6 tables with the following columns (all of
- which are of type `text`):
+The output should show 6 tables with the following columns (all of
+which are of type `text`):
 
 | table       | contains                     | column    | purpose                  |
 | ----------- | ---------------------------- | ----------| ------------------------ |
@@ -37,8 +37,8 @@ the `notes` table is shown as:
 
 ```sql
 CREATE TABLE notes(
-       exp_id text not null,     -- experiment key
-       note text not null        -- comment about experiment
+    exp_id text not null,     -- experiment key
+    note text not null        -- comment about experiment
 );
 ```
 */
