@@ -5,17 +5,19 @@ author:
 
 chapters:
 - title: "Our Database"
-  path: "00_what_tables_are_there"
+  path: "00_db"
 - title: "Selecting Columns"
-  path: "01_who_works_in_the_lab"
+  path: "01_select"
 - title: "Sorting Output"
-  path: "02_sorting_output"
+  path: "02_sort"
 - title: "Calculating Values"
-  path: "03_calculating_values"
-- title: "Filtering with Where"
-  path: "04_filter_with_where"
+  path: "03_calculate"
+- title: "Dates and Times"
+  path: "04_calculate"
+- title: "Filtering"
+  path: "04_filter"
 - title: "Missing Data"
-  path: "05_missing_data"
+  path: "05_null"
 
 defaults:
 - scope:
