@@ -6,7 +6,7 @@ JEKYLL := jekyll
 SQLITE := sqlite3
 
 # Script to regenerate output files
-RERUN := scripts/rerun.py
+RERUN := bin/rerun.py
 
 # Database file
 DB := ./lab.db
@@ -39,7 +39,7 @@ commands:
 .PHONY: db
 db: ${DB}
 
-${DB}: scripts/make-db.sql ${CSV}
+${DB}: bin/make-db.sql ${CSV}
 	${SQLITE} $@ < $<
 
 ## markdown: regenerate Markdown from SQL
