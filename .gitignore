@@ -1,3 +1,4 @@
+*.bkp
 *.db
 *~
 .jekyll-cache
