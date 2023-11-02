@@ -3,12 +3,25 @@ repository: gvwilson/sql-tutorial
 author:
   name: Greg Wilson
 
+chapters:
+- title: "Our Database"
+  path: "00_what_tables_are_there"
+- title: "Selecting Columns"
+  path: "01_who_works_in_the_lab"
+- title: "Sorting Output"
+  path: "02_sorting_output"
+- title: "Calculating Values"
+  path: "03_calculating_values"
+- title: "Filtering with Where"
+  path: "04_filter_with_where"
+- title: "Missing Data"
+  path: "05_missing_data"
+
 defaults:
-  -
-    scope:
-      path: ""
-    values:
-      layout: "default"
+- scope:
+    path: ""
+  values:
+    layout: "default"
 
 markdown: kramdown
 highlighter: rouge

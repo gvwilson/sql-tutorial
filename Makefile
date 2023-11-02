@@ -17,7 +17,7 @@ SRC_DIR := src
 OUT_DIR := _md
 
 # Tables
-TABLES := machines scientists experiments performed used notes
+TABLES := machines scientists experiments performed used
 
 # All CSV files used to make database
 CSV := $(patsubst %,${CSV_DIR}/%.csv,${TABLES})
@@ -42,9 +42,9 @@ db: ${DB}
 ${DB}: scripts/make-db.sql ${CSV}
 	${SQLITE} $@ < $<
 
-## examples: re-run out-of-date examples
-.PHONY: examples
-examples: ${MARKDOWN}
+## markdown: regenerate Markdown from SQL
+.PHONY: markdown
+markdown: ${MARKDOWN}
 
 ${OUT_DIR}/%.md: ${SRC_DIR}/%.sql ${DB} ${RERUN}
 	@mkdir -p ${OUT_DIR}

@@ -1,8 +1,4 @@
 /*
-## Selecting Columns
-*/
-
-/*
 Our first query selects all of the data from the `scientists` table.
 We can put the whole query on a single line, but will break it across
 lines to make it more readable.

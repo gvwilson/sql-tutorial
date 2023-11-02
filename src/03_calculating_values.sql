@@ -1,10 +1,4 @@
 /*
-## Calculating Values
-*/
-
-.mode table
-
-/*
 We can calculate new values as we select data.  For example, here are
 all the calibration readings the scientists have recorded:
 */

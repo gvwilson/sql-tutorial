@@ -1,7 +1,4 @@
 /*
-## Missing Data
-
-/*
 Real data is always messy, and one of the things that makes it so is
 missing values. SQL represents "holes" in the data with a special
 value called `NULL`. It is not zero, false, or the empty string: it is

@@ -5,7 +5,7 @@
   </head>
   <body>
     <main>
-      <h1>{% if page.title %}{{page.title}}{% else %}{{site.title}}{% endif %}</h1>
+      {% include title.html %}
       {{ content }}
     </main>
     {% include foot.html %}

@@ -1,10 +1,4 @@
 /*
-## Filtering with Where
-*/
-
-.mode table
-
-/*
 We often want to work with a subset of our data, so SQL lets us
 *filter* the records we select by adding a `where` clause to our
 query. The `where` clause must have a single condition that is either

@@ -1,10 +1,4 @@
 /*
-## Sorting Output
-*/
-
-.mode table
-
-/*
 We can sort by any column we want:
 */
 
