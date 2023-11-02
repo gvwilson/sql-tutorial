@@ -13,11 +13,13 @@ chapters:
 - title: "Calculating Values"
   path: "03_calculate"
 - title: "Dates and Times"
-  path: "04_calculate"
+  path: "04_dates"
 - title: "Filtering"
-  path: "04_filter"
+  path: "05_filter"
 - title: "Missing Data"
-  path: "05_null"
+  path: "06_null"
+- title: "Combining Data"
+  path: "07_join"
 
 defaults:
 - scope:
