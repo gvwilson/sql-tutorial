@@ -1,6 +1,6 @@
 drop table if exists penguins;
 .mode csv penguins
-.import penguins.csv penguins
+.import data/penguins.csv penguins
 update penguins set species = null where species = "";
 update penguins set island = null where island = "";
 update penguins set bill_length_mm = null where bill_length_mm = "";
