@@ -13,7 +13,7 @@ from faker import Faker
 CREATE_TABLES = """\
 drop table if exists department;
 create table department(
-       ident            text not null,
+       ident            text not null primary key,
        name             text not null,
        building         text not null
 );

@@ -1,5 +1,5 @@
 (
-    for table in staff experiment performed plate invalidated
+    for table in department staff experiment performed plate invalidated
     do
 	echo ".mode list"
 	echo ".headers off"
@@ -10,4 +10,4 @@
 	echo ".headers on"
 	echo "pragma table_info('${table}');"
     done
-) | sqlite3 assays.db | tail -n +2
+) | sqlite3 $1 | tail -n +2
