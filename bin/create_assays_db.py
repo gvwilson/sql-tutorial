@@ -65,14 +65,14 @@ DEPARTMENTS = [
 ]
 
 PARAMS = {
-    "enddate": date(2023, 11, 10),
+    "enddate": date(2024, 2, 10),
     "experiments": 50,
     "filename_len": 8,
     "invalid": 0.1,
     "locale": "en_IN",
     "seed": 21894712,
     "staff": 10,
-    "startdate": date(2023, 11, 1),
+    "startdate": date(2023, 1, 10),
     "treated": 8.0,
 }
 
@@ -191,8 +191,8 @@ def random_experiment_duration(kind):
     end_stamp = date_to_timestamp(PARAMS["enddate"])
     start = datetime.fromtimestamp(random.uniform(start_stamp, end_stamp))
     duration = timedelta(days=random.randint(*EXPERIMENTS[kind]["duration"]))
-    end = start + duration
-    end = None if end > datetime.fromtimestamp(end_stamp) else end
+    possible_end = start + duration
+    end = None if possible_end > datetime.fromtimestamp(end_stamp) else possible_end
     return start, end
 
 
