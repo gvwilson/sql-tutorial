@@ -47,7 +47,7 @@ Chinstrap|Dream|45.2|16.6|191|3250|FEMALE
 -   Use <code>from <em>tablename</em></code> to specify table
 -   Output format is not particularly readable
 
-## null: administration commands
+## null: administrative commands
 
 ```sql
 .headers on
@@ -99,7 +99,7 @@ from little_penguins;
     -   Duplicates allowed
 -   Line breaks ~allowed~ encouraged for readability
 
-## 004: sorting
+## 004: sort
 
 ```sql
 select species, sex, island
@@ -125,7 +125,7 @@ order by island asc, sex desc;
 -   `asc` is ascending, `desc` is descending
     -   Default is ascending, but please specify
 
-## 005: limiting output
+## 005: limit output
 
 -   Full dataset has 344 rows
 
@@ -147,7 +147,7 @@ limit 5;
 -   Comments start with `--` and run to the end of the line
 -   <code>limit <em>N</em></code> specifies maximum number of rows returned by query
 
-## 006: paging output
+## 006: page output
 
 ```sql
 select species, sex, island
@@ -167,7 +167,7 @@ limit 5 offset 5;
 -   <code>offset <em>N</em></code> must follow `limit`
 -   Specifies number of rows to skip
 
-## 007: removing duplicates
+## 007: remove duplicates
 
 ```sql
 select distinct species, sex, island
@@ -197,7 +197,7 @@ from penguins;
 -   Blanks in `sex` column show missing data
     -   We'll talk about this in a bit
 
-## 008: filtering results
+## 008: filter results
 
 ```sql
 select distinct species, sex, island
@@ -218,7 +218,7 @@ where island = "Biscoe";
 -   Condition is evaluated independently for each row
 -   Only rows that pass the test appear in results
 
-## 009: more complex filter conditions
+## 009: filter with more complex conditions
 
 ```sql
 select distinct species, sex, island
@@ -237,7 +237,7 @@ where island = "Biscoe" and sex != "MALE";
 -   Notice that the row for Gentoo penguins on Biscoe island with unknown (empty) sex didn't pass the test
     -   We'll talk about this in a bit
 
-## 010: doing calculations
+## 010: do calculations
 
 ```sql
 select
@@ -258,7 +258,7 @@ limit 3;
     -   Calculation done for each row independently
 -   Column name shows the calculation done
 
-## 011: renaming columns
+## 011: rename columns
 
 ```sql
 select
@@ -280,7 +280,7 @@ limit 3;
 -   Give result of calculation a meaningful name
 -   Can also rename columns without modifying
 
-## 012: calculations with missing values
+## 012: calculate with missing values
 
 ```sql
 select
@@ -305,7 +305,7 @@ limit 5;
 -   Flipper length and body weight not known for one of the first five penguins
 -   "I don't know" divided by 10 or 1000 is "I don't know"
 
-## 013: null isn't equal to anything
+## 013: null equality
 
 ```sql
 -- repeated from earlier so it doesn't count against our query limit
@@ -337,7 +337,7 @@ where island = "Biscoe" and sex == "FEMALE";
 | Gentoo  | FEMALE | Biscoe |
 ```
 
-## 014: null isn't not equal to anything either
+## 014: null inequality
 
 -   But if we ask for penguins that *aren't* female it drops out as well
 
@@ -353,7 +353,7 @@ where island = "Biscoe" and sex != "FEMALE";
 | Gentoo  | MALE | Biscoe |
 ```
 
-## 015: null is not equal to null
+## 015: ternary logic
 
 ```sql
 select null = null;
@@ -400,7 +400,7 @@ select null = null;
   </tr>
 </table>
 
-## 016: safely handling null
+## 016: handle null safely
 
 ```sql
 select species, sex, island
@@ -426,7 +426,7 @@ where sex is null;
 -   Use `is null` and `is not null` to handle null safely
 -   Other parts of SQL handle nulls specially
 
-## 017: aggregation
+## 017: aggregate
 
 ```sql
 select sum(body_mass_g) as total_mass
@@ -459,7 +459,7 @@ from penguins;
 -   This actually shouldn't work: can't calculate maximum or average if any values are null
 -   SQL does the useful thing instead of the right one
 
-## 019: grouping
+## 019: group
 
 ```sql
 select
@@ -479,7 +479,7 @@ group by sex;
 -   Then perform aggregation separately for each bucket
 -   But, uh, which is which?
 
-## 020: ungrouped columns
+## 020: behavior of unaggregated columns
 
 ```sql
 select
@@ -520,7 +520,7 @@ group by sex;
 -   The body mass values are in the data but unpredictable
 -   A common mistake
 
-## 022: filtering on aggregated values
+## 022: filter aggregated values
 
 ```sql
 select
@@ -539,7 +539,7 @@ having average_mass_g > 4000.0;
 
 -   Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates
 
-## 023: more readable output
+## 023: readable output
 
 ```sql
 select
@@ -558,7 +558,7 @@ having average_mass_g > 4000.0;
 
 -   Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number
 
-## null: temporary database
+## null: create in-memory database
 
 ```bash
 $ sqlite3 :memory:
@@ -566,7 +566,7 @@ $ sqlite3 :memory:
 
 -   "Connect" to an *in-memory* database
 
-## 024: creating tables
+## 024: create tables
 
 ```sql
 create table work(
@@ -583,7 +583,7 @@ create table job(
 -   Each column is a name, a data type, and optional extra information
     -   E.g., `not null` prevents nulls from being added
 
-## 025: inserting data
+## 025: insert data
 
 ```sql
 insert into job values
@@ -616,7 +616,7 @@ insert into work values
 | po     | complain  |
 | tay    | complain  |
 
-## 026: joining tables
+## 026: join tables
 
 ```sql
 select *
@@ -662,7 +662,7 @@ from work inner join job on work.job = job.name;
 -   Use <code>on <em>condition</em></code> to specify *join condition*
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
 
-## 028: aggregating joins
+## 028: aggregate joined data
 
 ```sql
 select
@@ -701,7 +701,7 @@ from work left join job on work.job = job.name;
 -   A *left outer join* keeps all rows from the left table
 -   Fills missing values from right table with null
 
-## 030: aggregating left joins
+## 030: aggregate left joins
 
 ```sql
 select
@@ -720,7 +720,7 @@ group by work.person;
 
 -   That's better, but we'd like to see 0 rather than a blank
 
-## 031: coalescing values
+## 031: coalesce values
 
 ```sql
 select
@@ -739,7 +739,7 @@ group by work.person;
 
 -   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
 
-## 032: incorrect negation
+## 032: negate incorrectly
 
 -   Who doesn't calibrate?
 
@@ -799,7 +799,7 @@ where person not in (
 -   Then select all the people who aren't in that set
 -   Initially feels odd, but subqueries are useful in other ways
 
-## null: M to N
+## null: M to N relationships
 
 -   Relationships between entities are usually characterized as:
     -   1-to-1: fields in the same record
@@ -836,7 +836,7 @@ select * from person;
     -   So that if Mik changes their name again, we only have to change one fact in the database
     -   Downside: manual queries are harder to read (who is person 17?)
 
-## 036: altering tables
+## 036: alter tables
 
 ```sql
 alter table job
@@ -867,7 +867,7 @@ select * from job;
     -   So be careful about `where` clause
 -   *Data migration*
 
-## 037: new tables from old
+## 037: create new tables from old
 
 ```sql
 create table new_work(
@@ -898,7 +898,7 @@ select * from new_work;
 -   `new_work` is our join table
 -   Each column refers to a record in some other table
 
-## 038: removing tables
+## 038: remove tables
 
 ```sql
 drop table work;
@@ -908,7 +908,7 @@ alter table new_work rename to work;
 -   Remove the old table and rename the new one to take its place
 -   Be careful…
 
-## null: where are we?
+## null: display schema
 
 ```
 .schema
@@ -947,7 +947,7 @@ select * from sqlite_sequence;
 | person | 3   |
 ```
 
-## 0xx: comparing individual values to aggregates
+## 039: compare individual values to aggregates
 
 -   Go back to penguins
 
@@ -974,3 +974,99 @@ limit 5;
 -   Compare each row against that
 -   Requires two scans of the data, but there's no way to avoid that
 -   Null values aren't included in the average or in the final results
+
+## 040: self join
+
+```sql
+select distinct left.species, right.species
+from penguins as left join penguins as right;
+```
+```
+|  species  |  species  |
+|-----------|-----------|
+| Adelie    | Adelie    |
+| Adelie    | Chinstrap |
+| Adelie    | Gentoo    |
+| Chinstrap | Adelie    |
+| Chinstrap | Chinstrap |
+| Chinstrap | Gentoo    |
+| Gentoo    | Adelie    |
+| Gentoo    | Chinstrap |
+| Gentoo    | Gentoo    |
+```
+
+-   Join a table to itself
+    -   Give copies aliases using `as` to distinguish them
+    -   Nothing special about `left` and `right`
+
+## 041: generate unique pairs
+
+```sql
+select distinct left.species, right.species
+from penguins as left join penguins as right
+on left.species < right.species;
+```
+```
+|  species  |  species  |
+|-----------|-----------|
+| Adelie    | Chinstrap |
+| Adelie    | Gentoo    |
+| Chinstrap | Gentoo    |
+```
+
+-   Quick check: *n(n-1)/2* unique pairs
+
+## 042: compare individual values to aggregates within groups
+
+```sql
+select
+    left.species,
+    left.body_mass_g,
+    round(right.avg_mass_g, 1) as avg_mass_g
+from penguins as left join (
+    select species, avg(body_mass_g) as avg_mass_g
+    from penguins
+    group by species
+) as right
+where left.body_mass_g > right.avg_mass_g
+limit 5;
+```
+```
+| species | body_mass_g | avg_mass_g |
+|---------|-------------|------------|
+| Adelie  | 3750        | 3700.7     |
+| Adelie  | 3800        | 3700.7     |
+| Adelie  | 4675        | 3700.7     |
+| Adelie  | 4250        | 3700.7     |
+| Adelie  | 3800        | 3700.7     |
+```
+
+## 043: common table expressions
+
+```sql
+with grouped as (
+    select species, avg(body_mass_g) as avg_mass_g
+    from penguins
+    group by species
+)
+select
+    penguins.species,
+    penguins.body_mass_g,
+    round(grouped.avg_mass_g, 1) as avg_mass_g
+from penguins join grouped
+where penguins.body_mass_g > grouped.avg_mass_g
+limit 5;
+```
+```
+| species | body_mass_g | avg_mass_g |
+|---------|-------------|------------|
+| Adelie  | 3750        | 3700.7     |
+| Adelie  | 3800        | 3700.7     |
+| Adelie  | 4675        | 3700.7     |
+| Adelie  | 4250        | 3700.7     |
+| Adelie  | 3800        | 3700.7     |
+```
+
+-   Use *common table expression* (CTE) to make queries clearer
+    -   Nested subqueries quickly become difficult to understand
+-   Database decides how to optimize
