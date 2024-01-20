@@ -1,0 +1,37 @@
+title: SQL in 100 Queries
+url: https://gvwilson.github.io/sql-tutorial/
+repository: gvwilson/sql-tutorial
+
+author:
+  name: Greg Wilson
+  url: https://third-bit.com
+  email: gvwilson@third-bit.com
+
+markdown: kramdown
+highlighter: rouge
+
+exclude:
+  - README.md
+  - LICENSE.md
+  - CODE_OF_CONDUCT.md
+  - Gemfile
+  - Gemfile.lock
+  - Makefile
+  - '.#*'
+  - '*~'
+  - bin
+  - data
+
+permalink: pretty
+
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
+
+plugins:
+  - jekyll-paginate
+  - jekyll-redirect-from
+  - jekyll-sitemap

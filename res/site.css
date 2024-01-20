@@ -1,0 +1,213 @@
+/*
+ * Fonts
+ */
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
+
+/*
+ * Variables
+ */
+:root {
+    --lightgray: #E8E8E8;
+    --darkgray: #D8D8D8;
+    --shadow: rgba(0, 0, 0, 0.2);
+
+    --stamp-blue-dark: #1B2A83;
+    --stamp-blue-light: #BABDD8;
+    --stamp-brown-dark: #5F483C;
+    --stamp-brown-light: #CEC7C3;
+    --stamp-green-dark: #7F9971;
+    --stamp-green-light: #D7E0D3;
+    --stamp-orange-dark: #AD7353;
+    --stamp-orange-light: #E5D4CB;
+    --stamp-purple-dark: #7D6E87;
+    --stamp-purple-light: #D6D2DA;
+    --stamp-red-dark: #8B000F;
+    --stamp-red-light: #DAB3B7;
+
+    --lightborder: 1px;
+    --mediumborder: 2px;
+    --heavyborder: 5px;
+
+    --page-width: 60rem;
+    --body-size: large;
+    --code-size: medium;
+    --image-width: 80%;
+
+    --no-spacing: 0px;
+    --small-spacing: 0.25rem;
+    --medium-spacing: 0.5rem;
+    --large-spacing: 1rem;
+    --hanging-indent: 1rem;
+    --hanging-outdent: -1rem;
+    --shadow-spacing: 15px 28px 25px -18px;
+}
+
+/*
+ * Flex grid
+ */
+.row {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%
+}
+
+.row > * {
+  flex: 1; /* allow children to grow when space available */
+}
+
+.col-1 { flex-basis: 8.33%; }
+.col-2 { flex-basis: 16.66%; }
+.col-3 { flex-basis: 25%; }
+.col-4 { flex-basis: 33.33%; }
+.col-5 { flex-basis: 41.66%; }
+.col-6 { flex-basis: 50%; }
+.col-7 { flex-basis: 58.33%; }
+.col-8 { flex-basis: 66.66%; }
+.col-9 { flex-basis: 75%; }
+.col-10 { flex-basis: 83.33%; }
+.col-11 { flex-basis: 91.66%; }
+.col-12 { flex-basis: 100%; }
+
+/*
+ * Generic positioning
+ */
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+/*
+ * Colors
+ */
+
+div.language-bash {
+    border-left: solid var(--heavyborder) var(--stamp-green-light);
+    padding-left: var(--mediumborder);
+}
+
+div.language-plaintext {
+    border-left: solid var(--heavyborder) var(--stamp-purple-light);
+    padding-left: var(--mediumborder);
+}
+
+div.language-sql {
+    border-left: solid var(--heavyborder) var(--stamp-blue-light);
+    padding-left: var(--mediumborder);
+}
+
+/*
+ * Overall appearance
+ */
+html {
+    font-family: "Atkinson Hyperlegible", sans-serif;
+    font-size: var(--body-size);
+}
+
+body {
+    margin-left: var(--large-spacing);
+    max-width: var(--page-width);
+}
+
+/*
+ * Top navigation
+ */
+
+nav {
+    padding-bottom: var(--small-spacing);
+    border-bottom: solid var(--lightgray) var(--mediumborder);
+    margin-bottom: var(--small-spacing);
+}
+
+a.navlink {
+    margin-left: var(--small-spacing);
+    margin-right: var(--small-spacing);
+}
+
+/*
+ * Bottom footer.
+ */
+
+footer {
+    margin-top: var(--medium-spacing);
+    border-top: solid var(--lightgray) var(--mediumborder);
+    padding-top: var(--small-spacing);
+    text-align: center;
+}
+
+/*
+ * Elements
+ */
+
+blockquote {
+    padding-left: var(--medium-spacing);
+    border-left: solid var(--stamp-purple-light) var(--heavyborder);
+    margin-left: 0px;
+    font-style: italic;
+}
+
+code {
+    font-family: "Source Code Pro", monospace;
+    font-size: var(--code-size);
+}
+
+div.bibliography p {
+    padding-left: var(--hanging-indent);
+    text-indent: var(--hanging-outdent);
+}
+
+dd {
+    margin-bottom: var(--medium-spacing);
+}
+
+dt {
+    font-weight: bold;
+}
+
+h1 {
+    text-align: center;
+    background-color: var(--stamp-blue-light);
+}
+
+h2 {
+    background-color: var(--stamp-green-light);
+}
+
+h3 {
+    background-color: var(--stamp-orange-light);
+    margin-top: var(--medium-spacing);
+    margin-bottom: var(--medium-spacing);
+}
+
+h4 {
+    background-color: var(--stamp-blue-light);
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    padding-top: var(--small-spacing);
+    padding-bottom: var(--small-spacing);
+    padding-left: var(--medium-spacing);
+    padding-right: var(--medium-spacing);
+    vertical-align: top;
+    border: solid var(--lightborder) var(--lightgray);
+}
+
+th {
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: disc;
+}

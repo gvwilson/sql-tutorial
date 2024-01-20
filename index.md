@@ -1,3 +1,5 @@
+---
+---
 # SQL in 100 Queries
 
 ## null: connect to database
@@ -797,9 +799,157 @@ where person not in (
 -   Then select all the people who aren't in that set
 -   Initially feels odd, but subqueries are useful in other ways
 
-## 035: comparing individual values to aggregates
+## null: M to N
 
--   Go back to penguins for a moment
+-   Relationships between entities are usually characterized as:
+    -   1-to-1: fields in the same record
+    -   1-to-many: the many have a *foreign key* referring to the one's *primary key*
+    -   many-to-many: don't know how many keys to add to records ("maximum" never is)
+-   Nearly-universal solution is a *join table*
+    -   Each record is a pair of foreign keys
+    -   I.e., each record is the fact that records A and B are related
+
+## 035: autoincrement and primary key
+
+```sql
+create table person(
+    ident integer primary key autoincrement,
+    name text not null
+);
+insert into person values
+    (null, "mik"),
+    (null, "po"),
+    (null, "tay")
+;
+select * from person;
+```
+```
+| ident | name |
+|-------|------|
+| 1     | mik  |
+| 2     | po   |
+| 3     | tay  |
+```
+
+-   Database automatically increments `ident` each time a new record is added
+-   Use that field as the primary key
+    -   So that if Mik changes their name again, we only have to change one fact in the database
+    -   Downside: manual queries are harder to read (who is person 17?)
+
+## 036: altering tables
+
+```sql
+alter table job
+add ident integer not null default -1;
+
+update job
+set ident = 1
+where name = "calibrate";
+
+update job
+set ident = 2
+where name = "clean";
+
+select * from job;
+```
+```
+|   name    | billable | ident |
+|-----------|----------|-------|
+| calibrate | 1.5      | 1     |
+| clean     | 0.5      | 2     |
+```
+
+-   Add a column after the fact
+-   Since it can't be null, we have to provide a default value
+    -   Really want to make it the primary key, but SQLite doesn't allow that (easily) after the fact
+-   Then use `update` to modify existing records
+    -   Can modify any number of records at once
+    -   So be careful about `where` clause
+-   *Data migration*
+
+## 037: new tables from old
+
+```sql
+create table new_work(
+    person_id integer not null,
+    job_id integer not null,
+    foreign key(person_id) references person(ident),
+    foreign key(job_id) references job(ident)
+);
+
+insert into new_work
+select
+    person.ident as person_id,
+    job.ident as job_id
+from
+    (person join work on person.name = work.person)
+    join job on job.name = work.job
+;
+select * from new_work;
+```
+```
+| person_id | job_id |
+|-----------|--------|
+| 1         | 1      |
+| 1         | 2      |
+| 2         | 2      |
+```
+
+-   `new_work` is our join table
+-   Each column refers to a record in some other table
+
+## 038: removing tables
+
+```sql
+drop table work;
+alter table new_work rename to work;
+```
+
+-   Remove the old table and rename the new one to take its place
+-   Be careful…
+
+## null: where are we?
+
+```
+.schema
+```
+```
+CREATE TABLE job(
+    name text not null,
+    billable real not null,
+    ident integer not null default -1
+);
+CREATE TABLE person(
+    ident integer primary key autoincrement,
+    name text not null
+);
+CREATE TABLE sqlite_sequence(name, seq);
+CREATE TABLE IF NOT EXISTS "work"(
+    person_id integer not null,
+    job_id integer not null,
+    foreign key(person_id) references person(ident),
+    foreign key(job_id) references job(ident)
+);
+```
+
+-   Remember, `.schema` is *not* standard SQL
+-   SQLite has added a few things
+    -   `create if not exists`
+    -   upper-case keywords (SQL is case insensitive)
+    -   sequence ID table
+
+```sql
+select * from sqlite_sequence;
+```
+```
+|  name  | seq |
+|--------|-----|
+| person | 3   |
+```
+
+## 0xx: comparing individual values to aggregates
+
+-   Go back to penguins
 
 ```sql
 select body_mass_g
