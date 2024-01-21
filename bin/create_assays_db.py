@@ -23,7 +23,8 @@ create table staff(
        ident            integer primary key autoincrement,
        personal         text not null,
        family           text not null,
-       dept             text
+       dept             text,
+       foreign key (dept) references department(ident)
 );
 
 drop table if exists experiment;
@@ -47,14 +48,17 @@ create table plate(
        ident            integer primary key autoincrement,
        experiment       integer not null,
        upload_date      text not null,
-       filename         text unique
+       filename         text unique,
+       foreign key (experiment) references experiment(ident)
 );
 
 drop table if exists invalidated;
 create table invalidated(
        plate            integer not null,
        staff            integer not null,
-       invalidate_date  text not null
+       invalidate_date  text not null,
+       foreign key (plate) references plate(ident),
+       foreign key (staff) references staff(ident)
 );
 """
 

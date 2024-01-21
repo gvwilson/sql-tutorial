@@ -1070,3 +1070,12 @@ limit 5;
 -   Use *common table expression* (CTE) to make queries clearer
     -   Nested subqueries quickly become difficult to understand
 -   Database decides how to optimize
+
+## null: yet another database
+
+-   *entity-relationship diagram* (ER diagram) shows relationships between tables
+-   Like everything to do with databases, there are lots of variations
+
+![assay database table diagram](./img/assays_tables.svg)
+
+![assay ER diagram](./img/assays_er.svg)
