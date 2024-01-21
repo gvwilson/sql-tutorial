@@ -1130,51 +1130,9 @@ addr  opcode         p1    p2    p3    p4             p5  comment
 44    Goto            0     1     0                   0
 ```
 
-## 044: generate sequence
+## 044: enumerate rows
 
-```sql
-select value from generate_series(1, 5);
-```
-```
-| value |
-|-------|
-| 1     |
-| 2     |
-| 3     |
-| 4     |
-| 5     |
-```
-
--   A (non-standard) *table-valued function*
-
-## 045: generate sequence sequence based on data
-
-```sql
-create table temp(
-    num integer not null
-);
-insert into temp values (1), (5);
-select value from generate_series(
-    (select min(num) from temp),
-    (select max(num) from temp)
-);
-```
-```
-| value |
-|-------|
-| 1     |
-| 2     |
-| 3     |
-| 4     |
-| 5     |
-```
-
--   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
-
-## 046: add row identifier to existing table
-
--   Don't need to
--   Every table already has a special column called `rowid`
+-   Every table has a special column called `rowid`
 
 ```sql
 select rowid, *
@@ -1203,10 +1161,142 @@ limit 5;
 
 ![assay ER diagram](./img/assays_er.svg)
 
+## 045: select first and last rows
+
+```sql
+select * from (
+    select * from (select * from experiment order by started asc limit 5)
+    union all
+    select * from (select * from experiment order by started desc limit 5)
+)
+order by started asc
+;
+```
+```
+| ident |    kind     |  started   |   ended    |
+|-------|-------------|------------|------------|
+| 16    | trial       | 2023-01-29 | 2023-01-30 |
+| 34    | calibration | 2023-01-30 | 2023-01-30 |
+| 35    | trial       | 2023-02-02 | 2023-02-03 |
+| 24    | trial       | 2023-02-12 | 2023-02-14 |
+| 5     | trial       | 2023-02-15 | 2023-02-16 |
+| 39    | calibration | 2024-01-21 | 2024-01-21 |
+| 11    | trial       | 2024-01-26 | 2024-01-28 |
+| 43    | trial       | 2024-01-27 | 2024-01-29 |
+| 33    | trial       | 2024-02-01 | 2024-02-02 |
+| 13    | calibration | 2024-02-03 | 2024-02-03 |
+```
+
+-   `union all` combines records
+    -   Keeps duplicates: `union` on its own keeps unique records
+-   Yes, it feels like the extra `select * from` should be unnecessary
+-   `intersect` and `except` perform set intersection and one-sided set difference respectively
+
+## 046: generate sequence
+
+```sql
+select value from generate_series(1, 5);
+```
+```
+| value |
+|-------|
+| 1     |
+| 2     |
+| 3     |
+| 4     |
+| 5     |
+```
+
+-   A (non-standard) *table-valued function*
+
+## 047: generate sequence sequence based on data
+
+```sql
+create table temp(
+    num integer not null
+);
+insert into temp values (1), (5);
+select value from generate_series(
+    (select min(num) from temp),
+    (select max(num) from temp)
+);
+```
+```
+| value |
+|-------|
+| 1     |
+| 2     |
+| 3     |
+| 4     |
+| 5     |
+```
+
+-   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
+
+## 048: generate sequence of dates
+
+```sql
+select
+    date((select julianday(min(started)) from experiment) + value) as some_day
+from (
+    select value from generate_series(
+        (select 0),
+        (select count(*) - 1 from experiment)
+    )
+)
+limit 5;
+```
+
+-   SQLite represents dates as YYYY-MM-DD strings or as Julian days or as Unix milliseconds or…
+    -   Julian days is fractional number of days since November 24, 4714 BCE
+-   `julianday` and `date` convert back and forth
+
+## 049: count experiments started per day without gaps
+
+```sql
+with
+-- complete sequence of days with 0 as placeholder for number of experiments
+all_days as (
+    select
+        date((select julianday(min(started)) from experiment) + value) as some_day,
+	0 as zeroes
+    from (
+        select value from generate_series(
+            (select 0),
+            (select count(*) - 1 from experiment)
+        )
+    )
+),
+-- sequence of actual days with actual number of experiments started
+actual_days as (
+    select started, count(started) as num_exp
+    from experiment
+    group by started
+)
+-- combined by joining on day and taking actual number (if available) or zero
+select
+    all_days.some_day as day,
+    coalesce(actual_days.num_exp, all_days.zeroes) as num_exp
+from
+    all_days left join actual_days on all_days.some_day = actual_days.started
+limit 5
+;
+```
+```
+|    day     | num_exp |
+|------------|---------|
+| 2023-01-29 | 1       |
+| 2023-01-30 | 1       |
+| 2023-01-31 | 0       |
+| 2023-02-01 | 0       |
+| 2023-02-02 | 1       |
+```
+
 ---
 
-## to-do
+## To Do
 
+-   correlated subquery
 -   cast
 -   between
 -   exists
@@ -1215,8 +1305,6 @@ limit 5;
 -   window over/partition
 -   begin/end transaction, commit, rollback, and raise
 -   with recursive
--   union and union all, intersect, except
--   date/time functions
 -   functions
     -   concat
     -   glob and like
