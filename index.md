@@ -1130,6 +1130,70 @@ addr  opcode         p1    p2    p3    p4             p5  comment
 44    Goto            0     1     0                   0
 ```
 
+## 044: generate sequence
+
+```sql
+select value from generate_series(1, 5);
+```
+```
+| value |
+|-------|
+| 1     |
+| 2     |
+| 3     |
+| 4     |
+| 5     |
+```
+
+-   A (non-standard) *table-valued function*
+
+## 045: generate sequence sequence based on data
+
+```sql
+create table temp(
+    num integer not null
+);
+insert into temp values (1), (5);
+select value from generate_series(
+    (select min(num) from temp),
+    (select max(num) from temp)
+);
+```
+```
+| value |
+|-------|
+| 1     |
+| 2     |
+| 3     |
+| 4     |
+| 5     |
+```
+
+-   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
+
+## 046: add row identifier to existing table
+
+-   Don't need to
+-   Every table already has a special column called `rowid`
+
+```sql
+select rowid, *
+from penguins
+limit 5;
+```
+```
+1|Adelie|Torgersen|39.1|18.7|181|3750|MALE
+2|Adelie|Torgersen|39.5|17.4|186|3800|FEMALE
+3|Adelie|Torgersen|40.3|18|195|3250|FEMALE
+4|Adelie|Torgersen|||||
+5|Adelie|Torgersen|36.7|19.3|193|3450|FEMALE
+```
+
+-   `rowid` is persistent within a session
+    -   I.e., if we delete the first 5 rows we now have row IDs 6…N
+-   *Do not rely on row ID*
+    -   In particular, do not use it as a key
+
 ## null: yet another database
 
 -   *entity-relationship diagram* (ER diagram) shows relationships between tables
@@ -1138,6 +1202,8 @@ addr  opcode         p1    p2    p3    p4             p5  comment
 ![assay database table diagram](./img/assays_tables.svg)
 
 ![assay ER diagram](./img/assays_er.svg)
+
+---
 
 ## to-do
 
