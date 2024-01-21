@@ -1070,6 +1070,66 @@ limit 5;
     -   Nested subqueries quickly become difficult to understand
 -   Database decides how to optimize
 
+## null: explain query
+
+```sql
+explain
+select
+    species,
+    avg(body_mass_g)
+from penguins
+group by species;
+```
+```
+addr  opcode         p1    p2    p3    p4             p5  comment      
+----  -------------  ----  ----  ----  -------------  --  -------------
+ 0    Init            0    43     0                   0   Start at 43
+ 1    SorterOpen      1     2     0    k(1,B)         0   
+ 2    Integer         0     2     0                   0   r[2]=0
+ 3    Null            0     5     5                   0   r[5..5]=NULL
+ 4    Gosub           4    39     0                   0   
+ 5    OpenRead        0     2     0    6              0   root=2 iDb=0
+ 6    Rewind          0    12     0                   0   
+ 7    Column          0     0    10                   0   r[10]= cursor 0 column 0
+ 8    Column          0     5    11                   0   r[11]= cursor 0 column 5
+ 9    MakeRecord     10     2    12                   0   r[12]=mkrec(r[10..11])
+10    SorterInsert    1    12     0                   0   key=r[12]
+11    Next            0     7     0                   1   
+12    OpenPseudo      2    12     2                   0   2 columns in r[12]
+13    SorterSort      1    42     0                   0   GROUP BY sort
+14    SorterData      1    12     2                   0   r[12]=data
+15    Column          2     0     6                   0   r[6]= cursor 2 column 0
+16    Compare         5     6     1    k(1,B)         0   r[5] <-> r[6]
+17    Jump           18    22    18                   0   
+18    Move            6     5     1                   0   r[5]=r[6]
+19    Gosub           3    32     0                   0   output one row
+20    IfPos           2    42     0                   0   if r[2]>0 then r[2]-=0, goto 42
+21    Gosub           4    39     0                   0   reset accumulator
+22    Column          2     1    13                   0   r[13]=penguins.body_mass_g
+23    AggStep         0    13     9    avg(1)         1   accum=r[9] step(r[13])
+24    If              1    26     0                   0   
+25    Column          2     0     7                   0   r[7]=penguins.species
+26    Integer         1     1     0                   0   r[1]=1
+27    SorterNext      1    14     0                   0   
+28    Gosub           3    32     0                   0   output final row
+29    Goto            0    42     0                   0   
+30    Integer         1     2     0                   0   r[2]=1
+31    Return          3     0     0                   0   
+32    IfPos           1    34     0                   0   if r[1]>0 then r[1]-=0, goto 34
+33    Return          3     0     0                   0   
+34    AggFinal        9     1     0    avg(1)         0   accum=r[9] N=1
+35    Copy            7    14     0                   0   r[14]=r[7]
+36    Copy            9    15     0                   0   r[15]=r[9]
+37    ResultRow      14     2     0                   0   output=r[14..15]
+38    Return          3     0     0                   0   end groupby result generator
+39    Null            0     7     9                   0   r[7..9]=NULL
+40    Integer         0     1     0                   0   r[1]=0
+41    Return          4     0     0                   0   
+42    Halt            0     0     0                   0   
+43    Transaction     0     0     2    0              1   usesStmtJournal=0
+44    Goto            0     1     0                   0
+```
+
 ## null: yet another database
 
 -   *entity-relationship diagram* (ER diagram) shows relationships between tables
