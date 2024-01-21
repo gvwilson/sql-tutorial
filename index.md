@@ -1,7 +1,6 @@
 ---
+home: true
 ---
-# SQL in 100 Queries
-
 ## null: connect to database
 
 ```bash
