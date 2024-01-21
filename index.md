@@ -1138,3 +1138,28 @@ addr  opcode         p1    p2    p3    p4             p5  comment
 ![assay database table diagram](./img/assays_tables.svg)
 
 ![assay ER diagram](./img/assays_er.svg)
+
+## to-do
+
+-   cast
+-   between
+-   exists
+-   case
+-   current_date
+-   window over/partition
+-   begin/end transaction, commit, rollback, and raise
+-   with recursive
+-   union and union all, intersect, except
+-   date/time functions
+-   functions
+    -   concat
+    -   glob and like
+    -   iif (short form for case)
+    -   random
+    -   length / replace / substr / lower string functions
+-   triggers
+-   JSON
+-   blobs
+-   upsert
+-   returning (to get back rows modified or deleted)
+-   on conflict (upsert)
