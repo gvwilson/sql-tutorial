@@ -49,6 +49,7 @@ def get_sql(options):
 def parse_args():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser()
+    parser.add_argument("--diff", type=str, help="keyword difference file")
     parser.add_argument("--files", nargs="+", help="filenames")
     parser.add_argument("--markdown", action="store_true", help="extract SQL from Markdown file(s)")
     parser.add_argument("--report", choices=["alpha", "freq", "name"], default="freq", help="what to report")
@@ -57,15 +58,26 @@ def parse_args():
 
 def report(options, counter):
     """Report results."""
-    if options.report == "alpha":
+    if options.diff:
+        actual = set(counter.keys())
+        expected = {x.strip() for x in Path(options.diff).read_text().split("\n")} - {""}
+        for name in sorted(expected - actual):
+            print(name)
+
+    elif options.report == "alpha":
         for name, count in sorted(counter.items(), key=lambda x: x[0]):
             print(f"{count:4d}: {name}")
+
     elif options.report == "freq":
         for name, count in sorted(counter.items(), key=lambda x: x[1], reverse=True):
             print(f"{count:4d}: {name}")
+
     elif options.report == "name":
         for name in sorted(counter.keys()):
             print(name)
+
+    else:
+        print(f"Unknown reporting option {options.report}", file=sys.stderr)
 
 
 def _extract_markdown(text):
