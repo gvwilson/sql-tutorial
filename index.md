@@ -1363,6 +1363,12 @@ order by species, num;
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
 
+## Acknowledgments
+
+-   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
+-   [Dimitri Fontaine][fontaine-dimitri] for [*The Art of PostgreSQL*][art-postgresql]
+-   David Rozenshtein for *The Essence of SQL* (now sadly out of print)
+
 ---
 
 ## To Do
@@ -1386,3 +1392,8 @@ order by species, num;
 -   upsert
 -   returning (to get back rows modified or deleted)
 -   on conflict (upsert)
+
+[albrecht-andi]: http://andialbrecht.de/
+[art-postgresql]: https://theartofpostgresql.com/
+[fontaine-dimitr]: https://tapoueh.org/
+[sqlparse]: https://pypi.org/project/sqlparse/
