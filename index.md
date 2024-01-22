@@ -1292,9 +1292,43 @@ limit 5
 | 2023-02-02 | 1       |
 ```
 
-## 050: 
+## 050: select a case
 
+```sql
+with sized_penguins as (
+    select
+        species,
+	case
+	    when body_mass_g < 3500 then "small"
+	    when body_mass_g < 5000 then "medium"
+	    else "large"
+	end as size
+    from penguins
+)
+select species, size, count(*) as num
+from sized_penguins
+group by species, size
+order by species, num;
 ```
+```
+|  species  |  size  | num |
+|-----------|--------|-----|
+| Adelie    | large  | 1   |
+| Adelie    | small  | 54  |
+| Adelie    | medium | 97  |
+| Chinstrap | small  | 17  |
+| Chinstrap | medium | 51  |
+| Gentoo    | medium | 56  |
+| Gentoo    | large  | 68  |
+```
+
+-   Evaluate `when` options in order and take first
+-   Result of `case` is null if no condition is true
+-   Use `else` as fallback
+
+## 051: if-else function
+
+```sql
 with sized_penguins as (
     select
         species,
