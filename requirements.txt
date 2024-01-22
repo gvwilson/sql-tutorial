@@ -2,3 +2,4 @@ click
 faker
 jupyter
 jupysql
+sqlparse
