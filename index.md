@@ -1259,7 +1259,7 @@ with
 all_days as (
     select
         date((select julianday(min(started)) from experiment) + value) as some_day,
-	0 as zeroes
+        0 as zeroes
     from (
         select value from generate_series(
             (select 0),
@@ -1292,6 +1292,43 @@ limit 5
 | 2023-02-02 | 1       |
 ```
 
+## 050: 
+
+```
+with sized_penguins as (
+    select
+        species,
+        iif(
+            body_mass_g < 3500,
+            "small",
+            iif(
+                body_mass_g < 5000,
+                "medium",
+                "large"
+            )
+        ) as size
+    from penguins
+)
+select species, size, count(*) as num
+from sized_penguins
+group by species, size
+order by species, num;
+```
+```
+|  species  |  size  | num |
+|-----------|--------|-----|
+| Adelie    | large  | 1   |
+| Adelie    | small  | 54  |
+| Adelie    | medium | 97  |
+| Chinstrap | small  | 17  |
+| Chinstrap | medium | 51  |
+| Gentoo    | medium | 56  |
+| Gentoo    | large  | 68  |
+```
+
+-   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
+    -   Note: `iif` with two i's
+
 ---
 
 ## To Do
@@ -1306,9 +1343,7 @@ limit 5
 -   begin/end transaction, commit, rollback, and raise
 -   with recursive
 -   functions
-    -   concat
     -   glob and like
-    -   iif (short form for case)
     -   random
     -   length / replace / substr / lower string functions
 -   triggers
