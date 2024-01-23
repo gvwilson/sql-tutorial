@@ -1152,6 +1152,105 @@ limit 5;
 -   *Do not rely on row ID*
     -   In particular, do not use it as a key
 
+## 045: if-else function
+
+```sql
+with sized_penguins as (
+    select
+        species,
+        iif(
+            body_mass_g < 3500,
+            "small",
+	    "large"
+        ) as size
+    from penguins
+)
+select species, size, count(*) as num
+from sized_penguins
+group by species, size
+order by species, num;
+```
+```
+|  species  | size  | num |
+|-----------|-------|-----|
+| Adelie    | small | 54  |
+| Adelie    | large | 98  |
+| Chinstrap | small | 17  |
+| Chinstrap | large | 51  |
+| Gentoo    | large | 124 |
+```
+
+-   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
+    -   Note: `iif` with two i's
+
+## 046: select a case
+
+-   What if we want small, medium, and large?
+-   Can nest `iif`, but quickly becomes unreadable
+
+```sql
+with sized_penguins as (
+    select
+        species,
+	case
+	    when body_mass_g < 3500 then "small"
+	    when body_mass_g < 5000 then "medium"
+	    else "large"
+	end as size
+    from penguins
+)
+select species, size, count(*) as num
+from sized_penguins
+group by species, size
+order by species, num;
+```
+```
+|  species  |  size  | num |
+|-----------|--------|-----|
+| Adelie    | large  | 1   |
+| Adelie    | small  | 54  |
+| Adelie    | medium | 97  |
+| Chinstrap | small  | 17  |
+| Chinstrap | medium | 51  |
+| Gentoo    | medium | 56  |
+| Gentoo    | large  | 68  |
+```
+
+-   Evaluate `when` options in order and take first
+-   Result of `case` is null if no condition is true
+-   Use `else` as fallback
+
+## 047: check range
+
+```sql
+with sized_penguins as (
+    select
+        species,
+	case
+	    when body_mass_g between 3500 and 5000 then "normal"
+	    else "abnormal"
+	end as size
+    from penguins
+)
+select species, size, count(*) as num
+from sized_penguins
+group by species, size
+order by species, num;
+```
+```
+|  species  |   size   | num |
+|-----------|----------|-----|
+| Adelie    | abnormal | 55  |
+| Adelie    | normal   | 97  |
+| Chinstrap | abnormal | 17  |
+| Chinstrap | normal   | 51  |
+| Gentoo    | abnormal | 62  |
+| Gentoo    | normal   | 62  |
+```
+
+-   `between` can make queries easier to read
+-   But be careful of the `and` in the middle
+
 ## null: yet another database
 
 -   *entity-relationship diagram* (ER diagram) shows relationships between tables
@@ -1161,7 +1260,7 @@ limit 5;
 
 ![assay ER diagram](./img/assays_er.svg)
 
-## 045: select first and last rows
+## 048: select first and last rows
 
 ```sql
 select * from (
@@ -1192,7 +1291,7 @@ order by started asc
 -   Yes, it feels like the extra `select * from` should be unnecessary
 -   `intersect` and `except` perform set intersection and one-sided set difference respectively
 
-## 046: generate sequence
+## 049: generate sequence
 
 ```sql
 select value from generate_series(1, 5);
@@ -1209,7 +1308,7 @@ select value from generate_series(1, 5);
 
 -   A (non-standard) *table-valued function*
 
-## 047: generate sequence sequence based on data
+## 050: generate sequence sequence based on data
 
 ```sql
 create table temp(
@@ -1233,7 +1332,7 @@ select value from generate_series(
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
 
-## 048: generate sequence of dates
+## 051: generate sequence of dates
 
 ```sql
 select
@@ -1251,7 +1350,7 @@ limit 5;
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
 
-## 049: count experiments started per day without gaps
+## 052: count experiments started per day without gaps
 
 ```sql
 with
@@ -1291,105 +1390,6 @@ limit 5
 | 2023-02-01 | 0       |
 | 2023-02-02 | 1       |
 ```
-
-## 050: if-else function
-
-```sql
-with sized_penguins as (
-    select
-        species,
-        iif(
-            body_mass_g < 3500,
-            "small",
-	    "large"
-        ) as size
-    from penguins
-)
-select species, size, count(*) as num
-from sized_penguins
-group by species, size
-order by species, num;
-```
-```
-|  species  | size  | num |
-|-----------|-------|-----|
-| Adelie    | small | 54  |
-| Adelie    | large | 98  |
-| Chinstrap | small | 17  |
-| Chinstrap | large | 51  |
-| Gentoo    | large | 124 |
-```
-
--   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
-    -   Note: `iif` with two i's
-
-## 051: select a case
-
--   What if we want small, medium, and large?
--   Can nest `iif`, but quickly becomes unreadable
-
-```sql
-with sized_penguins as (
-    select
-        species,
-	case
-	    when body_mass_g < 3500 then "small"
-	    when body_mass_g < 5000 then "medium"
-	    else "large"
-	end as size
-    from penguins
-)
-select species, size, count(*) as num
-from sized_penguins
-group by species, size
-order by species, num;
-```
-```
-|  species  |  size  | num |
-|-----------|--------|-----|
-| Adelie    | large  | 1   |
-| Adelie    | small  | 54  |
-| Adelie    | medium | 97  |
-| Chinstrap | small  | 17  |
-| Chinstrap | medium | 51  |
-| Gentoo    | medium | 56  |
-| Gentoo    | large  | 68  |
-```
-
--   Evaluate `when` options in order and take first
--   Result of `case` is null if no condition is true
--   Use `else` as fallback
-
-## 052: check range
-
-```sql
-with sized_penguins as (
-    select
-        species,
-	case
-	    when body_mass_g between 3500 and 5000 then "normal"
-	    else "abnormal"
-	end as size
-    from penguins
-)
-select species, size, count(*) as num
-from sized_penguins
-group by species, size
-order by species, num;
-```
-```
-|  species  |   size   | num |
-|-----------|----------|-----|
-| Adelie    | abnormal | 55  |
-| Adelie    | normal   | 97  |
-| Chinstrap | abnormal | 17  |
-| Chinstrap | normal   | 51  |
-| Gentoo    | abnormal | 62  |
-| Gentoo    | normal   | 62  |
-```
-
--   `between` can make queries easier to read
--   But be careful of the `and` in the middle
 
 ## Acknowledgments
 
