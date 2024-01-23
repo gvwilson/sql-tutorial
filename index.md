@@ -1292,7 +1292,41 @@ limit 5
 | 2023-02-02 | 1       |
 ```
 
-## 050: select a case
+## 050: if-else function
+
+```sql
+with sized_penguins as (
+    select
+        species,
+        iif(
+            body_mass_g < 3500,
+            "small",
+	    "large"
+        ) as size
+    from penguins
+)
+select species, size, count(*) as num
+from sized_penguins
+group by species, size
+order by species, num;
+```
+```
+|  species  | size  | num |
+|-----------|-------|-----|
+| Adelie    | small | 54  |
+| Adelie    | large | 98  |
+| Chinstrap | small | 17  |
+| Chinstrap | large | 51  |
+| Gentoo    | large | 124 |
+```
+
+-   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
+    -   Note: `iif` with two i's
+
+## 051: select a case
+
+-   What if we want small, medium, and large?
+-   Can nest `iif`, but quickly becomes unreadable
 
 ```sql
 with sized_penguins as (
@@ -1326,21 +1360,16 @@ order by species, num;
 -   Result of `case` is null if no condition is true
 -   Use `else` as fallback
 
-## 051: if-else function
+## 052: check range
 
 ```sql
 with sized_penguins as (
     select
         species,
-        iif(
-            body_mass_g < 3500,
-            "small",
-            iif(
-                body_mass_g < 5000,
-                "medium",
-                "large"
-            )
-        ) as size
+	case
+	    when body_mass_g between 3500 and 5000 then "normal"
+	    else "abnormal"
+	end as size
     from penguins
 )
 select species, size, count(*) as num
@@ -1349,19 +1378,18 @@ group by species, size
 order by species, num;
 ```
 ```
-|  species  |  size  | num |
-|-----------|--------|-----|
-| Adelie    | large  | 1   |
-| Adelie    | small  | 54  |
-| Adelie    | medium | 97  |
-| Chinstrap | small  | 17  |
-| Chinstrap | medium | 51  |
-| Gentoo    | medium | 56  |
-| Gentoo    | large  | 68  |
+|  species  |   size   | num |
+|-----------|----------|-----|
+| Adelie    | abnormal | 55  |
+| Adelie    | normal   | 97  |
+| Chinstrap | abnormal | 17  |
+| Chinstrap | normal   | 51  |
+| Gentoo    | abnormal | 62  |
+| Gentoo    | normal   | 62  |
 ```
 
--   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
-    -   Note: `iif` with two i's
+-   `between` can make queries easier to read
+-   But be careful of the `and` in the middle
 
 ## Acknowledgments
 
@@ -1375,9 +1403,7 @@ order by species, num;
 
 -   correlated subquery
 -   cast
--   between
 -   exists
--   case
 -   current_date
 -   window over/partition
 -   begin/end transaction, commit, rollback, and raise
