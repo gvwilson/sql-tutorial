@@ -24,6 +24,7 @@ def analyze(counter, sql):
     """Analyze statements in a single chunk of SQL."""
     wanted = {
         sqlparse.tokens.Keyword,
+        sqlparse.tokens.Keyword.Order,
         sqlparse.tokens.CTE,
         sqlparse.tokens.DDL,
         sqlparse.tokens.DML,
