@@ -1224,7 +1224,58 @@ order by species, num;
 
 ![assay ER diagram](./img/assays_er.svg)
 
-## 046: select first and last rows
+```sql
+select * from staff;
+```
+```
+| ident | personal |  family  | dept |
+|-------|----------|----------|------|
+| 1     | Yashvi   | Sankaran |      |
+| 2     | Aarav    | Loyal    | mb   |
+| 3     | Badal    | Kakar    | hist |
+| 4     | Kaira    | Chander  | gen  |
+| 5     | Sana     | Hora     | mb   |
+| 6     | Riya     | Doctor   | mb   |
+| 7     | Nitya    | Kata     | mb   |
+| 8     | Bhavin   | Ravel    | mb   |
+| 9     | Faiyaz   | Devan    |      |
+| 10    | Mahika   | De       |      |
+```
+
+## 046: pattern matching
+
+```sql
+select personal, family from staff
+where personal like "%ya%" or family glob "*De*";
+```
+```
+| personal |  family  |
+|----------|----------|
+| Yashvi   | Sankaran |
+| Riya     | Doctor   |
+| Nitya    | Kata     |
+| Faiyaz   | Devan    |
+| Mahika   | De       |
+```
+
+-   `like` is the original SQL pattern matcher
+    -   `%` matches zero or more characters at the start or end of a string
+    -   Case insensitive by default
+-   `glob` supports Unix-style wildcards
+
+| name      | purpose |
+| --------- | |
+| `substr`  | Get substring given starting point and length |
+| `trim`    | Remove characters from beginning and end of string |
+| `ltrim`   | Remove characters from beginning of string |
+| `rtrim`   | Remove characters from end of string |
+| `length`  | Length of string |
+| `replace` | Replace occurrences of substring with another string |
+| `upper`   | Return upper-case version of string |
+| `lower`   | Return lower-case version of string |
+| `instr`   | Find location of first occurrence of substring (returns 0 if not found) |
+
+## 047: select first and last rows
 
 ```sql
 select * from (
@@ -1255,7 +1306,31 @@ order by started asc
 -   Yes, it feels like the extra `select * from` should be unnecessary
 -   `intersect` and `except` perform set intersection and one-sided set difference respectively
 
-## 047: generate sequence
+## 048: random numbers and why not
+
+```sql
+with decorated as (
+    select random() as rand,
+    personal || " " || family as name
+    from staff
+)
+select rand, abs(rand) % 10 as selector, name
+from decorated
+where selector < 5;
+```
+```
+|         rand         | selector |      name       |
+|----------------------|----------|-----------------|
+| 1695842608889063964  | 5        | Yashvi Sankaran |
+| -2821512941569335882 | 5        | Aarav Loyal     |
+| -6460956243954552845 | 3        | Badal Kakar     |
+| 5527384638176261870  | 2        | Bhavin Ravel    |
+```
+
+-   There is no way to seed SQLite's random number generator
+-   Which means there is no way to reproduce one of its "random" sequences
+
+## 049: generate sequence
 
 ```sql
 select value from generate_series(1, 5);
@@ -1272,7 +1347,7 @@ select value from generate_series(1, 5);
 
 -   A (non-standard) *table-valued function*
 
-## 048: generate sequence sequence based on data
+## 050: generate sequence sequence based on data
 
 ```sql
 create table temp(
@@ -1296,7 +1371,7 @@ select value from generate_series(
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
 
-## 049: generate sequence of dates
+## 051: generate sequence of dates
 
 ```sql
 select
@@ -1314,7 +1389,7 @@ limit 5;
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
 
-## 050: count experiments started per day without gaps
+## 052: count experiments started per day without gaps
 
 ```sql
 with
@@ -1355,7 +1430,7 @@ limit 5
 | 2023-02-02 | 1       |
 ```
 
-## 051: self join
+## 053: self join
 
 ```sql
 with person as (
@@ -1388,7 +1463,7 @@ limit 10;
     -   Nothing special about the name `left` and `right`
 -   Get all *n<sup>2</sup>* pairs, including person with themself
 
-## 052: generate unique pairs
+## 054: generate unique pairs
 
 ```sql
 with person as (
@@ -1417,7 +1492,7 @@ where left.ident <= 4 and right.ident <= 4;
 -   Use `left.ident <= 4 and right.ident <= 4` to limit output
 -   Quick check: n*(n-1)/2 pairs
 
-## 053: count pairs
+## 055: filter pairs
 
 ```sql
 with
@@ -1479,10 +1554,6 @@ on left.ident = left_staff and right.ident = right_staff;
 -   window over/partition
 -   begin/end transaction, commit, rollback, and raise
 -   with recursive
--   functions
-    -   glob and like
-    -   random
-    -   length / replace / substr / lower string functions
 -   triggers
 -   JSON
 -   blobs
@@ -1492,5 +1563,5 @@ on left.ident = left_staff and right.ident = right_staff;
 
 [albrecht-andi]: http://andialbrecht.de/
 [art-postgresql]: https://theartofpostgresql.com/
-[fontaine-dimitr]: https://tapoueh.org/
+[fontaine-dimitri]: https://tapoueh.org/
 [sqlparse]: https://pypi.org/project/sqlparse/
