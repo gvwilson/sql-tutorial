@@ -646,7 +646,8 @@ from work cross join job;
 
 ```sql
 select *
-from work inner join job on work.job = job.name;
+from work inner join job
+on work.job = job.name;
 ```
 ```
 | person |    job    |   name    | billable |
@@ -667,7 +668,8 @@ from work inner join job on work.job = job.name;
 select
     work.person,
     sum(job.billable) as pay
-from work inner join job on work.job = job.name
+from work inner join job
+on work.job = job.name
 group by work.person;
 ```
 ```
@@ -684,7 +686,8 @@ group by work.person;
 
 ```sql
 select *
-from work left join job on work.job = job.name;
+from work left join job
+on work.job = job.name;
 ```
 ```
 | person |    job    |   name    | billable |
@@ -706,7 +709,8 @@ from work left join job on work.job = job.name;
 select
     work.person,
     sum(job.billable) as pay
-from work left join job on work.job = job.name
+from work left join job
+on work.job = job.name
 group by work.person;
 ```
 ```
@@ -725,7 +729,8 @@ group by work.person;
 select
     work.person,
     coalesce(sum(job.billable), 0.0) as pay
-from work left join job on work.job = job.name
+from work left join job
+on work.job = job.name
 group by work.person;
 ```
 ```
@@ -974,48 +979,7 @@ limit 5;
 -   Requires two scans of the data, but there's no way to avoid that
 -   Null values aren't included in the average or in the final results
 
-## 040: self join
-
-```sql
-select distinct left.species, right.species
-from penguins as left join penguins as right;
-```
-```
-|  species  |  species  |
-|-----------|-----------|
-| Adelie    | Adelie    |
-| Adelie    | Chinstrap |
-| Adelie    | Gentoo    |
-| Chinstrap | Adelie    |
-| Chinstrap | Chinstrap |
-| Chinstrap | Gentoo    |
-| Gentoo    | Adelie    |
-| Gentoo    | Chinstrap |
-| Gentoo    | Gentoo    |
-```
-
--   Join a table to itself
-    -   Give copies aliases using `as` to distinguish them
-    -   Nothing special about `left` and `right`
-
-## 041: generate unique pairs
-
-```sql
-select distinct left.species, right.species
-from penguins as left join penguins as right
-on left.species < right.species;
-```
-```
-|  species  |  species  |
-|-----------|-----------|
-| Adelie    | Chinstrap |
-| Adelie    | Gentoo    |
-| Chinstrap | Gentoo    |
-```
-
--   Quick check: *n(n-1)/2* unique pairs
-
-## 042: compare individual values to aggregates within groups
+## 040: compare individual values to aggregates within groups
 
 ```sql
 select
@@ -1040,7 +1004,7 @@ limit 5;
 | Adelie  | 3800        | 3700.7     |
 ```
 
-## 043: common table expressions
+## 041: common table expressions
 
 ```sql
 with grouped as (
@@ -1130,7 +1094,7 @@ addr  opcode         p1    p2    p3    p4             p5  comment
 44    Goto            0     1     0                   0
 ```
 
-## 044: enumerate rows
+## 042: enumerate rows
 
 -   Every table has a special column called `rowid`
 
@@ -1152,7 +1116,7 @@ limit 5;
 -   *Do not rely on row ID*
     -   In particular, do not use it as a key
 
-## 045: if-else function
+## 043: if-else function
 
 ```sql
 with sized_penguins as (
@@ -1161,7 +1125,7 @@ with sized_penguins as (
         iif(
             body_mass_g < 3500,
             "small",
-	    "large"
+            "large"
         ) as size
     from penguins
 )
@@ -1183,7 +1147,7 @@ order by species, num;
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
 
-## 046: select a case
+## 044: select a case
 
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
@@ -1192,11 +1156,11 @@ order by species, num;
 with sized_penguins as (
     select
         species,
-	case
-	    when body_mass_g < 3500 then "small"
-	    when body_mass_g < 5000 then "medium"
-	    else "large"
-	end as size
+        case
+            when body_mass_g < 3500 then "small"
+            when body_mass_g < 5000 then "medium"
+            else "large"
+        end as size
     from penguins
 )
 select species, size, count(*) as num
@@ -1220,16 +1184,16 @@ order by species, num;
 -   Result of `case` is null if no condition is true
 -   Use `else` as fallback
 
-## 047: check range
+## 045: check range
 
 ```sql
 with sized_penguins as (
     select
         species,
-	case
-	    when body_mass_g between 3500 and 5000 then "normal"
-	    else "abnormal"
-	end as size
+        case
+            when body_mass_g between 3500 and 5000 then "normal"
+            else "abnormal"
+        end as size
     from penguins
 )
 select species, size, count(*) as num
@@ -1260,7 +1224,7 @@ order by species, num;
 
 ![assay ER diagram](./img/assays_er.svg)
 
-## 048: select first and last rows
+## 046: select first and last rows
 
 ```sql
 select * from (
@@ -1291,7 +1255,7 @@ order by started asc
 -   Yes, it feels like the extra `select * from` should be unnecessary
 -   `intersect` and `except` perform set intersection and one-sided set difference respectively
 
-## 049: generate sequence
+## 047: generate sequence
 
 ```sql
 select value from generate_series(1, 5);
@@ -1308,7 +1272,7 @@ select value from generate_series(1, 5);
 
 -   A (non-standard) *table-valued function*
 
-## 050: generate sequence sequence based on data
+## 048: generate sequence sequence based on data
 
 ```sql
 create table temp(
@@ -1332,7 +1296,7 @@ select value from generate_series(
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
 
-## 051: generate sequence of dates
+## 049: generate sequence of dates
 
 ```sql
 select
@@ -1350,7 +1314,7 @@ limit 5;
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
 
-## 052: count experiments started per day without gaps
+## 050: count experiments started per day without gaps
 
 ```sql
 with
@@ -1389,6 +1353,113 @@ limit 5
 | 2023-01-31 | 0       |
 | 2023-02-01 | 0       |
 | 2023-02-02 | 1       |
+```
+
+## 051: self join
+
+```sql
+with person as (
+    select
+        ident,
+        personal || " " || family as name
+    from staff
+)
+select left.name, right.name
+from person as left join person as right
+limit 10;
+```
+```
+|      name       |      name       |
+|-----------------|-----------------|
+| Yashvi Sankaran | Yashvi Sankaran |
+| Yashvi Sankaran | Aarav Loyal     |
+| Yashvi Sankaran | Badal Kakar     |
+| Yashvi Sankaran | Kaira Chander   |
+| Yashvi Sankaran | Sana Hora       |
+| Yashvi Sankaran | Riya Doctor     |
+| Yashvi Sankaran | Nitya Kata      |
+| Yashvi Sankaran | Bhavin Ravel    |
+| Yashvi Sankaran | Faiyaz Devan    |
+| Yashvi Sankaran | Mahika De       |
+```
+
+-   Join a table to itself
+    -   Give copies aliases using `as` to distinguish them
+    -   Nothing special about the name `left` and `right`
+-   Get all *n<sup>2</sup>* pairs, including person with themself
+
+## 052: generate unique pairs
+
+```sql
+with person as (
+    select
+        ident,
+        personal || " " || family as name
+    from staff
+)
+select left.name, right.name
+from person as left join person as right
+on left.ident < right.ident
+where left.ident <= 4 and right.ident <= 4;
+```
+```
+|      name       |     name      |
+|-----------------|---------------|
+| Yashvi Sankaran | Aarav Loyal   |
+| Yashvi Sankaran | Badal Kakar   |
+| Yashvi Sankaran | Kaira Chander |
+| Aarav Loyal     | Badal Kakar   |
+| Aarav Loyal     | Kaira Chander |
+| Badal Kakar     | Kaira Chander |
+```
+
+-   `left.ident < right.ident` ensures distinct pairs without duplicates
+-   Use `left.ident <= 4 and right.ident <= 4` to limit output
+-   Quick check: n*(n-1)/2 pairs
+
+## 053: count pairs
+
+```sql
+with
+person as (
+    select
+        ident,
+        personal || " " || family as name
+    from staff
+),
+together as (
+    select
+        left.staff as left_staff,
+        right.staff as right_staff
+    from performed as left join performed as right
+    on left.experiment = right.experiment
+    where left_staff < right_staff
+)
+select
+    left.name as person_1,
+    right.name as person_2
+from person as left join person as right join together
+on left.ident = left_staff and right.ident = right_staff;
+```
+```
+|    person_1     |   person_2   |
+|-----------------|--------------|
+| Sana Hora       | Nitya Kata   |
+| Kaira Chander   | Riya Doctor  |
+| Badal Kakar     | Bhavin Ravel |
+| Nitya Kata      | Faiyaz Devan |
+| Kaira Chander   | Riya Doctor  |
+| Yashvi Sankaran | Nitya Kata   |
+| Nitya Kata      | Bhavin Ravel |
+| Yashvi Sankaran | Aarav Loyal  |
+| Aarav Loyal     | Nitya Kata   |
+| Kaira Chander   | Faiyaz Devan |
+| Badal Kakar     | Bhavin Ravel |
+| Yashvi Sankaran | Faiyaz Devan |
+| Yashvi Sankaran | Mahika De    |
+| Yashvi Sankaran | Nitya Kata   |
+| Kaira Chander   | Bhavin Ravel |
+| Aarav Loyal     | Faiyaz Devan |
 ```
 
 ## Acknowledgments
