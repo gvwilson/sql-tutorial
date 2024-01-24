@@ -1537,6 +1537,70 @@ on left.ident = left_staff and right.ident = right_staff;
 | Aarav Loyal     | Faiyaz Devan |
 ```
 
+## 056: existence and correlated subqueries
+
+```sql
+select name, building
+from department
+where exists (
+    select 1
+    from staff
+    where dept == department.ident
+)
+order by name;
+```
+```
+|       name        |     building     |
+|-------------------|------------------|
+| Genetics          | Chesson          |
+| Histology         | Fashet Extension |
+| Molecular Biology | Chesson          |
+```
+
+-   Nobody works in Endocrinology
+-   `select 1` could equally be `select true` or any other value
+-   A *correlated subquery* depends on a value from the outer query
+    -   Equivalent to nested loop
+
+## 057: nonexistence
+
+```sql
+select name, building
+from department
+where not exists (
+    select 1
+    from staff
+    where dept == department.ident
+)
+order by name;
+```
+```
+|     name      | building |
+|---------------|----------|
+| Endocrinology | TGVH     |
+```
+
+## null: avoiding correlated subqueries
+
+```sql
+select distinct
+    department.name as name,
+    department.building as building
+from department join staff
+on department.ident = staff.dept
+order by name;
+```
+```
+|       name        |     building     |
+|-------------------|------------------|
+| Genetics          | Chesson          |
+| Histology         | Fashet Extension |
+| Molecular Biology | Chesson          |
+```
+
+-   The join might or might not be faster than the correlated subquery
+-   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
+
 ## Acknowledgments
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
@@ -1547,9 +1611,7 @@ on left.ident = left_staff and right.ident = right_staff;
 
 ## To Do
 
--   correlated subquery
 -   cast
--   exists
 -   current_date
 -   window over/partition
 -   begin/end transaction, commit, rollback, and raise

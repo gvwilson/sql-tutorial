@@ -24,6 +24,7 @@ create table staff(
        personal         text not null,
        family           text not null,
        dept             text,
+       age              integer not null,
        foreign key (dept) references department(ident)
 );
 
@@ -67,16 +68,21 @@ DEPARTMENTS = [
     {"ident": "hist", "name": "Histology", "building": "Fashet Extension"},
     {"ident": "mb", "name": "Molecular Biology", "building": "Chesson"},
 ]
+EXTRA_DEPARTMENTS = [
+    {"ident": "end", "name": "Endocrinology", "building": "TGVH"}
+]
 
 PARAMS = {
-    "enddate": date(2024, 2, 10),
+    "end_date": date(2024, 2, 10),
     "experiments": 50,
     "filename_len": 8,
     "invalid": 0.1,
     "locale": "en_IN",
+    "max_age": 57,
+    "min_age": 22,
     "seed": 21894712,
     "staff": 10,
-    "startdate": date(2023, 1, 10),
+    "start_date": date(2023, 1, 10),
     "treated": 8.0,
 }
 
@@ -141,7 +147,7 @@ def fill_experiments(connection, fake):
 
     connection.executemany(
         "insert into department values (?, ?, ?)",
-        [(d["ident"], d["name"], d["building"]) for d in DEPARTMENTS]
+        [(d["ident"], d["name"], d["building"]) for d in DEPARTMENTS + EXTRA_DEPARTMENTS]
     )
     connection.executemany("insert into experiment values (?, ?, ?, ?)", experiments)
     connection.executemany("insert into performed values (?, ?)", performed)
@@ -151,8 +157,11 @@ def fill_experiments(connection, fake):
 
 def fill_staff(connection, fake):
     """Create people."""
-    data = [(fake.first_name(), fake.last_name(), random_department(i)) for i in range(PARAMS["staff"])]
-    connection.executemany("insert into staff values (null, ?, ?, ?)", data)
+    data = [
+        (fake.first_name(), fake.last_name(), random_department(i), random_age())
+        for i in range(PARAMS["staff"])
+    ]
+    connection.executemany("insert into staff values (null, ?, ?, ?, ?)", data)
 
 
 def invalidate_plates(plates):
@@ -164,7 +173,7 @@ def invalidate_plates(plates):
         (
             plate_id,
             random.randint(1, PARAMS["staff"] + 1),
-            random_date_interval(upload_date, PARAMS["enddate"]),
+            random_date_interval(upload_date, PARAMS["end_date"]),
         )
         for (plate_id, upload_date) in selected
     ]
@@ -182,6 +191,11 @@ def make_random_filename():
         yield result
 
 
+def random_age():
+    """Choose an age at random."""
+    return random.randint(PARAMS["min_age"], PARAMS["max_age"])
+
+
 def random_department(which):
     """Choose a department at random."""
     if which == 0:
@@ -191,8 +205,8 @@ def random_department(which):
 
 def random_experiment_duration(kind):
     """Choose random start date and end date for experiment."""
-    start_stamp = date_to_timestamp(PARAMS["startdate"])
-    end_stamp = date_to_timestamp(PARAMS["enddate"])
+    start_stamp = date_to_timestamp(PARAMS["start_date"])
+    end_stamp = date_to_timestamp(PARAMS["end_date"])
     start = datetime.fromtimestamp(random.uniform(start_stamp, end_stamp))
     duration = timedelta(days=random.randint(*EXPERIMENTS[kind]["duration"]))
     possible_end = start + duration
@@ -205,7 +219,7 @@ def random_plates(kind, experiment_id, start_date, random_filename):
     return [
         (
             experiment_id,
-            random_date_interval(start_date, PARAMS["enddate"]),
+            random_date_interval(start_date, PARAMS["end_date"]),
             next(random_filename),
         )
         for _ in range(random.randint(*EXPERIMENTS[kind]["plates"]))
