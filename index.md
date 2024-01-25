@@ -557,6 +557,28 @@ having average_mass_g > 4000.0;
 
 -   Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number
 
+# 024: filter aggregate inputs
+
+```sql
+select
+    sex,
+    round(
+        avg(body_mass_g) filter (where body_mass_g < 4000.0),
+        1
+    ) as average_mass_g
+from penguins
+group by sex;
+```
+```
+|  sex   | average_mass_g |
+|--------|----------------|
+|        | 3362.5         |
+| FEMALE | 3417.3         |
+| MALE   | 3752.5         |
+```
+
+-   <code>filter (where <em>condition</em>)</code> applies to *inputs*
+
 ## null: create in-memory database
 
 ```bash
