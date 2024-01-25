@@ -1601,6 +1601,126 @@ order by name;
 -   The join might or might not be faster than the correlated subquery
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
 
+## 058: lead and lag
+
+```sql
+with ym_num as (
+    select
+        strftime("%Y-%m", started) as ym,
+        count(*) as num
+    from experiment
+    group by ym
+)
+select
+    ym,
+    lag(num) over (order by ym) as prev_num,
+    num,
+    lead(num) over (order by ym) as next_num
+from ym_num
+order by ym;
+```
+```
+|   ym    | prev_num | num | next_num |
+|---------|----------|-----|----------|
+| 2023-01 |          | 2   | 5        |
+| 2023-02 | 2        | 5   | 5        |
+| 2023-03 | 5        | 5   | 1        |
+| 2023-04 | 5        | 1   | 6        |
+| 2023-05 | 1        | 6   | 5        |
+| 2023-06 | 6        | 5   | 3        |
+| 2023-07 | 5        | 3   | 2        |
+| 2023-08 | 3        | 2   | 4        |
+| 2023-09 | 2        | 4   | 6        |
+| 2023-10 | 4        | 6   | 4        |
+| 2023-12 | 6        | 4   | 5        |
+| 2024-01 | 4        | 5   | 2        |
+| 2024-02 | 5        | 2   |          |
+```
+
+-   Use `strftime` to extract year and month
+    -   Clumsy, but date/time handling is not SQLite's strong point
+-   Use *window functions* `lead` and `lag` to shift values
+    -   Unavailable values are null
+
+## 059: window functions
+
+```sql
+with ym_num as (
+    select
+        strftime("%Y-%m", started) as ym,
+        count(*) as num
+    from experiment
+    group by ym
+)
+select
+    ym,
+    num,
+    sum(num) over (order by ym) as num_done,
+    cume_dist() over (order by ym) as progress
+from ym_num
+order by ym;
+```
+```
+|   ym    | num | num_done |      progress      |
+|---------|-----|----------|--------------------|
+| 2023-01 | 2   | 2        | 0.0769230769230769 |
+| 2023-02 | 5   | 7        | 0.153846153846154  |
+| 2023-03 | 5   | 12       | 0.230769230769231  |
+| 2023-04 | 1   | 13       | 0.307692307692308  |
+| 2023-05 | 6   | 19       | 0.384615384615385  |
+| 2023-06 | 5   | 24       | 0.461538461538462  |
+| 2023-07 | 3   | 27       | 0.538461538461538  |
+| 2023-08 | 2   | 29       | 0.615384615384615  |
+| 2023-09 | 4   | 33       | 0.692307692307692  |
+| 2023-10 | 6   | 39       | 0.769230769230769  |
+| 2023-12 | 4   | 43       | 0.846153846153846  |
+| 2024-01 | 5   | 48       | 0.923076923076923  |
+| 2024-02 | 2   | 50       | 1.0                |
+```
+
+-   `sum() over` does a running total
+-   `cume_dist()` is fraction *of rows seen so far*
+
+## 060: partitioned windows
+
+```sql
+with y_m_num as (
+    select
+        strftime("%Y", started) as year,
+        strftime("%m", started) as month,
+        count(*) as num
+    from experiment
+    group by year, month
+)
+select
+    year,
+    month,
+    num,
+    sum(num) over (partition by year order by month) as num_done
+from y_m_num
+order by year, month;
+```
+```
+| year | month | num | num_done |
+|------|-------|-----|----------|
+| 2023 | 01    | 2   | 2        |
+| 2023 | 02    | 5   | 7        |
+| 2023 | 03    | 5   | 12       |
+| 2023 | 04    | 1   | 13       |
+| 2023 | 05    | 6   | 19       |
+| 2023 | 06    | 5   | 24       |
+| 2023 | 07    | 3   | 27       |
+| 2023 | 08    | 2   | 29       |
+| 2023 | 09    | 4   | 33       |
+| 2023 | 10    | 6   | 39       |
+| 2023 | 12    | 4   | 43       |
+| 2024 | 01    | 5   | 5        |
+| 2024 | 02    | 2   | 7        |
+```
+
+-   `partition by` creates groups
+-   So this counts experiments started since the beginning of each year
+
 ## Acknowledgments
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
@@ -1612,14 +1732,11 @@ order by name;
 ## To Do
 
 -   cast
--   current_date
--   window over/partition
 -   begin/end transaction, commit, rollback, and raise
 -   with recursive
 -   triggers
 -   JSON
 -   blobs
--   upsert
 -   returning (to get back rows modified or deleted)
 -   on conflict (upsert)
 
