@@ -1889,6 +1889,67 @@ from machine;
 -   Updates the in-memory copy of the JSON, *not* the database record
 -   Please use `json_quote` rather than trying to format JSON with string operations
 
+## null: refresh penguins
+
+```sql
+select species, count(*) as num
+from penguins
+group by species;
+```
+```
+|  species  | num |
+|-----------|-----|
+| Adelie    | 152 |
+| Chinstrap | 68  |
+| Gentoo    | 124 |
+```
+
+-   We will restore full database after each example
+
+## 067: delete rows
+
+```sql
+-- delete rows
+delete from penguins
+where species = "Adelie";
+
+-- check
+select species, count(*) as num
+from penguins
+group by species;
+```
+```
+|  species  | num |
+|-----------|-----|
+| Chinstrap | 68  |
+| Gentoo    | 124 |
+```
+
+## 068: backing up
+
+```sql
+create table backup(
+    species text not null,
+    island text
+);
+
+insert into backup
+select species, island
+from penguins
+where species = "Adelie";
+
+delete from penguins where species = "Adelie";
+
+select count(*) as backed_up from backup;
+```
+```
+| backed_up |
+|-----------|
+| 152       |
+```
+
+-   But what if something goes wrong?
+
 ## Acknowledgments
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
