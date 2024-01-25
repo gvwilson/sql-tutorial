@@ -4,7 +4,7 @@ home: true
 ## null: connect to database
 
 ```bash
-sqlite3 data/penguins.db
+$ sqlite3 data/penguins.db
 ```
 
 -   Not actually a query
@@ -1679,7 +1679,7 @@ order by ym;
 ```
 
 -   `sum() over` does a running total
--   `cume_dist()` is fraction *of rows seen so far*
+-   `cume_dist` is fraction *of rows seen so far*
 
 ## 060: partitioned windows
 
@@ -1721,6 +1721,174 @@ order by year, month;
 -   `partition by` creates groups
 -   So this counts experiments started since the beginning of each year
 
+## null: yet another database
+
+```bash
+$ sqlite3 data/lab_log.db
+```
+```
+.schema
+```
+```
+CREATE TABLE person(
+       ident            integer primary key autoincrement,
+       details          text not null
+);
+CREATE TABLE machine(
+       ident            integer primary key autoincrement,
+       name             text not null,
+       details          text not null
+);
+CREATE TABLE usage(
+       ident            integer primary key autoincrement,
+       log              text not null
+);
+```
+
+## 061: store JSON
+
+```sql
+select * from machine;
+```
+```
+| ident |      name      |                         details                         |
+|-------|----------------|---------------------------------------------------------|
+| 1     | WY401          | {"acquired": "2023-05-01"}                              |
+| 2     | Inphormex      | {"acquired": "2021-07-15", "refurbished": "2023-10-22"} |
+| 3     | AutoPlate 9000 | {"note": "needs software update"}                       |
+```
+
+-   Store heterogeneous data as JSON-formatted text
+    -   Database parses it each time it is queried
+-   Alternatively store as *blob* (binary large object)
+    -   Can't just view it
+    -   But more efficient
+
+## 062: select field from JSON
+
+```sql
+select
+    details->"$.acquired" as single_arrow,
+    details->>"$.acquired" as double_arrow
+from machine;
+```
+```
+| single_arrow | double_arrow |
+|--------------|--------------|
+| "2023-05-01" | 2023-05-01   |
+| "2021-07-15" | 2021-07-15   |
+|              |              |
+```
+
+-   Single arrow `->` returns JSON representation result
+-   Double arrow `->>` returns SQL text, integer, real, or null
+-   Left side is column
+-   Right side is *path expression*
+    -   Start with `$` (meaning "root")
+    -   Fields separated by `.`
+
+## 063: JSON array access
+
+```sql
+select
+    ident,
+    json_array_length(log->"$") as length,
+    log->"$[0]" as first
+from usage;
+```
+```
+| ident | length |                            first                             |
+|-------|--------|--------------------------------------------------------------|
+| 1     | 4      | {"machine":"Inphormex","person":["Xavier","Bouchard"]}       |
+| 2     | 5      | {"machine":"Inphormex","person":["B\u00e9atrice","Lachance"] |
+|       |        | }                                                            |
+| 3     | 2      | {"machine":"sterilizer","person":["Nicolas","Couture"]}      |
+| 4     | 1      | {"machine":"sterilizer","person":["Louis","Drouin"]}         |
+| 5     | 2      | {"machine":"AutoPlate 9000","person":["Danielle","Nguyen"]}  |
+| 6     | 1      | {"machine":"sterilizer","person":["B\u00e9atrice","Lachance" |
+|       |        | ]}                                                           |
+| 7     | 3      | {"machine":"WY401","person":["Louis","Drouin"]}              |
+| 8     | 1      | {"machine":"AutoPlate 9000"}                                 |
+```
+
+-   SQLite (and other database managers) has lots of JSON manipulation functions
+-   `json_array_length` gives number of elements in selected array
+-   subscripts start with 0
+-   Characters outside 7-bit ASCII represented as Unicode escapes
+
+## 064: unpack JSON array
+
+```sql
+select
+    ident,
+    json_each.key as key,
+    json_each.value as value
+from usage, json_each(usage.log)
+limit 10;
+```
+```
+| ident | key |                            value                             |
+|-------|-----|--------------------------------------------------------------|
+| 1     | 0   | {"machine":"Inphormex","person":["Xavier","Bouchard"]}       |
+| 1     | 1   | {"machine":"Inphormex","person":["Xavier","Bouchard"]}       |
+| 1     | 2   | {"machine":"WY401","person":["Xavier","Bouchard"]}           |
+| 1     | 3   | {"machine":"Inphormex","person":["Xavier","Bouchard"]}       |
+| 2     | 0   | {"machine":"Inphormex","person":["B\u00e9atrice","Lachance"] |
+|       |     | }                                                            |
+| 2     | 1   | {"machine":"AutoPlate 9000","person":["B\u00e9atrice","Lacha |
+|       |     | nce"]}                                                       |
+| 2     | 2   | {"machine":"sterilizer","person":["B\u00e9atrice","Lachance" |
+|       |     | ]}                                                           |
+| 2     | 3   | {"machine":"AutoPlate 9000","person":["J\u00e9r\u00f4me","Ro |
+|       |     | bert"]}                                                      |
+| 2     | 4   | {"machine":"sterilizer","person":["B\u00e9atrice","Lachance" |
+|       |     | ]}                                                           |
+| 3     | 0   | {"machine":"sterilizer","person":["Nicolas","Couture"]}      |
+```
+
+-   `json_each` is another table-valued function
+-   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
+
+## 065: last element of array
+
+```sql
+select
+    ident,
+    log->"$[#-1].machine" as final
+from usage
+limit 5;
+```
+```
+| ident |    final     |
+|-------|--------------|
+| 1     | "Inphormex"  |
+| 2     | "sterilizer" |
+| 3     | "Inphormex"  |
+| 4     | "sterilizer" |
+| 5     | "sterilizer" |
+```
+
+## 066: modify JSON
+
+```sql
+select
+    ident,
+    name,
+    json_set(details, "$.sold", json_quote("2024-01-25")) as updated
+from machine;
+```
+```
+| ident |      name      |                           updated                            |
+|-------|----------------|--------------------------------------------------------------|
+| 1     | WY401          | {"acquired":"2023-05-01","sold":"2024-01-25"}                |
+| 2     | Inphormex      | {"acquired":"2021-07-15","refurbished":"2023-10-22","sold":" |
+|       |                | 2024-01-25"}                                                 |
+| 3     | AutoPlate 9000 | {"note":"needs software update","sold":"2024-01-25"}         |
+```
+
+-   Updates the in-memory copy of the JSON, *not* the database record
+-   Please use `json_quote` rather than trying to format JSON with string operations
+
 ## Acknowledgments
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
@@ -1735,7 +1903,6 @@ order by year, month;
 -   begin/end transaction, commit, rollback, and raise
 -   with recursive
 -   triggers
--   JSON
 -   blobs
 -   returning (to get back rows modified or deleted)
 -   on conflict (upsert)
