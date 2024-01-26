@@ -1928,7 +1928,74 @@ group by species;
 
 -   We will restore full database after each example
 
-## 067: delete rows
+## 067: tombstones
+
+```sql
+alter table penguins
+add active integer not null default 1;
+
+update penguins
+set active = iif(species = "Adelie", 0, 1);
+
+select species, count(*) as num
+from penguins
+where active
+group by species;
+```
+```
+|  species  | num |
+|-----------|-----|
+| Chinstrap | 68  |
+| Gentoo    | 124 |
+```
+
+-   Use a *tombstone* to mark (in)active records
+-   Every query must now include it
+
+## 068: views
+
+```sql
+create view if not exists
+active_penguins(
+    species,
+    island,
+    bill_length_mm,
+    bill_depth_mm,
+    flipper_length_mm,
+    body_mass_g,
+    sex
+) as
+select
+    species,
+    island,
+    bill_length_mm,
+    bill_depth_mm,
+    flipper_length_mm,
+    body_mass_g,
+    sex
+from penguins
+where active;
+
+select species, count(*) as num
+from active_penguins
+group by species;
+```
+```
+|  species  | num |
+|-----------|-----|
+| Chinstrap | 68  |
+| Gentoo    | 124 |
+```
+
+-   A *view* is a saved query that other queries can invoke
+-   View is re-run each time it's used
+-   Like a CTE, but:
+    -   Can be shared between queries
+    -   Views came first
+-   Some databases offer *materialized views*
+    -   Update-on-demand temporary tables
+
+## 069: delete rows
 
 ```sql
 -- delete rows
@@ -1947,7 +2014,7 @@ group by species;
 | Gentoo    | 124 |
 ```
 
-## 068: backing up
+## 070: backing up
 
 ```sql
 create table backup(
