@@ -1972,7 +1972,7 @@ select count(*) as backed_up from backup;
 
 -   But what if something goes wrong?
 
-## Acknowledgments
+## *Acknowledgments*
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
 -   [Dimitri Fontaine][fontaine-dimitri] for [*The Art of PostgreSQL*][art-postgresql]
@@ -1980,7 +1980,7 @@ select count(*) as backed_up from backup;
 
 ---
 
-## To Do
+## *To Do*
 
 -   cast
 -   begin/end transaction, commit, rollback, and raise

@@ -24,10 +24,10 @@ data/penguins.db : bin/create_penguins_db.sql data/penguins.csv
 missing:
 	@python bin/get_sql_features.py --diff data/sql_keywords.txt --markdown < index.md
 
-## lint: check formatting
-.PHONY: lint
-lint:
-	@python bin/check_headings.py < index.md
+## renumber: renumber headings
+.PHONY: renumber
+renumber:
+	@python bin/renumber_headings.py index.md
 
 ## clean: clean up stray files
 .PHONY: clean
