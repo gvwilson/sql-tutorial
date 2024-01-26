@@ -1328,7 +1328,50 @@ order by started asc
 -   Yes, it feels like the extra `select * from` should be unnecessary
 -   `intersect` and `except` perform set intersection and one-sided set difference respectively
 
-## 048: random numbers and why not
+## 048: intersection
+
+```sql
+select personal, family, dept, age
+from staff
+where dept == "mb"
+intersect
+    select personal, family, dept, age from staff
+    where age < 50
+;
+```
+```
+| personal |  family   | dept | age |
+|----------|-----------|------|-----|
+| Indrans  | Sridhar   | mb   | 47  |
+| Ishaan   | Ramaswamy | mb   | 35  |
+```
+
+-   Tables being intersected must have same structure
+-   Intersection usually used when pulling values from different tables
+    -   In this case, would be clearer to use `where`
+
+## 049: exclusion
+
+```sql
+select personal, family, dept, age
+from staff
+where dept == "mb"
+except
+    select personal, family, dept, age from staff
+    where age < 50
+;
+```
+```
+| personal | family | dept | age |
+|----------|--------|------|-----|
+| Pranay   | Khanna | mb   | 51  |
+```
+
+-   Again, tables must have same structure
+    -   And this would be clearer with `where`
+-   SQL operates on sets, not tables, except where it doesn't
+
+## 050: random numbers and why not
 
 ```sql
 with decorated as (
@@ -1352,7 +1395,7 @@ where selector < 5;
 -   There is no way to seed SQLite's random number generator
 -   Which means there is no way to reproduce one of its "random" sequences
 
-## 049: generate sequence
+## 051: generate sequence
 
 ```sql
 select value from generate_series(1, 5);
@@ -1369,7 +1412,7 @@ select value from generate_series(1, 5);
 
 -   A (non-standard) *table-valued function*
 
-## 050: generate sequence sequence based on data
+## 052: generate sequence sequence based on data
 
 ```sql
 create table temp(
@@ -1393,7 +1436,7 @@ select value from generate_series(
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
 
-## 051: generate sequence of dates
+## 053: generate sequence of dates
 
 ```sql
 select
@@ -1411,7 +1454,7 @@ limit 5;
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
 
-## 052: count experiments started per day without gaps
+## 054: count experiments started per day without gaps
 
 ```sql
 with
@@ -1452,7 +1495,7 @@ limit 5
 | 2023-02-02 | 1       |
 ```
 
-## 053: self join
+## 055: self join
 
 ```sql
 with person as (
@@ -1485,7 +1528,7 @@ limit 10;
     -   Nothing special about the name `left` and `right`
 -   Get all *n<sup>2</sup>* pairs, including person with themself
 
-## 054: generate unique pairs
+## 056: generate unique pairs
 
 ```sql
 with person as (
@@ -1514,7 +1557,7 @@ where left.ident <= 4 and right.ident <= 4;
 -   Use `left.ident <= 4 and right.ident <= 4` to limit output
 -   Quick check: n*(n-1)/2 pairs
 
-## 055: filter pairs
+## 057: filter pairs
 
 ```sql
 with
@@ -1559,7 +1602,7 @@ on left.ident = left_staff and right.ident = right_staff;
 | Aarav Loyal     | Faiyaz Devan |
 ```
 
-## 056: existence and correlated subqueries
+## 058: existence and correlated subqueries
 
 ```sql
 select name, building
@@ -1584,7 +1627,7 @@ order by name;
 -   A *correlated subquery* depends on a value from the outer query
     -   Equivalent to nested loop
 
-## 057: nonexistence
+## 059: nonexistence
 
 ```sql
 select name, building
@@ -1623,7 +1666,7 @@ order by name;
 -   The join might or might not be faster than the correlated subquery
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
 
-## 058: lead and lag
+## 060: lead and lag
 
 ```sql
 with ym_num as (
@@ -1664,7 +1707,7 @@ order by ym;
 -   Use *window functions* `lead` and `lag` to shift values
     -   Unavailable values are null
 
-## 059: window functions
+## 061: window functions
 
 ```sql
 with ym_num as (
@@ -1703,7 +1746,7 @@ order by ym;
 -   `sum() over` does a running total
 -   `cume_dist` is fraction *of rows seen so far*
 
-## 060: partitioned windows
+## 062: partitioned windows
 
 ```sql
 with y_m_num as (
@@ -1767,7 +1810,7 @@ CREATE TABLE usage(
 );
 ```
 
-## 061: store JSON
+## 063: store JSON
 
 ```sql
 select * from machine;
@@ -1786,7 +1829,7 @@ select * from machine;
     -   Can't just view it
     -   But more efficient
 
-## 062: select field from JSON
+## 064: select field from JSON
 
 ```sql
 select
@@ -1809,7 +1852,7 @@ from machine;
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
 
-## 063: JSON array access
+## 065: JSON array access
 
 ```sql
 select
@@ -1838,7 +1881,7 @@ from usage;
 -   subscripts start with 0
 -   Characters outside 7-bit ASCII represented as Unicode escapes
 
-## 064: unpack JSON array
+## 066: unpack JSON array
 
 ```sql
 select
@@ -1871,7 +1914,7 @@ limit 10;
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
 
-## 065: last element of array
+## 067: last element of array
 
 ```sql
 select
@@ -1890,7 +1933,7 @@ limit 5;
 | 5     | "sterilizer" |
 ```
 
-## 066: modify JSON
+## 068: modify JSON
 
 ```sql
 select
@@ -1928,7 +1971,7 @@ group by species;
 
 -   We will restore full database after each example
 
-## 067: tombstones
+## 069: tombstones
 
 ```sql
 alter table penguins
@@ -1952,7 +1995,7 @@ group by species;
 -   Use a *tombstone* to mark (in)active records
 -   Every query must now include it
 
-## 068: views
+## 070: views
 
 ```sql
 create view if not exists
@@ -1995,7 +2038,7 @@ group by species;
 -   Some databases offer *materialized views*
     -   Update-on-demand temporary tables
 
-## 069: delete rows
+## 071: delete rows
 
 ```sql
 -- delete rows
@@ -2014,7 +2057,7 @@ group by species;
 | Gentoo    | 124 |
 ```
 
-## 070: backing up
+## 072: backing up
 
 ```sql
 create table backup(
