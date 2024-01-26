@@ -2082,6 +2082,146 @@ select count(*) as backed_up from backup;
 
 -   But what if something goes wrong?
 
+## null: hours reminder
+
+```sql
+create table job(
+    name text not null,
+    billable real not null
+);
+insert into job values
+    ("calibrate", 1.5),
+    ("clean", 0.5)
+;
+select * from job;
+```
+```
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+| clean     | 0.5      |
+```
+
+## 073: add check
+
+```sql
+create table job(
+    name text not null,
+    billable real not null,
+    check(billable > 0.0)
+);
+insert into job values ("calibrate", 1.5);
+insert into job values ("reset", -0.5);
+select * from job;
+```
+```
+Runtime error: CHECK constraint failed: billable > 0.0 (19)
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+```
+
+-   `check` adds constraint to table
+    -   Must produce a Boolean result
+    -   Run each time values added or modified
+-   But changes made before the error have taken effect
+
+## null: ACID
+
+-   *Atomic*: change cannot be broken down into smaller ones (i.e., all or nothing)
+-   *Consistent*: database goes from one consistent state to another
+-   *Isolated*: looks like changes happened one after another
+-   *Durable*: if change takes place, it's still there after a restart
+
+## 074: transactions
+
+```
+create table job(
+    name text not null,
+    billable real not null,
+    check(billable > 0.0)
+);
+
+insert into job values ("calibrate", 1.5);
+
+begin transaction;
+insert into job values ("clean", 0.5);
+rollback;
+
+select * from job;
+```
+```
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+```
+
+-   Statements outside transaction execute and are committed immediately
+-   Statement(s) inside transaction don't take effect until:
+    -   `end transaction` (success)
+    -   `rollback` (undo)
+-   Can have any number of statements inside a transaction
+-   But *cannot* nest transactions in SQLite
+    -   Other databases support this
+
+## 075: rollback in constraint
+
+```sql
+create table job(
+    name text not null,
+    billable real not null,
+    check(billable > 0.0) on conflict rollback
+);
+
+insert into job values
+    ("calibrate", 1.5);
+insert into job values
+    ("clean", 0.5),
+    ("reset", -0.5);
+
+select * from job;
+```
+```
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+```
+
+-   All of second `insert` rolled back as soon as error occurred
+-   But first `insert` took effect
+
+## 076: rollback in statement
+
+```sql
+create table job(
+    name text not null,
+    billable real not null,
+    check(billable > 0.0)
+);
+
+insert or rollback into job values
+    ("calibrate", 1.5);
+insert or rollback into job values
+    ("clean", 0.5),
+    ("reset", -0.5);
+
+select * from job;
+```
+```
+Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+```
+
+-   Constraint is in table definition
+-   Action is in statement
+
+## 077: rollback in transaction
+
+```sql
+```
+
 ## *Acknowledgments*
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
