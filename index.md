@@ -2219,27 +2219,145 @@ Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
 -   Constraint is in table definition
 -   Action is in statement
 
-## 077: rollback in transaction
+## null: normalization
+
+-   First normal form (1NF):
+    every field of every record contains one indivisible value.
+
+-   Second normal form (2NF) and third normal form (3NF):
+    every value in a record that isn't a key depends solely on the key,
+    not on other values.
+
+-   *Denormalization*: explicitly store values that could be calculated on the fly
+    -   To simplify queries and/or make processing faster
+
+## 077: triggers
+
+-   A *trigger* automatically runs before or after a specified operation
+-   Can have side effects (e.g., update some other table)
+-   And/or implement checks (e.g., make sure other records exist)
+-   Add processing overhead…
+-   …but data is either cheap or correct, never both
+-   Inside trigger, refer to old and new versions of record
+    as <code>old.<em>column</em></code> and <code>new.<em>column</em></code>
 
 ```sql
+-- Track hours of lab work.
+create table job(
+    person text not null,
+    reported real not null check(reported >= 0.0)
+);
+
+-- Explicitly store per-person total rather than using sum().
+create table total(
+    person text unique not null,
+    hours real
+);
+
+-- Initialize totals.
+insert into total values
+    ("gene", 0.0),
+    ("august", 0.0)
+;
+
+-- Define a trigger.
+create trigger total_trigger
+before insert on job
+begin
+    -- Check that the person exists.
+    select case
+        when not exists (select 1 from total where person = new.person)
+        then raise(rollback, 'Unknown person ')
+    end;
+    -- Update their total hours (or fail if non-negative constraint violated).
+    update total
+    set hours = hours + new.reported
+    where total.person = new.person;
+end;
+
+-- Test successful insertion.
+insert into job values
+    ('gene', 1.5),
+    ('august', 0.5),
+    ('gene', 1.0)
+;
+
+-- Show that both tables have been updated.
+select * from job;
+select * from total;
+```
+```
+| person | reported |
+|--------|----------|
+| gene   | 1.5      |
+| august | 0.5      |
+| gene   | 1.0      |
+
+| person | hours |
+|--------|-------|
+| gene   | 2.5   |
+| august | 0.5   |
+```
+
+```sql
+-- If any values are negative, operation fails.
+insert into job values
+    ('gene', 1.0),
+    ('august', -1.0)
+;
+select * from job;
+select * from total;
+```
+```
+Runtime error near line 47: CHECK constraint failed: reported >= 0.0 (19)
+
+| person | reported |
+|--------|----------|
+| gene   | 1.5      |
+| august | 0.5      |
+| gene   | 1.0      |
+
+| person | hours |
+|--------|-------|
+| gene   | 2.5   |
+| august | 0.5   |
+```
+
+```sql
+-- If person doesn't exist, operation fails.
+insert into job values
+    ('mo', 1.0)
+;
+```
+```
+Runtime error near line 55: Unknown person  (19)
+
+| person | reported |
+|--------|----------|
+| gene   | 1.5      |
+| august | 0.5      |
+| gene   | 1.0      |
+
+| person | hours |
+|--------|-------|
+| gene   | 2.5   |
+| august | 0.5   |
 ```
 
 ## *Acknowledgments*
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
 -   [Dimitri Fontaine][fontaine-dimitri] for [*The Art of PostgreSQL*][art-postgresql]
+-   Manos Pitsidianakis for online help
 -   David Rozenshtein for *The Essence of SQL* (now sadly out of print)
 
 ---
 
 ## *To Do*
 
--   cast
 -   begin/end transaction, commit, rollback, and raise
 -   with recursive
--   triggers
 -   blobs
--   returning (to get back rows modified or deleted)
 -   on conflict (upsert)
 
 [albrecht-andi]: http://andialbrecht.de/
