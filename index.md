@@ -2362,6 +2362,21 @@ Runtime error near line 55: Unknown person  (19)
 | august | 0.5   |
 ```
 
+## null: representing graphs
+
+```sql
+create table contact(
+    left text not null,
+    right text not null
+);
+```
+
+-   Represent each pair once, sorted alphabetically
+
+![contact database](./img/contact_tracing.svg)
+
+## 079: recursive queries
+
 ## *Acknowledgments*
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module

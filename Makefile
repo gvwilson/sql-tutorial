@@ -5,11 +5,15 @@ commands:
 
 ## databases: make databases
 .PHONY: databases
-databases : data/assays.db data/lab_log.db data/penguins.db
+databases : data/assays.db data/contact_tracing.db data/lab_log.db data/penguins.db
 
 ## data/assays.db: synthetic experimental data
 data/assays.db: bin/create_assays_db.py
 	python $< $@
+
+## data/contact_tracing.db: synthetic contact tracing
+data/contact_tracing.db: bin/create_contacts.py
+	python $< $@ img/contact_tracing.svg
 
 ## data/lab_log.db: synthetic experiment records
 data/lab_log.db: bin/create_lab_log.py
