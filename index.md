@@ -639,7 +639,69 @@ insert into work values
 | po     | complain  |
 | tay    | complain  |
 
-## 026: join tables
+## 026: update rows
+
+```sql
+update work
+set person = "tae"
+where person = "tay";
+
+select * from work;
+```
+```
+| person |    job    |
+|--------|-----------|
+| mik    | calibrate |
+| mik    | clean     |
+| mik    | complain  |
+| po     | clean     |
+| po     | complain  |
+| tae    | complain  |
+```
+
+## 027: delete rows
+
+```sql
+delete from work
+where person = "tae";
+
+select * from work;
+```
+```
+| person |    job    |
+|--------|-----------|
+| mik    | calibrate |
+| mik    | clean     |
+| mik    | complain  |
+| po     | clean     |
+| po     | complain  |
+```
+
+## 028: backing up
+
+```sql
+create table backup(
+    person text not null,
+    job text not null
+);
+
+insert into backup
+select person, job
+from work
+where person = 'tae';
+
+delete from work
+where person = 'tae';
+
+select * from backup;
+```
+```
+| person |   job    |
+|--------|----------|
+| tae    | complain |
+```
+
+## 029: join tables
 
 ```sql
 select *
@@ -666,7 +728,7 @@ from work cross join job;
     -   All combinations of rows from each
 -   Result isn't particularly useful: `job` and `name` don't match
 
-## 027: inner join
+## 030: inner join
 
 ```sql
 select *
@@ -686,7 +748,7 @@ on work.job = job.name;
 -   Use <code>on <em>condition</em></code> to specify *join condition*
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
 
-## 028: aggregate joined data
+## 031: aggregate joined data
 
 ```sql
 select
@@ -706,7 +768,7 @@ group by work.person;
 -   Combines ideas we've seen before
 -   But Tay is missing from the table
 
-## 029: left join
+## 032: left join
 
 ```sql
 select *
@@ -727,7 +789,7 @@ on work.job = job.name;
 -   A *left outer join* keeps all rows from the left table
 -   Fills missing values from right table with null
 
-## 030: aggregate left joins
+## 033: aggregate left joins
 
 ```sql
 select
@@ -747,7 +809,7 @@ group by work.person;
 
 -   That's better, but we'd like to see 0 rather than a blank
 
-## 031: coalesce values
+## 034: coalesce values
 
 ```sql
 select
@@ -767,7 +829,7 @@ group by work.person;
 
 -   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
 
-## 032: negate incorrectly
+## 035: negate incorrectly
 
 -   Who doesn't calibrate?
 
@@ -789,7 +851,7 @@ where job != 'calibrate';
 -   And since `'clean' != 'calibrate'`, that row is included in the results
 -   We need a different approach
 
-## 033: set membership
+## 036: set membership
 
 ```sql
 select *
@@ -805,7 +867,7 @@ where person not in ('mik', 'tay');
 
 -   <code>in <em>values</em></code> and <code>not in <em>values</em></code> do exactly what you expect
 
-## 034: subqueries
+## 037: subqueries
 
 ```sql
 select distinct person
@@ -837,7 +899,7 @@ where person not in (
     -   Each record is a pair of foreign keys
     -   I.e., each record is the fact that records A and B are related
 
-## 035: autoincrement and primary key
+## 038: autoincrement and primary key
 
 ```sql
 create table person(
@@ -864,7 +926,7 @@ select * from person;
     -   So that if Mik changes their name again, we only have to change one fact in the database
     -   Downside: manual queries are harder to read (who is person 17?)
 
-## 036: alter tables
+## 039: alter tables
 
 ```sql
 alter table job
@@ -895,7 +957,7 @@ select * from job;
     -   So be careful about `where` clause
 -   *Data migration*
 
-## 037: create new tables from old
+## 040: create new tables from old
 
 ```sql
 create table new_work(
@@ -926,7 +988,7 @@ select * from new_work;
 -   `new_work` is our join table
 -   Each column refers to a record in some other table
 
-## 038: remove tables
+## 041: remove tables
 
 ```sql
 drop table work;
@@ -975,7 +1037,7 @@ select * from sqlite_sequence;
 | person | 3   |
 ```
 
-## 039: compare individual values to aggregates
+## 042: compare individual values to aggregates
 
 -   Go back to penguins
 
@@ -1003,7 +1065,7 @@ limit 5;
 -   Requires two scans of the data, but there's no way to avoid that
 -   Null values aren't included in the average or in the final results
 
-## 040: compare individual values to aggregates within groups
+## 043: compare individual values to aggregates within groups
 
 ```sql
 select
@@ -1028,7 +1090,7 @@ limit 5;
 | Adelie  | 3800        | 3700.7     |
 ```
 
-## 041: common table expressions
+## 044: common table expressions
 
 ```sql
 with grouped as (
@@ -1118,7 +1180,7 @@ addr  opcode         p1    p2    p3    p4             p5  comment
 44    Goto            0     1     0                   0
 ```
 
-## 042: enumerate rows
+## 045: enumerate rows
 
 -   Every table has a special column called `rowid`
 
@@ -1140,7 +1202,7 @@ limit 5;
 -   *Do not rely on row ID*
     -   In particular, do not use it as a key
 
-## 043: if-else function
+## 046: if-else function
 
 ```sql
 with sized_penguins as (
@@ -1171,7 +1233,7 @@ order by species, num;
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
 
-## 044: select a case
+## 047: select a case
 
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
@@ -1208,7 +1270,7 @@ order by species, num;
 -   Result of `case` is null if no condition is true
 -   Use `else` as fallback
 
-## 045: check range
+## 048: check range
 
 ```sql
 with sized_penguins as (
@@ -1266,7 +1328,7 @@ select * from staff;
 | 10    | Mahika   | De       |      |
 ```
 
-## 046: pattern matching
+## 049: pattern matching
 
 ```sql
 select personal, family from staff
@@ -1299,7 +1361,7 @@ where personal like '%ya%' or family glob '*De*';
 | `lower`   | Return lower-case version of string |
 | `instr`   | Find location of first occurrence of substring (returns 0 if not found) |
 
-## 047: select first and last rows
+## 050: select first and last rows
 
 ```sql
 select * from (
@@ -1330,7 +1392,7 @@ order by started asc
 -   Yes, it feels like the extra `select * from` should be unnecessary
 -   `intersect` and `except` perform set intersection and one-sided set difference respectively
 
-## 048: intersection
+## 051: intersection
 
 ```sql
 select personal, family, dept, age
@@ -1352,7 +1414,7 @@ intersect
 -   Intersection usually used when pulling values from different tables
     -   In this case, would be clearer to use `where`
 
-## 049: exclusion
+## 052: exclusion
 
 ```sql
 select personal, family, dept, age
@@ -1373,7 +1435,7 @@ except
     -   And this would be clearer with `where`
 -   SQL operates on sets, not tables, except where it doesn't
 
-## 050: random numbers and why not
+## 053: random numbers and why not
 
 ```sql
 with decorated as (
@@ -1397,7 +1459,7 @@ where selector < 5;
 -   There is no way to seed SQLite's random number generator
 -   Which means there is no way to reproduce one of its "random" sequences
 
-## 051: generate sequence
+## 054: generate sequence
 
 ```sql
 select value from generate_series(1, 5);
@@ -1414,7 +1476,7 @@ select value from generate_series(1, 5);
 
 -   A (non-standard) *table-valued function*
 
-## 052: generate sequence sequence based on data
+## 055: generate sequence sequence based on data
 
 ```sql
 create table temp(
@@ -1438,7 +1500,7 @@ select value from generate_series(
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
 
-## 053: generate sequence of dates
+## 056: generate sequence of dates
 
 ```sql
 select
@@ -1456,7 +1518,7 @@ limit 5;
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
 
-## 054: count experiments started per day without gaps
+## 057: count experiments started per day without gaps
 
 ```sql
 with
@@ -1497,7 +1559,7 @@ limit 5
 | 2023-02-02 | 1       |
 ```
 
-## 055: self join
+## 058: self join
 
 ```sql
 with person as (
@@ -1530,7 +1592,7 @@ limit 10;
     -   Nothing special about the name `left` and `right`
 -   Get all *n<sup>2</sup>* pairs, including person with themself
 
-## 056: generate unique pairs
+## 059: generate unique pairs
 
 ```sql
 with person as (
@@ -1559,7 +1621,7 @@ where left.ident <= 4 and right.ident <= 4;
 -   Use `left.ident <= 4 and right.ident <= 4` to limit output
 -   Quick check: n*(n-1)/2 pairs
 
-## 057: filter pairs
+## 060: filter pairs
 
 ```sql
 with
@@ -1604,7 +1666,7 @@ on left.ident = left_staff and right.ident = right_staff;
 | Aarav Loyal     | Faiyaz Devan |
 ```
 
-## 058: existence and correlated subqueries
+## 061: existence and correlated subqueries
 
 ```sql
 select name, building
@@ -1629,7 +1691,7 @@ order by name;
 -   A *correlated subquery* depends on a value from the outer query
     -   Equivalent to nested loop
 
-## 059: nonexistence
+## 062: nonexistence
 
 ```sql
 select name, building
@@ -1668,7 +1730,7 @@ order by name;
 -   The join might or might not be faster than the correlated subquery
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
 
-## 060: lead and lag
+## 063: lead and lag
 
 ```sql
 with ym_num as (
@@ -1709,7 +1771,7 @@ order by ym;
 -   Use *window functions* `lead` and `lag` to shift values
     -   Unavailable values are null
 
-## 061: window functions
+## 064: window functions
 
 ```sql
 with ym_num as (
@@ -1748,7 +1810,7 @@ order by ym;
 -   `sum() over` does a running total
 -   `cume_dist` is fraction *of rows seen so far*
 
-## 062: partitioned windows
+## 065: partitioned windows
 
 ```sql
 with y_m_num as (
@@ -1812,7 +1874,7 @@ CREATE TABLE usage(
 );
 ```
 
-## 063: store JSON
+## 066: store JSON
 
 ```sql
 select * from machine;
@@ -1831,7 +1893,7 @@ select * from machine;
     -   Can't just view it
     -   But more efficient
 
-## 064: select field from JSON
+## 067: select field from JSON
 
 ```sql
 select
@@ -1854,7 +1916,7 @@ from machine;
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
 
-## 065: JSON array access
+## 068: JSON array access
 
 ```sql
 select
@@ -1883,7 +1945,7 @@ from usage;
 -   subscripts start with 0
 -   Characters outside 7-bit ASCII represented as Unicode escapes
 
-## 066: unpack JSON array
+## 069: unpack JSON array
 
 ```sql
 select
@@ -1916,7 +1978,7 @@ limit 10;
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
 
-## 067: last element of array
+## 070: last element of array
 
 ```sql
 select
@@ -1935,7 +1997,7 @@ limit 5;
 | 5     | "sterilizer" |
 ```
 
-## 068: modify JSON
+## 071: modify JSON
 
 ```sql
 select
@@ -1973,7 +2035,7 @@ group by species;
 
 -   We will restore full database after each example
 
-## 069: tombstones
+## 072: tombstones
 
 ```sql
 alter table penguins
@@ -1997,7 +2059,7 @@ group by species;
 -   Use a *tombstone* to mark (in)active records
 -   Every query must now include it
 
-## 070: views
+## 073: views
 
 ```sql
 create view if not exists
@@ -2040,50 +2102,6 @@ group by species;
 -   Some databases offer *materialized views*
     -   Update-on-demand temporary tables
 
-## 071: delete rows
-
-```sql
--- delete rows
-delete from penguins
-where species = 'Adelie';
-
--- check
-select species, count(*) as num
-from penguins
-group by species;
-```
-```
-|  species  | num |
-|-----------|-----|
-| Chinstrap | 68  |
-| Gentoo    | 124 |
-```
-
-## 072: backing up
-
-```sql
-create table backup(
-    species text not null,
-    island text
-);
-
-insert into backup
-select species, island
-from penguins
-where species = 'Adelie';
-
-delete from penguins where species = 'Adelie';
-
-select count(*) as backed_up from backup;
-```
-```
-| backed_up |
-|-----------|
-| 152       |
-```
-
--   But what if something goes wrong?
-
 ## null: hours reminder
 
 ```sql
@@ -2104,7 +2122,7 @@ select * from job;
 | clean     | 0.5      |
 ```
 
-## 073: add check
+## 074: add check
 
 ```sql
 create table job(
@@ -2135,7 +2153,7 @@ Runtime error: CHECK constraint failed: billable > 0.0 (19)
 -   *Isolated*: looks like changes happened one after another
 -   *Durable*: if change takes place, it's still there after a restart
 
-## 074: transactions
+## 075: transactions
 
 ```
 create table job(
@@ -2166,7 +2184,7 @@ select * from job;
 -   But *cannot* nest transactions in SQLite
     -   Other databases support this
 
-## 075: rollback in constraint
+## 076: rollback in constraint
 
 ```sql
 create table job(
@@ -2192,7 +2210,7 @@ select * from job;
 -   All of second `insert` rolled back as soon as error occurred
 -   But first `insert` took effect
 
-## 076: rollback in statement
+## 077: rollback in statement
 
 ```sql
 create table job(
@@ -2231,7 +2249,7 @@ Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
 -   *Denormalization*: explicitly store values that could be calculated on the fly
     -   To simplify queries and/or make processing faster
 
-## 077: triggers
+## 078: triggers
 
 -   A *trigger* automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
