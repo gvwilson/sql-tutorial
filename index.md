@@ -2373,10 +2373,9 @@ Runtime error near line 55: Unknown person  (19)
 
 ## *To Do*
 
--   begin/end transaction, commit, rollback, and raise
+-   on conflict (upsert)
 -   with recursive
 -   blobs
--   on conflict (upsert)
 
 [albrecht-andi]: http://andialbrecht.de/
 [art-postgresql]: https://theartofpostgresql.com/
