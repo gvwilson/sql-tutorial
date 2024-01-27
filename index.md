@@ -201,7 +201,7 @@ from penguins;
 ```sql
 select distinct species, sex, island
 from penguins
-where island = "Biscoe";
+where island = 'Biscoe';
 ```
 ```
 | species |  sex   | island |
@@ -216,13 +216,15 @@ where island = "Biscoe";
 -   <code>where <em>condition</em></code> filters the rows produced by selection
 -   Condition is evaluated independently for each row
 -   Only rows that pass the test appear in results
+-   Use single quotes for `'text data'` and double quotes for `"weird column names"`
+    -   SQLite will accept double-quoted text data
 
 ## 009: filter with more complex conditions
 
 ```sql
 select distinct species, sex, island
 from penguins
-where island = "Biscoe" and sex != "MALE";
+where island = 'Biscoe' and sex != 'MALE';
 ```
 ```
 | species |  sex   | island |
@@ -310,7 +312,7 @@ limit 5;
 -- repeated from earlier so it doesn't count against our query limit
 select distinct species, sex, island
 from penguins
-where island = "Biscoe";
+where island = 'Biscoe';
 ```
 ```
 | species |  sex   | island |
@@ -327,7 +329,7 @@ where island = "Biscoe";
 ```sql
 select distinct species, sex, island
 from penguins
-where island = "Biscoe" and sex == "FEMALE";
+where island = 'Biscoe' and sex == 'FEMALE';
 ```
 ```
 | species |  sex   | island |
@@ -343,7 +345,7 @@ where island = "Biscoe" and sex == "FEMALE";
 ```sql
 select distinct species, sex, island
 from penguins
-where island = "Biscoe" and sex != "FEMALE";
+where island = 'Biscoe' and sex != 'FEMALE';
 ```
 ```
 | species | sex  | island |
@@ -608,16 +610,16 @@ create table job(
 
 ```sql
 insert into job values
-    ("calibrate", 1.5),
-    ("clean", 0.5)
+    ('calibrate', 1.5),
+    ('clean', 0.5)
 ;
 insert into work values
-    ("mik", "calibrate"),
-    ("mik", "clean"),
-    ("mik", "complain"),
-    ("po", "clean"),
-    ("po", "complain"),
-    ("tay", "complain")
+    ('mik', 'calibrate'),
+    ('mik', 'clean'),
+    ('mik', 'complain'),
+    ('po', 'clean'),
+    ('po', 'complain'),
+    ('tay', 'complain')
 ;
 ```
 
@@ -772,7 +774,7 @@ group by work.person;
 ```sql
 select distinct person
 from work
-where job != "calibrate";
+where job != 'calibrate';
 ```
 ```
 | person |
@@ -784,7 +786,7 @@ where job != "calibrate";
 
 -   But Mik *does* calibrate
 -   Problem is that there's an entry for Mik cleaning
--   And since `"clean" != "calibrate"`, that row is included in the results
+-   And since `'clean' != 'calibrate'`, that row is included in the results
 -   We need a different approach
 
 ## 033: set membership
@@ -792,7 +794,7 @@ where job != "calibrate";
 ```sql
 select *
 from work
-where person not in ("mik", "tay");
+where person not in ('mik', 'tay');
 ```
 ```
 | person |   job    |
@@ -811,7 +813,7 @@ from work
 where person not in (
     select distinct person
     from work
-    where job = "calibrate"
+    where job = 'calibrate'
 );
 ```
 ```
@@ -843,9 +845,9 @@ create table person(
     name text not null
 );
 insert into person values
-    (null, "mik"),
-    (null, "po"),
-    (null, "tay")
+    (null, 'mik'),
+    (null, 'po'),
+    (null, 'tay')
 ;
 select * from person;
 ```
@@ -870,11 +872,11 @@ add ident integer not null default -1;
 
 update job
 set ident = 1
-where name = "calibrate";
+where name = 'calibrate';
 
 update job
 set ident = 2
-where name = "clean";
+where name = 'clean';
 
 select * from job;
 ```
@@ -1146,8 +1148,8 @@ with sized_penguins as (
         species,
         iif(
             body_mass_g < 3500,
-            "small",
-            "large"
+            'small',
+            'large'
         ) as size
     from penguins
 )
@@ -1179,9 +1181,9 @@ with sized_penguins as (
     select
         species,
         case
-            when body_mass_g < 3500 then "small"
-            when body_mass_g < 5000 then "medium"
-            else "large"
+            when body_mass_g < 3500 then 'small'
+            when body_mass_g < 5000 then 'medium'
+            else 'large'
         end as size
     from penguins
 )
@@ -1213,8 +1215,8 @@ with sized_penguins as (
     select
         species,
         case
-            when body_mass_g between 3500 and 5000 then "normal"
-            else "abnormal"
+            when body_mass_g between 3500 and 5000 then 'normal'
+            else 'abnormal'
         end as size
     from penguins
 )
@@ -1268,7 +1270,7 @@ select * from staff;
 
 ```sql
 select personal, family from staff
-where personal like "%ya%" or family glob "*De*";
+where personal like '%ya%' or family glob '*De*';
 ```
 ```
 | personal |  family  |
@@ -1333,7 +1335,7 @@ order by started asc
 ```sql
 select personal, family, dept, age
 from staff
-where dept == "mb"
+where dept == 'mb'
 intersect
     select personal, family, dept, age from staff
     where age < 50
@@ -1355,7 +1357,7 @@ intersect
 ```sql
 select personal, family, dept, age
 from staff
-where dept == "mb"
+where dept == 'mb'
 except
     select personal, family, dept, age from staff
     where age < 50
@@ -1376,7 +1378,7 @@ except
 ```sql
 with decorated as (
     select random() as rand,
-    personal || " " || family as name
+    personal || ' ' || family as name
     from staff
 )
 select rand, abs(rand) % 10 as selector, name
@@ -1501,7 +1503,7 @@ limit 5
 with person as (
     select
         ident,
-        personal || " " || family as name
+        personal || ' ' || family as name
     from staff
 )
 select left.name, right.name
@@ -1534,7 +1536,7 @@ limit 10;
 with person as (
     select
         ident,
-        personal || " " || family as name
+        personal || ' ' || family as name
     from staff
 )
 select left.name, right.name
@@ -1564,7 +1566,7 @@ with
 person as (
     select
         ident,
-        personal || " " || family as name
+        personal || ' ' || family as name
     from staff
 ),
 together as (
@@ -1671,7 +1673,7 @@ order by name;
 ```sql
 with ym_num as (
     select
-        strftime("%Y-%m", started) as ym,
+        strftime('%Y-%m', started) as ym,
         count(*) as num
     from experiment
     group by ym
@@ -1712,7 +1714,7 @@ order by ym;
 ```sql
 with ym_num as (
     select
-        strftime("%Y-%m", started) as ym,
+        strftime('%Y-%m', started) as ym,
         count(*) as num
     from experiment
     group by ym
@@ -1751,8 +1753,8 @@ order by ym;
 ```sql
 with y_m_num as (
     select
-        strftime("%Y", started) as year,
-        strftime("%m", started) as month,
+        strftime('%Y', started) as year,
+        strftime('%m', started) as month,
         count(*) as num
     from experiment
     group by year, month
@@ -1823,7 +1825,7 @@ select * from machine;
 | 3     | AutoPlate 9000 | {"note": "needs software update"}                       |
 ```
 
--   Store heterogeneous data as JSON-formatted text
+-   Store heterogeneous data as JSON-formatted text (with double-quoted strings)
     -   Database parses it each time it is queried
 -   Alternatively store as *blob* (binary large object)
     -   Can't just view it
@@ -1833,8 +1835,8 @@ select * from machine;
 
 ```sql
 select
-    details->"$.acquired" as single_arrow,
-    details->>"$.acquired" as double_arrow
+    details->'$.acquired' as single_arrow,
+    details->>'$.acquired' as double_arrow
 from machine;
 ```
 ```
@@ -1857,8 +1859,8 @@ from machine;
 ```sql
 select
     ident,
-    json_array_length(log->"$") as length,
-    log->"$[0]" as first
+    json_array_length(log->'$') as length,
+    log->'$[0]' as first
 from usage;
 ```
 ```
@@ -1919,7 +1921,7 @@ limit 10;
 ```sql
 select
     ident,
-    log->"$[#-1].machine" as final
+    log->'$[#-1].machine' as final
 from usage
 limit 5;
 ```
@@ -1939,7 +1941,7 @@ limit 5;
 select
     ident,
     name,
-    json_set(details, "$.sold", json_quote("2024-01-25")) as updated
+    json_set(details, '$.sold', json_quote('2024-01-25')) as updated
 from machine;
 ```
 ```
@@ -1978,7 +1980,7 @@ alter table penguins
 add active integer not null default 1;
 
 update penguins
-set active = iif(species = "Adelie", 0, 1);
+set active = iif(species = 'Adelie', 0, 1);
 
 select species, count(*) as num
 from penguins
@@ -2043,7 +2045,7 @@ group by species;
 ```sql
 -- delete rows
 delete from penguins
-where species = "Adelie";
+where species = 'Adelie';
 
 -- check
 select species, count(*) as num
@@ -2068,9 +2070,9 @@ create table backup(
 insert into backup
 select species, island
 from penguins
-where species = "Adelie";
+where species = 'Adelie';
 
-delete from penguins where species = "Adelie";
+delete from penguins where species = 'Adelie';
 
 select count(*) as backed_up from backup;
 ```
@@ -2090,8 +2092,8 @@ create table job(
     billable real not null
 );
 insert into job values
-    ("calibrate", 1.5),
-    ("clean", 0.5)
+    ('calibrate', 1.5),
+    ('clean', 0.5)
 ;
 select * from job;
 ```
@@ -2110,8 +2112,8 @@ create table job(
     billable real not null,
     check(billable > 0.0)
 );
-insert into job values ("calibrate", 1.5);
-insert into job values ("reset", -0.5);
+insert into job values ('calibrate', 1.5);
+insert into job values ('reset', -0.5);
 select * from job;
 ```
 ```
@@ -2142,10 +2144,10 @@ create table job(
     check(billable > 0.0)
 );
 
-insert into job values ("calibrate", 1.5);
+insert into job values ('calibrate', 1.5);
 
 begin transaction;
-insert into job values ("clean", 0.5);
+insert into job values ('clean', 0.5);
 rollback;
 
 select * from job;
@@ -2174,10 +2176,10 @@ create table job(
 );
 
 insert into job values
-    ("calibrate", 1.5);
+    ('calibrate', 1.5);
 insert into job values
-    ("clean", 0.5),
-    ("reset", -0.5);
+    ('clean', 0.5),
+    ('reset', -0.5);
 
 select * from job;
 ```
@@ -2200,10 +2202,10 @@ create table job(
 );
 
 insert or rollback into job values
-    ("calibrate", 1.5);
+    ('calibrate', 1.5);
 insert or rollback into job values
-    ("clean", 0.5),
-    ("reset", -0.5);
+    ('clean', 0.5),
+    ('reset', -0.5);
 
 select * from job;
 ```

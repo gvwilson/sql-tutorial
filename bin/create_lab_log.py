@@ -29,16 +29,16 @@ create table usage(
 """
 
 MACHINES = {
-    "WY401": {"acquired": "2023-05-01"},
-    "Inphormex": {"acquired": "2021-07-15", "refurbished": "2023-10-22"},
-    "AutoPlate 9000": {"note": "needs software update"},
+    'WY401': {'acquired': '2023-05-01'},
+    'Inphormex': {'acquired': '2021-07-15', 'refurbished': '2023-10-22'},
+    'AutoPlate 9000': {'note': 'needs software update'},
 }
 
 TRANSITIONS = {
-    "WY401": {"Inphormex": 50, "sterilizer": 50},
-    "Inphormex": {"WY401": 25, "Inphormex": 25, "AutoPlate 9000": 25, None: 25},
-    "AutoPlate 9000": {"Inphormex": 25, "sterilizer": 50, None: 25},
-    "sterilizer": {"Inphormex": 30, "AutoPlate 9000": 30, None: 40},
+    'WY401': {'Inphormex': 50, 'sterilizer': 50},
+    'Inphormex': {'WY401': 25, 'Inphormex': 25, 'AutoPlate 9000': 25, None: 25},
+    'AutoPlate 9000': {'Inphormex': 25, 'sterilizer': 50, None: 25},
+    'sterilizer': {'Inphormex': 30, 'AutoPlate 9000': 30, None: 40},
 }
 
 PARAMS = {
