@@ -2431,29 +2431,160 @@ select person, generations from descendent;
 ## null: contact tracing database
 
 ```sql
-create table contact(
-    left text not null,
-    right text not null
-);
--- read data from CSV files
+select * from person;
+```
+```
+| ident |         name          |
+|-------|-----------------------|
+| 1     | Juana Baeza           |
+| 2     | Agustín Rodríquez     |
+| 3     | Ariadna Caraballo     |
+| 4     | Micaela Laboy         |
+| 5     | Verónica Altamirano   |
+| 6     | Reina Rivero          |
+| 7     | Elias Merino          |
+| 8     | Minerva Guerrero      |
+| 9     | Mauro Balderas        |
+| 10    | Pilar Alarcón         |
+| 11    | Daniela Menéndez      |
+| 12    | Marco Antonio Barrera |
+| 13    | Cristal Soliz         |
+| 14    | Bernardo Narváez      |
+| 15    | Óscar Barrios         |
+```
+
+```sql
 select * from contact;
 ```
 ```
-|         left         |       right        |
-|----------------------|--------------------|
-| Hermelinda Robledo   | Liliana Dueñas     |
-| Liliana Dueñas       | Lucas de la Crúz   |
-| Lucas de la Crúz     | Violeta Rocha      |
-| Marcos Miramontes    | Violeta Rocha      |
-| José Luis Candelaria | Renato Soliz       |
-| Abril Malave         | Alta  Gracia Colón |
-| Abril Malave         | Esther Rangel      |
-| Alta  Gracia Colón   | Esther Rangel      |
+|       left        |         right         |
+|-------------------|-----------------------|
+| Agustín Rodríquez | Ariadna Caraballo     |
+| Agustín Rodríquez | Verónica Altamirano   |
+| Juana Baeza       | Verónica Altamirano   |
+| Juana Baeza       | Micaela Laboy         |
+| Pilar Alarcón     | Reina Rivero          |
+| Cristal Soliz     | Marco Antonio Barrera |
+| Cristal Soliz     | Daniela Menéndez      |
+| Daniela Menéndez  | Marco Antonio Barrera |
 ```
 
 ![contact diagram](./img/contact_tracing.svg)
 
-## 080: find connected components
+## 080: bidirectional contacts
+
+```sql
+select count(*) as original_count from contact;
+
+create temporary table bi_contact (
+    left text,
+    right text
+);
+
+insert into bi_contact
+select
+    left, right from contact
+    union all
+    select right, left from contact
+;
+
+select count(*) as num_contact from bi_contact;
+```
+```
+| original_count |
+|----------------|
+| 8              |
+
+| num_contact |
+|-------------|
+| 16          |
+```
+
+-   Create a *temporary table* rather than using a long chain of CTEs
+    -   Only lasts as long as the session (not saved to disk)
+-   Duplicate information rather than writing more complicated query
+
+## 081: update group identifiers
+
+```sql
+select
+    left.name as left_name,
+    left.ident as left_ident,
+    right.name as right_name,
+    right.ident as right_ident,
+    min(left.ident, right.ident) as new_ident
+from
+    (person as left join bi_contact on left.name = bi_contact.left)
+    join person as right on bi_contact.right = right.name;
+```
+```
+|       left_name       | left_ident |      right_name       | right_ident | new_ident |
+|-----------------------|------------|-----------------------|-------------|-----------|
+| Juana Baeza           | 1          | Micaela Laboy         | 4           | 1         |
+| Juana Baeza           | 1          | Verónica Altamirano   | 5           | 1         |
+| Agustín Rodríquez     | 2          | Ariadna Caraballo     | 3           | 2         |
+| Agustín Rodríquez     | 2          | Verónica Altamirano   | 5           | 2         |
+| Ariadna Caraballo     | 3          | Agustín Rodríquez     | 2           | 2         |
+| Micaela Laboy         | 4          | Juana Baeza           | 1           | 1         |
+| Verónica Altamirano   | 5          | Agustín Rodríquez     | 2           | 2         |
+| Verónica Altamirano   | 5          | Juana Baeza           | 1           | 1         |
+| Reina Rivero          | 6          | Pilar Alarcón         | 10          | 6         |
+| Pilar Alarcón         | 10         | Reina Rivero          | 6           | 6         |
+| Daniela Menéndez      | 11         | Cristal Soliz         | 13          | 11        |
+| Daniela Menéndez      | 11         | Marco Antonio Barrera | 12          | 11        |
+| Marco Antonio Barrera | 12         | Cristal Soliz         | 13          | 12        |
+| Marco Antonio Barrera | 12         | Daniela Menéndez      | 11          | 11        |
+| Cristal Soliz         | 13         | Daniela Menéndez      | 11          | 11        |
+| Cristal Soliz         | 13         | Marco Antonio Barrera | 12          | 12        |
+```
+
+-   `new_ident` is minimum of own identifier and identifiers one step away
+-   Doesn't keep people with no contacts
+
+## 082: recursive labeling
+
+```sql
+with recursive labeled as (
+    select
+        person.name as name,
+	person.ident as label
+    from
+        person
+    union -- not 'union all'
+    select
+        person.name as name,
+	labeled.label as label
+    from
+        (person join bi_contact on person.name = bi_contact.left)
+	join labeled on bi_contact.right = labeled.name
+    where labeled.label < person.ident
+)
+select name, min(label) as group
+from labeled
+group by name
+order by label, name;
+```
+```
+|         name          | label |
+|-----------------------|-------|
+| Agustín Rodríquez     | 1     |
+| Ariadna Caraballo     | 1     |
+| Juana Baeza           | 1     |
+| Micaela Laboy         | 1     |
+| Verónica Altamirano   | 1     |
+| Pilar Alarcón         | 6     |
+| Reina Rivero          | 6     |
+| Elias Merino          | 7     |
+| Minerva Guerrero      | 8     |
+| Mauro Balderas        | 9     |
+| Cristal Soliz         | 11    |
+| Daniela Menéndez      | 11    |
+| Marco Antonio Barrera | 11    |
+| Bernardo Narváez      | 14    |
+| Óscar Barrios         | 15    |
+```
+
+-   Use `union` instead of `union all` to prevent *infinite recursion*
 
 ## *Acknowledgments*
 

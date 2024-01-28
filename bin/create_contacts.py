@@ -10,8 +10,13 @@ NUM_PER_GROUP = 5
 SEED = 9181237
 
 CREATE_TABLE = """\
+    drop table if exists person;
+    create table person (
+        ident integer primary key autoincrement,
+        name text not null
+    );
     drop table if exists contact;
-    create table contact(
+    create table contact (
         left text not null,
         right text not null
     );
@@ -44,6 +49,7 @@ def main():
         num_connections = random.randint(1, NUM_PER_GROUP - 1)
         pairs = random.sample(pairs, k=num_connections)
 
+        connection.executemany("insert into person values (null, ?);", [[x] for x in people])
         connection.executemany("insert into contact values (?, ?);", pairs)
         connection.commit()
 
