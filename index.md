@@ -2823,14 +2823,16 @@ for row in cursor.execute("select * from events;").fetchall():
 -   `sqlite3.PARSE_DECLTYPES` tells `sqlite3` library to use converts based on declared column types
 -   Adapt on the way in, convert on the way out
 
+---
+
 ## *Acknowledgments*
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
 -   [Dimitri Fontaine][fontaine-dimitri] for [*The Art of PostgreSQL*][art-postgresql]
--   Manos Pitsidianakis for online help
 -   David Rozenshtein for *The Essence of SQL* (now sadly out of print)
-
----
+-   And the following for spotting issues, making suggestions, or submitting changes:
+    -   Robert Kern
+    -   Manos Pitsidianakis
 
 ## *To Do*
 
