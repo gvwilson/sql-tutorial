@@ -2362,20 +2362,98 @@ Runtime error near line 55: Unknown person  (19)
 | august | 0.5   |
 ```
 
-## null: representing graphs
+## null: represent graphs
+
+```sql
+create table lineage(
+    parent text not null,
+    child text not null
+);
+insert into lineage values
+    ('Arturo', 'Clemente'),
+    ('Darío', 'Clemente'),
+    ('Clemente', 'Homero'),
+    ('Clemente', 'Ivonne'),
+    ('Ivonne', 'Lourdes'),
+    ('Soledad', 'Lourdes'),
+    ('Lourdes', 'Santiago')
+;
+select * from lineage;
+```
+```
+|  parent  |  child   |
+|----------|----------|
+| Arturo   | Clemente |
+| Darío    | Clemente |
+| Clemente | Homero   |
+| Clemente | Ivonne   |
+| Ivonne   | Lourdes  |
+| Soledad  | Lourdes  |
+| Lourdes  | Santiago |
+```
+
+![lineage diagram](./img/lineage.svg)
+
+## 079: recursive query
+
+```sql
+with recursive descendent as (
+    select
+        'Clemente' as person,
+        0 as generations
+    union all
+    select
+        lineage.child as person,
+        descendent.generations + 1 as generations
+    from descendent join lineage
+    on descendent.person = lineage.parent
+)
+select person, generations from descendent;
+```
+```
+|  person  | generations |
+|----------|-------------|
+| Clemente | 0           |
+| Homero   | 1           |
+| Ivonne   | 1           |
+| Lourdes  | 2           |
+| Santiago | 3           |
+```
+
+-   Use a *recursive CTE* to create a temporary table (`descendent`)
+-   *Base case* seeds this table
+-   *Recursive case* relies on value(s) already in that table and external table(s)
+-   `union all` to combine rows
+    -   Can use `union` but that has lower performance (must check uniqueness each time)
+-   Stops when the recursive case yields an empty row set (nothing new to add)
+-   Then select the desired values from the CTE
+
+## null: contact tracing database
 
 ```sql
 create table contact(
     left text not null,
     right text not null
 );
+-- read data from CSV files
+select * from contact;
+```
+```
+|         left         |       right        |
+|----------------------|--------------------|
+| Hermelinda Robledo   | Liliana Dueñas     |
+| Liliana Dueñas       | Lucas de la Crúz   |
+| Lucas de la Crúz     | Violeta Rocha      |
+| Marcos Miramontes    | Violeta Rocha      |
+| José Luis Candelaria | Renato Soliz       |
+| Abril Malave         | Alta  Gracia Colón |
+| Abril Malave         | Esther Rangel      |
+| Alta  Gracia Colón   | Esther Rangel      |
 ```
 
--   Represent each pair once, sorted alphabetically
+![contact diagram](./img/contact_tracing.svg)
 
-![contact database](./img/contact_tracing.svg)
-
-## 079: recursive queries
+## 080: find connected components
 
 ## *Acknowledgments*
 
@@ -2389,7 +2467,6 @@ create table contact(
 ## *To Do*
 
 -   on conflict (upsert)
--   with recursive
 -   blobs
 
 [albrecht-andi]: http://andialbrecht.de/

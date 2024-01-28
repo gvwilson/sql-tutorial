@@ -1,0 +1,17 @@
+digraph lineage {
+	"Arturo" [fontsize=10.0]
+	"Clemente" [fontsize=10.0]
+	"Darío" [fontsize=10.0]
+	"Homero" [fontsize=10.0]
+	"Ivonne" [fontsize=10.0]
+	"Lourdes" [fontsize=10.0]
+	"Soledad" [fontsize=10.0]
+	"Santiago" [fontsize=10.0]
+	"Arturo" -> "Clemente"
+	"Darío" -> "Clemente"
+	"Clemente" -> "Homero"
+	"Clemente" -> "Ivonne"
+	"Ivonne" -> "Lourdes"
+	"Soledad" -> "Lourdes"
+	"Lourdes" -> "Santiago"
+}
