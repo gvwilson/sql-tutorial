@@ -2625,6 +2625,158 @@ order by label, name;
 
 -   Use `union` instead of `union all` to prevent *infinite recursion*
 
+## 084: query from Python
+
+```py
+import sqlite3
+
+connection = sqlite3.connect("data/penguins.db")
+cursor = connection.execute("select count(*) from penguins;")
+rows = cursor.fetchall()
+print(rows)
+```
+```
+[(344,)]
+```
+
+-   `sqlite3` is part of Python's standard library
+-   Create a connection to a database file
+-   Get a *cursor* by executing a query
+    -   More common to create cursor and use that to run queries
+-   Fetch all rows at once as list of tuples
+
+## 085: incremental fetch
+
+```py
+connection = sqlite3.connect("data/penguins.db")
+cursor = connection.cursor()
+cursor = cursor.execute("select species, island from penguins limit 5;")
+while (row := cursor.fetchone()):
+    print(row)
+```
+```
+('Adelie', 'Torgersen')
+('Adelie', 'Torgersen')
+('Adelie', 'Torgersen')
+('Adelie', 'Torgersen')
+('Adelie', 'Torgersen')
+```
+
+-   `cursor.fetchone` returns `None` when no more data
+-   There is also `fetchmany(N)` to fetch (up to) a certain number of rows
+
+## 086: insert, delete, and all that
+
+```py
+connection = sqlite3.connect(":memory:")
+cursor = connection.cursor()
+cursor.execute("create table example(num integer);")
+
+cursor.execute("insert into example values (10), (20);")
+print("after insertion", cursor.execute("select * from example;").fetchall())
+
+cursor.execute("delete from example where num < 15;")
+print("after deletion", cursor.execute("select * from example;").fetchall())
+```
+```
+after insertion [(10,), (20,)]
+after deletion [(20,)]
+```
+
+-   Each `execute` is its own transaction
+
+## 087: interpolate values
+
+```py
+connection = sqlite3.connect(":memory:")
+cursor = connection.cursor()
+cursor.execute("create table example(num integer);")
+
+cursor.executemany("insert into example values (?);", [(10,), (20,)])
+print("after insertion", cursor.execute("select * from example;").fetchall())
+```
+```
+after insertion [(10,), (20,)]
+```
+
+-   From [XKCD][xkcd-tables]
+
+![XKCD Exploits of a Mom](./img/xkcd_327_exploits_of_a_mom.png)
+
+## 088: script execution
+
+```py
+SETUP = """\
+drop table if exists example;
+create table example(num integer);
+insert into example values (10), (20);
+"""
+
+connection = sqlite3.connect(":memory:")
+cursor = connection.cursor()
+cursor.executescript(SETUP)
+print("after insertion", cursor.execute("select * from example;").fetchall())
+```
+```
+after insertion [(10,), (20,)]
+```
+
+-   But what if something goes wrong?
+
+## 089: SQLite exceptions in Python
+
+```py
+SETUP = """\
+create table example(num integer check(num > 0));
+insert into example values (10);
+insert into example values (-1);
+insert into example values (20);
+"""
+
+connection = sqlite3.connect(":memory:")
+cursor = connection.cursor()
+try:
+    cursor.executescript(SETUP)
+except sqlite3.Error as exc:
+    print(f"SQLite exception: {exc}")
+print("after execution", cursor.execute("select * from example;").fetchall())
+```
+```
+SQLite exception: CHECK constraint failed: num > 0
+after execution [(10,)]
+```
+
+## 090: Python in SQLite
+
+```py
+SETUP = """\
+create table example(num integer);
+insert into example values (-10), (10), (20), (30);
+"""
+
+def clip(value):
+    if value < 0: return 0
+    if value > 20: return 20
+    return value
+
+connection = sqlite3.connect(":memory:")
+connection.create_function("clip", 1, clip)
+cursor = connection.cursor()
+cursor.executescript(SETUP)
+for row in cursor.execute("select num, clip(num) from example;").fetchall():
+    print(row)
+```
+```
+(-10, 0)
+(10, 10)
+(20, 20)
+(30, 20)
+```
+
+-   SQLite calls back into Python to execute the function
+-   Other databases can run Python (and other languages) in the database server process
+-   Be careful
+
 ## *Acknowledgments*
 
 -   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
@@ -2637,11 +2789,10 @@ order by label, name;
 ## *To Do*
 
 -   on conflict (upsert)
--   using SQLite from Python
--   stored procedures
 
 [albrecht-andi]: http://andialbrecht.de/
 [art-postgresql]: https://theartofpostgresql.com/
 [fontaine-dimitri]: https://tapoueh.org/
 [fossil]: https://fossil-scm.org/
 [sqlparse]: https://pypi.org/project/sqlparse/
+[xkcd-tables]: https://xkcd.com/327/
