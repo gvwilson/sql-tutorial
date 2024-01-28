@@ -1850,6 +1850,45 @@ order by year, month;
 -   `partition by` creates groups
 -   So this counts experiments started since the beginning of each year
 
+## 066: blobs
+
+```sql
+create table images (
+    name text not null,
+    content blob
+);
+
+insert into images(name, content) values
+    ("biohazard", "img/biohazard.png"),
+    ("crush", "img/crush.png"),
+    ("fire", "img/fire.png"),
+    ("radioactive", "img/radioactive.png"),
+    ("tripping", "img/tripping.png")
+;
+
+select content from images where name == "fire";
+select name, length(content) from images;
+```
+```
+| content |
+|---------|
+| ?PNG     |
+|         |
+|         |
+
+|    name     | length(content) |
+|-------------|-----------------|
+| biohazard   | 19629           |
+| crush       | 15967           |
+| fire        | 18699           |
+| radioactive | 16661           |
+| tripping    | 17208           |
+```
+
+-   A *blob* is a binary large object
+    -   Bytes in, bytes out…
+-   If you think that's odd, check out [Fossil][fossil]
+
 ## null: yet another database
 
 ```bash
@@ -1874,7 +1913,7 @@ CREATE TABLE usage(
 );
 ```
 
-## 066: store JSON
+## 067: store JSON
 
 ```sql
 select * from machine;
@@ -1889,11 +1928,11 @@ select * from machine;
 
 -   Store heterogeneous data as JSON-formatted text (with double-quoted strings)
     -   Database parses it each time it is queried
--   Alternatively store as *blob* (binary large object)
+-   Alternatively store as blob
     -   Can't just view it
     -   But more efficient
 
-## 067: select field from JSON
+## 068: select field from JSON
 
 ```sql
 select
@@ -1916,7 +1955,7 @@ from machine;
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
 
-## 068: JSON array access
+## 069: JSON array access
 
 ```sql
 select
@@ -1945,7 +1984,7 @@ from usage;
 -   subscripts start with 0
 -   Characters outside 7-bit ASCII represented as Unicode escapes
 
-## 069: unpack JSON array
+## 070: unpack JSON array
 
 ```sql
 select
@@ -1978,7 +2017,7 @@ limit 10;
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
 
-## 070: last element of array
+## 071: last element of array
 
 ```sql
 select
@@ -1997,7 +2036,7 @@ limit 5;
 | 5     | "sterilizer" |
 ```
 
-## 071: modify JSON
+## 072: modify JSON
 
 ```sql
 select
@@ -2035,7 +2074,7 @@ group by species;
 
 -   We will restore full database after each example
 
-## 072: tombstones
+## 073: tombstones
 
 ```sql
 alter table penguins
@@ -2059,7 +2098,7 @@ group by species;
 -   Use a *tombstone* to mark (in)active records
 -   Every query must now include it
 
-## 073: views
+## 074: views
 
 ```sql
 create view if not exists
@@ -2122,7 +2161,7 @@ select * from job;
 | clean     | 0.5      |
 ```
 
-## 074: add check
+## 075: add check
 
 ```sql
 create table job(
@@ -2153,7 +2192,7 @@ Runtime error: CHECK constraint failed: billable > 0.0 (19)
 -   *Isolated*: looks like changes happened one after another
 -   *Durable*: if change takes place, it's still there after a restart
 
-## 075: transactions
+## 076: transactions
 
 ```
 create table job(
@@ -2184,7 +2223,7 @@ select * from job;
 -   But *cannot* nest transactions in SQLite
     -   Other databases support this
 
-## 076: rollback in constraint
+## 077: rollback in constraint
 
 ```sql
 create table job(
@@ -2210,7 +2249,7 @@ select * from job;
 -   All of second `insert` rolled back as soon as error occurred
 -   But first `insert` took effect
 
-## 077: rollback in statement
+## 078: rollback in statement
 
 ```sql
 create table job(
@@ -2249,7 +2288,7 @@ Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
 -   *Denormalization*: explicitly store values that could be calculated on the fly
     -   To simplify queries and/or make processing faster
 
-## 078: triggers
+## 079: triggers
 
 -   A *trigger* automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
@@ -2394,7 +2433,7 @@ select * from lineage;
 
 ![lineage diagram](./img/lineage.svg)
 
-## 079: recursive query
+## 080: recursive query
 
 ```sql
 with recursive descendent as (
@@ -2471,7 +2510,7 @@ select * from contact;
 
 ![contact diagram](./img/contact_tracing.svg)
 
-## 080: bidirectional contacts
+## 081: bidirectional contacts
 
 ```sql
 select count(*) as original_count from contact;
@@ -2504,7 +2543,7 @@ select count(*) as num_contact from bi_contact;
     -   Only lasts as long as the session (not saved to disk)
 -   Duplicate information rather than writing more complicated query
 
-## 081: update group identifiers
+## 082: update group identifiers
 
 ```sql
 select
@@ -2541,7 +2580,7 @@ from
 -   `new_ident` is minimum of own identifier and identifiers one step away
 -   Doesn't keep people with no contacts
 
-## 082: recursive labeling
+## 083: recursive labeling
 
 ```sql
 with recursive labeled as (
@@ -2598,9 +2637,11 @@ order by label, name;
 ## *To Do*
 
 -   on conflict (upsert)
--   blobs
+-   using SQLite from Python
+-   stored procedures
 
 [albrecht-andi]: http://andialbrecht.de/
 [art-postgresql]: https://theartofpostgresql.com/
 [fontaine-dimitri]: https://tapoueh.org/
+[fossil]: https://fossil-scm.org/
 [sqlparse]: https://pypi.org/project/sqlparse/
