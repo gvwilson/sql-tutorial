@@ -1476,7 +1476,7 @@ select value from generate_series(1, 5);
 
 -   A (non-standard) *table-valued function*
 
-## 055: generate sequence sequence based on data
+## 055: generate sequence based on data
 
 ```sql
 create table temp(
