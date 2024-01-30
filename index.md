@@ -2823,6 +2823,68 @@ for row in cursor.execute("select * from events;").fetchall():
 -   `sqlite3.PARSE_DECLTYPES` tells `sqlite3` library to use converts based on declared column types
 -   Adapt on the way in, convert on the way out
 
+## 092: SQL in Jupyter notebooks
+
+```bash
+$ pip install jupysql
+```
+
+-   And then inside the notebook:
+
+```python
+%load_ext sql
+```
+
+-   Loads extension
+
+```python
+%sql sqlite:///data/penguins.db
+```
+```
+Connecting to 'sqlite:///data/penguins.db'
+```
+
+-   Connects to database
+    -   `sqlite://` with two slashes is the protocol
+    -   `/data/penguins.db` (one leading slash) is a local path
+-   Single percent sign `%sql` introduces one-line command
+-   Use double percent sign `%%sql` to indicate that the rest of the cell is SQL
+
+
+```sql
+%%sql
+select species, count(*) as num
+from penguins
+group by species;
+```
+```
+Running query in 'sqlite:///data/penguins.db'
+```
+
+<table>
+  <thead>
+    <tr>
+      <th>species</th>
+      <th>num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Adelie</td>
+      <td>152</td>
+    </tr>
+    <tr>
+      <td>Chinstrap</td>
+      <td>68</td>
+    </tr>
+    <tr>
+      <td>Gentoo</td>
+      <td>124</td>
+    </tr>
+  </tbody>
+</table>
+
+
 ---
 
 ## *Acknowledgments*
@@ -2838,6 +2900,7 @@ for row in cursor.execute("select * from events;").fetchall():
 
 -   upsert
 -   TODO: `autocommit` seems to have no effect with Python 3.12.1
+-   Pandas/Polars
 
 [albrecht-andi]: http://andialbrecht.de/
 [art-postgresql]: https://theartofpostgresql.com/
