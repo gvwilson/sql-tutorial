@@ -35,7 +35,7 @@ img/lineage.svg: bin/lineage.gv
 ## missing: list unused keywords
 .PHONY: missing
 missing:
-	@python bin/get_sql_features.py --diff data/sql_keywords.txt --markdown < index.md
+	@python bin/get_sql_features.py --diff _data/sql_keywords.txt --markdown < index.md
 
 ## renumber: renumber headings
 .PHONY: renumber
