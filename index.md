@@ -2882,13 +2882,15 @@ Running query in 'sqlite:///data/penguins.db'
 
 ## *Acknowledgments*
 
--   [Andi Albrecht][albrecht-andi] for the [`sqlparse`][sqlparse] module
--   [Dimitri Fontaine][fontaine-dimitri] for [*The Art of PostgreSQL*][art-postgresql]
--   David Rozenshtein for *The Essence of SQL* (now sadly out of print)
--   And the following for spotting issues, making suggestions, or submitting changes:
-    -   Sam Hames
-    -   Robert Kern
-    -   Manos Pitsidianakis
+This tutorial would not have been possible without:
+
+-   [Andi Albrecht][albrecht-andi]'s [`sqlparse`][sqlparse] module
+-   [Dimitri Fontaine][fontaine-dimitri]'s [*The Art of PostgreSQL*][art-postgresql]
+-   David Rozenshtein's *The Essence of SQL* (now sadly out of print)
+
+I would also like to thank the following for spotting issues, making suggestions, or submitting changes:
+
+{% include thanks.html %}
 
 ## *To Do*
 
