@@ -2824,13 +2824,13 @@ $ pip install jupysql
 
 -   And then inside the notebook:
 
-```python
+```py
 %load_ext sql
 ```
 
 -   Loads extension
 
-```python
+```py
 %sql sqlite:///data/penguins.db
 ```
 ```
@@ -2877,6 +2877,60 @@ Running query in 'sqlite:///data/penguins.db'
   </tbody>
 </table>
 
+## 093: Pandas and SQL
+
+```bash
+$ pip install pandas
+```
+
+```py
+import pandas as pd
+import sqlite3
+
+connection = sqlite3.connect("data/penguins.db")
+query = "select species, count(*) as num from penguins group by species;"
+df = pd.read_sql(query, connection)
+print(df)
+```
+```
+     species  num
+0     Adelie  152
+1  Chinstrap   68
+2     Gentoo  124
+```
+
+-   Be careful about datatype conversion
+
+## 094: Polars and SQL
+
+```bash
+$ pip install polars pyarrow adbc-driver-sqlite
+```
+
+```py
+import polars as pl
+
+query = "select species, count(*) as num from penguins group by species;"
+uri = "sqlite:///data/penguins.db"
+df = pl.read_database_uri(query, uri, engine="adbc")
+print(df)
+```
+```
+shape: (3, 2)
+┌───────────┬─────┐
+│ species   ┆ num │
+│ ---       ┆ --- │
+│ str       ┆ i64 │
+╞═══════════╪═════╡
+│ Adelie    ┆ 152 │
+│ Chinstrap ┆ 68  │
+│ Gentoo    ┆ 124 │
+└───────────┴─────┘
+```
+
+-   The *Uniform Resource Identifier* (URI) specifies the database
+-   The query is the query
+-   Use the ADBC engine instead of the default ConnectorX
 
 ---
 
