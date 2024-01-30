@@ -95,7 +95,7 @@ div.language-bash {
 }
 
 div.language-plaintext {
-    border-left: solid var(--heavyborder) var(--stamp-purple-light);
+    border-left: solid var(--heavyborder) var(--stamp-red-light);
     padding-left: var(--mediumborder);
 }
 
