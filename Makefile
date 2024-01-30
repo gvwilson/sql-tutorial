@@ -9,8 +9,7 @@ files : \
 	data/assays.db \
 	data/contact_tracing.db \
 	data/lab_log.db \
-	data/penguins.db \
-	img/lineage.svg
+	data/penguins.db
 
 ## data/assays.db: synthetic experimental data
 data/assays.db: bin/create_assays_db.py
@@ -18,7 +17,7 @@ data/assays.db: bin/create_assays_db.py
 
 ## data/contact_tracing.db: synthetic contact tracing
 data/contact_tracing.db: bin/create_contacts.py
-	python $< $@ img/contact_tracing.svg
+	python $< $@
 
 ## data/lab_log.db: synthetic experiment records
 data/lab_log.db: bin/create_lab_log.py
@@ -27,10 +26,6 @@ data/lab_log.db: bin/create_lab_log.py
 ## data/penguins.db: penguin data
 data/penguins.db : bin/create_penguins_db.sql data/penguins.csv
 	sqlite3 $@ < $<
-
-## img/lineage.svg: lineage graph
-img/lineage.svg: bin/lineage.gv
-	dot -Tsvg $< > $@
 
 ## missing: list unused keywords
 .PHONY: missing

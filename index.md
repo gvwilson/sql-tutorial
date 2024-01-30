@@ -308,6 +308,13 @@ limit 3;
 </section>
 
 <section markdown="1">
+## null: check in
+
+![concept map: selection](./img/concept_map_select.svg)
+
+</section>
+
+<section markdown="1">
 ## 012: calculate with missing values
 
 ```sql

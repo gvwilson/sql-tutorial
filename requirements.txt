@@ -1,7 +1,6 @@
 adbc-driver-sqlite
 click
 faker
-graphviz
 jupyter
 jupysql
 pandas

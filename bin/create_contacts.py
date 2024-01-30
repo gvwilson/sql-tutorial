@@ -1,5 +1,4 @@
 from faker import Faker
-import graphviz
 import random
 import sqlite3
 import sys
@@ -26,7 +25,6 @@ CREATE_TABLE = """\
 def main():
     """Main driver."""
     filename = sys.argv[1]
-    graphname = sys.argv[2]
 
     random.seed(SEED)
     f = Faker(LOCALE)
@@ -34,13 +32,8 @@ def main():
     connection = sqlite3.connect(filename)
     connection.executescript(CREATE_TABLE)
 
-    dot = graphviz.Graph("connections")
-
     for _ in range(NUM_GROUPS):
         people = [f"{f.first_name()} {f.last_name()}" for _ in range(NUM_PER_GROUP)]
-        for name in people:
-            dot.node(name, fontsize="10.0")
-
         pairs = [
             list(sorted([people[i], people[j]]))
             for i in range(len(people))
@@ -48,14 +41,9 @@ def main():
         ]
         num_connections = random.randint(1, NUM_PER_GROUP - 1)
         pairs = random.sample(pairs, k=num_connections)
-
         connection.executemany("insert into person values (null, ?);", [[x] for x in people])
         connection.executemany("insert into contact values (?, ?);", pairs)
         connection.commit()
-
-    for left, right in connection.execute("select * from contact;").fetchall():
-        dot.edge(left, right)
-    dot.render(format="svg", outfile=graphname, engine="fdp", cleanup=True)
 
 
 if __name__ == "__main__":
