@@ -1,6 +1,7 @@
 ---
 home: true
 ---
+<section markdown="1">
 ## null: connect to database
 
 ```bash
@@ -9,7 +10,9 @@ $ sqlite3 data/penguins.db
 
 -   Not actually a query
 -   But we have to do it before we can do anything else
+</section>
 
+<section markdown="1">
 ## 001: select constant
 
 ```sql
@@ -23,7 +26,9 @@ select 1;
 -   Normally used to select data from table…
 -   …but if all we want is a constant value, we don't need to specify one
 -   Semi-colon terminator is required
+</section>
 
+<section markdown="1">
 ## 002: select all values from table
 
 ```sql
@@ -45,7 +50,9 @@ Chinstrap|Dream|45.2|16.6|191|3250|FEMALE
 -   Use `*` to mean "all columns"
 -   Use <code>from <em>tablename</em></code> to specify table
 -   Output format is not particularly readable
+</section>
 
+<section markdown="1">
 ## null: administrative commands
 
 ```sql
@@ -71,7 +78,9 @@ select * from little_penguins;
 -   SQLite administrative commands start with `.` and *aren't* part of the SQL standard
     -   PostgreSQL's special commands start with `\`
 -   Use `.help` for a complete list
+</section>
 
+<section markdown="1">
 ## 003: specify columns
 
 ```sql
@@ -97,7 +106,9 @@ from little_penguins;
     -   In any order
     -   Duplicates allowed
 -   Line breaks <strike>allowed</strike> encouraged for readability
+</section>
 
+<section markdown="1">
 ## 004: sort
 
 ```sql
@@ -123,7 +134,9 @@ order by island asc, sex desc;
 -   `order by` must follow `from` (which must follow `select`)
 -   `asc` is ascending, `desc` is descending
     -   Default is ascending, but please specify
+</section>
 
+<section markdown="1">
 ## 005: limit output
 
 -   Full dataset has 344 rows
@@ -145,7 +158,9 @@ limit 5;
 
 -   Comments start with `--` and run to the end of the line
 -   <code>limit <em>N</em></code> specifies maximum number of rows returned by query
+</section>
 
+<section markdown="1">
 ## 006: page output
 
 ```sql
@@ -165,7 +180,9 @@ limit 5 offset 5;
 
 -   <code>offset <em>N</em></code> must follow `limit`
 -   Specifies number of rows to skip
+</section>
 
+<section markdown="1">
 ## 007: remove duplicates
 
 ```sql
@@ -195,7 +212,9 @@ from penguins;
 -   Shows distinct combinations
 -   Blanks in `sex` column show missing data
     -   We'll talk about this in a bit
+</section>
 
+<section markdown="1">
 ## 008: filter results
 
 ```sql
@@ -218,7 +237,9 @@ where island = 'Biscoe';
 -   Only rows that pass the test appear in results
 -   Use single quotes for `'text data'` and double quotes for `"weird column names"`
     -   SQLite will accept double-quoted text data
+</section>
 
+<section markdown="1">
 ## 009: filter with more complex conditions
 
 ```sql
@@ -237,7 +258,9 @@ where island = 'Biscoe' and sex != 'MALE';
 -   `or`: either or both part must be true
 -   Notice that the row for Gentoo penguins on Biscoe island with unknown (empty) sex didn't pass the test
     -   We'll talk about this in a bit
+</section>
 
+<section markdown="1">
 ## 010: do calculations
 
 ```sql
@@ -258,7 +281,9 @@ limit 3;
 -   Can do the usual kinds of arithmetic on individual values
     -   Calculation done for each row independently
 -   Column name shows the calculation done
+</section>
 
+<section markdown="1">
 ## 011: rename columns
 
 ```sql
@@ -280,7 +305,9 @@ limit 3;
 -   Use <code><em>expression</em> as <em>name</em></code> to rename
 -   Give result of calculation a meaningful name
 -   Can also rename columns without modifying
+</section>
 
+<section markdown="1">
 ## 012: calculate with missing values
 
 ```sql
@@ -305,7 +332,9 @@ limit 5;
     -   Not 0 or empty string, but "I don't know"
 -   Flipper length and body weight not known for one of the first five penguins
 -   "I don't know" divided by 10 or 1000 is "I don't know"
+</section>
 
+<section markdown="1">
 ## 013: null equality
 
 ```sql
@@ -337,7 +366,9 @@ where island = 'Biscoe' and sex == 'FEMALE';
 | Adelie  | FEMALE | Biscoe |
 | Gentoo  | FEMALE | Biscoe |
 ```
+</section>
 
+<section markdown="1">
 ## 014: null inequality
 
 -   But if we ask for penguins that *aren't* female it drops out as well
@@ -353,7 +384,9 @@ where island = 'Biscoe' and sex != 'FEMALE';
 | Adelie  | MALE | Biscoe |
 | Gentoo  | MALE | Biscoe |
 ```
+</section>
 
+<section markdown="1">
 ## 015: ternary logic
 
 ```sql
@@ -400,7 +433,9 @@ select null = null;
     <td>null</td>
   </tr>
 </table>
+</section>
 
+<section markdown="1">
 ## 016: handle null safely
 
 ```sql
@@ -426,7 +461,9 @@ where sex is null;
 
 -   Use `is null` and `is not null` to handle null safely
 -   Other parts of SQL handle nulls specially
+</section>
 
+<section markdown="1">
 ## 017: aggregate
 
 ```sql
@@ -441,7 +478,9 @@ from penguins;
 
 -   `sum` is an *aggregation function*
 -   Combines corresponding values from multiple rows
+</section>
 
+<section markdown="1">
 ## 018: common aggregation functions
 
 ```sql
@@ -459,7 +498,9 @@ from penguins;
 
 -   This actually shouldn't work: can't calculate maximum or average if any values are null
 -   SQL does the useful thing instead of the right one
+</section>
 
+<section markdown="1">
 ## 019: group
 
 ```sql
@@ -479,7 +520,9 @@ group by sex;
 -   Put rows in buckets based on distinct combinations of values in columns specified with `group by`
 -   Then perform aggregation separately for each bucket
 -   But, uh, which is which?
+</section>
 
+<section markdown="1">
 ## 020: behavior of unaggregated columns
 
 ```sql
@@ -498,7 +541,9 @@ group by sex;
 ```
 
 -   All rows in each group have the same value for `sex`, so no need to aggregate
+</section>
 
+<section markdown="1">
 ## 021: arbitrary choice in aggregation
 
 ```sql
@@ -520,7 +565,9 @@ group by sex;
 -   All penguins in each group have the same sex because we grouped by that, so we get the right answer
 -   The body mass values are in the data but unpredictable
 -   A common mistake
+</section>
 
+<section markdown="1">
 ## 022: filter aggregated values
 
 ```sql
@@ -539,7 +586,9 @@ having average_mass_g > 4000.0;
 ```
 
 -   Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates
+</section>
 
+<section markdown="1">
 ## 023: readable output
 
 ```sql
@@ -558,7 +607,9 @@ having average_mass_g > 4000.0;
 ```
 
 -   Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number
+</section>
 
+<section markdown="1">
 ## 024: filter aggregate inputs
 
 ```sql
@@ -580,7 +631,9 @@ group by sex;
 ```
 
 -   <code>filter (where <em>condition</em>)</code> applies to *inputs*
+</section>
 
+<section markdown="1">
 ## null: create in-memory database
 
 ```bash
@@ -588,7 +641,9 @@ $ sqlite3 :memory:
 ```
 
 -   "Connect" to an *in-memory* database
+</section>
 
+<section markdown="1">
 ## 025: create tables
 
 ```sql
@@ -605,7 +660,9 @@ create table job(
 -   <code>create table <em>name</em></code> followed by parenthesized list of columns
 -   Each column is a name, a data type, and optional extra information
     -   E.g., `not null` prevents nulls from being added
+</section>
 
+<section markdown="1">
 ## 026: insert data
 
 ```sql
@@ -622,9 +679,7 @@ insert into work values
     ('tay', 'complain')
 ;
 ```
-
--   Resulting tables
-
+```
 |   name    | billable |
 |-----------|----------|
 | calibrate | 1.5      |
@@ -638,7 +693,10 @@ insert into work values
 | po     | clean     |
 | po     | complain  |
 | tay    | complain  |
+```
+</section>
 
+<section markdown="1">
 ## 027: update rows
 
 ```sql
@@ -658,7 +716,9 @@ select * from work;
 | po     | complain  |
 | tae    | complain  |
 ```
+</section>
 
+<section markdown="1">
 ## 028: delete rows
 
 ```sql
@@ -676,7 +736,9 @@ select * from work;
 | po     | clean     |
 | po     | complain  |
 ```
+</section>
 
+<section markdown="1">
 ## 029: backing up
 
 ```sql
@@ -700,7 +762,9 @@ select * from backup;
 |--------|----------|
 | tae    | complain |
 ```
+</section>
 
+<section markdown="1">
 ## 030: join tables
 
 ```sql
@@ -727,7 +791,9 @@ from work cross join job;
 -   `cross join` (also called *outer join*) constructs cross product of tables
     -   All combinations of rows from each
 -   Result isn't particularly useful: `job` and `name` don't match
+</section>
 
+<section markdown="1">
 ## 031: inner join
 
 ```sql
@@ -747,7 +813,9 @@ on work.job = job.name;
     -   A column can have the same name as a table
 -   Use <code>on <em>condition</em></code> to specify *join condition*
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
+</section>
 
+<section markdown="1">
 ## 032: aggregate joined data
 
 ```sql
@@ -767,7 +835,9 @@ group by work.person;
 
 -   Combines ideas we've seen before
 -   But Tay is missing from the table
+</section>
 
+<section markdown="1">
 ## 033: left join
 
 ```sql
@@ -788,7 +858,9 @@ on work.job = job.name;
 
 -   A *left outer join* keeps all rows from the left table
 -   Fills missing values from right table with null
+</section>
 
+<section markdown="1">
 ## 034: aggregate left joins
 
 ```sql
@@ -808,7 +880,9 @@ group by work.person;
 ```
 
 -   That's better, but we'd like to see 0 rather than a blank
+</section>
 
+<section markdown="1">
 ## 035: coalesce values
 
 ```sql
@@ -828,7 +902,9 @@ group by work.person;
 ```
 
 -   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
+</section>
 
+<section markdown="1">
 ## 036: negate incorrectly
 
 -   Who doesn't calibrate?
@@ -850,7 +926,9 @@ where job != 'calibrate';
 -   Problem is that there's an entry for Mik cleaning
 -   And since `'clean' != 'calibrate'`, that row is included in the results
 -   We need a different approach
+</section>
 
+<section markdown="1">
 ## 037: set membership
 
 ```sql
@@ -866,7 +944,9 @@ where person not in ('mik', 'tay');
 ```
 
 -   <code>in <em>values</em></code> and <code>not in <em>values</em></code> do exactly what you expect
+</section>
 
+<section markdown="1">
 ## 038: subqueries
 
 ```sql
@@ -888,7 +968,9 @@ where person not in (
 -   Use a *subquery* to select the people who *do* calibrate
 -   Then select all the people who aren't in that set
 -   Initially feels odd, but subqueries are useful in other ways
+</section>
 
+<section markdown="1">
 ## null: M to N relationships
 
 -   Relationships between entities are usually characterized as:
@@ -898,7 +980,9 @@ where person not in (
 -   Nearly-universal solution is a *join table*
     -   Each record is a pair of foreign keys
     -   I.e., each record is the fact that records A and B are related
+</section>
 
+<section markdown="1">
 ## 039: autoincrement and primary key
 
 ```sql
@@ -925,7 +1009,9 @@ select * from person;
 -   Use that field as the primary key
     -   So that if Mik changes their name again, we only have to change one fact in the database
     -   Downside: manual queries are harder to read (who is person 17?)
+</section>
 
+<section markdown="1">
 ## 040: alter tables
 
 ```sql
@@ -956,7 +1042,9 @@ select * from job;
     -   Can modify any number of records at once
     -   So be careful about `where` clause
 -   *Data migration*
+</section>
 
+<section markdown="1">
 ## 041: create new tables from old
 
 ```sql
@@ -987,7 +1075,9 @@ select * from new_work;
 
 -   `new_work` is our join table
 -   Each column refers to a record in some other table
+</section>
 
+<section markdown="1">
 ## 042: remove tables
 
 ```sql
@@ -997,7 +1087,9 @@ alter table new_work rename to work;
 
 -   Remove the old table and rename the new one to take its place
 -   Be careful…
+</section>
 
+<section markdown="1">
 ## null: display schema
 
 ```
@@ -1036,7 +1128,9 @@ select * from sqlite_sequence;
 |--------|-----|
 | person | 3   |
 ```
+</section>
 
+<section markdown="1">
 ## 043: compare individual values to aggregates
 
 -   Go back to penguins
@@ -1064,7 +1158,9 @@ limit 5;
 -   Compare each row against that
 -   Requires two scans of the data, but there's no way to avoid that
 -   Null values aren't included in the average or in the final results
+</section>
 
+<section markdown="1">
 ## 044: compare individual values to aggregates within groups
 
 ```sql
@@ -1089,7 +1185,9 @@ limit 5;
 | Adelie  | 4250        | 3700.7     |
 | Adelie  | 3800        | 3700.7     |
 ```
+</section>
 
+<section markdown="1">
 ## 045: common table expressions
 
 ```sql
@@ -1119,7 +1217,9 @@ limit 5;
 -   Use *common table expression* (CTE) to make queries clearer
     -   Nested subqueries quickly become difficult to understand
 -   Database decides how to optimize
+</section>
 
+<section markdown="1">
 ## null: explain query plan
 
 ```sql
@@ -1138,7 +1238,9 @@ QUERY PLAN
 
 -   SQLite plans to scan every row of the table
 -   It will build a temporary B-tree data structure to group rows
+</section>
 
+<section markdown="1">
 ## 046: enumerate rows
 
 -   Every table has a special column called `rowid`
@@ -1160,7 +1262,9 @@ limit 5;
     -   I.e., if we delete the first 5 rows we now have row IDs 6…N
 -   *Do not rely on row ID*
     -   In particular, do not use it as a key
+</section>
 
+<section markdown="1">
 ## 047: if-else function
 
 ```sql
@@ -1191,7 +1295,9 @@ order by species, num;
 
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
+</section>
 
+<section markdown="1">
 ## 048: select a case
 
 -   What if we want small, medium, and large?
@@ -1228,7 +1334,9 @@ order by species, num;
 -   Evaluate `when` options in order and take first
 -   Result of `case` is null if no condition is true
 -   Use `else` as fallback
+</section>
 
+<section markdown="1">
 ## 049: check range
 
 ```sql
@@ -1259,7 +1367,9 @@ order by species, num;
 
 -   `between` can make queries easier to read
 -   But be careful of the `and` in the middle
+</section>
 
+<section markdown="1">
 ## null: yet another database
 
 -   *entity-relationship diagram* (ER diagram) shows relationships between tables
@@ -1286,7 +1396,9 @@ select * from staff;
 | 9     | Faiyaz   | Devan    |      |
 | 10    | Mahika   | De       |      |
 ```
+</section>
 
+<section markdown="1">
 ## 050: pattern matching
 
 ```sql
@@ -1319,7 +1431,9 @@ where personal like '%ya%' or family glob '*De*';
 | `upper`   | Return upper-case version of string |
 | `lower`   | Return lower-case version of string |
 | `instr`   | Find location of first occurrence of substring (returns 0 if not found) |
+</section>
 
+<section markdown="1">
 ## 051: select first and last rows
 
 ```sql
@@ -1350,7 +1464,9 @@ order by started asc
     -   Keeps duplicates: `union` on its own keeps unique records
 -   Yes, it feels like the extra `select * from` should be unnecessary
 -   `intersect` and `except` perform set intersection and one-sided set difference respectively
+</section>
 
+<section markdown="1">
 ## 052: intersection
 
 ```sql
@@ -1372,7 +1488,9 @@ intersect
 -   Tables being intersected must have same structure
 -   Intersection usually used when pulling values from different tables
     -   In this case, would be clearer to use `where`
+</section>
 
+<section markdown="1">
 ## 053: exclusion
 
 ```sql
@@ -1393,7 +1511,9 @@ except
 -   Again, tables must have same structure
     -   And this would be clearer with `where`
 -   SQL operates on sets, not tables, except where it doesn't
+</section>
 
+<section markdown="1">
 ## 054: random numbers and why not
 
 ```sql
@@ -1417,7 +1537,9 @@ where selector < 5;
 
 -   There is no way to seed SQLite's random number generator
 -   Which means there is no way to reproduce one of its "random" sequences
+</section>
 
+<section markdown="1">
 ## 055: generate sequence
 
 ```sql
@@ -1434,7 +1556,9 @@ select value from generate_series(1, 5);
 ```
 
 -   A (non-standard) *table-valued function*
+</section>
 
+<section markdown="1">
 ## 056: generate sequence based on data
 
 ```sql
@@ -1458,7 +1582,9 @@ select value from generate_series(
 ```
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
+</section>
 
+<section markdown="1">
 ## 057: generate sequence of dates
 
 ```sql
@@ -1476,7 +1602,9 @@ limit 5;
 -   SQLite represents dates as YYYY-MM-DD strings or as Julian days or as Unix milliseconds or…
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
+</section>
 
+<section markdown="1">
 ## 058: count experiments started per day without gaps
 
 ```sql
@@ -1517,7 +1645,9 @@ limit 5
 | 2023-02-01 | 0       |
 | 2023-02-02 | 1       |
 ```
+</section>
 
+<section markdown="1">
 ## 059: self join
 
 ```sql
@@ -1550,7 +1680,9 @@ limit 10;
     -   Give copies aliases using `as` to distinguish them
     -   Nothing special about the name `left` and `right`
 -   Get all *n<sup>2</sup>* pairs, including person with themself
+</section>
 
+<section markdown="1">
 ## 060: generate unique pairs
 
 ```sql
@@ -1579,7 +1711,9 @@ where left.ident <= 4 and right.ident <= 4;
 -   `left.ident < right.ident` ensures distinct pairs without duplicates
 -   Use `left.ident <= 4 and right.ident <= 4` to limit output
 -   Quick check: n*(n-1)/2 pairs
+</section>
 
+<section markdown="1">
 ## 061: filter pairs
 
 ```sql
@@ -1624,7 +1758,9 @@ on left.ident = left_staff and right.ident = right_staff;
 | Kaira Chander   | Bhavin Ravel |
 | Aarav Loyal     | Faiyaz Devan |
 ```
+</section>
 
+<section markdown="1">
 ## 062: existence and correlated subqueries
 
 ```sql
@@ -1649,7 +1785,9 @@ order by name;
 -   `select 1` could equally be `select true` or any other value
 -   A *correlated subquery* depends on a value from the outer query
     -   Equivalent to nested loop
+</section>
 
+<section markdown="1">
 ## 063: nonexistence
 
 ```sql
@@ -1667,7 +1805,9 @@ order by name;
 |---------------|----------|
 | Endocrinology | TGVH     |
 ```
+</section>
 
+<section markdown="1">
 ## null: avoiding correlated subqueries
 
 ```sql
@@ -1688,7 +1828,9 @@ order by name;
 
 -   The join might or might not be faster than the correlated subquery
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
+</section>
 
+<section markdown="1">
 ## 064: lead and lag
 
 ```sql
@@ -1729,7 +1871,9 @@ order by ym;
     -   Clumsy, but date/time handling is not SQLite's strong point
 -   Use *window functions* `lead` and `lag` to shift values
     -   Unavailable values are null
+</section>
 
+<section markdown="1">
 ## 065: window functions
 
 ```sql
@@ -1768,7 +1912,9 @@ order by ym;
 
 -   `sum() over` does a running total
 -   `cume_dist` is fraction *of rows seen so far*
+</section>
 
+<section markdown="1">
 ## null: explain another query plain
 
 ```sql
@@ -1802,7 +1948,9 @@ QUERY PLAN
 ```
 
 -   Becomes useful…eventually
+</section>
 
+<section markdown="1">
 ## 066: partitioned windows
 
 ```sql
@@ -1842,7 +1990,9 @@ order by year, month;
 
 -   `partition by` creates groups
 -   So this counts experiments started since the beginning of each year
+</section>
 
+<section markdown="1">
 ## 067: blobs
 
 ```sql
@@ -1881,7 +2031,9 @@ select name, length(content) from images;
 -   A *blob* is a binary large object
     -   Bytes in, bytes out…
 -   If you think that's odd, check out [Fossil][fossil]
+</section>
 
+<section markdown="1">
 ## null: yet another database
 
 ```bash
@@ -1905,7 +2057,9 @@ CREATE TABLE usage(
        log              text not null
 );
 ```
+</section>
 
+<section markdown="1">
 ## 068: store JSON
 
 ```sql
@@ -1924,7 +2078,9 @@ select * from machine;
 -   Alternatively store as blob
     -   Can't just view it
     -   But more efficient
+</section>
 
+<section markdown="1">
 ## 069: select field from JSON
 
 ```sql
@@ -1947,7 +2103,9 @@ from machine;
 -   Right side is *path expression*
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
+</section>
 
+<section markdown="1">
 ## 070: JSON array access
 
 ```sql
@@ -1976,7 +2134,9 @@ from usage;
 -   `json_array_length` gives number of elements in selected array
 -   subscripts start with 0
 -   Characters outside 7-bit ASCII represented as Unicode escapes
+</section>
 
+<section markdown="1">
 ## 071: unpack JSON array
 
 ```sql
@@ -2009,7 +2169,9 @@ limit 10;
 
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
+</section>
 
+<section markdown="1">
 ## 072: last element of array
 
 ```sql
@@ -2028,7 +2190,9 @@ limit 5;
 | 4     | "sterilizer" |
 | 5     | "sterilizer" |
 ```
+</section>
 
+<section markdown="1">
 ## 073: modify JSON
 
 ```sql
@@ -2049,7 +2213,9 @@ from machine;
 
 -   Updates the in-memory copy of the JSON, *not* the database record
 -   Please use `json_quote` rather than trying to format JSON with string operations
+</section>
 
+<section markdown="1">
 ## null: refresh penguins
 
 ```sql
@@ -2066,7 +2232,9 @@ group by species;
 ```
 
 -   We will restore full database after each example
+</section>
 
+<section markdown="1">
 ## 074: tombstones
 
 ```sql
@@ -2090,7 +2258,9 @@ group by species;
 
 -   Use a *tombstone* to mark (in)active records
 -   Every query must now include it
+</section>
 
+<section markdown="1">
 ## 075: views
 
 ```sql
@@ -2133,7 +2303,9 @@ group by species;
     -   Views came first
 -   Some databases offer *materialized views*
     -   Update-on-demand temporary tables
+</section>
 
+<section markdown="1">
 ## null: hours reminder
 
 ```sql
@@ -2153,7 +2325,9 @@ select * from job;
 | calibrate | 1.5      |
 | clean     | 0.5      |
 ```
+</section>
 
+<section markdown="1">
 ## 076: add check
 
 ```sql
@@ -2177,14 +2351,18 @@ Runtime error: CHECK constraint failed: billable > 0.0 (19)
     -   Must produce a Boolean result
     -   Run each time values added or modified
 -   But changes made before the error have taken effect
+</section>
 
+<section markdown="1">
 ## null: ACID
 
 -   *Atomic*: change cannot be broken down into smaller ones (i.e., all or nothing)
 -   *Consistent*: database goes from one consistent state to another
 -   *Isolated*: looks like changes happened one after another
 -   *Durable*: if change takes place, it's still there after a restart
+</section>
 
+<section markdown="1">
 ## 077: transactions
 
 ```
@@ -2215,7 +2393,9 @@ select * from job;
 -   Can have any number of statements inside a transaction
 -   But *cannot* nest transactions in SQLite
     -   Other databases support this
+</section>
 
+<section markdown="1">
 ## 078: rollback in constraint
 
 ```sql
@@ -2241,7 +2421,9 @@ select * from job;
 
 -   All of second `insert` rolled back as soon as error occurred
 -   But first `insert` took effect
+</section>
 
+<section markdown="1">
 ## 079: rollback in statement
 
 ```sql
@@ -2268,7 +2450,9 @@ Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
 
 -   Constraint is in table definition
 -   Action is in statement
+</section>
 
+<section markdown="1">
 ## null: normalization
 
 -   First normal form (1NF):
@@ -2280,7 +2464,9 @@ Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
 
 -   *Denormalization*: explicitly store values that could be calculated on the fly
     -   To simplify queries and/or make processing faster
+</section>
 
+<section markdown="1">
 ## 080: triggers
 
 -   A *trigger* automatically runs before or after a specified operation
@@ -2393,7 +2579,9 @@ Runtime error near line 55: Unknown person  (19)
 | gene   | 2.5   |
 | august | 0.5   |
 ```
+</section>
 
+<section markdown="1">
 ## null: represent graphs
 
 ```sql
@@ -2425,7 +2613,9 @@ select * from lineage;
 ```
 
 ![lineage diagram](./img/lineage.svg)
+</section>
 
+<section markdown="1">
 ## 081: recursive query
 
 ```sql
@@ -2459,7 +2649,9 @@ select person, generations from descendent;
     -   Can use `union` but that has lower performance (must check uniqueness each time)
 -   Stops when the recursive case yields an empty row set (nothing new to add)
 -   Then select the desired values from the CTE
+</section>
 
+<section markdown="1">
 ## null: contact tracing database
 
 ```sql
@@ -2502,7 +2694,9 @@ select * from contact;
 ```
 
 ![contact diagram](./img/contact_tracing.svg)
+</section>
 
+<section markdown="1">
 ## 082: bidirectional contacts
 
 ```sql
@@ -2535,7 +2729,9 @@ select count(*) as num_contact from bi_contact;
 -   Create a *temporary table* rather than using a long chain of CTEs
     -   Only lasts as long as the session (not saved to disk)
 -   Duplicate information rather than writing more complicated query
+</section>
 
+<section markdown="1">
 ## 083: update group identifiers
 
 ```sql
@@ -2572,7 +2768,9 @@ from
 
 -   `new_ident` is minimum of own identifier and identifiers one step away
 -   Doesn't keep people with no contacts
+</section>
 
+<section markdown="1">
 ## 084: recursive labeling
 
 ```sql
@@ -2617,7 +2815,9 @@ order by label, name;
 ```
 
 -   Use `union` instead of `union all` to prevent *infinite recursion*
+</section>
 
+<section markdown="1">
 ## 085: query from Python
 
 ```py
@@ -2637,7 +2837,9 @@ print(rows)
 -   Get a *cursor* by executing a query
     -   More common to create cursor and use that to run queries
 -   Fetch all rows at once as list of tuples
+</section>
 
+<section markdown="1">
 ## 086: incremental fetch
 
 ```py
@@ -2657,7 +2859,9 @@ while (row := cursor.fetchone()):
 
 -   `cursor.fetchone` returns `None` when no more data
 -   There is also `fetchmany(N)` to fetch (up to) a certain number of rows
+</section>
 
+<section markdown="1">
 ## 087: insert, delete, and all that
 
 ```py
@@ -2677,7 +2881,9 @@ after deletion [(20,)]
 ```
 
 -   Each `execute` is its own transaction
+</section>
 
+<section markdown="1">
 ## 088: interpolate values
 
 ```py
@@ -2695,7 +2901,9 @@ after insertion [(10,), (20,)]
 -   From [XKCD][xkcd-tables]
 
 ![XKCD Exploits of a Mom](./img/xkcd_327_exploits_of_a_mom.png)
+</section>
 
+<section markdown="1">
 ## 089: script execution
 
 ```py
@@ -2715,7 +2923,9 @@ after insertion [(10,), (20,)]
 ```
 
 -   But what if something goes wrong?
+</section>
 
+<section markdown="1">
 ## 090: SQLite exceptions in Python
 
 ```py
@@ -2738,7 +2948,9 @@ print("after execution", cursor.execute("select * from example;").fetchall())
 SQLite exception: CHECK constraint failed: num > 0
 after execution [(10,)]
 ```
+</section>
 
+<section markdown="1">
 ## 091: Python in SQLite
 
 ```py
@@ -2769,7 +2981,9 @@ for row in cursor.execute("select num, clip(num) from example;").fetchall():
 -   SQLite calls back into Python to execute the function
 -   Other databases can run Python (and other languages) in the database server process
 -   Be careful
+</section>
 
+<section markdown="1">
 ## 092: handle dates and times
 
 ```py
@@ -2815,7 +3029,9 @@ for row in cursor.execute("select * from events;").fetchall():
 
 -   `sqlite3.PARSE_DECLTYPES` tells `sqlite3` library to use converts based on declared column types
 -   Adapt on the way in, convert on the way out
+</section>
 
+<section markdown="1">
 ## 092: SQL in Jupyter notebooks
 
 ```bash
@@ -2876,7 +3092,9 @@ Running query in 'sqlite:///data/penguins.db'
     </tr>
   </tbody>
 </table>
+</section>
 
+<section markdown="1">
 ## 093: Pandas and SQL
 
 ```bash
@@ -2900,7 +3118,9 @@ print(df)
 ```
 
 -   Be careful about datatype conversion
+</section>
 
+<section markdown="1">
 ## 094: Polars and SQL
 
 ```bash
@@ -2931,10 +3151,10 @@ shape: (3, 2)
 -   The *Uniform Resource Identifier* (URI) specifies the database
 -   The query is the query
 -   Use the ADBC engine instead of the default ConnectorX
+</section>
 
----
-
-## *Acknowledgments*
+<section class="appendix" markdown="1">
+## Acknowledgments
 
 This tutorial would not have been possible without:
 
@@ -2945,8 +3165,10 @@ This tutorial would not have been possible without:
 I would also like to thank the following for spotting issues, making suggestions, or submitting changes:
 
 {% include thanks.html %}
+</section>
 
-## *To Do*
+<section class="appendix" markdown="1">
+## To Do
 
 -   upsert
 -   `create index` and why
