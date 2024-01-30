@@ -7,4 +7,5 @@ jupysql
 pandas
 polars
 pyarrow
+sqlmodel
 sqlparse

@@ -3153,6 +3153,70 @@ shape: (3, 2)
 -   Use the ADBC engine instead of the default ConnectorX
 </section>
 
+<section markdown="1">
+## 095: object-relational mapper
+
+```py
+from sqlmodel import Field, Session, SQLModel, create_engine, select
+
+class Department(SQLModel, table=True):
+    ident: str = Field(default=None, primary_key=True)
+    name: str
+    building: str
+
+engine = create_engine("sqlite:///data/assays.db")
+with Session(engine) as session:
+    statement = select(Department)
+    for result in session.exec(statement).all():
+        print(result)
+```
+```
+ident='gen' building='Chesson' name='Genetics'
+ident='hist' building='Fashet Extension' name='Histology'
+ident='mb' building='Chesson' name='Molecular Biology'
+ident='end' building='TGVH' name='Endocrinology'
+```
+
+-   An *object-relational mapper* (ORM) translates table columns to object properties and vice versa
+-   SQLModel relies on Python type hints
+</section>
+
+<section markdown="1">
+## 096: relations with ORM
+
+```py
+from typing import Optional
+
+class Staff(SQLModel, table=True):
+    ident: str = Field(default=None, primary_key=True)
+    personal: str
+    family: str
+    dept: Optional[str] = Field(default=None, foreign_key="department.ident")
+    age: int
+
+engine = create_engine("sqlite:///data/assays.db")
+SQLModel.metadata.create_all(engine)
+with Session(engine) as session:
+    statement = select(Department, Staff).where(Staff.dept == Department.ident)
+    for dept, staff in session.exec(statement):
+        print(f"{dept.name}: {staff.personal} {staff.family}")
+```
+```
+Histology: Divit Dhaliwal
+Molecular Biology: Indrans Sridhar
+Molecular Biology: Pranay Khanna
+Histology: Vedika Rout
+Genetics: Abram Chokshi
+Histology: Romil Kapoor
+Molecular Biology: Ishaan Ramaswamy
+Genetics: Nitya Lal
+```
+
+-   Make foreign keys explicit in class definitions
+-   SQLModel automatically does the join
+    -   The two staff with no department aren't included in the result
+</section>
+
 <section class="appendix" markdown="1">
 ## Acknowledgments
 
@@ -3173,8 +3237,6 @@ I would also like to thank the following for spotting issues, making suggestions
 -   upsert
 -   `create index` and why
 -   TODO: `autocommit` seems to have no effect with Python 3.12.1
--   SQLAlchemy
--   Pony ORM (doesn't seem to work with Python 3.12 but does with 3.11)
 
 [albrecht-andi]: http://andialbrecht.de/
 [art-postgresql]: https://theartofpostgresql.com/
