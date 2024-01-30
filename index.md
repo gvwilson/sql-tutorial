@@ -3173,7 +3173,8 @@ I would also like to thank the following for spotting issues, making suggestions
 -   upsert
 -   `create index` and why
 -   TODO: `autocommit` seems to have no effect with Python 3.12.1
--   Pandas/Polars
+-   SQLAlchemy
+-   Pony ORM (doesn't seem to work with Python 3.12 but does with 3.11)
 
 [albrecht-andi]: http://andialbrecht.de/
 [art-postgresql]: https://theartofpostgresql.com/
