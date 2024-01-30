@@ -3,3 +3,4 @@
 .ipynb_checkpoints
 .jekyll-cache
 _site
+*.bkp

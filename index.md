@@ -308,7 +308,7 @@ limit 3;
 </section>
 
 <section markdown="1">
-## null: check in
+## null: check your understanding
 
 ![concept map: selection](./img/concept_map_select.svg)
 
@@ -468,6 +468,13 @@ where sex is null;
 
 -   Use `is null` and `is not null` to handle null safely
 -   Other parts of SQL handle nulls specially
+</section>
+
+<section markdown="1">
+## null: check your understanding
+
+![concept map: null](./img/concept_map_null.svg)
+
 </section>
 
 <section markdown="1">
