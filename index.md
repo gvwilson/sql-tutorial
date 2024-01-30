@@ -3238,13 +3238,6 @@ I would also like to thank the following for spotting issues, making suggestions
 {% include thanks.html %}
 </section>
 
-<section class="appendix" markdown="1">
-## To Do
-
--   upsert
--   `create index` and why
--   TODO: `autocommit` seems to have no effect with Python 3.12.1
-
 [albrecht-andi]: http://andialbrecht.de/
 [art-postgresql]: https://theartofpostgresql.com/
 [fontaine-dimitri]: https://tapoueh.org/
