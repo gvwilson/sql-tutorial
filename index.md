@@ -1435,7 +1435,7 @@ where personal like '%ya%' or family glob '*De*';
 -   `glob` supports Unix-style wildcards
 
 | name      | purpose |
-| --------- | |
+| --------- | ------- |
 | `substr`  | Get substring given starting point and length |
 | `trim`    | Remove characters from beginning and end of string |
 | `ltrim`   | Remove characters from beginning of string |
@@ -1445,6 +1445,7 @@ where personal like '%ya%' or family glob '*De*';
 | `upper`   | Return upper-case version of string |
 | `lower`   | Return lower-case version of string |
 | `instr`   | Find location of first occurrence of substring (returns 0 if not found) |
+
 </section>
 
 <section markdown="1">
