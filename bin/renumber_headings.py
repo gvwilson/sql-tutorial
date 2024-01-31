@@ -5,13 +5,18 @@ with open(sys.argv[1], "r") as reader:
 
 num = 1
 for i, line in enumerate(text):
+    if 'class="appendix"' in line:
+        break
     if not line.startswith("##"):
         continue
     line = line.lstrip("#").strip()
     if line.startswith("*"):
         text[i] = f"## {line}\n"
         continue
-    front, back = line.split(":", 1)
+    try:
+        front, back = line.split(":", 1)
+    except ValueError as exc:
+        print(f"{exc} ({i}) {line.lstrip()}")
     fill = "null"
     if front != "null":
         fill = f"{num:03d}"

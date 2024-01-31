@@ -1,0 +1,14 @@
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE person(
+       ident            integer primary key autoincrement,
+       details          text not null
+);
+CREATE TABLE machine(
+       ident            integer primary key autoincrement,
+       name             text not null,
+       details          text not null
+);
+CREATE TABLE usage(
+       ident            integer primary key autoincrement,
+       log              text not null
+);

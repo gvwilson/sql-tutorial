@@ -1,0 +1,12 @@
+| species |  island   |  sex   |
+|---------|-----------|--------|
+| Adelie  | Dream     | MALE   |
+| Adelie  | Dream     | FEMALE |
+| Gentoo  | Biscoe    | MALE   |
+| Adelie  | Torgersen | MALE   |
+| Adelie  | Biscoe    | FEMALE |
+| Gentoo  | Biscoe    | FEMALE |
+| Adelie  | Dream     | FEMALE |
+| Gentoo  | Biscoe    | FEMALE |
+| Adelie  | Torgersen | MALE   |
+| Gentoo  | Biscoe    | MALE   |

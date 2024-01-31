@@ -1,0 +1,3 @@
+QUERY PLAN
+|--SCAN penguins
+`--USE TEMP B-TREE FOR GROUP BY

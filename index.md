@@ -2,408 +2,199 @@
 home: true
 ---
 <section markdown="1">
+
 ## null: connect to database
 
-```bash
-$ sqlite3 data/penguins.db
-```
+{% include miscfile.md file="connect_penguins.sh" %}
 
 -   Not actually a query
 -   But we have to do it before we can do anything else
-</section>
 
+</section>
 <section markdown="1">
+
 ## 001: select constant
 
-```sql
-select 1;
-```
-```
-1
-```
+{% include without.md file="select_1.sql" %}
 
 -   `select` is a keyword
 -   Normally used to select data from table…
 -   …but if all we want is a constant value, we don't need to specify one
 -   Semi-colon terminator is required
-</section>
 
+</section>
 <section markdown="1">
+
 ## 002: select all values from table
 
-```sql
-select * from little_penguins;
-```
-```
-Adelie|Torgersen|38.5|17.9|190|3325|FEMALE
-Adelie|Biscoe|37.7|18.7|180|3600|MALE
-Adelie|Torgersen|37.3|20.5|199|3775|MALE
-Adelie|Dream|40.7|17|190|3725|MALE
-Chinstrap|Dream|51|18.8|203|4100|MALE
-Chinstrap|Dream|51.9|19.5|206|3950|MALE
-Adelie|Dream|38.8|20|190|3950|MALE
-Gentoo|Biscoe|45.2|15.8|215|5300|MALE
-Adelie|Torgersen|35.9|16.6|190|3050|FEMALE
-Chinstrap|Dream|45.2|16.6|191|3250|FEMALE
-```
+{% include without.md file="select_star.sql" %}
 
 -   Use `*` to mean "all columns"
 -   Use <code>from <em>tablename</em></code> to specify table
 -   Output format is not particularly readable
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: administrative commands
 
-```sql
-.headers on
-.mode markdown
-select * from little_penguins;
-```
-```
-|  species  |  island   | bill_length_mm | bill_depth_mm | flipper_length_mm | body_mass_g |  sex   |
-|-----------|-----------|----------------|---------------|-------------------|-------------|--------|
-| Adelie    | Torgersen | 38.5           | 17.9          | 190               | 3325        | FEMALE |
-| Adelie    | Biscoe    | 37.7           | 18.7          | 180               | 3600        | MALE   |
-| Adelie    | Torgersen | 37.3           | 20.5          | 199               | 3775        | MALE   |
-| Adelie    | Dream     | 40.7           | 17            | 190               | 3725        | MALE   |
-| Chinstrap | Dream     | 51             | 18.8          | 203               | 4100        | MALE   |
-| Chinstrap | Dream     | 51.9           | 19.5          | 206               | 3950        | MALE   |
-| Adelie    | Dream     | 38.8           | 20            | 190               | 3950        | MALE   |
-| Gentoo    | Biscoe    | 45.2           | 15.8          | 215               | 5300        | MALE   |
-| Adelie    | Torgersen | 35.9           | 16.6          | 190               | 3050        | FEMALE |
-| Chinstrap | Dream     | 45.2           | 16.6          | 191               | 3250        | FEMALE |
-```
+{% include without.md file="admin_commands.sql" %}
 
 -   SQLite administrative commands start with `.` and *aren't* part of the SQL standard
     -   PostgreSQL's special commands start with `\`
 -   Use `.help` for a complete list
-</section>
 
+</section>
 <section markdown="1">
+
 ## 003: specify columns
 
-```sql
-select species, island, sex
-from little_penguins;
-```
-```
-|  species  |  sex   |  island   |
-|-----------|--------|-----------|
-| Adelie    | FEMALE | Torgersen |
-| Adelie    | MALE   | Biscoe    |
-| Adelie    | MALE   | Torgersen |
-| Adelie    | MALE   | Dream     |
-| Chinstrap | MALE   | Dream     |
-| Chinstrap | MALE   | Dream     |
-| Adelie    | MALE   | Dream     |
-| Gentoo    | MALE   | Biscoe    |
-| Adelie    | FEMALE | Torgersen |
-| Chinstrap | FEMALE | Dream     |
-```
+{% include without.md file="specify_columns.sql" %}
 
 -   Specify column names separated by commas
     -   In any order
     -   Duplicates allowed
 -   Line breaks <strike>allowed</strike> encouraged for readability
-</section>
 
+</section>
 <section markdown="1">
+
 ## 004: sort
 
-```sql
-select species, sex, island
-from little_penguins
-order by island asc, sex desc;
-```
-```
-|  species  |  sex   |  island   |
-|-----------|--------|-----------|
-| Adelie    | MALE   | Biscoe    |
-| Gentoo    | MALE   | Biscoe    |
-| Adelie    | MALE   | Dream     |
-| Chinstrap | MALE   | Dream     |
-| Chinstrap | MALE   | Dream     |
-| Adelie    | MALE   | Dream     |
-| Chinstrap | FEMALE | Dream     |
-| Adelie    | MALE   | Torgersen |
-| Adelie    | FEMALE | Torgersen |
-| Adelie    | FEMALE | Torgersen |
-```
+{% include without.md file="sort.sql" %}
 
 -   `order by` must follow `from` (which must follow `select`)
 -   `asc` is ascending, `desc` is descending
     -   Default is ascending, but please specify
-</section>
 
+</section>
 <section markdown="1">
+
 ## 005: limit output
 
 -   Full dataset has 344 rows
 
-```sql
-select species, sex, island
-from penguins -- full table
-limit 5;
-```
-```
-| species |  sex   |  island   |
-|---------|--------|-----------|
-| Adelie  | MALE   | Torgersen |
-| Adelie  | FEMALE | Torgersen |
-| Adelie  | FEMALE | Torgersen |
-| Adelie  |        | Torgersen |
-| Adelie  | FEMALE | Torgersen |
-```
+{% include without.md file="limit.sql" %}
 
 -   Comments start with `--` and run to the end of the line
 -   <code>limit <em>N</em></code> specifies maximum number of rows returned by query
-</section>
 
+</section>
 <section markdown="1">
+
 ## 006: page output
 
-```sql
-select species, sex, island
-from penguins
-limit 5 offset 5;
-```
-```
-| species |  sex   |  island   |
-|---------|--------|-----------|
-| Adelie  | MALE   | Torgersen |
-| Adelie  | FEMALE | Torgersen |
-| Adelie  | MALE   | Torgersen |
-| Adelie  |        | Torgersen |
-| Adelie  |        | Torgersen |
-```
+{% include without.md file="page.sql" %}
 
 -   <code>offset <em>N</em></code> must follow `limit`
 -   Specifies number of rows to skip
-</section>
 
+</section>
 <section markdown="1">
+
 ## 007: remove duplicates
 
-```sql
-select distinct species, sex, island
-from penguins;
-```
-```
-|  species  |  sex   |  island   |
-|-----------|--------|-----------|
-| Adelie    | MALE   | Torgersen |
-| Adelie    | FEMALE | Torgersen |
-| Adelie    |        | Torgersen |
-| Adelie    | FEMALE | Biscoe    |
-| Adelie    | MALE   | Biscoe    |
-| Adelie    | FEMALE | Dream     |
-| Adelie    | MALE   | Dream     |
-| Adelie    |        | Dream     |
-| Chinstrap | FEMALE | Dream     |
-| Chinstrap | MALE   | Dream     |
-| Gentoo    | FEMALE | Biscoe    |
-| Gentoo    | MALE   | Biscoe    |
-| Gentoo    |        | Biscoe    |
-```
+{% include without.md file="distinct.sql" %}
 
 -   `distinct` keyword must appear right after `select`
-    -   SQL was supposed to read like English…
+    -   SQL was supposed to read like English
 -   Shows distinct combinations
 -   Blanks in `sex` column show missing data
     -   We'll talk about this in a bit
-</section>
 
+</section>
 <section markdown="1">
+
 ## 008: filter results
 
-```sql
-select distinct species, sex, island
-from penguins
-where island = 'Biscoe';
-```
-```
-| species |  sex   | island |
-|---------|--------|--------|
-| Adelie  | FEMALE | Biscoe |
-| Adelie  | MALE   | Biscoe |
-| Gentoo  | FEMALE | Biscoe |
-| Gentoo  | MALE   | Biscoe |
-| Gentoo  |        | Biscoe |
-```
+{% include without.md file="filter.sql" %}
 
 -   <code>where <em>condition</em></code> filters the rows produced by selection
 -   Condition is evaluated independently for each row
 -   Only rows that pass the test appear in results
 -   Use single quotes for `'text data'` and double quotes for `"weird column names"`
     -   SQLite will accept double-quoted text data
-</section>
 
+</section>
 <section markdown="1">
+
 ## 009: filter with more complex conditions
 
-```sql
-select distinct species, sex, island
-from penguins
-where island = 'Biscoe' and sex != 'MALE';
-```
-```
-| species |  sex   | island |
-|---------|--------|--------|
-| Adelie  | FEMALE | Biscoe |
-| Gentoo  | FEMALE | Biscoe |
-```
+{% include without.md file="filter_and.sql" %}
 
 -   `and`: both sub-conditions must be true
 -   `or`: either or both part must be true
 -   Notice that the row for Gentoo penguins on Biscoe island with unknown (empty) sex didn't pass the test
     -   We'll talk about this in a bit
-</section>
 
+</section>
 <section markdown="1">
+
 ## 010: do calculations
 
-```sql
-select
-    flipper_length_mm / 10.0,
-    body_mass_g / 1000.0
-from penguins
-limit 3;
-```
-```
-| flipper_length_mm / 10.0 | body_mass_g / 1000.0 |
-|--------------------------|----------------------|
-| 18.1                     | 3.75                 |
-| 18.6                     | 3.8                  |
-| 19.5                     | 3.25                 |
-```
+{% include without.md file="calculations.sql" %}
 
 -   Can do the usual kinds of arithmetic on individual values
     -   Calculation done for each row independently
 -   Column name shows the calculation done
-</section>
 
+</section>
 <section markdown="1">
+
 ## 011: rename columns
 
-```sql
-select
-    flipper_length_mm / 10.0 as flipper_cm,
-    body_mass_g / 1000.0 as weight_kg,
-    island as where_found
-from penguins
-limit 3;
-```
-```
-| flipper_cm | weight_kg | where_found |
-|------------|-----------|-------------|
-| 18.1       | 3.75      | Torgersen   |
-| 18.6       | 3.8       | Torgersen   |
-| 19.5       | 3.25      | Torgersen   |
-```
+{% include without.md file="rename_columns.sql" %}
 
 -   Use <code><em>expression</em> as <em>name</em></code> to rename
 -   Give result of calculation a meaningful name
 -   Can also rename columns without modifying
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: check your understanding
 
 ![concept map: selection](./img/concept_map_select.svg)
 
 </section>
-
 <section markdown="1">
-## 012: calculate with missing values
 
-```sql
-select
-    flipper_length_mm / 10.0 as flipper_cm,
-    body_mass_g / 1000.0 as weight_kg,
-    island as where_found
-from penguins
-limit 5;
-```
-```
-| flipper_cm | weight_kg | where_found |
-|------------|-----------|-------------|
-| 18.1       | 3.75      | Torgersen   |
-| 18.6       | 3.8       | Torgersen   |
-| 19.5       | 3.25      | Torgersen   |
-|            |           | Torgersen   |
-| 19.3       | 3.45      | Torgersen   |
-```
+## 012: calculate with missing values
+{% include without.md file="show_missing_values.sql" %}
 
 -   SQL uses a special value `null` to representing missing data
     -   Not 0 or empty string, but "I don't know"
 -   Flipper length and body weight not known for one of the first five penguins
 -   "I don't know" divided by 10 or 1000 is "I don't know"
-</section>
 
+</section>
 <section markdown="1">
+
 ## 013: null equality
 
-```sql
--- repeated from earlier so it doesn't count against our query limit
-select distinct species, sex, island
-from penguins
-where island = 'Biscoe';
-```
-```
-| species |  sex   | island |
-|---------|--------|--------|
-| Adelie  | FEMALE | Biscoe |
-| Adelie  | MALE   | Biscoe |
-| Gentoo  | FEMALE | Biscoe |
-| Gentoo  | MALE   | Biscoe |
-| Gentoo  |        | Biscoe |
-```
+-   Repeated from above so it doesn't count against our query limit
+
+{% include without.md file="filter.sql" %}
 
 -   If we ask for female penguins the row with the missing sex drops out
 
-```sql
-select distinct species, sex, island
-from penguins
-where island = 'Biscoe' and sex == 'FEMALE';
-```
-```
-| species |  sex   | island |
-|---------|--------|--------|
-| Adelie  | FEMALE | Biscoe |
-| Gentoo  | FEMALE | Biscoe |
-```
-</section>
+{% include without.md file="null_equality.sql" %}
 
+</section>
 <section markdown="1">
+
 ## 014: null inequality
 
 -   But if we ask for penguins that *aren't* female it drops out as well
 
-```sql
-select distinct species, sex, island
-from penguins
-where island = 'Biscoe' and sex != 'FEMALE';
-```
-```
-| species | sex  | island |
-|---------|------|--------|
-| Adelie  | MALE | Biscoe |
-| Gentoo  | MALE | Biscoe |
-```
-</section>
+{% include without.md file="null_inequality.sql" %}
 
+</section>
 <section markdown="1">
+
 ## 015: ternary logic
 
-```sql
-select null = null;
-```
-```
-| null = null |
-|-------------|
-|             |
-```
+{% include without.md file="ternary_logic.sql" %}
 
 -   If we don't know the left and right values, we don't know if they're equal or not
 -   So the result is `null`
@@ -440,551 +231,254 @@ select null = null;
     <td>null</td>
   </tr>
 </table>
-</section>
 
+</section>
 <section markdown="1">
+
 ## 016: handle null safely
 
-```sql
-select species, sex, island
-from penguins
-where sex is null;
-```
-```
-| species | sex |  island   |
-|---------|-----|-----------|
-| Adelie  |     | Torgersen |
-| Adelie  |     | Torgersen |
-| Adelie  |     | Torgersen |
-| Adelie  |     | Torgersen |
-| Adelie  |     | Torgersen |
-| Adelie  |     | Dream     |
-| Gentoo  |     | Biscoe    |
-| Gentoo  |     | Biscoe    |
-| Gentoo  |     | Biscoe    |
-| Gentoo  |     | Biscoe    |
-| Gentoo  |     | Biscoe    |
-```
+{% include without.md file="safe_null_equality.sql" %}
 
 -   Use `is null` and `is not null` to handle null safely
 -   Other parts of SQL handle nulls specially
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: check your understanding
 
 ![concept map: null](./img/concept_map_null.svg)
 
 </section>
-
 <section markdown="1">
+
 ## 017: aggregate
 
-```sql
-select sum(body_mass_g) as total_mass
-from penguins;
-```
-```
-| total_mass |
-|------------|
-| 1437000    |
-```
+{% include without.md file="simple_sum.sql" %}
 
 -   `sum` is an *aggregation function*
 -   Combines corresponding values from multiple rows
-</section>
 
+</section>
 <section markdown="1">
+
 ## 018: common aggregation functions
 
-```sql
-select
-    max(bill_length_mm) as longest_bill,
-    min(flipper_length_mm) as shortest_flipper,
-    avg(bill_length_mm) / avg(bill_depth_mm) as weird_ratio
-from penguins;
-```
-```
-| longest_bill | shortest_flipper |   weird_ratio    |
-|--------------|------------------|------------------|
-| 59.6         | 172              | 2.56087082530644 |
-```
+{% include without.md file="common_aggregations.sql" %}
 
--   This actually shouldn't work: can't calculate maximum or average if any values are null
+-   This actually shouldn't work:
+    can't calculate maximum or average if any values are null
 -   SQL does the useful thing instead of the right one
-</section>
 
+</section>
 <section markdown="1">
+
 ## 019: group
 
-```sql
-select
-    avg(body_mass_g) as average_mass_g
-from penguins
-group by sex;
-```
-```
-|  average_mass_g  |
-|------------------|
-| 4005.55555555556 |
-| 3862.27272727273 |
-| 4545.68452380952 |
-```
+{% include without.md file="simple_group.sql" %}
 
 -   Put rows in buckets based on distinct combinations of values in columns specified with `group by`
 -   Then perform aggregation separately for each bucket
 -   But, uh, which is which?
-</section>
 
+</section>
 <section markdown="1">
+
 ## 020: behavior of unaggregated columns
 
-```sql
-select
-    sex,
-    avg(body_mass_g) as average_mass_g
-from penguins
-group by sex;
-```
-```
-|  sex   |  average_mass_g  |
-|--------|------------------|
-|        | 4005.55555555556 |
-| FEMALE | 3862.27272727273 |
-| MALE   | 4545.68452380952 |
-```
+{% include without.md file="unaggregated_columns.sql" %}
 
 -   All rows in each group have the same value for `sex`, so no need to aggregate
-</section>
 
+</section>
 <section markdown="1">
+
 ## 021: arbitrary choice in aggregation
 
-```sql
-select
-    sex,
-    body_mass_g                   
-from penguins
-group by sex;
-```
-```
-|  sex   | body_mass_g |
-|--------|-------------|
-|        |             |
-| FEMALE | 3800        |
-| MALE   | 3750        |
-```
+{% include without.md file="arbitrary_in_aggregation.sql" %}
 
 -   If we don't specify how to aggregate a column, SQL can choose *any arbitrary value* from the group
 -   All penguins in each group have the same sex because we grouped by that, so we get the right answer
 -   The body mass values are in the data but unpredictable
 -   A common mistake
-</section>
 
+</section>
 <section markdown="1">
+
 ## 022: filter aggregated values
 
-```sql
-select
-    sex,
-    avg(body_mass_g) as average_mass_g
-from penguins
-group by sex
-having average_mass_g > 4000.0;
-```
-```
-| sex  |  average_mass_g  |
-|------|------------------|
-|      | 4005.55555555556 |
-| MALE | 4545.68452380952 |
-```
+{% include without.md file="filter_aggregation.sql" %}
 
 -   Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates
-</section>
 
+</section>
 <section markdown="1">
+
 ## 023: readable output
 
-```sql
-select
-    sex,
-    round(avg(body_mass_g), 1) as average_mass_g
-from penguins
-group by sex
-having average_mass_g > 4000.0;
-```
-```
-| sex  | average_mass_g |
-|------|----------------|
-|      | 4005.6         |
-| MALE | 4545.7         |
-```
+{% include without.md file="readable_aggregation.sql" %}
 
 -   Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number
-</section>
 
+</section>
 <section markdown="1">
+
 ## 024: filter aggregate inputs
 
-```sql
-select
-    sex,
-    round(
-        avg(body_mass_g) filter (where body_mass_g < 4000.0),
-        1
-    ) as average_mass_g
-from penguins
-group by sex;
-```
-```
-|  sex   | average_mass_g |
-|--------|----------------|
-|        | 3362.5         |
-| FEMALE | 3417.3         |
-| MALE   | 3752.5         |
-```
+{% include without.md file="filter_aggregate_inputs.sql" %}
 
 -   <code>filter (where <em>condition</em>)</code> applies to *inputs*
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: create in-memory database
 
-```bash
-$ sqlite3 :memory:
-```
+{% include miscfile.md file="in_memory_db.sh" %}
 
 -   "Connect" to an *in-memory* database
-</section>
 
+</section>
 <section markdown="1">
+
 ## 025: create tables
 
-```sql
-create table work(
-    person text not null,
-    job text not null
-);
-create table job(
-    name text not null,
-    billable real not null
-);
-```
+{% include without.md file="create_tables.sql" %}
 
 -   <code>create table <em>name</em></code> followed by parenthesized list of columns
 -   Each column is a name, a data type, and optional extra information
     -   E.g., `not null` prevents nulls from being added
-</section>
+-   `.schema` is *not* standard SQL
+-   SQLite has added a few things
+    -   `create if not exists`
+    -   upper-case keywords (SQL is case insensitive)
 
+</section>
 <section markdown="1">
+
 ## 026: insert data
 
-```sql
-insert into job values
-    ('calibrate', 1.5),
-    ('clean', 0.5)
-;
-insert into work values
-    ('mik', 'calibrate'),
-    ('mik', 'clean'),
-    ('mik', 'complain'),
-    ('po', 'clean'),
-    ('po', 'complain'),
-    ('tay', 'complain')
-;
-```
-```
-|   name    | billable |
-|-----------|----------|
-| calibrate | 1.5      |
-| clean     | 0.5      |
+{% include without.md file="insert_values.sql" %}
 
-| person |    job    |
-|--------|-----------|
-| mik    | calibrate |
-| mik    | clean     |
-| mik    | complain  |
-| po     | clean     |
-| po     | complain  |
-| tay    | complain  |
-```
 </section>
-
 <section markdown="1">
+
 ## 027: update rows
 
-```sql
-update work
-set person = "tae"
-where person = "tay";
+{% include without.md file="update_rows.sql" %}
 
-select * from work;
-```
-```
-| person |    job    |
-|--------|-----------|
-| mik    | calibrate |
-| mik    | clean     |
-| mik    | complain  |
-| po     | clean     |
-| po     | complain  |
-| tae    | complain  |
-```
 </section>
-
 <section markdown="1">
+
 ## 028: delete rows
 
-```sql
-delete from work
-where person = "tae";
+{% include without.md file="delete_rows.sql" %}
 
-select * from work;
-```
-```
-| person |    job    |
-|--------|-----------|
-| mik    | calibrate |
-| mik    | clean     |
-| mik    | complain  |
-| po     | clean     |
-| po     | complain  |
-```
 </section>
-
 <section markdown="1">
+
 ## 029: backing up
 
-```sql
-create table backup(
-    person text not null,
-    job text not null
-);
+{% include without.md file="backing_up.sql" %}
 
-insert into backup
-select person, job
-from work
-where person = 'tae';
-
-delete from work
-where person = 'tae';
-
-select * from backup;
-```
-```
-| person |   job    |
-|--------|----------|
-| tae    | complain |
-```
 </section>
-
 <section markdown="1">
+
 ## 030: join tables
 
-```sql
-select *
-from work cross join job;
-```
-```
-| person |    job    |   name    | billable |
-|--------|-----------|-----------|----------|
-| mik    | calibrate | calibrate | 1.5      |
-| mik    | calibrate | clean     | 0.5      |
-| mik    | clean     | calibrate | 1.5      |
-| mik    | clean     | clean     | 0.5      |
-| mik    | complain  | calibrate | 1.5      |
-| mik    | complain  | clean     | 0.5      |
-| po     | clean     | calibrate | 1.5      |
-| po     | clean     | clean     | 0.5      |
-| po     | complain  | calibrate | 1.5      |
-| po     | complain  | clean     | 0.5      |
-| tay    | complain  | calibrate | 1.5      |
-| tay    | complain  | clean     | 0.5      |
-```
+{% include without.md file="cross_join.sql" %}
 
 -   `cross join` (also called *outer join*) constructs cross product of tables
     -   All combinations of rows from each
 -   Result isn't particularly useful: `job` and `name` don't match
-</section>
 
+</section>
 <section markdown="1">
+
 ## 031: inner join
 
-```sql
-select *
-from work inner join job
-on work.job = job.name;
-```
-```
-| person |    job    |   name    | billable |
-|--------|-----------|-----------|----------|
-| mik    | calibrate | calibrate | 1.5      |
-| mik    | clean     | clean     | 0.5      |
-| po     | clean     | clean     | 0.5      |
-```
+{% include without.md file="inner_join.sql" %}
 
 -   Use <code><em>table</em>.<em>column</em></code> notation to specify columns
     -   A column can have the same name as a table
 -   Use <code>on <em>condition</em></code> to specify *join condition*
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
-</section>
 
+</section>
 <section markdown="1">
+
 ## 032: aggregate joined data
 
-```sql
-select
-    work.person,
-    sum(job.billable) as pay
-from work inner join job
-on work.job = job.name
-group by work.person;
-```
-```
-| person | pay |
-|--------|-----|
-| mik    | 2.0 |
-| po     | 0.5 |
-```
+{% include without.md file="aggregate_join.sql" %}
 
 -   Combines ideas we've seen before
 -   But Tay is missing from the table
-</section>
 
+</section>
 <section markdown="1">
+
 ## 033: left join
 
-```sql
-select *
-from work left join job
-on work.job = job.name;
-```
-```
-| person |    job    |   name    | billable |
-|--------|-----------|-----------|----------|
-| mik    | calibrate | calibrate | 1.5      |
-| mik    | clean     | clean     | 0.5      |
-| mik    | complain  |           |          |
-| po     | clean     | clean     | 0.5      |
-| po     | complain  |           |          |
-| tay    | complain  |           |          |
-```
+{% include without.md file="left_join.sql" %}
 
 -   A *left outer join* keeps all rows from the left table
 -   Fills missing values from right table with null
-</section>
 
+</section>
 <section markdown="1">
+
 ## 034: aggregate left joins
 
-```sql
-select
-    work.person,
-    sum(job.billable) as pay
-from work left join job
-on work.job = job.name
-group by work.person;
-```
-```
-| person | pay |
-|--------|-----|
-| mik    | 2.0 |
-| po     | 0.5 |
-| tay    |     |
-```
+{% include without.md file="aggregate_left_join.sql" %}
 
 -   That's better, but we'd like to see 0 rather than a blank
-</section>
 
+</section>
 <section markdown="1">
+
 ## 035: coalesce values
 
-```sql
-select
-    work.person,
-    coalesce(sum(job.billable), 0.0) as pay
-from work left join job
-on work.job = job.name
-group by work.person;
-```
-```
-| person | pay |
-|--------|-----|
-| mik    | 2.0 |
-| po     | 0.5 |
-| tay    | 0.0 |
-```
+{% include without.md file="coalesce.sql" %}
 
 -   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
-</section>
 
+</section>
 <section markdown="1">
+
 ## 036: negate incorrectly
 
 -   Who doesn't calibrate?
 
-```sql
-select distinct person
-from work
-where job != 'calibrate';
-```
-```
-| person |
-|--------|
-| mik    |
-| po     |
-| tay    |
-```
+{% include without.md file="negate_incorrectly.sql" %}
 
 -   But Mik *does* calibrate
 -   Problem is that there's an entry for Mik cleaning
 -   And since `'clean' != 'calibrate'`, that row is included in the results
 -   We need a different approach
-</section>
 
+</section>
 <section markdown="1">
+
 ## 037: set membership
 
-```sql
-select *
-from work
-where person not in ('mik', 'tay');
-```
-```
-| person |   job    |
-|--------|----------|
-| po     | clean    |
-| po     | complain |
-```
+{% include without.md file="set_membership.sql" %}
 
 -   <code>in <em>values</em></code> and <code>not in <em>values</em></code> do exactly what you expect
-</section>
 
+</section>
 <section markdown="1">
+
 ## 038: subqueries
 
-```sql
-select distinct person
-from work
-where person not in (
-    select distinct person
-    from work
-    where job = 'calibrate'
-);
-```
-```
-| person |
-|--------|
-| po     |
-| tay    |
-```
+{% include without.md file="subquery_set.sql" %}
 
 -   Use a *subquery* to select the people who *do* calibrate
 -   Then select all the people who aren't in that set
 -   Initially feels odd, but subqueries are useful in other ways
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: M to N relationships
 
 -   Relationships between entities are usually characterized as:
@@ -994,60 +488,35 @@ where person not in (
 -   Nearly-universal solution is a *join table*
     -   Each record is a pair of foreign keys
     -   I.e., each record is the fact that records A and B are related
-</section>
 
+</section>
 <section markdown="1">
+
 ## 039: autoincrement and primary key
 
-```sql
-create table person(
-    ident integer primary key autoincrement,
-    name text not null
-);
-insert into person values
-    (null, 'mik'),
-    (null, 'po'),
-    (null, 'tay')
-;
-select * from person;
-```
-```
-| ident | name |
-|-------|------|
-| 1     | mik  |
-| 2     | po   |
-| 3     | tay  |
-```
+{% include without.md file="autoincrement.sql" %}
 
 -   Database automatically increments `ident` each time a new record is added
 -   Use that field as the primary key
-    -   So that if Mik changes their name again, we only have to change one fact in the database
+    -   So that if Mik changes their name again,
+        we only have to change one fact in the database
     -   Downside: manual queries are harder to read (who is person 17?)
-</section>
 
+</section>
 <section markdown="1">
+
+## null: internal tables
+
+{% include without.md file="sequence_table.sql" %}
+
+-   Sequence numbers are *not* reset when rows are deleted
+
+</section>
+<section markdown="1">
+
 ## 040: alter tables
 
-```sql
-alter table job
-add ident integer not null default -1;
-
-update job
-set ident = 1
-where name = 'calibrate';
-
-update job
-set ident = 2
-where name = 'clean';
-
-select * from job;
-```
-```
-|   name    | billable | ident |
-|-----------|----------|-------|
-| calibrate | 1.5      | 1     |
-| clean     | 0.5      | 2     |
-```
+{% include without.md file="alter_tables.sql" %}
 
 -   Add a column after the fact
 -   Since it can't be null, we have to provide a default value
@@ -1056,334 +525,121 @@ select * from job;
     -   Can modify any number of records at once
     -   So be careful about `where` clause
 -   *Data migration*
-</section>
 
+</section>
 <section markdown="1">
+
 ## 041: create new tables from old
 
-```sql
-create table new_work(
-    person_id integer not null,
-    job_id integer not null,
-    foreign key(person_id) references person(ident),
-    foreign key(job_id) references job(ident)
-);
-
-insert into new_work
-select
-    person.ident as person_id,
-    job.ident as job_id
-from
-    (person join work on person.name = work.person)
-    join job on job.name = work.job
-;
-select * from new_work;
-```
-```
-| person_id | job_id |
-|-----------|--------|
-| 1         | 1      |
-| 1         | 2      |
-| 2         | 2      |
-```
+{% include without.md file="insert_select.sql" %}
 
 -   `new_work` is our join table
 -   Each column refers to a record in some other table
-</section>
 
+</section>
 <section markdown="1">
+
 ## 042: remove tables
 
-```sql
-drop table work;
-alter table new_work rename to work;
-```
+{% include without.md file="drop_table.sql" %}
 
 -   Remove the old table and rename the new one to take its place
+    -   Note `if exists`
 -   Be careful…
+
 </section>
-
 <section markdown="1">
-## null: display schema
 
-```
-.schema
-```
-```
-CREATE TABLE job(
-    name text not null,
-    billable real not null,
-    ident integer not null default -1
-);
-CREATE TABLE person(
-    ident integer primary key autoincrement,
-    name text not null
-);
-CREATE TABLE sqlite_sequence(name, seq);
-CREATE TABLE IF NOT EXISTS "work"(
-    person_id integer not null,
-    job_id integer not null,
-    foreign key(person_id) references person(ident),
-    foreign key(job_id) references job(ident)
-);
-```
-
--   Remember, `.schema` is *not* standard SQL
--   SQLite has added a few things
-    -   `create if not exists`
-    -   upper-case keywords (SQL is case insensitive)
-    -   sequence ID table
-
-```sql
-select * from sqlite_sequence;
-```
-```
-|  name  | seq |
-|--------|-----|
-| person | 3   |
-```
-</section>
-
-<section markdown="1">
 ## 043: compare individual values to aggregates
 
 -   Go back to penguins
 
-```sql
-select body_mass_g
-from penguins
-where body_mass_g > (
-   select avg(body_mass_g)
-   from penguins
-)
-limit 5;
-```
-```
-| body_mass_g |
-|-------------|
-| 4675        |
-| 4250        |
-| 4400        |
-| 4500        |
-| 4650        |
-```
+{% include without.md file="compare_individual_aggregate.sql" %}
 
 -   Get average body mass in subquery
 -   Compare each row against that
 -   Requires two scans of the data, but there's no way to avoid that
 -   Null values aren't included in the average or in the final results
-</section>
 
+</section>
 <section markdown="1">
+
 ## 044: compare individual values to aggregates within groups
 
-```sql
-select
-    left.species,
-    left.body_mass_g,
-    round(right.avg_mass_g, 1) as avg_mass_g
-from penguins as left join (
-    select species, avg(body_mass_g) as avg_mass_g
-    from penguins
-    group by species
-) as right
-where left.body_mass_g > right.avg_mass_g
-limit 5;
-```
-```
-| species | body_mass_g | avg_mass_g |
-|---------|-------------|------------|
-| Adelie  | 3750        | 3700.7     |
-| Adelie  | 3800        | 3700.7     |
-| Adelie  | 4675        | 3700.7     |
-| Adelie  | 4250        | 3700.7     |
-| Adelie  | 3800        | 3700.7     |
-```
-</section>
+{% include without.md file="compare_within_groups.sql" %}
 
+</section>
 <section markdown="1">
+
 ## 045: common table expressions
 
-```sql
-with grouped as (
-    select species, avg(body_mass_g) as avg_mass_g
-    from penguins
-    group by species
-)
-select
-    penguins.species,
-    penguins.body_mass_g,
-    round(grouped.avg_mass_g, 1) as avg_mass_g
-from penguins join grouped
-where penguins.body_mass_g > grouped.avg_mass_g
-limit 5;
-```
-```
-| species | body_mass_g | avg_mass_g |
-|---------|-------------|------------|
-| Adelie  | 3750        | 3700.7     |
-| Adelie  | 3800        | 3700.7     |
-| Adelie  | 4675        | 3700.7     |
-| Adelie  | 4250        | 3700.7     |
-| Adelie  | 3800        | 3700.7     |
-```
+{% include without.md file="common_table_expressions.sql" %}
 
 -   Use *common table expression* (CTE) to make queries clearer
     -   Nested subqueries quickly become difficult to understand
 -   Database decides how to optimize
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: explain query plan
 
-```sql
-explain query plan
-select
-    species,
-    avg(body_mass_g)
-from penguins
-group by species;
-```
-```
-QUERY PLAN
-|--SCAN penguins
-`--USE TEMP B-TREE FOR GROUP BY
-```
+{% include without.md file="explain_query_plan.sql" %}
 
 -   SQLite plans to scan every row of the table
 -   It will build a temporary B-tree data structure to group rows
-</section>
 
+</section>
 <section markdown="1">
+
 ## 046: enumerate rows
 
 -   Every table has a special column called `rowid`
 
-```sql
-select rowid, *
-from penguins
-limit 5;
-```
-```
-1|Adelie|Torgersen|39.1|18.7|181|3750|MALE
-2|Adelie|Torgersen|39.5|17.4|186|3800|FEMALE
-3|Adelie|Torgersen|40.3|18|195|3250|FEMALE
-4|Adelie|Torgersen|||||
-5|Adelie|Torgersen|36.7|19.3|193|3450|FEMALE
-```
+{% include without.md file="rowid.sql" %}
 
 -   `rowid` is persistent within a session
     -   I.e., if we delete the first 5 rows we now have row IDs 6…N
 -   *Do not rely on row ID*
     -   In particular, do not use it as a key
-</section>
 
+</section>
 <section markdown="1">
+
 ## 047: if-else function
 
-```sql
-with sized_penguins as (
-    select
-        species,
-        iif(
-            body_mass_g < 3500,
-            'small',
-            'large'
-        ) as size
-    from penguins
-)
-select species, size, count(*) as num
-from sized_penguins
-group by species, size
-order by species, num;
-```
-```
-|  species  | size  | num |
-|-----------|-------|-----|
-| Adelie    | small | 54  |
-| Adelie    | large | 98  |
-| Chinstrap | small | 17  |
-| Chinstrap | large | 51  |
-| Gentoo    | large | 124 |
-```
+{% include without.md file="if_else.sql" %}
 
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
-</section>
 
+</section>
 <section markdown="1">
+
 ## 048: select a case
 
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
 
-```sql
-with sized_penguins as (
-    select
-        species,
-        case
-            when body_mass_g < 3500 then 'small'
-            when body_mass_g < 5000 then 'medium'
-            else 'large'
-        end as size
-    from penguins
-)
-select species, size, count(*) as num
-from sized_penguins
-group by species, size
-order by species, num;
-```
-```
-|  species  |  size  | num |
-|-----------|--------|-----|
-| Adelie    | large  | 1   |
-| Adelie    | small  | 54  |
-| Adelie    | medium | 97  |
-| Chinstrap | small  | 17  |
-| Chinstrap | medium | 51  |
-| Gentoo    | medium | 56  |
-| Gentoo    | large  | 68  |
-```
+{% include without.md file="case_when.sql" %}
 
 -   Evaluate `when` options in order and take first
 -   Result of `case` is null if no condition is true
 -   Use `else` as fallback
-</section>
 
+</section>
 <section markdown="1">
+
 ## 049: check range
 
-```sql
-with sized_penguins as (
-    select
-        species,
-        case
-            when body_mass_g between 3500 and 5000 then 'normal'
-            else 'abnormal'
-        end as size
-    from penguins
-)
-select species, size, count(*) as num
-from sized_penguins
-group by species, size
-order by species, num;
-```
-```
-|  species  |   size   | num |
-|-----------|----------|-----|
-| Adelie    | abnormal | 55  |
-| Adelie    | normal   | 97  |
-| Chinstrap | abnormal | 17  |
-| Chinstrap | normal   | 51  |
-| Gentoo    | abnormal | 62  |
-| Gentoo    | normal   | 62  |
-```
+{% include without.md file="check_range.sql" %}
 
 -   `between` can make queries easier to read
 -   But be careful of the `and` in the middle
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: yet another database
 
 -   *entity-relationship diagram* (ER diagram) shows relationships between tables
@@ -1393,41 +649,14 @@ order by species, num;
 
 ![assay ER diagram](./img/assays_er.svg)
 
-```sql
-select * from staff;
-```
-```
-| ident | personal |  family  | dept |
-|-------|----------|----------|------|
-| 1     | Yashvi   | Sankaran |      |
-| 2     | Aarav    | Loyal    | mb   |
-| 3     | Badal    | Kakar    | hist |
-| 4     | Kaira    | Chander  | gen  |
-| 5     | Sana     | Hora     | mb   |
-| 6     | Riya     | Doctor   | mb   |
-| 7     | Nitya    | Kata     | mb   |
-| 8     | Bhavin   | Ravel    | mb   |
-| 9     | Faiyaz   | Devan    |      |
-| 10    | Mahika   | De       |      |
-```
-</section>
+{% include without.md file="assay_staff.sql" %}
 
+</section>
 <section markdown="1">
+
 ## 050: pattern matching
 
-```sql
-select personal, family from staff
-where personal like '%ya%' or family glob '*De*';
-```
-```
-| personal |  family  |
-|----------|----------|
-| Yashvi   | Sankaran |
-| Riya     | Doctor   |
-| Nitya    | Kata     |
-| Faiyaz   | Devan    |
-| Mahika   | De       |
-```
+{% include without.md file="like_glob.sql" %}
 
 -   `like` is the original SQL pattern matcher
     -   `%` matches zero or more characters at the start or end of a string
@@ -1447,670 +676,223 @@ where personal like '%ya%' or family glob '*De*';
 | `instr`   | Find location of first occurrence of substring (returns 0 if not found) |
 
 </section>
-
 <section markdown="1">
+
 ## 051: select first and last rows
 
-```sql
-select * from (
-    select * from (select * from experiment order by started asc limit 5)
-    union all
-    select * from (select * from experiment order by started desc limit 5)
-)
-order by started asc
-;
-```
-```
-| ident |    kind     |  started   |   ended    |
-|-------|-------------|------------|------------|
-| 16    | trial       | 2023-01-29 | 2023-01-30 |
-| 34    | calibration | 2023-01-30 | 2023-01-30 |
-| 35    | trial       | 2023-02-02 | 2023-02-03 |
-| 24    | trial       | 2023-02-12 | 2023-02-14 |
-| 5     | trial       | 2023-02-15 | 2023-02-16 |
-| 39    | calibration | 2024-01-21 | 2024-01-21 |
-| 11    | trial       | 2024-01-26 | 2024-01-28 |
-| 43    | trial       | 2024-01-27 | 2024-01-29 |
-| 33    | trial       | 2024-02-01 | 2024-02-02 |
-| 13    | calibration | 2024-02-03 | 2024-02-03 |
-```
+{% include without.md file="union_all.sql" %}
 
 -   `union all` combines records
     -   Keeps duplicates: `union` on its own keeps unique records
 -   Yes, it feels like the extra `select * from` should be unnecessary
--   `intersect` and `except` perform set intersection and one-sided set difference respectively
-</section>
 
+</section>
 <section markdown="1">
+
 ## 052: intersection
 
-```sql
-select personal, family, dept, age
-from staff
-where dept == 'mb'
-intersect
-    select personal, family, dept, age from staff
-    where age < 50
-;
-```
-```
-| personal |  family   | dept | age |
-|----------|-----------|------|-----|
-| Indrans  | Sridhar   | mb   | 47  |
-| Ishaan   | Ramaswamy | mb   | 35  |
-```
+{% include without.md file="intersect.sql" %}
 
 -   Tables being intersected must have same structure
 -   Intersection usually used when pulling values from different tables
     -   In this case, would be clearer to use `where`
-</section>
 
+</section>
 <section markdown="1">
+
 ## 053: exclusion
 
-```sql
-select personal, family, dept, age
-from staff
-where dept == 'mb'
-except
-    select personal, family, dept, age from staff
-    where age < 50
-;
-```
-```
-| personal | family | dept | age |
-|----------|--------|------|-----|
-| Pranay   | Khanna | mb   | 51  |
-```
+{% include without.md file="except.sql" %}
 
 -   Again, tables must have same structure
     -   And this would be clearer with `where`
 -   SQL operates on sets, not tables, except where it doesn't
-</section>
 
+</section>
 <section markdown="1">
+
 ## 054: random numbers and why not
 
-```sql
-with decorated as (
-    select random() as rand,
-    personal || ' ' || family as name
-    from staff
-)
-select rand, abs(rand) % 10 as selector, name
-from decorated
-where selector < 5;
-```
-```
-|         rand         | selector |      name       |
-|----------------------|----------|-----------------|
-| 1695842608889063964  | 5        | Yashvi Sankaran |
-| -2821512941569335882 | 5        | Aarav Loyal     |
-| -6460956243954552845 | 3        | Badal Kakar     |
-| 5527384638176261870  | 2        | Bhavin Ravel    |
-```
+{% include without.md file="random_numbers.sql" %}
 
 -   There is no way to seed SQLite's random number generator
 -   Which means there is no way to reproduce one of its "random" sequences
-</section>
 
+</section>
 <section markdown="1">
+
 ## 055: generate sequence
 
-```sql
-select value from generate_series(1, 5);
-```
-```
-| value |
-|-------|
-| 1     |
-| 2     |
-| 3     |
-| 4     |
-| 5     |
-```
+{% include without.md file="generate_sequence.sql" %}
 
 -   A (non-standard) *table-valued function*
-</section>
 
+</section>
 <section markdown="1">
+
 ## 056: generate sequence based on data
 
-```sql
-create table temp(
-    num integer not null
-);
-insert into temp values (1), (5);
-select value from generate_series(
-    (select min(num) from temp),
-    (select max(num) from temp)
-);
-```
-```
-| value |
-|-------|
-| 1     |
-| 2     |
-| 3     |
-| 4     |
-| 5     |
-```
+{% include without.md file="data_range_sequence.sql" %}
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
-</section>
 
+</section>
 <section markdown="1">
+
 ## 057: generate sequence of dates
 
-```sql
-select
-    date((select julianday(min(started)) from experiment) + value) as some_day
-from (
-    select value from generate_series(
-        (select 0),
-        (select count(*) - 1 from experiment)
-    )
-)
-limit 5;
-```
+{% include without.md file="date_sequence.sql" %}
 
--   SQLite represents dates as YYYY-MM-DD strings or as Julian days or as Unix milliseconds or…
+-   SQLite represents dates as YYYY-MM-DD strings
+    or as Julian days or as Unix milliseconds or…
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
-</section>
 
+</section>
 <section markdown="1">
+
 ## 058: count experiments started per day without gaps
 
-```sql
-with
--- complete sequence of days with 0 as placeholder for number of experiments
-all_days as (
-    select
-        date((select julianday(min(started)) from experiment) + value) as some_day,
-        0 as zeroes
-    from (
-        select value from generate_series(
-            (select 0),
-            (select count(*) - 1 from experiment)
-        )
-    )
-),
--- sequence of actual days with actual number of experiments started
-actual_days as (
-    select started, count(started) as num_exp
-    from experiment
-    group by started
-)
--- combined by joining on day and taking actual number (if available) or zero
-select
-    all_days.some_day as day,
-    coalesce(actual_days.num_exp, all_days.zeroes) as num_exp
-from
-    all_days left join actual_days on all_days.some_day = actual_days.started
-limit 5
-;
-```
-```
-|    day     | num_exp |
-|------------|---------|
-| 2023-01-29 | 1       |
-| 2023-01-30 | 1       |
-| 2023-01-31 | 0       |
-| 2023-02-01 | 0       |
-| 2023-02-02 | 1       |
-```
-</section>
+{% include without.md file="experiments_per_day.sql" %}
 
+</section>
 <section markdown="1">
+
 ## 059: self join
 
-```sql
-with person as (
-    select
-        ident,
-        personal || ' ' || family as name
-    from staff
-)
-select left.name, right.name
-from person as left join person as right
-limit 10;
-```
-```
-|      name       |      name       |
-|-----------------|-----------------|
-| Yashvi Sankaran | Yashvi Sankaran |
-| Yashvi Sankaran | Aarav Loyal     |
-| Yashvi Sankaran | Badal Kakar     |
-| Yashvi Sankaran | Kaira Chander   |
-| Yashvi Sankaran | Sana Hora       |
-| Yashvi Sankaran | Riya Doctor     |
-| Yashvi Sankaran | Nitya Kata      |
-| Yashvi Sankaran | Bhavin Ravel    |
-| Yashvi Sankaran | Faiyaz Devan    |
-| Yashvi Sankaran | Mahika De       |
-```
+{% include without.md file="self_join.sql" %}
 
 -   Join a table to itself
     -   Give copies aliases using `as` to distinguish them
     -   Nothing special about the name `left` and `right`
 -   Get all *n<sup>2</sup>* pairs, including person with themself
-</section>
 
+</section>
 <section markdown="1">
+
 ## 060: generate unique pairs
 
-```sql
-with person as (
-    select
-        ident,
-        personal || ' ' || family as name
-    from staff
-)
-select left.name, right.name
-from person as left join person as right
-on left.ident < right.ident
-where left.ident <= 4 and right.ident <= 4;
-```
-```
-|      name       |     name      |
-|-----------------|---------------|
-| Yashvi Sankaran | Aarav Loyal   |
-| Yashvi Sankaran | Badal Kakar   |
-| Yashvi Sankaran | Kaira Chander |
-| Aarav Loyal     | Badal Kakar   |
-| Aarav Loyal     | Kaira Chander |
-| Badal Kakar     | Kaira Chander |
-```
+{% include without.md file="unique_pairs.sql" %}
 
 -   `left.ident < right.ident` ensures distinct pairs without duplicates
 -   Use `left.ident <= 4 and right.ident <= 4` to limit output
 -   Quick check: n*(n-1)/2 pairs
-</section>
 
+</section>
 <section markdown="1">
+
 ## 061: filter pairs
 
-```sql
-with
-person as (
-    select
-        ident,
-        personal || ' ' || family as name
-    from staff
-),
-together as (
-    select
-        left.staff as left_staff,
-        right.staff as right_staff
-    from performed as left join performed as right
-    on left.experiment = right.experiment
-    where left_staff < right_staff
-)
-select
-    left.name as person_1,
-    right.name as person_2
-from person as left join person as right join together
-on left.ident = left_staff and right.ident = right_staff;
-```
-```
-|    person_1     |   person_2   |
-|-----------------|--------------|
-| Sana Hora       | Nitya Kata   |
-| Kaira Chander   | Riya Doctor  |
-| Badal Kakar     | Bhavin Ravel |
-| Nitya Kata      | Faiyaz Devan |
-| Kaira Chander   | Riya Doctor  |
-| Yashvi Sankaran | Nitya Kata   |
-| Nitya Kata      | Bhavin Ravel |
-| Yashvi Sankaran | Aarav Loyal  |
-| Aarav Loyal     | Nitya Kata   |
-| Kaira Chander   | Faiyaz Devan |
-| Badal Kakar     | Bhavin Ravel |
-| Yashvi Sankaran | Faiyaz Devan |
-| Yashvi Sankaran | Mahika De    |
-| Yashvi Sankaran | Nitya Kata   |
-| Kaira Chander   | Bhavin Ravel |
-| Aarav Loyal     | Faiyaz Devan |
-```
-</section>
+{% include without.md file="filter_pairs.sql" %}
 
+</section>
 <section markdown="1">
+
 ## 062: existence and correlated subqueries
 
-```sql
-select name, building
-from department
-where exists (
-    select 1
-    from staff
-    where dept == department.ident
-)
-order by name;
-```
-```
-|       name        |     building     |
-|-------------------|------------------|
-| Genetics          | Chesson          |
-| Histology         | Fashet Extension |
-| Molecular Biology | Chesson          |
-```
+{% include without.md file="correlated_subquery.sql" %}
 
 -   Nobody works in Endocrinology
 -   `select 1` could equally be `select true` or any other value
 -   A *correlated subquery* depends on a value from the outer query
     -   Equivalent to nested loop
-</section>
 
+</section>
 <section markdown="1">
+
 ## 063: nonexistence
 
-```sql
-select name, building
-from department
-where not exists (
-    select 1
-    from staff
-    where dept == department.ident
-)
-order by name;
-```
-```
-|     name      | building |
-|---------------|----------|
-| Endocrinology | TGVH     |
-```
-</section>
+{% include without.md file="nonexistence.sql" %}
 
+</section>
 <section markdown="1">
+
 ## null: avoiding correlated subqueries
 
-```sql
-select distinct
-    department.name as name,
-    department.building as building
-from department join staff
-on department.ident = staff.dept
-order by name;
-```
-```
-|       name        |     building     |
-|-------------------|------------------|
-| Genetics          | Chesson          |
-| Histology         | Fashet Extension |
-| Molecular Biology | Chesson          |
-```
+{% include without.md file="avoid_correlated_subqueries.sql" %}
 
 -   The join might or might not be faster than the correlated subquery
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
-</section>
 
+</section>
 <section markdown="1">
+
 ## 064: lead and lag
 
-```sql
-with ym_num as (
-    select
-        strftime('%Y-%m', started) as ym,
-        count(*) as num
-    from experiment
-    group by ym
-)
-select
-    ym,
-    lag(num) over (order by ym) as prev_num,
-    num,
-    lead(num) over (order by ym) as next_num
-from ym_num
-order by ym;
-```
-```
-|   ym    | prev_num | num | next_num |
-|---------|----------|-----|----------|
-| 2023-01 |          | 2   | 5        |
-| 2023-02 | 2        | 5   | 5        |
-| 2023-03 | 5        | 5   | 1        |
-| 2023-04 | 5        | 1   | 6        |
-| 2023-05 | 1        | 6   | 5        |
-| 2023-06 | 6        | 5   | 3        |
-| 2023-07 | 5        | 3   | 2        |
-| 2023-08 | 3        | 2   | 4        |
-| 2023-09 | 2        | 4   | 6        |
-| 2023-10 | 4        | 6   | 4        |
-| 2023-12 | 6        | 4   | 5        |
-| 2024-01 | 4        | 5   | 2        |
-| 2024-02 | 5        | 2   |          |
-```
+{% include without.md file="lead_lag.sql" %}
 
 -   Use `strftime` to extract year and month
     -   Clumsy, but date/time handling is not SQLite's strong point
 -   Use *window functions* `lead` and `lag` to shift values
     -   Unavailable values are null
-</section>
 
+</section>
 <section markdown="1">
+
 ## 065: window functions
 
-```sql
-with ym_num as (
-    select
-        strftime('%Y-%m', started) as ym,
-        count(*) as num
-    from experiment
-    group by ym
-)
-select
-    ym,
-    num,
-    sum(num) over (order by ym) as num_done,
-    cume_dist() over (order by ym) as progress
-from ym_num
-order by ym;
-```
-```
-|   ym    | num | num_done |      progress      |
-|---------|-----|----------|--------------------|
-| 2023-01 | 2   | 2        | 0.0769230769230769 |
-| 2023-02 | 5   | 7        | 0.153846153846154  |
-| 2023-03 | 5   | 12       | 0.230769230769231  |
-| 2023-04 | 1   | 13       | 0.307692307692308  |
-| 2023-05 | 6   | 19       | 0.384615384615385  |
-| 2023-06 | 5   | 24       | 0.461538461538462  |
-| 2023-07 | 3   | 27       | 0.538461538461538  |
-| 2023-08 | 2   | 29       | 0.615384615384615  |
-| 2023-09 | 4   | 33       | 0.692307692307692  |
-| 2023-10 | 6   | 39       | 0.769230769230769  |
-| 2023-12 | 4   | 43       | 0.846153846153846  |
-| 2024-01 | 5   | 48       | 0.923076923076923  |
-| 2024-02 | 2   | 50       | 1.0                |
-```
+{% include without.md file="window_functions.sql" %}
 
 -   `sum() over` does a running total
 -   `cume_dist` is fraction *of rows seen so far*
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: explain another query plain
 
-```sql
-explain query plan
-with ym_num as (
-    select
-        strftime('%Y-%m', started) as ym,
-        count(*) as num
-    from experiment
-    group by ym
-)
-select
-    ym,
-    num,
-    sum(num) over (order by ym) as num_done,
-    cume_dist() over (order by ym) as progress
-from ym_num
-order by ym;
-```
-```
-QUERY PLAN
-|--CO-ROUTINE (subquery-3)
-|  |--CO-ROUTINE (subquery-4)
-|  |  |--CO-ROUTINE ym_num
-|  |  |  |--SCAN experiment
-|  |  |  `--USE TEMP B-TREE FOR GROUP BY
-|  |  |--SCAN ym_num
-|  |  `--USE TEMP B-TREE FOR ORDER BY
-|  `--SCAN (subquery-4)
-`--SCAN (subquery-3)
-```
+{% include without.md file="explain_window_function.sql" %}
 
 -   Becomes useful…eventually
-</section>
 
+</section>
 <section markdown="1">
+
 ## 066: partitioned windows
 
-```sql
-with y_m_num as (
-    select
-        strftime('%Y', started) as year,
-        strftime('%m', started) as month,
-        count(*) as num
-    from experiment
-    group by year, month
-)
-select
-    year,
-    month,
-    num,
-    sum(num) over (partition by year order by month) as num_done
-from y_m_num
-order by year, month;
-```
-```
-| year | month | num | num_done |
-|------|-------|-----|----------|
-| 2023 | 01    | 2   | 2        |
-| 2023 | 02    | 5   | 7        |
-| 2023 | 03    | 5   | 12       |
-| 2023 | 04    | 1   | 13       |
-| 2023 | 05    | 6   | 19       |
-| 2023 | 06    | 5   | 24       |
-| 2023 | 07    | 3   | 27       |
-| 2023 | 08    | 2   | 29       |
-| 2023 | 09    | 4   | 33       |
-| 2023 | 10    | 6   | 39       |
-| 2023 | 12    | 4   | 43       |
-| 2024 | 01    | 5   | 5        |
-| 2024 | 02    | 2   | 7        |
-```
+{% include without.md file="partition_window.sql" %}
 
 -   `partition by` creates groups
 -   So this counts experiments started since the beginning of each year
-</section>
 
+</section>
 <section markdown="1">
+
 ## 067: blobs
 
-```sql
-create table images (
-    name text not null,
-    content blob
-);
-
-insert into images(name, content) values
-    ("biohazard", "img/biohazard.png"),
-    ("crush", "img/crush.png"),
-    ("fire", "img/fire.png"),
-    ("radioactive", "img/radioactive.png"),
-    ("tripping", "img/tripping.png")
-;
-
-select content from images where name == "fire";
-select name, length(content) from images;
-```
-```
-| content |
-|---------|
-| ?PNG     |
-|         |
-|         |
-
-|    name     | length(content) |
-|-------------|-----------------|
-| biohazard   | 19629           |
-| crush       | 15967           |
-| fire        | 18699           |
-| radioactive | 16661           |
-| tripping    | 17208           |
-```
+{% include without.md file="blob.sql" %}
 
 -   A *blob* is a binary large object
     -   Bytes in, bytes out…
 -   If you think that's odd, check out [Fossil][fossil]
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: yet another database
 
-```bash
-$ sqlite3 data/lab_log.db
-```
-```
-.schema
-```
-```
-CREATE TABLE person(
-       ident            integer primary key autoincrement,
-       details          text not null
-);
-CREATE TABLE machine(
-       ident            integer primary key autoincrement,
-       name             text not null,
-       details          text not null
-);
-CREATE TABLE usage(
-       ident            integer primary key autoincrement,
-       log              text not null
-);
-```
-</section>
+{% include miscfile.md file="lab_log_db.sh" %}
+{% include without.md file="lab_log_schema.sql" %}
 
+</section>
 <section markdown="1">
+
 ## 068: store JSON
 
-```sql
-select * from machine;
-```
-```
-| ident |      name      |                         details                         |
-|-------|----------------|---------------------------------------------------------|
-| 1     | WY401          | {"acquired": "2023-05-01"}                              |
-| 2     | Inphormex      | {"acquired": "2021-07-15", "refurbished": "2023-10-22"} |
-| 3     | AutoPlate 9000 | {"note": "needs software update"}                       |
-```
+{% include without.md file="json_in_table.sql" %}
 
 -   Store heterogeneous data as JSON-formatted text (with double-quoted strings)
     -   Database parses it each time it is queried
 -   Alternatively store as blob
     -   Can't just view it
     -   But more efficient
-</section>
 
+</section>
 <section markdown="1">
+
 ## 069: select field from JSON
 
-```sql
-select
-    details->'$.acquired' as single_arrow,
-    details->>'$.acquired' as double_arrow
-from machine;
-```
-```
-| single_arrow | double_arrow |
-|--------------|--------------|
-| "2023-05-01" | 2023-05-01   |
-| "2021-07-15" | 2021-07-15   |
-|              |              |
-```
+{% include without.md file="json_field.sql" %}
 
 -   Single arrow `->` returns JSON representation result
 -   Double arrow `->>` returns SQL text, integer, real, or null
@@ -2118,198 +900,71 @@ from machine;
 -   Right side is *path expression*
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
-</section>
 
+</section>
 <section markdown="1">
+
 ## 070: JSON array access
 
-```sql
-select
-    ident,
-    json_array_length(log->'$') as length,
-    log->'$[0]' as first
-from usage;
-```
-```
-| ident | length |                            first                             |
-|-------|--------|--------------------------------------------------------------|
-| 1     | 4      | {"machine":"Inphormex","person":["Xavier","Bouchard"]}       |
-| 2     | 5      | {"machine":"Inphormex","person":["B\u00e9atrice","Lachance"] |
-|       |        | }                                                            |
-| 3     | 2      | {"machine":"sterilizer","person":["Nicolas","Couture"]}      |
-| 4     | 1      | {"machine":"sterilizer","person":["Louis","Drouin"]}         |
-| 5     | 2      | {"machine":"AutoPlate 9000","person":["Danielle","Nguyen"]}  |
-| 6     | 1      | {"machine":"sterilizer","person":["B\u00e9atrice","Lachance" |
-|       |        | ]}                                                           |
-| 7     | 3      | {"machine":"WY401","person":["Louis","Drouin"]}              |
-| 8     | 1      | {"machine":"AutoPlate 9000"}                                 |
-```
+{% include without.md file="json_array.sql" %}
 
 -   SQLite (and other database managers) has lots of JSON manipulation functions
 -   `json_array_length` gives number of elements in selected array
 -   subscripts start with 0
 -   Characters outside 7-bit ASCII represented as Unicode escapes
-</section>
 
+</section>
 <section markdown="1">
+
 ## 071: unpack JSON array
 
-```sql
-select
-    ident,
-    json_each.key as key,
-    json_each.value as value
-from usage, json_each(usage.log)
-limit 10;
-```
-```
-| ident | key |                            value                             |
-|-------|-----|--------------------------------------------------------------|
-| 1     | 0   | {"machine":"Inphormex","person":["Xavier","Bouchard"]}       |
-| 1     | 1   | {"machine":"Inphormex","person":["Xavier","Bouchard"]}       |
-| 1     | 2   | {"machine":"WY401","person":["Xavier","Bouchard"]}           |
-| 1     | 3   | {"machine":"Inphormex","person":["Xavier","Bouchard"]}       |
-| 2     | 0   | {"machine":"Inphormex","person":["B\u00e9atrice","Lachance"] |
-|       |     | }                                                            |
-| 2     | 1   | {"machine":"AutoPlate 9000","person":["B\u00e9atrice","Lacha |
-|       |     | nce"]}                                                       |
-| 2     | 2   | {"machine":"sterilizer","person":["B\u00e9atrice","Lachance" |
-|       |     | ]}                                                           |
-| 2     | 3   | {"machine":"AutoPlate 9000","person":["J\u00e9r\u00f4me","Ro |
-|       |     | bert"]}                                                      |
-| 2     | 4   | {"machine":"sterilizer","person":["B\u00e9atrice","Lachance" |
-|       |     | ]}                                                           |
-| 3     | 0   | {"machine":"sterilizer","person":["Nicolas","Couture"]}      |
-```
+{% include without.md file="json_unpack.sql" %}
 
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
-</section>
 
+</section>
 <section markdown="1">
+
 ## 072: last element of array
 
-```sql
-select
-    ident,
-    log->'$[#-1].machine' as final
-from usage
-limit 5;
-```
-```
-| ident |    final     |
-|-------|--------------|
-| 1     | "Inphormex"  |
-| 2     | "sterilizer" |
-| 3     | "Inphormex"  |
-| 4     | "sterilizer" |
-| 5     | "sterilizer" |
-```
-</section>
+{% include without.md file="json_array_last.sql" %}
 
+</section>
 <section markdown="1">
+
 ## 073: modify JSON
 
-```sql
-select
-    ident,
-    name,
-    json_set(details, '$.sold', json_quote('2024-01-25')) as updated
-from machine;
-```
-```
-| ident |      name      |                           updated                            |
-|-------|----------------|--------------------------------------------------------------|
-| 1     | WY401          | {"acquired":"2023-05-01","sold":"2024-01-25"}                |
-| 2     | Inphormex      | {"acquired":"2021-07-15","refurbished":"2023-10-22","sold":" |
-|       |                | 2024-01-25"}                                                 |
-| 3     | AutoPlate 9000 | {"note":"needs software update","sold":"2024-01-25"}         |
-```
+{% include without.md file="json_modify.sql" %}
 
 -   Updates the in-memory copy of the JSON, *not* the database record
 -   Please use `json_quote` rather than trying to format JSON with string operations
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: refresh penguins
 
-```sql
-select species, count(*) as num
-from penguins
-group by species;
-```
-```
-|  species  | num |
-|-----------|-----|
-| Adelie    | 152 |
-| Chinstrap | 68  |
-| Gentoo    | 124 |
-```
+{% include without.md file="count_penguins.sql" %}
 
 -   We will restore full database after each example
-</section>
 
+</section>
 <section markdown="1">
+
 ## 074: tombstones
 
-```sql
-alter table penguins
-add active integer not null default 1;
-
-update penguins
-set active = iif(species = 'Adelie', 0, 1);
-
-select species, count(*) as num
-from penguins
-where active
-group by species;
-```
-```
-|  species  | num |
-|-----------|-----|
-| Chinstrap | 68  |
-| Gentoo    | 124 |
-```
+{% include without.md file="active_penguins.sql" %}
 
 -   Use a *tombstone* to mark (in)active records
 -   Every query must now include it
-</section>
 
+</section>
 <section markdown="1">
+
 ## 075: views
 
-```sql
-create view if not exists
-active_penguins(
-    species,
-    island,
-    bill_length_mm,
-    bill_depth_mm,
-    flipper_length_mm,
-    body_mass_g,
-    sex
-) as
-select
-    species,
-    island,
-    bill_length_mm,
-    bill_depth_mm,
-    flipper_length_mm,
-    body_mass_g,
-    sex
-from penguins
-where active;
-
-select species, count(*) as num
-from active_penguins
-group by species;
-```
-```
-|  species  | num |
-|-----------|-----|
-| Chinstrap | 68  |
-| Gentoo    | 124 |
-```
+{% include without.md file="views.sql" %}
 
 -   A *view* is a saved query that other queries can invoke
 -   View is re-run each time it's used
@@ -2318,88 +973,42 @@ group by species;
     -   Views came first
 -   Some databases offer *materialized views*
     -   Update-on-demand temporary tables
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: hours reminder
 
-```sql
-create table job(
-    name text not null,
-    billable real not null
-);
-insert into job values
-    ('calibrate', 1.5),
-    ('clean', 0.5)
-;
-select * from job;
-```
-```
-|   name    | billable |
-|-----------|----------|
-| calibrate | 1.5      |
-| clean     | 0.5      |
-```
-</section>
+{% include without.md file="all_jobs.sql" %}
 
+</section>
 <section markdown="1">
+
 ## 076: add check
 
-```sql
-create table job(
-    name text not null,
-    billable real not null,
-    check(billable > 0.0)
-);
-insert into job values ('calibrate', 1.5);
-insert into job values ('reset', -0.5);
-select * from job;
-```
-```
-Runtime error: CHECK constraint failed: billable > 0.0 (19)
-|   name    | billable |
-|-----------|----------|
-| calibrate | 1.5      |
-```
+{% include without.md file="all_jobs_check.sql" %}
 
 -   `check` adds constraint to table
     -   Must produce a Boolean result
     -   Run each time values added or modified
 -   But changes made before the error have taken effect
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: ACID
 
 -   *Atomic*: change cannot be broken down into smaller ones (i.e., all or nothing)
 -   *Consistent*: database goes from one consistent state to another
 -   *Isolated*: looks like changes happened one after another
 -   *Durable*: if change takes place, it's still there after a restart
-</section>
 
+</section>
 <section markdown="1">
+
 ## 077: transactions
 
-```
-create table job(
-    name text not null,
-    billable real not null,
-    check(billable > 0.0)
-);
-
-insert into job values ('calibrate', 1.5);
-
-begin transaction;
-insert into job values ('clean', 0.5);
-rollback;
-
-select * from job;
-```
-```
-|   name    | billable |
-|-----------|----------|
-| calibrate | 1.5      |
-```
+{% include without.md file="transaction.sql" %}
 
 -   Statements outside transaction execute and are committed immediately
 -   Statement(s) inside transaction don't take effect until:
@@ -2408,66 +1017,30 @@ select * from job;
 -   Can have any number of statements inside a transaction
 -   But *cannot* nest transactions in SQLite
     -   Other databases support this
-</section>
 
+</section>
 <section markdown="1">
+
 ## 078: rollback in constraint
 
-```sql
-create table job(
-    name text not null,
-    billable real not null,
-    check(billable > 0.0) on conflict rollback
-);
-
-insert into job values
-    ('calibrate', 1.5);
-insert into job values
-    ('clean', 0.5),
-    ('reset', -0.5);
-
-select * from job;
-```
-```
-|   name    | billable |
-|-----------|----------|
-| calibrate | 1.5      |
-```
+{% include without.md file="rollback_constraint.sql" %}
 
 -   All of second `insert` rolled back as soon as error occurred
 -   But first `insert` took effect
-</section>
 
+</section>
 <section markdown="1">
+
 ## 079: rollback in statement
 
-```sql
-create table job(
-    name text not null,
-    billable real not null,
-    check(billable > 0.0)
-);
-
-insert or rollback into job values
-    ('calibrate', 1.5);
-insert or rollback into job values
-    ('clean', 0.5),
-    ('reset', -0.5);
-
-select * from job;
-```
-```
-Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
-|   name    | billable |
-|-----------|----------|
-| calibrate | 1.5      |
-```
+{% include without.md file="rollback_statement.sql" %}
 
 -   Constraint is in table definition
 -   Action is in statement
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: normalization
 
 -   First normal form (1NF):
@@ -2479,10 +1052,11 @@ Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
 
 -   *Denormalization*: explicitly store values that could be calculated on the fly
     -   To simplify queries and/or make processing faster
-</section>
 
+</section>
 <section markdown="1">
-## 080: triggers
+
+## 080: create trigger
 
 -   A *trigger* automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
@@ -2492,170 +1066,32 @@ Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
 -   Inside trigger, refer to old and new versions of record
     as <code>old.<em>column</em></code> and <code>new.<em>column</em></code>
 
-```sql
--- Track hours of lab work.
-create table job(
-    person text not null,
-    reported real not null check(reported >= 0.0)
-);
+{% include miscfile.md file="trigger_setup.sql" %}
+{% include without.md file="trigger_successful.sql" %}
 
--- Explicitly store per-person total rather than using sum().
-create table total(
-    person text unique not null,
-    hours real
-);
-
--- Initialize totals.
-insert into total values
-    ("gene", 0.0),
-    ("august", 0.0)
-;
-
--- Define a trigger.
-create trigger total_trigger
-before insert on job
-begin
-    -- Check that the person exists.
-    select case
-        when not exists (select 1 from total where person = new.person)
-        then raise(rollback, 'Unknown person ')
-    end;
-    -- Update their total hours (or fail if non-negative constraint violated).
-    update total
-    set hours = hours + new.reported
-    where total.person = new.person;
-end;
-
--- Test successful insertion.
-insert into job values
-    ('gene', 1.5),
-    ('august', 0.5),
-    ('gene', 1.0)
-;
-
--- Show that both tables have been updated.
-select * from job;
-select * from total;
-```
-```
-| person | reported |
-|--------|----------|
-| gene   | 1.5      |
-| august | 0.5      |
-| gene   | 1.0      |
-
-| person | hours |
-|--------|-------|
-| gene   | 2.5   |
-| august | 0.5   |
-```
-
-```sql
--- If any values are negative, operation fails.
-insert into job values
-    ('gene', 1.0),
-    ('august', -1.0)
-;
-select * from job;
-select * from total;
-```
-```
-Runtime error near line 47: CHECK constraint failed: reported >= 0.0 (19)
-
-| person | reported |
-|--------|----------|
-| gene   | 1.5      |
-| august | 0.5      |
-| gene   | 1.0      |
-
-| person | hours |
-|--------|-------|
-| gene   | 2.5   |
-| august | 0.5   |
-```
-
-```sql
--- If person doesn't exist, operation fails.
-insert into job values
-    ('mo', 1.0)
-;
-```
-```
-Runtime error near line 55: Unknown person  (19)
-
-| person | reported |
-|--------|----------|
-| gene   | 1.5      |
-| august | 0.5      |
-| gene   | 1.0      |
-
-| person | hours |
-|--------|-------|
-| gene   | 2.5   |
-| august | 0.5   |
-```
 </section>
-
 <section markdown="1">
+
+# 081: trigger firing
+
+{% include without.md file="trigger_firing.sql" %}
+
+</section>
+<section markdown="1">
+
 ## null: represent graphs
 
-```sql
-create table lineage(
-    parent text not null,
-    child text not null
-);
-insert into lineage values
-    ('Arturo', 'Clemente'),
-    ('Darío', 'Clemente'),
-    ('Clemente', 'Homero'),
-    ('Clemente', 'Ivonne'),
-    ('Ivonne', 'Lourdes'),
-    ('Soledad', 'Lourdes'),
-    ('Lourdes', 'Santiago')
-;
-select * from lineage;
-```
-```
-|  parent  |  child   |
-|----------|----------|
-| Arturo   | Clemente |
-| Darío    | Clemente |
-| Clemente | Homero   |
-| Clemente | Ivonne   |
-| Ivonne   | Lourdes  |
-| Soledad  | Lourdes  |
-| Lourdes  | Santiago |
-```
+{% include miscfile.md file="lineage_setup.sql" %}
+{% include without.md file="represent_graph.sql" %}
 
 ![lineage diagram](./img/lineage.svg)
-</section>
 
+</section>
 <section markdown="1">
+
 ## 081: recursive query
 
-```sql
-with recursive descendent as (
-    select
-        'Clemente' as person,
-        0 as generations
-    union all
-    select
-        lineage.child as person,
-        descendent.generations + 1 as generations
-    from descendent join lineage
-    on descendent.person = lineage.parent
-)
-select person, generations from descendent;
-```
-```
-|  person  | generations |
-|----------|-------------|
-| Clemente | 0           |
-| Homero   | 1           |
-| Ivonne   | 1           |
-| Lourdes  | 2           |
-| Santiago | 3           |
-```
+{% include without.md file="recursive_lineage.sql" %}
 
 -   Use a *recursive CTE* to create a temporary table (`descendent`)
 -   *Base case* seeds this table
@@ -2664,409 +1100,141 @@ select person, generations from descendent;
     -   Can use `union` but that has lower performance (must check uniqueness each time)
 -   Stops when the recursive case yields an empty row set (nothing new to add)
 -   Then select the desired values from the CTE
-</section>
 
+</section>
 <section markdown="1">
+
 ## null: contact tracing database
 
-```sql
-select * from person;
-```
-```
-| ident |         name          |
-|-------|-----------------------|
-| 1     | Juana Baeza           |
-| 2     | Agustín Rodríquez     |
-| 3     | Ariadna Caraballo     |
-| 4     | Micaela Laboy         |
-| 5     | Verónica Altamirano   |
-| 6     | Reina Rivero          |
-| 7     | Elias Merino          |
-| 8     | Minerva Guerrero      |
-| 9     | Mauro Balderas        |
-| 10    | Pilar Alarcón         |
-| 11    | Daniela Menéndez      |
-| 12    | Marco Antonio Barrera |
-| 13    | Cristal Soliz         |
-| 14    | Bernardo Narváez      |
-| 15    | Óscar Barrios         |
-```
-
-```sql
-select * from contact;
-```
-```
-|       left        |         right         |
-|-------------------|-----------------------|
-| Agustín Rodríquez | Ariadna Caraballo     |
-| Agustín Rodríquez | Verónica Altamirano   |
-| Juana Baeza       | Verónica Altamirano   |
-| Juana Baeza       | Micaela Laboy         |
-| Pilar Alarcón     | Reina Rivero          |
-| Cristal Soliz     | Marco Antonio Barrera |
-| Cristal Soliz     | Daniela Menéndez      |
-| Daniela Menéndez  | Marco Antonio Barrera |
-```
+{% include without.md file="contact_person.sql" %}
+{% include without.md file="contact_contacts.sql" %}
 
 ![contact diagram](./img/contact_tracing.svg)
-</section>
 
+</section>
 <section markdown="1">
+
 ## 082: bidirectional contacts
 
-```sql
-select count(*) as original_count from contact;
-
-create temporary table bi_contact (
-    left text,
-    right text
-);
-
-insert into bi_contact
-select
-    left, right from contact
-    union all
-    select right, left from contact
-;
-
-select count(*) as num_contact from bi_contact;
-```
-```
-| original_count |
-|----------------|
-| 8              |
-
-| num_contact |
-|-------------|
-| 16          |
-```
+{% include without.md file="bidirectional.sql" %}
 
 -   Create a *temporary table* rather than using a long chain of CTEs
     -   Only lasts as long as the session (not saved to disk)
 -   Duplicate information rather than writing more complicated query
-</section>
 
+</section>
 <section markdown="1">
+
 ## 083: update group identifiers
 
-```sql
-select
-    left.name as left_name,
-    left.ident as left_ident,
-    right.name as right_name,
-    right.ident as right_ident,
-    min(left.ident, right.ident) as new_ident
-from
-    (person as left join bi_contact on left.name = bi_contact.left)
-    join person as right on bi_contact.right = right.name;
-```
-```
-|       left_name       | left_ident |      right_name       | right_ident | new_ident |
-|-----------------------|------------|-----------------------|-------------|-----------|
-| Juana Baeza           | 1          | Micaela Laboy         | 4           | 1         |
-| Juana Baeza           | 1          | Verónica Altamirano   | 5           | 1         |
-| Agustín Rodríquez     | 2          | Ariadna Caraballo     | 3           | 2         |
-| Agustín Rodríquez     | 2          | Verónica Altamirano   | 5           | 2         |
-| Ariadna Caraballo     | 3          | Agustín Rodríquez     | 2           | 2         |
-| Micaela Laboy         | 4          | Juana Baeza           | 1           | 1         |
-| Verónica Altamirano   | 5          | Agustín Rodríquez     | 2           | 2         |
-| Verónica Altamirano   | 5          | Juana Baeza           | 1           | 1         |
-| Reina Rivero          | 6          | Pilar Alarcón         | 10          | 6         |
-| Pilar Alarcón         | 10         | Reina Rivero          | 6           | 6         |
-| Daniela Menéndez      | 11         | Cristal Soliz         | 13          | 11        |
-| Daniela Menéndez      | 11         | Marco Antonio Barrera | 12          | 11        |
-| Marco Antonio Barrera | 12         | Cristal Soliz         | 13          | 12        |
-| Marco Antonio Barrera | 12         | Daniela Menéndez      | 11          | 11        |
-| Cristal Soliz         | 13         | Daniela Menéndez      | 11          | 11        |
-| Cristal Soliz         | 13         | Marco Antonio Barrera | 12          | 12        |
-```
+{% include without.md file="update_group_ids.sql" %}
 
 -   `new_ident` is minimum of own identifier and identifiers one step away
 -   Doesn't keep people with no contacts
-</section>
 
+</section>
 <section markdown="1">
+
 ## 084: recursive labeling
 
-```sql
-with recursive labeled as (
-    select
-        person.name as name,
-	person.ident as label
-    from
-        person
-    union -- not 'union all'
-    select
-        person.name as name,
-	labeled.label as label
-    from
-        (person join bi_contact on person.name = bi_contact.left)
-	join labeled on bi_contact.right = labeled.name
-    where labeled.label < person.ident
-)
-select name, min(label) as group
-from labeled
-group by name
-order by label, name;
-```
-```
-|         name          | label |
-|-----------------------|-------|
-| Agustín Rodríquez     | 1     |
-| Ariadna Caraballo     | 1     |
-| Juana Baeza           | 1     |
-| Micaela Laboy         | 1     |
-| Verónica Altamirano   | 1     |
-| Pilar Alarcón         | 6     |
-| Reina Rivero          | 6     |
-| Elias Merino          | 7     |
-| Minerva Guerrero      | 8     |
-| Mauro Balderas        | 9     |
-| Cristal Soliz         | 11    |
-| Daniela Menéndez      | 11    |
-| Marco Antonio Barrera | 11    |
-| Bernardo Narváez      | 14    |
-| Óscar Barrios         | 15    |
-```
+{% include without.md file="recursive_labeling.sql" %}
 
 -   Use `union` instead of `union all` to prevent *infinite recursion*
-</section>
 
+</section>
 <section markdown="1">
+
 ## 085: query from Python
 
-```py
-import sqlite3
-
-connection = sqlite3.connect("data/penguins.db")
-cursor = connection.execute("select count(*) from penguins;")
-rows = cursor.fetchall()
-print(rows)
-```
-```
-[(344,)]
-```
+{% include without.md file="basic_python_query.py" %}
 
 -   `sqlite3` is part of Python's standard library
 -   Create a connection to a database file
 -   Get a *cursor* by executing a query
     -   More common to create cursor and use that to run queries
 -   Fetch all rows at once as list of tuples
-</section>
 
+</section>
 <section markdown="1">
+
 ## 086: incremental fetch
 
-```py
-connection = sqlite3.connect("data/penguins.db")
-cursor = connection.cursor()
-cursor = cursor.execute("select species, island from penguins limit 5;")
-while (row := cursor.fetchone()):
-    print(row)
-```
-```
-('Adelie', 'Torgersen')
-('Adelie', 'Torgersen')
-('Adelie', 'Torgersen')
-('Adelie', 'Torgersen')
-('Adelie', 'Torgersen')
-```
+{% include without.md file="incremental_fetch.py" %}
 
 -   `cursor.fetchone` returns `None` when no more data
 -   There is also `fetchmany(N)` to fetch (up to) a certain number of rows
-</section>
 
+</section>
 <section markdown="1">
+
 ## 087: insert, delete, and all that
 
-```py
-connection = sqlite3.connect(":memory:")
-cursor = connection.cursor()
-cursor.execute("create table example(num integer);")
-
-cursor.execute("insert into example values (10), (20);")
-print("after insertion", cursor.execute("select * from example;").fetchall())
-
-cursor.execute("delete from example where num < 15;")
-print("after deletion", cursor.execute("select * from example;").fetchall())
-```
-```
-after insertion [(10,), (20,)]
-after deletion [(20,)]
-```
+{% include without.md file="insert_delete.py" %}
 
 -   Each `execute` is its own transaction
-</section>
 
+</section>
 <section markdown="1">
+
 ## 088: interpolate values
 
-```py
-connection = sqlite3.connect(":memory:")
-cursor = connection.cursor()
-cursor.execute("create table example(num integer);")
-
-cursor.executemany("insert into example values (?);", [(10,), (20,)])
-print("after insertion", cursor.execute("select * from example;").fetchall())
-```
-```
-after insertion [(10,), (20,)]
-```
+{% include without.md file="interpolate.py" %}
 
 -   From [XKCD][xkcd-tables]
 
 ![XKCD Exploits of a Mom](./img/xkcd_327_exploits_of_a_mom.png)
-</section>
 
+</section>
 <section markdown="1">
+
 ## 089: script execution
 
-```py
-SETUP = """\
-drop table if exists example;
-create table example(num integer);
-insert into example values (10), (20);
-"""
-
-connection = sqlite3.connect(":memory:")
-cursor = connection.cursor()
-cursor.executescript(SETUP)
-print("after insertion", cursor.execute("select * from example;").fetchall())
-```
-```
-after insertion [(10,), (20,)]
-```
+{% include without.md file="script_execution.py" %}
 
 -   But what if something goes wrong?
-</section>
 
+</section>
 <section markdown="1">
+
 ## 090: SQLite exceptions in Python
 
-```py
-SETUP = """\
-create table example(num integer check(num > 0));
-insert into example values (10);
-insert into example values (-1);
-insert into example values (20);
-"""
+{% include without.md file="exceptions.py" %}
 
-connection = sqlite3.connect(":memory:")
-cursor = connection.cursor()
-try:
-    cursor.executescript(SETUP)
-except sqlite3.Error as exc:
-    print(f"SQLite exception: {exc}")
-print("after execution", cursor.execute("select * from example;").fetchall())
-```
-```
-SQLite exception: CHECK constraint failed: num > 0
-after execution [(10,)]
-```
 </section>
-
 <section markdown="1">
+
 ## 091: Python in SQLite
 
-```py
-SETUP = """\
-create table example(num integer);
-insert into example values (-10), (10), (20), (30);
-"""
-
-def clip(value):
-    if value < 0: return 0
-    if value > 20: return 20
-    return value
-
-connection = sqlite3.connect(":memory:")
-connection.create_function("clip", 1, clip)
-cursor = connection.cursor()
-cursor.executescript(SETUP)
-for row in cursor.execute("select num, clip(num) from example;").fetchall():
-    print(row)
-```
-```
-(-10, 0)
-(10, 10)
-(20, 20)
-(30, 20)
-```
+{% include without.md file="embedded_python.py" %}
 
 -   SQLite calls back into Python to execute the function
 -   Other databases can run Python (and other languages) in the database server process
 -   Be careful
-</section>
 
+</section>
 <section markdown="1">
+
 ## 092: handle dates and times
 
-```py
-from datetime import date
-import sqlite3
-
-# Convert date to ISO-formatted string when writing to database
-def _adapt_date_iso(val):
-    return val.isoformat()
-sqlite3.register_adapter(date, _adapt_date_iso)
-
-# Convert ISO-formatted string to date when reading from database
-def _convert_date(val):
-    return date.fromisoformat(val.decode())
-sqlite3.register_converter("date", _convert_date)
-
-SETUP = """\
-create table events(
-    happened date not null,
-    description text not null
-);
-"""
-
-connection = sqlite3.connect(":memory:", detect_types=sqlite3.PARSE_DECLTYPES)
-cursor = connection.cursor()
-cursor.execute(SETUP)
-
-cursor.executemany(
-    "insert into events values (?, ?);",
-    [
-        (date(2024, 1, 10), "started tutorial"),
-        (date(2024, 1, 29), "finished tutorial")
-    ]
-)
-
-for row in cursor.execute("select * from events;").fetchall():
-    print(row)
-```
-```
-(datetime.date(2024, 1, 10), 'started tutorial')
-(datetime.date(2024, 1, 29), 'finished tutorial')
-```
+{% include without.md file="dates_times.py" %}
 
 -   `sqlite3.PARSE_DECLTYPES` tells `sqlite3` library to use converts based on declared column types
 -   Adapt on the way in, convert on the way out
+
 </section>
-
 <section markdown="1">
-## 092: SQL in Jupyter notebooks
 
-```bash
-$ pip install jupysql
-```
+## 093: SQL in Jupyter notebooks
+
+{% include miscfile.md file="install_jupysql.sh" %}
 
 -   And then inside the notebook:
 
-```py
-%load_ext sql
-```
+{% include miscfile.md file="load_ext.txt" %}
 
 -   Loads extension
 
-```py
-%sql sqlite:///data/penguins.db
-```
-```
-Connecting to 'sqlite:///data/penguins.db'
-```
+{% include without.md file="jupyter_connect.txt" %}
 
 -   Connects to database
     -   `sqlite://` with two slashes is the protocol
@@ -3074,16 +1242,7 @@ Connecting to 'sqlite:///data/penguins.db'
 -   Single percent sign `%sql` introduces one-line command
 -   Use double percent sign `%%sql` to indicate that the rest of the cell is SQL
 
-
-```sql
-%%sql
-select species, count(*) as num
-from penguins
-group by species;
-```
-```
-Running query in 'sqlite:///data/penguins.db'
-```
+{% include without.md file="jupyter_select.txt" %}
 
 <table>
   <thead>
@@ -3107,132 +1266,53 @@ Running query in 'sqlite:///data/penguins.db'
     </tr>
   </tbody>
 </table>
+
 </section>
-
 <section markdown="1">
-## 093: Pandas and SQL
 
-```bash
-$ pip install pandas
-```
+## 094: Pandas and SQL
 
-```py
-import pandas as pd
-import sqlite3
-
-connection = sqlite3.connect("data/penguins.db")
-query = "select species, count(*) as num from penguins group by species;"
-df = pd.read_sql(query, connection)
-print(df)
-```
-```
-     species  num
-0     Adelie  152
-1  Chinstrap   68
-2     Gentoo  124
-```
+{% include miscfile.md file="install_pandas.sh" %}
+{% include without.md file="select_pandas.py" %}
 
 -   Be careful about datatype conversion
+
 </section>
-
 <section markdown="1">
-## 094: Polars and SQL
 
-```bash
-$ pip install polars pyarrow adbc-driver-sqlite
-```
+## 095: Polars and SQL
 
-```py
-import polars as pl
-
-query = "select species, count(*) as num from penguins group by species;"
-uri = "sqlite:///data/penguins.db"
-df = pl.read_database_uri(query, uri, engine="adbc")
-print(df)
-```
-```
-shape: (3, 2)
-┌───────────┬─────┐
-│ species   ┆ num │
-│ ---       ┆ --- │
-│ str       ┆ i64 │
-╞═══════════╪═════╡
-│ Adelie    ┆ 152 │
-│ Chinstrap ┆ 68  │
-│ Gentoo    ┆ 124 │
-└───────────┴─────┘
-```
+{% include miscfile.md file="install_polars.sh" %}
+{% include without.md file="select_polars.py" %}
 
 -   The *Uniform Resource Identifier* (URI) specifies the database
 -   The query is the query
 -   Use the ADBC engine instead of the default ConnectorX
+
 </section>
-
 <section markdown="1">
-## 095: object-relational mapper
 
-```py
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+## 096: object-relational mapper
 
-class Department(SQLModel, table=True):
-    ident: str = Field(default=None, primary_key=True)
-    name: str
-    building: str
-
-engine = create_engine("sqlite:///data/assays.db")
-with Session(engine) as session:
-    statement = select(Department)
-    for result in session.exec(statement).all():
-        print(result)
-```
-```
-ident='gen' building='Chesson' name='Genetics'
-ident='hist' building='Fashet Extension' name='Histology'
-ident='mb' building='Chesson' name='Molecular Biology'
-ident='end' building='TGVH' name='Endocrinology'
-```
+{% include without.md file="orm.py" %}
 
 -   An *object-relational mapper* (ORM) translates table columns to object properties and vice versa
 -   SQLModel relies on Python type hints
+
 </section>
-
 <section markdown="1">
-## 096: relations with ORM
 
-```py
-from typing import Optional
+## 097: relations with ORM
 
-class Staff(SQLModel, table=True):
-    ident: str = Field(default=None, primary_key=True)
-    personal: str
-    family: str
-    dept: Optional[str] = Field(default=None, foreign_key="department.ident")
-    age: int
-
-engine = create_engine("sqlite:///data/assays.db")
-SQLModel.metadata.create_all(engine)
-with Session(engine) as session:
-    statement = select(Department, Staff).where(Staff.dept == Department.ident)
-    for dept, staff in session.exec(statement):
-        print(f"{dept.name}: {staff.personal} {staff.family}")
-```
-```
-Histology: Divit Dhaliwal
-Molecular Biology: Indrans Sridhar
-Molecular Biology: Pranay Khanna
-Histology: Vedika Rout
-Genetics: Abram Chokshi
-Histology: Romil Kapoor
-Molecular Biology: Ishaan Ramaswamy
-Genetics: Nitya Lal
-```
+{% include without.md file="orm_relation.py" %}
 
 -   Make foreign keys explicit in class definitions
 -   SQLModel automatically does the join
     -   The two staff with no department aren't included in the result
-</section>
 
+</section>
 <section class="appendix" markdown="1">
+
 ## Acknowledgments
 
 This tutorial would not have been possible without:
@@ -3244,6 +1324,7 @@ This tutorial would not have been possible without:
 I would also like to thank the following for spotting issues, making suggestions, or submitting changes:
 
 {% include thanks.html %}
+
 </section>
 
 [albrecht-andi]: http://andialbrecht.de/

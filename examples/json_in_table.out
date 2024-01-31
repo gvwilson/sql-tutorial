@@ -1,0 +1,5 @@
+| ident |      name      |                         details                         |
+|-------|----------------|---------------------------------------------------------|
+| 1     | WY401          | {"acquired": "2023-05-01"}                              |
+| 2     | Inphormex      | {"acquired": "2021-07-15", "refurbished": "2023-10-22"} |
+| 3     | AutoPlate 9000 | {"note": "needs software update"}                       |

@@ -1,0 +1,10 @@
+| species |  island   | bill_length_mm | bill_depth_mm | flipper_length_mm | body_mass_g |  sex   |
+|---------|-----------|----------------|---------------|-------------------|-------------|--------|
+| Adelie  | Dream     | 37.2           | 18.1          | 178               | 3900        | MALE   |
+| Adelie  | Dream     | 37.6           | 19.3          | 181               | 3300        | FEMALE |
+| Gentoo  | Biscoe    | 50             | 15.3          | 220               | 5550        | MALE   |
+| Adelie  | Torgersen | 37.3           | 20.5          | 199               | 3775        | MALE   |
+| Adelie  | Biscoe    | 39.6           | 17.7          | 186               | 3500        | FEMALE |
+| Gentoo  | Biscoe    | 47.7           | 15            | 216               | 4750        | FEMALE |
+| Adelie  | Dream     | 36.5           | 18            | 182               | 3150        | FEMALE |
+| Gentoo  | Biscoe    | 42             | 13.5          | 210               | 4150        | FEMALE |

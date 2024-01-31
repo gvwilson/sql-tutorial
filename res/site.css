@@ -89,9 +89,10 @@
  * Colors
  */
 
-div.language-bash {
+div.language-sh {
     border-left: solid var(--heavyborder) var(--stamp-green-light);
     padding-left: var(--mediumborder);
+    font-style: italic;
 }
 
 div.language-plaintext {
