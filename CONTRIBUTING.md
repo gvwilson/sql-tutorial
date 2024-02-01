@@ -57,6 +57,17 @@ All contributors will be acknowledged.
 -   `requirements.txt`: `pip` requirements file to build Python environment
 -   `src/`: source files for examples
 
+## Tags for Issues and Pull Requests
+
+-   `contribute-addition`: a pull request that contains new material
+-   `contribute-change`: a pull request that changes or fixes existing material
+-   `governance`: discussion of direction, use, etc.
+-   `in-content`: issue or PR is related to lesson content
+-   `in-infrastructure`: issue or PR is related to build tools, styling, etc.
+-   `report-bug`: issue reporting an error
+-   `request-addition`: issue asking for new content
+-   `request-change`: issue asking for a change to existing content
+
 [draw-io]: https://www.drawio.com/
 [jeykll]: https://jekyllrb.com/
 [palmer-penguins]: https://allisonhorst.github.io/palmerpenguins/
