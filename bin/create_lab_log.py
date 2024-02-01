@@ -29,16 +29,16 @@ create table usage(
 """
 
 MACHINES = {
-    'WY401': {'acquired': '2023-05-01'},
-    'Inphormex': {'acquired': '2021-07-15', 'refurbished': '2023-10-22'},
-    'AutoPlate 9000': {'note': 'needs software update'},
+    "WY401": {"acquired": "2023-05-01"},
+    "Inphormex": {"acquired": "2021-07-15", "refurbished": "2023-10-22"},
+    "AutoPlate 9000": {"note": "needs software update"},
 }
 
 TRANSITIONS = {
-    'WY401': {'Inphormex': 50, 'sterilizer': 50},
-    'Inphormex': {'WY401': 25, 'Inphormex': 25, 'AutoPlate 9000': 25, None: 25},
-    'AutoPlate 9000': {'Inphormex': 25, 'sterilizer': 50, None: 25},
-    'sterilizer': {'Inphormex': 30, 'AutoPlate 9000': 30, None: 40},
+    "WY401": {"Inphormex": 50, "sterilizer": 50},
+    "Inphormex": {"WY401": 25, "Inphormex": 25, "AutoPlate 9000": 25, None: 25},
+    "AutoPlate 9000": {"Inphormex": 25, "sterilizer": 50, None: 25},
+    "sterilizer": {"Inphormex": 30, "AutoPlate 9000": 30, None: 40},
 }
 
 PARAMS = {
@@ -50,6 +50,7 @@ PARAMS = {
     "num_persons": 8,
     "seed": 571298,
 }
+
 
 def main():
     """Main driver."""
@@ -65,7 +66,7 @@ def check_hardware():
     """Check consistency of hardware tables."""
     tx_keys = set(TRANSITIONS.keys())
     assert tx_keys.issuperset(MACHINES.keys())
-    for (key, value) in TRANSITIONS.items():
+    for key, value in TRANSITIONS.items():
         out = set(value.keys()) - {None}
         assert tx_keys.issuperset(out)
         assert sum(value.values()) == 100
@@ -105,16 +106,14 @@ def save(filename, persons, usages):
     conn = sqlite3.connect(filename)
     conn.executescript(CREATE_TABLES)
     conn.executemany(
-        "insert into person values (null, ?)",
-        [[json.dumps(p)] for p in persons]
+        "insert into person values (null, ?)", [[json.dumps(p)] for p in persons]
     )
     conn.executemany(
         "insert into machine values (null, ?, ?)",
-        [[name, json.dumps(details)] for name, details in MACHINES.items()]
+        [[name, json.dumps(details)] for name, details in MACHINES.items()],
     )
     conn.executemany(
-        "insert into usage values (null, ?)",
-        [[json.dumps(usage)] for usage in usages]
+        "insert into usage values (null, ?)", [[json.dumps(usage)] for usage in usages]
     )
     conn.commit()
 

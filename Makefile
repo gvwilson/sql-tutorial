@@ -1,43 +1,91 @@
-DATA := examples/data
+SQLITE := sqlite3
+DB := db
+SRC := src
+OUT := out
+MODE := ${SRC}/mode.txt
+
+ASSAYS := ${SQLITE} ${DB}/assays.db
+CONTACTS := ${SQLITE} ${DB}/contact_tracing.db
+CONTACTS_TMP := ${SQLITE} /tmp/contact_tracing.db
+LAB_LOG := ${SQLITE} ${DB}/lab_log.db
+MEMORY := ${SQLITE} :memory:
+PENGUINS := ${SQLITE} ${DB}/penguins.db
+PENGUINS_TMP := ${SQLITE} /tmp/penguins.db
+
+SQL_FILES := $(wildcard ${SRC}/*.sql)
+PY_FILES := $(wildcard ${SRC}/*.py)
+EXCLUDED_SQL := \
+  ${SRC}/create_work_job.sql \
+  ${SRC}/lineage_setup.sql \
+  ${SRC}/trigger_setup.sql
+OUT_FILES := \
+    $(patsubst ${SRC}/%.sql,${OUT}/%.out,$(filter-out ${EXCLUDED_SQL},${SQL_FILES})) \
+    $(patsubst ${SRC}/%.py,${OUT}/%.out,${PY_FILES})
 
 ## commands: show available commands
 .PHONY: commands
 commands:
 	@grep -h -E '^##' ${MAKEFILE_LIST} | sed -e 's/## //g' | column -t -s ':'
 
+## build: rebuild website
+.PHONY: build
+build:
+	@jekyll build
+
+## serve: rebuild and serve website
+.PHONY: serve
+serve:
+	@jekyll serve
+
 ## databases: make required files
 .PHONY: databases
 databases : \
-	${DATA}/assays.db \
-	${DATA}/contact_tracing.db \
-	${DATA}/lab_log.db \
-	${DATA}/penguins.db
+	${DB}/assays.db \
+	${DB}/contact_tracing.db \
+	${DB}/lab_log.db \
+	${DB}/penguins.db
 
-## examples/data/assays.db: synthetic experimental data
-${DATA}/assays.db: bin/create_assays_db.py
+${DB}/assays.db: bin/create_assays_db.py
 	python $< $@
 
-## examples/data/contact_tracing.db: synthetic contact tracing
-${DATA}/contact_tracing.db: bin/create_contacts.py
+${DB}/contact_tracing.db: bin/create_contacts.py
 	python $< $@
 
-## examples/data/lab_log.db: synthetic experiment records
-${DATA}/lab_log.db: bin/create_lab_log.py
+${DB}/lab_log.db: bin/create_lab_log.py
 	python $< $@
 
-## examples/data/penguins.db: penguin data
-${DATA}/penguins.db : bin/create_penguins_db.sql ${DATA}/penguins.csv
+${DB}/penguins.db : bin/create_penguins_db.sql misc/penguins.csv
 	sqlite3 $@ < $<
 
 ## lint: check project state
 .PHONY: lint
 lint:
-	@python bin/check_examples.py ./examples
+	@python bin/check_examples.py .
 
-## keywords: list unused keywords
-.PHONY: keywords
-keywords:
-	@python bin/get_sql_features.py --diff _data/sql_keywords.txt --markdown < index.md
+## style: check Python code style
+.PHONY: style
+style:
+	@ruff check .
+
+## reformat: reformat unstylish Python code
+.PHONY: reformat
+reformat:
+	@ruff format .
+
+## missing: list unused keywords
+.PHONY: missing
+missing:
+	@python bin/get_sql_features.py --missing misc/sql_keywords.txt --files ${SQL_FILES}
+
+## used: list used keywords
+.PHONY: used
+used:
+	@python bin/get_sql_features.py --report alpha --files ${SQL_FILES}
+
+## freq: list keywords by frequency
+.PHONY: freq
+freq:
+	@python bin/get_sql_features.py --report freq --files ${SQL_FILES}
 
 ## renumber: renumber headings
 .PHONY: renumber
@@ -52,349 +100,327 @@ clean:
 
 # ----------------------------------------------------------------------
 
-SQLITE := sqlite3
-X := examples
-MODE := ${X}/mode.txt
-DATA := ${X}/data
-
-ASSAYS := ${SQLITE} ${DATA}/assays.db
-CONTACTS := ${SQLITE} ${DATA}/contact_tracing.db
-CONTACTS_TMP := ${SQLITE} /tmp/contact_tracing.db
-LAB_LOG := ${SQLITE} ${DATA}/lab_log.db
-MEMORY := ${SQLITE} :memory:
-PENGUINS := ${SQLITE} ${DATA}/penguins.db
-PENGUINS_TMP := ${SQLITE} /tmp/penguins.db
-
-SQL_FILES := $(wildcard ${X}/*.sql)
-PY_FILES := $(wildcard ${X}/*.py)
-EXCLUDED_FILES := \
-  ${X}/lineage_setup.out \
-  ${X}/trigger_setup.out
-OUT_FILES := \
-    $(filter-out ${EXCLUDED_FILES},$(patsubst %.sql,%.out,${SQL_FILES})) \
-    $(filter-out ${EXCLUDED_FILES},$(patsubst %.py,%.out,${PY_FILES}))
-
 ## run: re-run all examples
 .PHONY: run
 run: ${OUT_FILES}
 
-${X}/select_1.out: ${X}/select_1.sql
-	cat $^ | ${PENGUINS} > $@
+${OUT}/select_1.out: ${SRC}/select_1.sql
+	cat $< | ${PENGUINS} > $@
 
-${X}/select_star.out: ${X}/select_star.sql
-	cat $^ | ${PENGUINS} | head -n 10 > $@
+${OUT}/select_star.out: ${SRC}/select_star.sql
+	cat $< | ${PENGUINS} | head -n 10 > $@
 
-${X}/admin_commands.out: ${X}/admin_commands.sql
-	cat $^ | ${PENGUINS} | head -n 10 > $@
+${OUT}/admin_commands.out: ${SRC}/admin_commands.sql
+	cat $< | ${PENGUINS} | head -n 10 > $@
 
-${X}/specify_columns.out: ${X}/specify_columns.sql
-	cat ${MODE} $^ | ${PENGUINS} | head -n 12 > $@
+${OUT}/specify_columns.out: ${SRC}/specify_columns.sql
+	cat ${MODE} $< | ${PENGUINS} | head -n 12 > $@
 
-${X}/sort.out: ${X}/sort.sql
-	cat ${MODE} $^ | ${PENGUINS} | head -n 12 > $@
+${OUT}/sort.out: ${SRC}/sort.sql
+	cat ${MODE} $< | ${PENGUINS} | head -n 12 > $@
 
-${X}/limit.out: ${X}/limit.sql
-	cat ${MODE} $^ | ${PENGUINS} | head -n 7 > $@
+${OUT}/limit.out: ${SRC}/limit.sql
+	cat ${MODE} $< | ${PENGUINS} | head -n 7 > $@
 
-${X}/page.out: ${X}/page.sql
-	cat ${MODE} $^ | ${PENGUINS} | head -n 7 > $@
+${OUT}/page.out: ${SRC}/page.sql
+	cat ${MODE} $< | ${PENGUINS} | head -n 7 > $@
 
-${X}/distinct.out: ${X}/distinct.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/distinct.out: ${SRC}/distinct.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/filter.out: ${X}/filter.sql
-	cat ${MODE} $^ | ${PENGUINS} | head -n 7 > $@
+${OUT}/filter.out: ${SRC}/filter.sql
+	cat ${MODE} $< | ${PENGUINS} | head -n 7 > $@
 
-${X}/filter_and.out: ${X}/filter_and.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/filter_and.out: ${SRC}/filter_and.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/calculations.out: ${X}/calculations.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/calculations.out: ${SRC}/calculations.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/rename_columns.out: ${X}/rename_columns.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/rename_columns.out: ${SRC}/rename_columns.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/show_missing_values.out: ${X}/show_missing_values.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/show_missing_values.out: ${SRC}/show_missing_values.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/null_equality.out: ${X}/null_equality.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/null_equality.out: ${SRC}/null_equality.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/null_inequality.out: ${X}/null_inequality.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/null_inequality.out: ${SRC}/null_inequality.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/ternary_logic.out: ${X}/ternary_logic.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/ternary_logic.out: ${SRC}/ternary_logic.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/safe_null_equality.out: ${X}/safe_null_equality.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/safe_null_equality.out: ${SRC}/safe_null_equality.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/simple_sum.out: ${X}/simple_sum.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/simple_sum.out: ${SRC}/simple_sum.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/common_aggregations.out: ${X}/common_aggregations.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/common_aggregations.out: ${SRC}/common_aggregations.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/simple_group.out: ${X}/simple_group.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/simple_group.out: ${SRC}/simple_group.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/unaggregated_columns.out: ${X}/unaggregated_columns.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/unaggregated_columns.out: ${SRC}/unaggregated_columns.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/arbitrary_in_aggregation.out: ${X}/arbitrary_in_aggregation.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/arbitrary_in_aggregation.out: ${SRC}/arbitrary_in_aggregation.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/filter_aggregation.out: ${X}/filter_aggregation.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/filter_aggregation.out: ${SRC}/filter_aggregation.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/readable_aggregation.out: ${X}/readable_aggregation.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/readable_aggregation.out: ${SRC}/readable_aggregation.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/filter_aggregate_inputs.out: ${X}/filter_aggregate_inputs.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
+${OUT}/filter_aggregate_inputs.out: ${SRC}/filter_aggregate_inputs.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
 
-${X}/create_tables.out: ${X}/create_tables.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/insert_values.out: ${X}/create_tables.sql ${X}/insert_values.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/update_rows.out: ${X}/create_tables.sql ${X}/update_rows.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/delete_rows.out: ${X}/create_tables.sql ${X}/delete_rows.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/backing_up.out: ${X}/create_tables.sql ${X}/backing_up.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/cross_join.out: ${X}/create_tables.sql ${X}/cross_join.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/inner_join.out: ${X}/create_tables.sql ${X}/inner_join.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/aggregate_join.out: ${X}/create_tables.sql ${X}/aggregate_join.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/left_join.out: ${X}/create_tables.sql ${X}/left_join.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/aggregate_left_join.out: ${X}/create_tables.sql ${X}/aggregate_left_join.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/coalesce.out: ${X}/create_tables.sql ${X}/coalesce.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/negate_incorrectly.out: ${X}/create_tables.sql ${X}/negate_incorrectly.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/set_membership.out: ${X}/create_tables.sql ${X}/set_membership.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/subquery_set.out: ${X}/create_tables.sql ${X}/subquery_set.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/autoincrement.out: ${X}/autoincrement.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/sequence_table.out: ${X}/sequence_table.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/alter_tables.out: ${X}/alter_tables.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/insert_select.out: ${X}/insert_select.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/drop_table.out: ${X}/drop_table.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/compare_individual_aggregate.out: ${X}/compare_individual_aggregate.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
-
-${X}/compare_within_groups.out: ${X}/compare_within_groups.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
-
-${X}/common_table_expressions.out: ${X}/common_table_expressions.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
-
-${X}/explain_query_plan.out: ${X}/explain_query_plan.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
-
-${X}/rowid.out: ${X}/rowid.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
-
-${X}/if_else.out: ${X}/if_else.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
-
-${X}/case_when.out: ${X}/case_when.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
-
-${X}/select_range.out: ${X}/select_range.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
-
-${X}/assay_staff.out: ${X}/assay_staff.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/like_glob.out: ${X}/like_glob.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/union_all.out: ${X}/union_all.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/intersect.out: ${X}/intersect.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/except.out: ${X}/except.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/random_numbers.out: ${X}/random_numbers.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/generate_sequence.out: ${X}/generate_sequence.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/data_range_sequence.out: ${X}/data_range_sequence.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/date_sequence.out: ${X}/date_sequence.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/experiments_per_day.out: ${X}/experiments_per_day.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/self_join.out: ${X}/self_join.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/unique_pairs.out: ${X}/unique_pairs.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/filter_pairs.out: ${X}/filter_pairs.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/correlated_subquery.out: ${X}/correlated_subquery.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/nonexistence.out: ${X}/nonexistence.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/avoid_correlated_subqueries.out: ${X}/avoid_correlated_subqueries.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/lead_lag.out: ${X}/lead_lag.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/window_functions.out: ${X}/window_functions.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/explain_window_function.out: ${X}/explain_window_function.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/partition_window.out: ${X}/partition_window.sql
-	cat ${MODE} $^ | ${ASSAYS} > $@
-
-${X}/blob.out: ${X}/blob.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/lab_log_schema.out: ${X}/lab_log_schema.sql
-	cat ${MODE} $^ | ${LAB_LOG} > $@
-
-${X}/json_in_table.out: ${X}/json_in_table.sql
-	cat ${MODE} $^ | ${LAB_LOG} > $@
-
-${X}/json_field.out: ${X}/json_field.sql
-	cat ${MODE} $^ | ${LAB_LOG} > $@
-
-${X}/json_array.out: ${X}/json_array.sql
-	cat ${MODE} $^ | ${LAB_LOG} > $@
-
-${X}/json_array_last.out: ${X}/json_array_last.sql
-	cat ${MODE} $^ | ${LAB_LOG} > $@
-
-${X}/json_modify.out: ${X}/json_modify.sql
-	cat ${MODE} $^ | ${LAB_LOG} > $@
-
-${X}/count_penguins.out: ${X}/count_penguins.sql
-	cat ${MODE} $^ | ${PENGUINS} > $@
-
-${X}/active_penguins.out: ${X}/active_penguins.sql
-	cp ${DATA}/penguins.db /tmp
-	cat ${MODE} $^ | ${PENGUINS_TMP} > $@
-
-${X}/all_jobs.out: ${X}/all_jobs.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/all_jobs_check.out: ${X}/all_jobs_check.sql
-	-cat ${MODE} $^ | ${MEMORY} &> $@
-
-${X}/transaction.out: ${X}/transaction.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
-
-${X}/rollback_constraint.out: ${X}/rollback_constraint.sql
-	-cat ${MODE} $^ | ${MEMORY} >& $@
-
-${X}/rollback_statement.out: ${X}/rollback_statement.sql
-	-cat ${MODE} $^ | ${MEMORY} >& $@
-
-${X}/trigger_successful.out: ${X}/trigger_successful.sql ${X}/trigger_setup.sql
+${OUT}/show_work_job.out: ${SRC}/show_work_job.sql ${SRC}/create_work_job.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
-${X}/trigger_firing.out: ${X}/trigger_firing.sql ${X}/trigger_setup.sql
+${OUT}/insert_values.out: ${SRC}/insert_values.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/update_rows.out: ${SRC}/update_rows.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/delete_rows.out: ${SRC}/delete_rows.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/backing_up.out: ${SRC}/backing_up.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/cross_join.out: ${SRC}/cross_join.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/inner_join.out: ${SRC}/inner_join.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/aggregate_join.out: ${SRC}/aggregate_join.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/left_join.out: ${SRC}/left_join.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/aggregate_left_join.out: ${SRC}/aggregate_left_join.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/coalesce.out: ${SRC}/coalesce.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/negate_incorrectly.out: ${SRC}/negate_incorrectly.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/set_membership.out: ${SRC}/set_membership.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/subquery_set.out: ${SRC}/subquery_set.sql ${SRC}/create_work_job.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/autoincrement.out: ${SRC}/autoincrement.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/sequence_table.out: ${SRC}/sequence_table.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/alter_tables.out: ${SRC}/alter_tables.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/insert_select.out: ${SRC}/insert_select.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/drop_table.out: ${SRC}/drop_table.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/compare_individual_aggregate.out: ${SRC}/compare_individual_aggregate.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/compare_within_groups.out: ${SRC}/compare_within_groups.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/common_table_expressions.out: ${SRC}/common_table_expressions.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/explain_query_plan.out: ${SRC}/explain_query_plan.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/rowid.out: ${SRC}/rowid.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/if_else.out: ${SRC}/if_else.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/case_when.out: ${SRC}/case_when.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/select_range.out: ${SRC}/select_range.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/assay_staff.out: ${SRC}/assay_staff.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/like_glob.out: ${SRC}/like_glob.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/union_all.out: ${SRC}/union_all.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/intersect.out: ${SRC}/intersect.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/except.out: ${SRC}/except.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/random_numbers.out: ${SRC}/random_numbers.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/generate_sequence.out: ${SRC}/generate_sequence.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/data_range_sequence.out: ${SRC}/data_range_sequence.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/date_sequence.out: ${SRC}/date_sequence.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/experiments_per_day.out: ${SRC}/experiments_per_day.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/self_join.out: ${SRC}/self_join.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/unique_pairs.out: ${SRC}/unique_pairs.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/filter_pairs.out: ${SRC}/filter_pairs.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/correlated_subquery.out: ${SRC}/correlated_subquery.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/nonexistence.out: ${SRC}/nonexistence.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/avoid_correlated_subqueries.out: ${SRC}/avoid_correlated_subqueries.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/lead_lag.out: ${SRC}/lead_lag.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/window_functions.out: ${SRC}/window_functions.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/explain_window_function.out: ${SRC}/explain_window_function.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/partition_window.out: ${SRC}/partition_window.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+${OUT}/blob.out: ${SRC}/blob.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/lab_log_schema.out: ${SRC}/lab_log_schema.sql
+	cat ${MODE} $< | ${LAB_LOG} > $@
+
+${OUT}/json_in_table.out: ${SRC}/json_in_table.sql
+	cat ${MODE} $< | ${LAB_LOG} > $@
+
+${OUT}/json_field.out: ${SRC}/json_field.sql
+	cat ${MODE} $< | ${LAB_LOG} > $@
+
+${OUT}/json_array.out: ${SRC}/json_array.sql
+	cat ${MODE} $< | ${LAB_LOG} > $@
+
+${OUT}/json_array_last.out: ${SRC}/json_array_last.sql
+	cat ${MODE} $< | ${LAB_LOG} > $@
+
+${OUT}/json_modify.out: ${SRC}/json_modify.sql
+	cat ${MODE} $< | ${LAB_LOG} > $@
+
+${OUT}/count_penguins.out: ${SRC}/count_penguins.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/active_penguins.out: ${SRC}/active_penguins.sql
+	cp ${DB}/penguins.db /tmp
+	cat ${MODE} $< | ${PENGUINS_TMP} > $@
+
+${OUT}/all_jobs.out: ${SRC}/all_jobs.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/all_jobs_check.out: ${SRC}/all_jobs_check.sql
+	-cat ${MODE} $< | ${MEMORY} &> $@
+
+${OUT}/transaction.out: ${SRC}/transaction.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/rollback_constraint.out: ${SRC}/rollback_constraint.sql
 	-cat ${MODE} $< | ${MEMORY} >& $@
 
-${X}/represent_graph.out: ${X}/represent_graph.sql
-	cat ${MODE} $^ | ${MEMORY} > $@
+${OUT}/rollback_statement.out: ${SRC}/rollback_statement.sql
+	-cat ${MODE} $< | ${MEMORY} >& $@
 
-${X}/contact_person.out: ${X}/contact_person.sql
-	cat ${MODE} $^ | ${CONTACTS} > $@
+${OUT}/trigger_successful.out: ${SRC}/trigger_successful.sql ${SRC}/trigger_setup.sql
+	cat ${MODE} $< | ${MEMORY} > $@
 
-${X}/contact_contacts.out: ${X}/contact_contacts.sql
-	cat ${MODE} $^ | ${CONTACTS} > $@
+${OUT}/trigger_firing.out: ${SRC}/trigger_firing.sql ${SRC}/trigger_setup.sql
+	-cat ${MODE} $< | ${MEMORY} >& $@
 
-${X}/bidirectional.out: ${X}/bidirectional.sql
-	cp ${DATA}/contact_tracing.db /tmp
-	cat ${MODE} $^ | ${CONTACTS_TMP} > $@
+${OUT}/represent_graph.out: ${SRC}/represent_graph.sql
+	cat ${MODE} $< | ${MEMORY} > $@
 
-${X}/update_group_ids.out: ${X}/update_group_ids.sql
-	cp ${DATA}/contact_tracing.db /tmp
-	cat ${MODE} $^ | ${CONTACTS_TMP} > $@
+${OUT}/contact_person.out: ${SRC}/contact_person.sql
+	cat ${MODE} $< | ${CONTACTS} > $@
 
-${X}/recursive_labeling.out: ${X}/recursive_labeling.sql
-	cat ${MODE} $^ | ${CONTACTS} > $@
+${OUT}/contact_contacts.out: ${SRC}/contact_contacts.sql
+	cat ${MODE} $< | ${CONTACTS} > $@
 
-${X}/basic_python_query.out: ${X}/basic_python_query.py
+${OUT}/bidirectional.out: ${SRC}/bidirectional.sql
+	cp ${DB}/contact_tracing.db /tmp
+	cat ${MODE} $< | ${CONTACTS_TMP} > $@
+
+${OUT}/update_group_ids.out: ${SRC}/update_group_ids.sql
+	cp ${DB}/contact_tracing.db /tmp
+	cat ${MODE} $< | ${CONTACTS_TMP} > $@
+
+${OUT}/recursive_labeling.out: ${SRC}/recursive_labeling.sql
+	cat ${MODE} $< | ${CONTACTS} > $@
+
+${OUT}/basic_python_query.out: ${SRC}/basic_python_query.py
 	python $< > $@
 
-${X}/incremental_fetch.out: ${X}/incremental_fetch.py
+${OUT}/incremental_fetch.out: ${SRC}/incremental_fetch.py
 	python $< > $@
 
-${X}/insert_delete.out: ${X}/insert_delete.py
+${OUT}/insert_delete.out: ${SRC}/insert_delete.py
 	python $< > $@
 
-${X}/interpolate.out: ${X}/interpolate.py
+${OUT}/interpolate.out: ${SRC}/interpolate.py
 	python $< > $@
 
-${X}/script_execution.out: ${X}/script_execution.py
+${OUT}/script_execution.out: ${SRC}/script_execution.py
 	python $< > $@
 
-${X}/exceptions.out: ${X}/exceptions.py
+${OUT}/exceptions.out: ${SRC}/exceptions.py
 	python $< > $@
 
-${X}/embedded_python.out: ${X}/embedded_python.py
+${OUT}/embedded_python.out: ${SRC}/embedded_python.py
 	python $< > $@
 
-${X}/dates_times.out: ${X}/dates_times.py
+${OUT}/dates_times.out: ${SRC}/dates_times.py
 	python $< > $@
 
-${X}/select_pandas.out: ${X}/select_pandas.py
+${OUT}/select_pandas.out: ${SRC}/select_pandas.py
 	python $< > $@
 
-${X}/select_polars.out: ${X}/select_polars.py
+${OUT}/select_polars.out: ${SRC}/select_polars.py
 	python $< > $@
 
-${X}/orm.out: ${X}/orm.py
+${OUT}/orm.out: ${SRC}/orm.py
 	python $< > $@
 
-${X}/orm_relation.out: ${X}/orm_relation.py
+${OUT}/orm_relation.out: ${SRC}/orm_relation.py
 	python $< > $@

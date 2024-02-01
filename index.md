@@ -5,7 +5,7 @@ home: true
 
 ## null: connect to database
 
-{% include miscfile.md file="connect_penguins.sh" %}
+{% include miscfile.md file="src/connect_penguins.sh" %}
 
 -   Not actually a query
 -   But we have to do it before we can do anything else
@@ -334,7 +334,7 @@ home: true
 
 ## null: create in-memory database
 
-{% include miscfile.md file="in_memory_db.sh" %}
+{% include miscfile.md file="src/in_memory_db.sh" %}
 
 -   "Connect" to an *in-memory* database
 
@@ -343,7 +343,8 @@ home: true
 
 ## 025: create tables
 
-{% include without.md file="create_tables.sql" %}
+{% include miscfile.md file="src/create_work_job.sql" %}
+{% include miscfile.md file="out/show_work_job.out" %}
 
 -   <code>create table <em>name</em></code> followed by parenthesized list of columns
 -   Each column is a name, a data type, and optional extra information
@@ -871,7 +872,7 @@ home: true
 
 ## null: yet another database
 
-{% include miscfile.md file="lab_log_db.sh" %}
+{% include miscfile.md file="src/lab_log_db.sh" %}
 {% include without.md file="lab_log_schema.sql" %}
 
 </section>
@@ -1066,7 +1067,7 @@ home: true
 -   Inside trigger, refer to old and new versions of record
     as <code>old.<em>column</em></code> and <code>new.<em>column</em></code>
 
-{% include miscfile.md file="trigger_setup.sql" %}
+{% include miscfile.md file="src/trigger_setup.sql" %}
 {% include without.md file="trigger_successful.sql" %}
 
 </section>
@@ -1081,7 +1082,7 @@ home: true
 
 ## null: represent graphs
 
-{% include miscfile.md file="lineage_setup.sql" %}
+{% include miscfile.md file="src/lineage_setup.sql" %}
 {% include without.md file="represent_graph.sql" %}
 
 ![lineage diagram](./img/lineage.svg)
@@ -1226,11 +1227,11 @@ home: true
 
 ## 093: SQL in Jupyter notebooks
 
-{% include miscfile.md file="install_jupysql.sh" %}
+{% include miscfile.md file="src/install_jupysql.sh" %}
 
 -   And then inside the notebook:
 
-{% include miscfile.md file="load_ext.txt" %}
+{% include miscfile.md file="src/load_ext.txt" %}
 
 -   Loads extension
 
@@ -1272,7 +1273,7 @@ home: true
 
 ## 094: Pandas and SQL
 
-{% include miscfile.md file="install_pandas.sh" %}
+{% include miscfile.md file="src/install_pandas.sh" %}
 {% include without.md file="select_pandas.py" %}
 
 -   Be careful about datatype conversion
@@ -1282,7 +1283,7 @@ home: true
 
 ## 095: Polars and SQL
 
-{% include miscfile.md file="install_polars.sh" %}
+{% include miscfile.md file="src/install_polars.sh" %}
 {% include without.md file="select_polars.py" %}
 
 -   The *Uniform Resource Identifier* (URI) specifies the database

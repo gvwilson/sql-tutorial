@@ -1,3 +1,4 @@
+.read src/create_work_job.sql
 -- start
 insert into job values
     ('calibrate', 1.5),

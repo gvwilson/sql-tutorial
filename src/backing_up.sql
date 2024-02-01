@@ -1,3 +1,6 @@
+.read src/create_work_job.sql
+
+-- start
 create table backup(
     person text not null,
     job text not null
@@ -12,3 +15,4 @@ delete from work
 where person = 'tae';
 
 select * from backup;
+-- end

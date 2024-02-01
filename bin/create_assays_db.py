@@ -1,8 +1,6 @@
 """Create a database with synthetic experimental data."""
 
-import argparse
 from datetime import date, datetime, timedelta
-from pathlib import Path
 import random
 import sqlite3
 import string
@@ -68,9 +66,7 @@ DEPARTMENTS = [
     {"ident": "hist", "name": "Histology", "building": "Fashet Extension"},
     {"ident": "mb", "name": "Molecular Biology", "building": "Chesson"},
 ]
-EXTRA_DEPARTMENTS = [
-    {"ident": "end", "name": "Endocrinology", "building": "TGVH"}
-]
+EXTRA_DEPARTMENTS = [{"ident": "end", "name": "Endocrinology", "building": "TGVH"}]
 
 PARAMS = {
     "end_date": date(2024, 2, 10),
@@ -139,15 +135,16 @@ def fill_experiments(connection, fake):
         )
 
         if ended is not None:
-            plates.extend(
-                random_plates(kind, experiment_id, started, random_filename)
-            )
+            plates.extend(random_plates(kind, experiment_id, started, random_filename))
 
     invalidated = invalidate_plates(plates)
 
     connection.executemany(
         "insert into department values (?, ?, ?)",
-        [(d["ident"], d["name"], d["building"]) for d in DEPARTMENTS + EXTRA_DEPARTMENTS]
+        [
+            (d["ident"], d["name"], d["building"])
+            for d in DEPARTMENTS + EXTRA_DEPARTMENTS
+        ],
     )
     connection.executemany("insert into experiment values (?, ?, ?, ?)", experiments)
     connection.executemany("insert into performed values (?, ?)", performed)
@@ -185,7 +182,9 @@ def make_random_filename():
     result = ""
     while True:
         while result in filenames:
-            stem = "".join(random.choices(string.hexdigits, k=PARAMS["filename_len"])).lower()
+            stem = "".join(
+                random.choices(string.hexdigits, k=PARAMS["filename_len"])
+            ).lower()
             result = f"{stem}.csv"
         filenames.add(result)
         yield result
@@ -199,7 +198,7 @@ def random_age():
 def random_department(which):
     """Choose a department at random."""
     if which == 0:
-        return None # ensure at least one with missing department
+        return None  # ensure at least one with missing department
     return random.choice([None, *[d["ident"] for d in DEPARTMENTS]])
 
 
@@ -242,12 +241,15 @@ def round_date(raw):
 
 def sqlite_configure():
     """Configure sqlite adapters and converters."""
+
     def _adapt_date_iso(val):
         return val.isoformat()
+
     sqlite3.register_adapter(date, _adapt_date_iso)
 
     def _convert_date(val):
         return date.fromisoformat(val.decode())
+
     sqlite3.register_converter("date", _convert_date)
 
 

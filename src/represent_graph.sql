@@ -1,4 +1,4 @@
-.read examples/lineage_setup.sql
+.read src/lineage_setup.sql
 -- start
 select * from lineage;
 -- end
