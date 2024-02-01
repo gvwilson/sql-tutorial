@@ -68,7 +68,51 @@ All contributors will be acknowledged.
 -   `request-addition`: issue asking for new content
 -   `request-change`: issue asking for a change to existing content
 
+## FAQ
+
+Why SQL?
+:   Because if you dig down far enough,
+    almost every data science project sits on top of a relational database.
+    ([Jon Udell][udell] once called [PostgreSQL][postgresql]
+    "an operating system for data science".)
+    SQL's relational model has also been a powerful influence
+    on dataframe libraries like [the tidyverse][tidyverse],
+    [Pandas][pandas],
+    and [Polars][polars];
+    understanding the former therefore helps people understand the latter.
+
+Why Jekyll?
+:   It's the default for GitHub Pages,
+    and if we used something more comfortable
+    people would spend time fiddling with the tools instead of writing content.
+
+Why Make?
+:   It runs everywhere,
+    no other build tool is a clear successor,
+    and,
+    like Jekyll,
+    it's uncomfortable enough to use that people won't be tempted to fiddle with it
+    when they could be writing.
+
+Why hand-drawn figures rather than [Graphviz][graphviz] or [Mermaid][mermaid]?
+:   Because it's faster to Just Effing Draw than it is
+    to try to tweak layout parameters for text-to-diagram systems.
+    If you really want to make developers' lives better,
+    build a diff-and-merge tool for SVG:
+    programmers shouldn't have to use punchard-compatible data formats in the 21st Century
+    just to get the benefits of version control.
+
+Why make this freely available?
+:   If you have to ask, you wouldn't understand.
+
 [draw-io]: https://www.drawio.com/
+[graphviz]: https://graphviz.org/
 [jeykll]: https://jekyllrb.com/
+[mermaid]: https://mermaid.js.org/
 [palmer-penguins]: https://allisonhorst.github.io/palmerpenguins/
+[pandas]: https://pandas.pydata.org/
+[polars]: https://pola.rs/
+[postgresql]: https://www.postgresql.org/
 [repo]: https://github.com/{{site.repository}}
+[tidyverse]: https://www.tidyverse.org/
+[udell]: https://blog.jonudell.net/
