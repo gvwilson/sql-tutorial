@@ -113,16 +113,16 @@ ${OUT}/select_1.out: ${SRC}/select_1.sql
 	cat $< | ${PENGUINS} > $@
 
 ${OUT}/select_star.out: ${SRC}/select_star.sql
-	cat $< | ${PENGUINS} | head -n 10 > $@
+	cat $< | ${PENGUINS} > $@
 
 ${OUT}/admin_commands.out: ${SRC}/admin_commands.sql
-	cat $< | ${PENGUINS} | head -n 10 > $@
+	cat $< | ${PENGUINS} > $@
 
 ${OUT}/specify_columns.out: ${SRC}/specify_columns.sql
-	cat ${MODE} $< | ${PENGUINS} | head -n 12 > $@
+	cat ${MODE} $< | ${PENGUINS} > $@
 
 ${OUT}/sort.out: ${SRC}/sort.sql
-	cat ${MODE} $< | ${PENGUINS} | head -n 12 > $@
+	cat ${MODE} $< | ${PENGUINS} > $@
 
 ${OUT}/limit.out: ${SRC}/limit.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
@@ -134,7 +134,7 @@ ${OUT}/distinct.out: ${SRC}/distinct.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
 ${OUT}/filter.out: ${SRC}/filter.sql
-	cat ${MODE} $< | ${PENGUINS} | head -n 7 > $@
+	cat ${MODE} $< | ${PENGUINS} > $@
 
 ${OUT}/filter_and.out: ${SRC}/filter_and.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
