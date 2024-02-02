@@ -57,6 +57,11 @@ ${DB}/lab_log.db: bin/create_lab_log.py
 ${DB}/penguins.db : bin/create_penguins_db.sql misc/penguins.csv
 	sqlite3 $@ < $<
 
+## release: create a release
+.PHONY: release
+release:
+	cd ${DB} && zip -r ../sql-tutorial.zip *.db
+
 ## lint: check project state
 .PHONY: lint
 lint:

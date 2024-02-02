@@ -1,9 +1,17 @@
 ---
 home: true
 ---
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: connect to database
+## setup
+
+-   Download the ZIP file containing [the SQLite databases used in the examples][release]
+-   Unzip the file in a temporary directory
+
+</section>
+<section class="aside" markdown="1">
+
+## connect to database
 
 {% include miscfile.md file="src/connect_penguins.sh" %}
 
@@ -34,9 +42,9 @@ home: true
 -   Output format is not particularly readable
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: administrative commands
+## administrative commands
 
 {% include without.md file="admin_commands.sql" %}
 
@@ -150,9 +158,9 @@ home: true
 -   Can also rename columns without modifying
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: check your understanding
+## check your understanding
 
 ![concept map: selection](./img/concept_map_select.svg)
 
@@ -242,9 +250,9 @@ home: true
 -   Other parts of SQL handle nulls specially
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: check your understanding
+## check your understanding
 
 ![concept map: null](./img/concept_map_null.svg)
 
@@ -329,16 +337,16 @@ home: true
 -   <code>filter (where <em>condition</em>)</code> applies to *inputs*
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: check your understanding
+## check your understanding
 
 ![concept map: null](./img/concept_map_aggregate.svg)
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: create in-memory database
+## create in-memory database
 
 {% include miscfile.md file="src/in_memory_db.sh" %}
 
@@ -484,9 +492,9 @@ home: true
 -   Initially feels odd, but subqueries are useful in other ways
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: M to N relationships
+## M to N relationships
 
 -   Relationships between entities are usually characterized as:
     -   1-to-1: fields in the same record
@@ -510,9 +518,9 @@ home: true
     -   Downside: manual queries are harder to read (who is person 17?)
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: internal tables
+## internal tables
 
 {% include without.md file="sequence_table.sql" %}
 
@@ -587,9 +595,9 @@ home: true
 -   Database decides how to optimize
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: explain query plan
+## explain query plan
 
 {% include without.md file="explain_query_plan.sql" %}
 
@@ -645,9 +653,9 @@ home: true
 -   But be careful of the `and` in the middle
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: yet another database
+## yet another database
 
 -   _Entity-relationship diagram_ (ER diagram) shows relationships between tables
 -   Like everything to do with databases, there are lots of variations
@@ -812,9 +820,9 @@ home: true
 {% include without.md file="nonexistence.sql" %}
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: avoiding correlated subqueries
+## avoiding correlated subqueries
 
 {% include without.md file="avoid_correlated_subqueries.sql" %}
 
@@ -844,9 +852,9 @@ home: true
 -   `cume_dist` is fraction *of rows seen so far*
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: explain another query plain
+## explain another query plain
 
 {% include without.md file="explain_window_function.sql" %}
 
@@ -874,9 +882,9 @@ home: true
 -   If you think that's odd, check out [Fossil][fossil]
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: yet another database
+## yet another database
 
 {% include miscfile.md file="src/lab_log_db.sh" %}
 {% include without.md file="lab_log_schema.sql" %}
@@ -948,9 +956,9 @@ home: true
 -   Please use `json_quote` rather than trying to format JSON with string operations
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: refresh penguins
+## refresh penguins
 
 {% include without.md file="count_penguins.sql" %}
 
@@ -982,9 +990,9 @@ home: true
     -   Update-on-demand temporary tables
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: hours reminder
+## hours reminder
 
 {% include without.md file="all_jobs.sql" %}
 
@@ -1001,9 +1009,9 @@ home: true
 -   But changes made before the error have taken effect
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: ACID
+## ACID
 
 -   _Atomic_: change cannot be broken down into smaller ones (i.e., all or nothing)
 -   _Consistent_: database goes from one consistent state to another
@@ -1046,9 +1054,9 @@ home: true
 -   Action is in statement
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: normalization
+## normalization
 
 -   First normal form (1NF):
     every field of every record contains one indivisible value.
@@ -1084,9 +1092,9 @@ home: true
 {% include without.md file="trigger_firing.sql" %}
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: represent graphs
+## represent graphs
 
 {% include miscfile.md file="src/lineage_setup.sql" %}
 {% include without.md file="represent_graph.sql" %}
@@ -1109,9 +1117,9 @@ home: true
 -   Then select the desired values from the CTE
 
 </section>
-<section markdown="1">
+<section class="aside" markdown="1">
 
-## null: contact tracing database
+## contact tracing database
 
 {% include without.md file="contact_person.sql" %}
 {% include without.md file="contact_contacts.sql" %}
@@ -1344,5 +1352,6 @@ I would also like to thank the following for spotting issues, making suggestions
 [art-postgresql]: https://theartofpostgresql.com/
 [fontaine-dimitri]: https://tapoueh.org/
 [fossil]: https://fossil-scm.org/
+[release]: https://github.com/{{site.repository}}/blob/main/sql-tutorial.zip
 [sqlparse]: https://pypi.org/project/sqlparse/
 [xkcd-tables]: https://xkcd.com/327/
