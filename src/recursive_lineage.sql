@@ -1,4 +1,4 @@
-.read lineage_setup.sql
+.read src/lineage_setup.sql
 
 -- start
 with recursive descendent as (

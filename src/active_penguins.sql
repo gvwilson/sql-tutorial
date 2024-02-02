@@ -1,10 +1,8 @@
-alter table penguins
-add active integer not null default 1;
+.read src/make_active.sql
 
-update penguins
-set active = iif(species = 'Adelie', 0, 1);
-
+-- start
 select species, count(*) as num
 from penguins
 where active
 group by species;
+-- end

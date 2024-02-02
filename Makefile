@@ -15,12 +15,16 @@ PENGUINS_TMP := ${SQLITE} /tmp/penguins.db
 SQL_FILES := $(wildcard ${SRC}/*.sql)
 PY_FILES := $(wildcard ${SRC}/*.py)
 EXCLUDED_SQL := \
+  ${SRC}/make_active.sql \
   ${SRC}/create_work_job.sql \
   ${SRC}/lineage_setup.sql \
   ${SRC}/trigger_setup.sql
 OUT_FILES := \
     $(patsubst ${SRC}/%.sql,${OUT}/%.out,$(filter-out ${EXCLUDED_SQL},${SQL_FILES})) \
     $(patsubst ${SRC}/%.py,${OUT}/%.out,${PY_FILES})
+
+UNUSED := \
+	create_penguins_db.sql
 
 ## commands: show available commands
 .PHONY: commands
@@ -65,7 +69,7 @@ release:
 ## lint: check project state
 .PHONY: lint
 lint:
-	@python bin/check_examples.py .
+	@python bin/check_examples.py . ${UNUSED}
 
 ## style: check Python code style
 .PHONY: style
@@ -262,7 +266,7 @@ ${OUT}/if_else.out: ${SRC}/if_else.sql
 ${OUT}/case_when.out: ${SRC}/case_when.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
-${OUT}/select_range.out: ${SRC}/select_range.sql
+${OUT}/check_range.out: ${SRC}/check_range.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
 ${OUT}/assay_staff.out: ${SRC}/assay_staff.sql
@@ -340,6 +344,9 @@ ${OUT}/json_field.out: ${SRC}/json_field.sql
 ${OUT}/json_array.out: ${SRC}/json_array.sql
 	cat ${MODE} $< | ${LAB_LOG} > $@
 
+${OUT}/json_unpack.out: ${SRC}/json_unpack.sql
+	cat ${MODE} $< | ${LAB_LOG} > $@
+
 ${OUT}/json_array_last.out: ${SRC}/json_array_last.sql
 	cat ${MODE} $< | ${LAB_LOG} > $@
 
@@ -349,7 +356,11 @@ ${OUT}/json_modify.out: ${SRC}/json_modify.sql
 ${OUT}/count_penguins.out: ${SRC}/count_penguins.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
-${OUT}/active_penguins.out: ${SRC}/active_penguins.sql
+${OUT}/active_penguins.out: ${SRC}/active_penguins.sql ${SRC}/make_active.sql
+	cp ${DB}/penguins.db /tmp
+	cat ${MODE} $< | ${PENGUINS_TMP} > $@
+
+${OUT}/views.out: ${SRC}/views.sql
 	cp ${DB}/penguins.db /tmp
 	cat ${MODE} $< | ${PENGUINS_TMP} > $@
 
@@ -375,6 +386,9 @@ ${OUT}/trigger_firing.out: ${SRC}/trigger_firing.sql ${SRC}/trigger_setup.sql
 	-cat ${MODE} $< | ${MEMORY} >& $@
 
 ${OUT}/represent_graph.out: ${SRC}/represent_graph.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+${OUT}/recursive_lineage.out: ${SRC}/recursive_lineage.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/contact_person.out: ${SRC}/contact_person.sql

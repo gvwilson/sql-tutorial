@@ -970,6 +970,7 @@ home: true
 
 ## 074: tombstones
 
+{% include miscfile.md file="src/make_active.sql" %}
 {% include without.md file="active_penguins.sql" %}
 
 -   Use a _tombstone_ to mark (in)active records
