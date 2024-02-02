@@ -1,3 +1,4 @@
 select species, sex, island
 from penguins
-limit 5 offset 5;
+order by species, sex, island
+limit 10 offset 3;

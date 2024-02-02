@@ -125,10 +125,10 @@ ${OUT}/sort.out: ${SRC}/sort.sql
 	cat ${MODE} $< | ${PENGUINS} | head -n 12 > $@
 
 ${OUT}/limit.out: ${SRC}/limit.sql
-	cat ${MODE} $< | ${PENGUINS} | head -n 7 > $@
+	cat ${MODE} $< | ${PENGUINS} > $@
 
 ${OUT}/page.out: ${SRC}/page.sql
-	cat ${MODE} $< | ${PENGUINS} | head -n 7 > $@
+	cat ${MODE} $< | ${PENGUINS} > $@
 
 ${OUT}/distinct.out: ${SRC}/distinct.sql
 	cat ${MODE} $< | ${PENGUINS} > $@

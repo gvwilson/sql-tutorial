@@ -1,3 +1,4 @@
 select species, sex, island
-from penguins -- full table
-limit 5;
+from penguins
+order by species, sex, island
+limit 10;

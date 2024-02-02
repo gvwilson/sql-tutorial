@@ -95,7 +95,8 @@ home: true
 {% include without.md file="page.sql" %}
 
 -   <code>offset <em>N</em></code> must follow `limit`
--   Specifies number of rows to skip
+-   Specifies number of rows to skip from the start of the selection
+-   So this query skips the first 3 and shows the next 10
 
 </section>
 <section markdown="1">
