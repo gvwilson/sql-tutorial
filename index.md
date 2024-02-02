@@ -332,6 +332,13 @@ home: true
 </section>
 <section markdown="1">
 
+## null: check your understanding
+
+![concept map: null](./img/concept_map_aggregate.svg)
+
+</section>
+<section markdown="1">
+
 ## null: create in-memory database
 
 {% include miscfile.md file="src/in_memory_db.sh" %}
