@@ -109,7 +109,7 @@ home: true
 
 {% include without.md file="filter.sql" %}
 
--   <code>where <em>condition</em></code> filters the rows produced by selection
+-   <code>where <em>condition</em></code> _filters_ the rows produced by selection
 -   Condition is evaluated independently for each row
 -   Only rows that pass the test appear in results
 -   Use single quotes for `'text data'` and double quotes for `"weird column names"`
@@ -199,8 +199,7 @@ home: true
 -   If we don't know the left and right values, we don't know if they're equal or not
 -   So the result is `null`
 -   Get the same answer for `null != null`
-
--   *three-valued logic*
+-   _Ternary logic_
 
 <table>
   <tr>
@@ -256,7 +255,7 @@ home: true
 
 {% include without.md file="simple_sum.sql" %}
 
--   `sum` is an *aggregation function*
+-   `sum` is an _aggregation function_
 -   Combines corresponding values from multiple rows
 
 </section>
@@ -277,9 +276,9 @@ home: true
 
 {% include without.md file="simple_group.sql" %}
 
--   Put rows in buckets based on distinct combinations of values in columns specified with `group by`
--   Then perform aggregation separately for each bucket
--   But, uh, which is which?
+-   Put rows in _groups_ based on distinct combinations of values in columns specified with `group by`
+-   Then perform aggregation separately for each group
+-   But which is which?
 
 </section>
 <section markdown="1">
@@ -343,7 +342,7 @@ home: true
 
 {% include miscfile.md file="src/in_memory_db.sh" %}
 
--   "Connect" to an *in-memory* database
+-   "Connect" to an _in-memory database_
 
 </section>
 <section markdown="1">
@@ -396,7 +395,7 @@ home: true
 
 {% include without.md file="cross_join.sql" %}
 
--   `cross join` (also called *outer join*) constructs cross product of tables
+-   `cross join` (also called _outer join_) constructs cross product of tables
     -   All combinations of rows from each
 -   Result isn't particularly useful: `job` and `name` don't match
 
@@ -409,7 +408,7 @@ home: true
 
 -   Use <code><em>table</em>.<em>column</em></code> notation to specify columns
     -   A column can have the same name as a table
--   Use <code>on <em>condition</em></code> to specify *join condition*
+-   Use <code>on <em>condition</em></code> to specify _join condition_
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
 
 </section>
@@ -429,7 +428,7 @@ home: true
 
 {% include without.md file="left_join.sql" %}
 
--   A *left outer join* keeps all rows from the left table
+-   A _left outer join_ keeps all rows from the left table
 -   Fills missing values from right table with null
 
 </section>
@@ -480,7 +479,7 @@ home: true
 
 {% include without.md file="subquery_set.sql" %}
 
--   Use a *subquery* to select the people who *do* calibrate
+-   Use a _subquery_ to select the people who *do* calibrate
 -   Then select all the people who aren't in that set
 -   Initially feels odd, but subqueries are useful in other ways
 
@@ -491,9 +490,9 @@ home: true
 
 -   Relationships between entities are usually characterized as:
     -   1-to-1: fields in the same record
-    -   1-to-many: the many have a *foreign key* referring to the one's *primary key*
+    -   1-to-many: the many have a _foreign key_ referring to the one's _primary key_
     -   many-to-many: don't know how many keys to add to records ("maximum" never is)
--   Nearly-universal solution is a *join table*
+-   Nearly-universal solution is a _join table_
     -   Each record is a pair of foreign keys
     -   I.e., each record is the fact that records A and B are related
 
@@ -504,7 +503,7 @@ home: true
 
 {% include without.md file="autoincrement.sql" %}
 
--   Database automatically increments `ident` each time a new record is added
+-   Database _autoincrements_ `ident` each time a new record is added
 -   Use that field as the primary key
     -   So that if Mik changes their name again,
         we only have to change one fact in the database
@@ -532,7 +531,7 @@ home: true
 -   Then use `update` to modify existing records
     -   Can modify any number of records at once
     -   So be careful about `where` clause
--   *Data migration*
+-   _Data migration_
 
 </section>
 <section markdown="1">
@@ -583,7 +582,7 @@ home: true
 
 {% include without.md file="common_table_expressions.sql" %}
 
--   Use *common table expression* (CTE) to make queries clearer
+-   Use _common table expression_ (CTE) to make queries clearer
     -   Nested subqueries quickly become difficult to understand
 -   Database decides how to optimize
 
@@ -650,7 +649,7 @@ home: true
 
 ## null: yet another database
 
--   *entity-relationship diagram* (ER diagram) shows relationships between tables
+-   _Entity-relationship diagram_ (ER diagram) shows relationships between tables
 -   Like everything to do with databases, there are lots of variations
 
 ![assay database table diagram](./img/assays_tables.svg)
@@ -733,7 +732,7 @@ home: true
 
 {% include without.md file="generate_sequence.sql" %}
 
--   A (non-standard) *table-valued function*
+-   A (non-standard) _table-valued function_
 
 </section>
 <section markdown="1">
@@ -773,7 +772,7 @@ home: true
 -   Join a table to itself
     -   Give copies aliases using `as` to distinguish them
     -   Nothing special about the name `left` and `right`
--   Get all *n<sup>2</sup>* pairs, including person with themself
+-   Get all <math>n<sup>2</sup></math> pairs, including person with themself
 
 </section>
 <section markdown="1">
@@ -784,7 +783,7 @@ home: true
 
 -   `left.ident < right.ident` ensures distinct pairs without duplicates
 -   Use `left.ident <= 4 and right.ident <= 4` to limit output
--   Quick check: n*(n-1)/2 pairs
+-   Quick check: <math>n(n-1)/2</math> pairs
 
 </section>
 <section markdown="1">
@@ -802,7 +801,7 @@ home: true
 
 -   Nobody works in Endocrinology
 -   `select 1` could equally be `select true` or any other value
--   A *correlated subquery* depends on a value from the outer query
+-   A _correlated subquery_ depends on a value from the outer query
     -   Equivalent to nested loop
 
 </section>
@@ -831,7 +830,7 @@ home: true
 
 -   Use `strftime` to extract year and month
     -   Clumsy, but date/time handling is not SQLite's strong point
--   Use *window functions* `lead` and `lag` to shift values
+-   Use _window functions_ `lead` and `lag` to shift values
     -   Unavailable values are null
 
 </section>
@@ -870,7 +869,7 @@ home: true
 
 {% include without.md file="blob.sql" %}
 
--   A *blob* is a binary large object
+-   A _blob_ is a binary large object
     -   Bytes in, bytes out…
 -   If you think that's odd, check out [Fossil][fossil]
 
@@ -905,7 +904,7 @@ home: true
 -   Single arrow `->` returns JSON representation result
 -   Double arrow `->>` returns SQL text, integer, real, or null
 -   Left side is column
--   Right side is *path expression*
+-   Right side is _path expression_
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
 
@@ -964,7 +963,7 @@ home: true
 
 {% include without.md file="active_penguins.sql" %}
 
--   Use a *tombstone* to mark (in)active records
+-   Use a _tombstone_ to mark (in)active records
 -   Every query must now include it
 
 </section>
@@ -974,12 +973,12 @@ home: true
 
 {% include without.md file="views.sql" %}
 
--   A *view* is a saved query that other queries can invoke
+-   A _view_ is a saved query that other queries can invoke
 -   View is re-run each time it's used
 -   Like a CTE, but:
     -   Can be shared between queries
     -   Views came first
--   Some databases offer *materialized views*
+-   Some databases offer _materialized views_
     -   Update-on-demand temporary tables
 
 </section>
@@ -1006,10 +1005,10 @@ home: true
 
 ## null: ACID
 
--   *Atomic*: change cannot be broken down into smaller ones (i.e., all or nothing)
--   *Consistent*: database goes from one consistent state to another
--   *Isolated*: looks like changes happened one after another
--   *Durable*: if change takes place, it's still there after a restart
+-   _Atomic_: change cannot be broken down into smaller ones (i.e., all or nothing)
+-   _Consistent_: database goes from one consistent state to another
+-   _Isolated_: looks like changes happened one after another
+-   _Durable_: if change takes place, it's still there after a restart
 
 </section>
 <section markdown="1">
@@ -1058,7 +1057,7 @@ home: true
     every value in a record that isn't a key depends solely on the key,
     not on other values.
 
--   *Denormalization*: explicitly store values that could be calculated on the fly
+-   _Denormalization_: explicitly store values that could be calculated on the fly
     -   To simplify queries and/or make processing faster
 
 </section>
@@ -1066,7 +1065,7 @@ home: true
 
 ## 080: create trigger
 
--   A *trigger* automatically runs before or after a specified operation
+-   A _trigger_ automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
 -   And/or implement checks (e.g., make sure other records exist)
 -   Add processing overhead…
@@ -1101,9 +1100,9 @@ home: true
 
 {% include without.md file="recursive_lineage.sql" %}
 
--   Use a *recursive CTE* to create a temporary table (`descendent`)
--   *Base case* seeds this table
--   *Recursive case* relies on value(s) already in that table and external table(s)
+-   Use a _recursive CTE_ to create a temporary table (`descendent`)
+-   _Base case_ seeds this table
+-   _Recursive case_ relies on value(s) already in that table and external table(s)
 -   `union all` to combine rows
     -   Can use `union` but that has lower performance (must check uniqueness each time)
 -   Stops when the recursive case yields an empty row set (nothing new to add)
@@ -1126,7 +1125,7 @@ home: true
 
 {% include without.md file="bidirectional.sql" %}
 
--   Create a *temporary table* rather than using a long chain of CTEs
+-   Create a _temporary table_ rather than using a long chain of CTEs
     -   Only lasts as long as the session (not saved to disk)
 -   Duplicate information rather than writing more complicated query
 
@@ -1147,7 +1146,7 @@ home: true
 
 {% include without.md file="recursive_labeling.sql" %}
 
--   Use `union` instead of `union all` to prevent *infinite recursion*
+-   Use `union` instead of `union all` to prevent _infinite recursion_
 
 </section>
 <section markdown="1">
@@ -1158,7 +1157,7 @@ home: true
 
 -   `sqlite3` is part of Python's standard library
 -   Create a connection to a database file
--   Get a *cursor* by executing a query
+-   Get a _cursor_ by executing a query
     -   More common to create cursor and use that to run queries
 -   Fetch all rows at once as list of tuples
 
@@ -1293,7 +1292,7 @@ home: true
 {% include miscfile.md file="src/install_polars.sh" %}
 {% include without.md file="select_polars.py" %}
 
--   The *Uniform Resource Identifier* (URI) specifies the database
+-   The _Uniform Resource Identifier_ (URI) specifies the database
 -   The query is the query
 -   Use the ADBC engine instead of the default ConnectorX
 
@@ -1304,7 +1303,7 @@ home: true
 
 {% include without.md file="orm.py" %}
 
--   An *object-relational mapper* (ORM) translates table columns to object properties and vice versa
+-   An _object-relational mapper_ (ORM) translates table columns to object properties and vice versa
 -   SQLModel relies on Python type hints
 
 </section>
@@ -1321,7 +1320,13 @@ home: true
 </section>
 <section class="appendix" markdown="1">
 
-## Acknowledgments
+## Appendices
+
+### Terms
+
+{% include glossary.html %}
+
+### Acknowledgments
 
 This tutorial would not have been possible without:
 

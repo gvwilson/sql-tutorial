@@ -182,10 +182,6 @@ h2 {
     background-color: var(--stamp-green-light);
 }
 
-section.appendix h2 {
-    font-style: italic;
-}
-
 h3 {
     background-color: var(--stamp-orange-light);
     margin-top: var(--medium-spacing);
@@ -194,6 +190,10 @@ h3 {
 
 h4 {
     background-color: var(--stamp-blue-light);
+}
+
+section.appendix h2,h3 {
+    font-style: italic;
 }
 
 table {

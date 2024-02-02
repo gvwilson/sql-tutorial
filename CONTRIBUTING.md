@@ -8,23 +8,38 @@ All contributors will be acknowledged.
 
 -   The tutorial lives in `index.md`,
     which is translated into a static GitHub Pages website using [Jekyll][jekyll].
--   The source files for all examples are in `src/`,
+
+-   The source files for examples are in `src/`,
     while the output they generate is in `out/`.
--   Please use `{% raw %}{% include without.md file="some_file.sql" %}{% endraw %}`
-    in `index.md` to include `src/some_file.sql` and `out/some_file.out`.
--   Please use `{% raw %}{% include miscfile.md file="src/some_file.ext" %}{% endraw %}`
-    in `index.md` to include an arbitrary text file *without* automatically including output.
-    (Note that `miscfile` requires a directory name such as `src`
-    but `without` does not.)
--   Please see `Makefile` for the commands used to re-run each example.
-    If you add a new example,
-    please add a corresponding rule in `Makefile`.
--   SVG images used in the tutorial are in `img/`
-    and can be edited using [draw.io][draw-io].
--   Please use `pip install -r requirements.txt`
+
+-   Use `pip install -r requirements.txt`
     to install the packages required by the helper tools and Python examples.
     You may wish to create a new virtual environment before doing so.
     All code has been tested with Python 3.12.1.
+
+-   `Makefile` contains the commands used to re-run each example.
+    If you add a new example,
+    please add a corresponding rule in `Makefile`.
+
+-   Use `{% raw %}{% include without.md file="file.sql" %}{% endraw %}`
+    in `index.md` to include `src/file.sql` and `out/file.out`.
+
+-   Use `{% raw %}{% include miscfile.md file="src/file.ext" %}{% endraw %}`
+    in `index.md` to include an arbitrary text file *without* automatically including output.
+    (Note that `miscfile` requires a directory name such as `src`
+    but `without` does not.)
+
+-   Wrap words or phrases in asterisks (e.g., `*word*`) for emphasis;
+    wrap them in underscores (e.g., `_term_`) if they are important terms.
+    Both render as *italics*,
+    but using underscores for important terms makes them easier to find.
+
+-   Add important terms to `_info/glossary.yml`,
+    which is in [Glosario][glosario] format.
+
+-   SVG images used in the tutorial are in `img/`
+    and can be edited using [draw.io][draw-io].
+    Please use 12-point Helvetica for text.
 
 ## Repository Contents
 
@@ -106,6 +121,7 @@ Why make this freely available?
 :   If you have to ask, you wouldn't understand.
 
 [draw-io]: https://www.drawio.com/
+[glosario]: https://glosario.carpentries.org/
 [graphviz]: https://graphviz.org/
 [jeykll]: https://jekyllrb.com/
 [mermaid]: https://mermaid.js.org/

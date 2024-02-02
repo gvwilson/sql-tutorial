@@ -1,0 +1,5 @@
+<ul>
+  {% for item in site.data.glossary %}
+  <li>{{item.en.term}}{% if item.en.acronym %} ({{item.en.acronym}}){% endif %}</li>
+  {% endfor %}
+</ul>

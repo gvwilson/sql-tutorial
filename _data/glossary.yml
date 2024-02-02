@@ -1,0 +1,294 @@
+# A
+
+- key: aggregate
+  en:
+    term: aggregate
+    def: >
+      TODO
+
+- key: aggregation_function
+  en:
+    term: aggregation function
+    def: >
+      TODO
+
+- key: atomic
+  en:
+    term: atomic
+    def: >
+      TODO
+
+- key: autoincrement
+  en:
+    term: autoincrement
+    def: >
+      TODO
+
+# B
+
+- key: base_case
+  en:
+    term: base case
+    def: >
+      TODO
+
+- key: blob
+  en:
+    term: blob
+    def: >
+      TODO
+
+# C
+
+- key: cte
+  en:
+    term: common table expression
+    acronym: CTE
+    def: >
+      TODO
+
+- key: consistent
+  en:
+    term: consistent
+    def: >
+      TODO
+
+- key: correlated_subquery
+  en:
+    term: correlated subquery
+    def: >
+      TODO
+
+- key: cursor
+  en:
+    term: cursor
+    def: >
+      TODO
+
+# D
+
+- key: data_migration
+  en:
+    term: data migration
+    def: >
+      TODO
+
+- key: denormalization
+  en:
+    term: denormalization
+    def: >
+      TODO
+
+- key: durable
+  en:
+    term: durable
+    def: >
+      TODO
+
+# E
+
+- key: er_diagram
+  en:
+    term: entity-relationship diagram
+    def: >
+      TODO
+
+# F
+
+- key: filter
+  en:
+    term: filter
+    def: >
+      TODO
+
+- key: foreign_key
+  en:
+    term: foreign key
+    def: >
+      TODO
+
+# G
+
+- key: group
+  en:
+    term: group
+    def: >
+      TODO
+
+# H
+
+# I
+
+- key: in_memory_database
+  en:
+    term: in-memory database
+    def: >
+      TODO
+
+- key: infinite_recursion
+  en:
+    term: infinite recursion
+    def: >
+      TODO
+
+- key: isolated
+  en:
+    term: isolated
+    def: >
+      TODO
+
+# J
+
+- key: join_condition
+  en:
+    term: join condition
+    def: >
+      TODO
+
+- key: join_table
+  en:
+    term: join table
+    def: >
+      TODO
+
+# K
+
+# L
+
+- key: left_outer_join
+  en:
+    term: left outer join
+    def: >
+      TODO
+
+# M
+
+- key: materialized_view
+  en:
+    term: materialized view
+    def: >
+      TODO
+
+# N
+
+# O
+
+- key: orm
+  en:
+    term: object-relational mapper
+    acronym: ORM
+    def: >
+      TODO
+
+- key: outer_join
+  en:
+    term: outer join
+    def: >
+      TODO
+
+# P
+
+- key: path_expression
+  en:
+    term: path expression
+    def: >
+      TODO
+
+- key: primary_key
+  en:
+    term: primary key
+    def: >
+      TODO
+
+# Q
+
+- key: query
+  en:
+    term: query
+    def: >
+      TODO
+
+# R
+
+- key: recursive_cte
+  en:
+    term: recursive CTE
+    def: >
+      TODO
+
+- key: recursive_case
+  en:
+    term: recursive case
+    def: >
+      TODO
+
+# S
+
+- key: subquery
+  en:
+    term: subquery
+    def: >
+      TODO
+
+# T
+
+- key: table_valued_function
+  en:
+    term: table-valued function
+    def: >
+      TODO
+
+- key: temporary_table
+  en:
+    term: temporary table
+    def: >
+      TODO
+
+- key: ternary_logic
+  en:
+    term: ternary logic
+    def: >
+      TODO
+
+- key: tombstone
+  en:
+    term: tombstone
+    def: >
+      TODO
+
+- key: trigger
+  en:
+    term: trigger
+    def: >
+      TODO
+
+# U
+
+- key: uri
+  en:
+    term: Uniform Resource Identifier
+    acronym: URI
+    def: >
+      TODO
+
+# V
+
+- key: view
+  en:
+    term: view
+    def: >
+      TODO
+
+# W
+
+- key: window_function
+  en:
+    term: window function
+    def: >
+      TODO
+
+# X
+
+# Y
+
+# Z
