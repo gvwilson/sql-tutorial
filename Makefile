@@ -146,7 +146,7 @@ ${OUT}/assay_staff.out: ${SRC}/assay_staff.sql
 	cat ${MODE} $< | ${ASSAYS} > $@
 
 ${OUT}/autoincrement.out: ${SRC}/autoincrement.sql
-	cat ${MODE} $< | ${MEMORY} > $@
+	-cat ${MODE} $< | ${MEMORY} &> $@
 
 ${OUT}/avoid_correlated_subqueries.out: ${SRC}/avoid_correlated_subqueries.sql
 	cat ${MODE} $< | ${ASSAYS} > $@

@@ -8,3 +8,4 @@ insert into person values
     (null, 'tay')
 ;
 select * from person;
+insert into person values (1, "prevented");
