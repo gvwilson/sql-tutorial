@@ -6,7 +6,7 @@
   <body>
     {% include nav.html %}
     <main>
-      <h1>{% if page.home %}{{ site.title }}{% else %}{{ page.title }}{% endif %}</h1>
+      <h1>{% if page.home %}{{ site.data.meta.title }}{% else %}{{ page.title }}{% endif %}</h1>
       {{ content }}
     </main>
     {% include foot.html %}

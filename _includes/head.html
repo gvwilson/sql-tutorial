@@ -6,4 +6,4 @@
 <link rel="stylesheet" href="{{ '/res/tango.css' | relative_url }}" type="text/css">
 <link rel="stylesheet" href="{{ '/res/site.css' | relative_url }}" type="text/css">
 <script defer src="{{ '/res/site.js' | relative_url }}"></script>
-<title>{{ site.title }}{% unless page.home %} &middot; {{ page.title }}{% endunless %}</title>
+<title>{{ site.data.meta.title }}{% unless page.home %} &middot; {{ page.title }}{% endunless %}</title>

@@ -1,12 +1,3 @@
-title: SQL for Data Scientists in 100 Queries
-url: https://gvwilson.github.io/sql-tutorial/
-repository: gvwilson/sql-tutorial
-
-author:
-  name: Greg Wilson
-  url: https://third-bit.com
-  email: gvwilson@third-bit.com
-
 markdown: kramdown
 highlighter: rouge
 
