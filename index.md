@@ -30,7 +30,7 @@ home: true
 
 ## connect to database
 
-{% include miscfile.md file="src/connect_penguins.sh" %}
+{% include single.md file="src/connect_penguins.sh" %}
 
 -   Not actually a query
 -   But we have to do it before we can do anything else
@@ -40,7 +40,7 @@ home: true
 
 ## 001: select constant
 
-{% include without.md file="select_1.sql" %}
+{% include double.md stem="select_1" suffix="sql out" %}
 
 -   `select` is a keyword
 -   Normally used to select data from table…
@@ -52,7 +52,7 @@ home: true
 
 ## 002: select all values from table
 
-{% include without.md file="select_star.sql" %}
+{% include double.md stem="select_star" suffix="sql out" %}
 
 -   Use `*` to mean "all columns"
 -   Use <code>from <em>tablename</em></code> to specify table
@@ -63,7 +63,7 @@ home: true
 
 ## administrative commands
 
-{% include without.md file="admin_commands.sql" %}
+{% include double.md stem="admin_commands" suffix="sql out" %}
 
 -   SQLite administrative commands start with `.` and *aren't* part of the SQL standard
     -   PostgreSQL's special commands start with `\`
@@ -74,7 +74,7 @@ home: true
 
 ## 003: specify columns
 
-{% include without.md file="specify_columns.sql" %}
+{% include double.md stem="specify_columns" suffix="sql out" %}
 
 -   Specify column names separated by commas
     -   In any order
@@ -86,7 +86,7 @@ home: true
 
 ## 004: sort
 
-{% include without.md file="sort.sql" %}
+{% include double.md stem="sort" suffix="sql out" %}
 
 -   `order by` must follow `from` (which must follow `select`)
 -   `asc` is ascending, `desc` is descending
@@ -99,7 +99,7 @@ home: true
 
 -   Full dataset has 344 rows
 
-{% include without.md file="limit.sql" %}
+{% include double.md stem="limit" suffix="sql out" %}
 
 -   Comments start with `--` and run to the end of the line
 -   <code>limit <em>N</em></code> specifies maximum number of rows returned by query
@@ -109,7 +109,7 @@ home: true
 
 ## 006: page output
 
-{% include without.md file="page.sql" %}
+{% include double.md stem="page" suffix="sql out" %}
 
 -   <code>offset <em>N</em></code> must follow `limit`
 -   Specifies number of rows to skip from the start of the selection
@@ -120,7 +120,7 @@ home: true
 
 ## 007: remove duplicates
 
-{% include without.md file="distinct.sql" %}
+{% include double.md stem="distinct" suffix="sql out" %}
 
 -   `distinct` keyword must appear right after `select`
     -   SQL was supposed to read like English
@@ -133,7 +133,7 @@ home: true
 
 ## 008: filter results
 
-{% include without.md file="filter.sql" %}
+{% include double.md stem="filter" suffix="sql out" %}
 
 -   <code>where <em>condition</em></code> ___filters___ the rows produced by selection
 -   Condition is evaluated independently for each row
@@ -146,7 +146,7 @@ home: true
 
 ## 009: filter with more complex conditions
 
-{% include without.md file="filter_and.sql" %}
+{% include double.md stem="filter_and" suffix="sql out" %}
 
 -   `and`: both sub-conditions must be true
 -   `or`: either or both part must be true
@@ -158,7 +158,7 @@ home: true
 
 ## 010: do calculations
 
-{% include without.md file="calculations.sql" %}
+{% include double.md stem="calculations" suffix="sql out" %}
 
 -   Can do the usual kinds of arithmetic on individual values
     -   Calculation done for each row independently
@@ -169,7 +169,7 @@ home: true
 
 ## 011: rename columns
 
-{% include without.md file="rename_columns.sql" %}
+{% include double.md stem="rename_columns" suffix="sql out" %}
 
 -   Use <code><em>expression</em> as <em>name</em></code> to rename
 -   Give result of calculation a meaningful name
@@ -186,7 +186,7 @@ home: true
 <section markdown="1">
 
 ## 012: calculate with missing values
-{% include without.md file="show_missing_values.sql" %}
+{% include double.md stem="show_missing_values" suffix="sql out" %}
 
 -   SQL uses a special value `null` to representing missing data
     -   Not 0 or empty string, but "I don't know"
@@ -200,11 +200,11 @@ home: true
 
 -   Repeated from above so it doesn't count against our query limit
 
-{% include without.md file="filter.sql" %}
+{% include double.md stem="filter" suffix="sql out" %}
 
 -   If we ask for female penguins the row with the missing sex drops out
 
-{% include without.md file="null_equality.sql" %}
+{% include double.md stem="null_equality" suffix="sql out" %}
 
 </section>
 <section markdown="1">
@@ -213,14 +213,14 @@ home: true
 
 -   But if we ask for penguins that *aren't* female it drops out as well
 
-{% include without.md file="null_inequality.sql" %}
+{% include double.md stem="null_inequality" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 015: ternary logic
 
-{% include without.md file="ternary_logic.sql" %}
+{% include double.md stem="ternary_logic" suffix="sql out" %}
 
 -   If we don't know the left and right values, we don't know if they're equal or not
 -   So the result is `null`
@@ -262,7 +262,7 @@ home: true
 
 ## 016: handle null safely
 
-{% include without.md file="safe_null_equality.sql" %}
+{% include double.md stem="safe_null_equality" suffix="sql out" %}
 
 -   Use `is null` and `is not null` to handle null safely
 -   Other parts of SQL handle nulls specially
@@ -279,7 +279,7 @@ home: true
 
 ## 017: aggregate
 
-{% include without.md file="simple_sum.sql" %}
+{% include double.md stem="simple_sum" suffix="sql out" %}
 
 -   `sum` is an ___aggregation function_
 -   Combines corresponding values from multiple rows
@@ -289,7 +289,7 @@ home: true
 
 ## 018: common aggregation functions
 
-{% include without.md file="common_aggregations.sql" %}
+{% include double.md stem="common_aggregations" suffix="sql out" %}
 
 -   This actually shouldn't work:
     can't calculate maximum or average if any values are null
@@ -300,7 +300,7 @@ home: true
 
 ## 019: group
 
-{% include without.md file="simple_group.sql" %}
+{% include double.md stem="simple_group" suffix="sql out" %}
 
 -   Put rows in ___groups___ based on distinct combinations of values in columns specified with `group by`
 -   Then perform aggregation separately for each group
@@ -311,7 +311,7 @@ home: true
 
 ## 020: behavior of unaggregated columns
 
-{% include without.md file="unaggregated_columns.sql" %}
+{% include double.md stem="unaggregated_columns" suffix="sql out" %}
 
 -   All rows in each group have the same value for `sex`, so no need to aggregate
 
@@ -320,7 +320,7 @@ home: true
 
 ## 021: arbitrary choice in aggregation
 
-{% include without.md file="arbitrary_in_aggregation.sql" %}
+{% include double.md stem="arbitrary_in_aggregation" suffix="sql out" %}
 
 -   If we don't specify how to aggregate a column, SQL can choose *any arbitrary value* from the group
 -   All penguins in each group have the same sex because we grouped by that, so we get the right answer
@@ -332,7 +332,7 @@ home: true
 
 ## 022: filter aggregated values
 
-{% include without.md file="filter_aggregation.sql" %}
+{% include double.md stem="filter_aggregation" suffix="sql out" %}
 
 -   Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates
 
@@ -341,7 +341,7 @@ home: true
 
 ## 023: readable output
 
-{% include without.md file="readable_aggregation.sql" %}
+{% include double.md stem="readable_aggregation" suffix="sql out" %}
 
 -   Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number
 
@@ -350,7 +350,7 @@ home: true
 
 ## 024: filter aggregate inputs
 
-{% include without.md file="filter_aggregate_inputs.sql" %}
+{% include double.md stem="filter_aggregate_inputs" suffix="sql out" %}
 
 -   <code>filter (where <em>condition</em>)</code> applies to *inputs*
 
@@ -366,7 +366,7 @@ home: true
 
 ## create in-memory database
 
-{% include miscfile.md file="src/in_memory_db.sh" %}
+{% include single.md file="src/in_memory_db.sh" %}
 
 -   "Connect" to an ___in-memory database_
 
@@ -375,8 +375,8 @@ home: true
 
 ## 025: create tables
 
-{% include miscfile.md file="src/create_work_job.sql" %}
-{% include miscfile.md file="out/show_work_job.out" %}
+{% include single.md file="src/create_work_job.sql" %}
+{% include single.md file="out/show_work_job.out" %}
 
 -   <code>create table <em>name</em></code> followed by parenthesized list of columns
 -   Each column is a name, a data type, and optional extra information
@@ -391,35 +391,35 @@ home: true
 
 ## 026: insert data
 
-{% include without.md file="insert_values.sql" %}
+{% include double.md stem="insert_values" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 027: update rows
 
-{% include without.md file="update_rows.sql" %}
+{% include double.md stem="update_rows" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 028: delete rows
 
-{% include without.md file="delete_rows.sql" %}
+{% include double.md stem="delete_rows" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 029: backing up
 
-{% include without.md file="backing_up.sql" %}
+{% include double.md stem="backing_up" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 030: join tables
 
-{% include without.md file="cross_join.sql" %}
+{% include double.md stem="cross_join" suffix="sql out" %}
 
 -   `cross join` (also called ___outer join_) constructs cross product of tables
     -   All combinations of rows from each
@@ -430,7 +430,7 @@ home: true
 
 ## 031: inner join
 
-{% include without.md file="inner_join.sql" %}
+{% include double.md stem="inner_join" suffix="sql out" %}
 
 -   Use <code><em>table</em>.<em>column</em></code> notation to specify columns
     -   A column can have the same name as a table
@@ -442,7 +442,7 @@ home: true
 
 ## 032: aggregate joined data
 
-{% include without.md file="aggregate_join.sql" %}
+{% include double.md stem="aggregate_join" suffix="sql out" %}
 
 -   Combines ideas we've seen before
 -   But Tay is missing from the table
@@ -452,7 +452,7 @@ home: true
 
 ## 033: left join
 
-{% include without.md file="left_join.sql" %}
+{% include double.md stem="left_join" suffix="sql out" %}
 
 -   A ___left outer join___ keeps all rows from the left table
 -   Fills missing values from right table with null
@@ -462,7 +462,7 @@ home: true
 
 ## 034: aggregate left joins
 
-{% include without.md file="aggregate_left_join.sql" %}
+{% include double.md stem="aggregate_left_join" suffix="sql out" %}
 
 -   That's better, but we'd like to see 0 rather than a blank
 
@@ -471,7 +471,7 @@ home: true
 
 ## 035: coalesce values
 
-{% include without.md file="coalesce.sql" %}
+{% include double.md stem="coalesce" suffix="sql out" %}
 
 -   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
 
@@ -482,7 +482,7 @@ home: true
 
 -   Who doesn't calibrate?
 
-{% include without.md file="negate_incorrectly.sql" %}
+{% include double.md stem="negate_incorrectly" suffix="sql out" %}
 
 -   But Mik *does* calibrate
 -   Problem is that there's an entry for Mik cleaning
@@ -494,7 +494,7 @@ home: true
 
 ## 037: set membership
 
-{% include without.md file="set_membership.sql" %}
+{% include double.md stem="set_membership" suffix="sql out" %}
 
 -   <code>in <em>values</em></code> and <code>not in <em>values</em></code> do exactly what you expect
 
@@ -503,7 +503,7 @@ home: true
 
 ## 038: subqueries
 
-{% include without.md file="subquery_set.sql" %}
+{% include double.md stem="subquery_set" suffix="sql out" %}
 
 -   Use a ___subquery___ to select the people who *do* calibrate
 -   Then select all the people who aren't in that set
@@ -527,7 +527,7 @@ home: true
 
 ## 039: autoincrement and primary key
 
-{% include without.md file="autoincrement.sql" %}
+{% include double.md stem="autoincrement" suffix="sql out" %}
 
 -   Database ___autoincrements___ `ident` each time a new record is added
 -   Use that field as the primary key
@@ -540,7 +540,7 @@ home: true
 
 ## internal tables
 
-{% include without.md file="sequence_table.sql" %}
+{% include double.md stem="sequence_table" suffix="sql out" %}
 
 -   Sequence numbers are *not* reset when rows are deleted
 
@@ -549,7 +549,7 @@ home: true
 
 ## 040: alter tables
 
-{% include without.md file="alter_tables.sql" %}
+{% include double.md stem="alter_tables" suffix="sql out" %}
 
 -   Add a column after the fact
 -   Since it can't be null, we have to provide a default value
@@ -564,7 +564,7 @@ home: true
 
 ## 041: create new tables from old
 
-{% include without.md file="insert_select.sql" %}
+{% include double.md stem="insert_select" suffix="sql out" %}
 
 -   `new_work` is our join table
 -   Each column refers to a record in some other table
@@ -574,7 +574,7 @@ home: true
 
 ## 042: remove tables
 
-{% include without.md file="drop_table.sql" %}
+{% include double.md stem="drop_table" suffix="sql out" %}
 
 -   Remove the old table and rename the new one to take its place
     -   Note `if exists`
@@ -587,7 +587,7 @@ home: true
 
 -   Go back to penguins
 
-{% include without.md file="compare_individual_aggregate.sql" %}
+{% include double.md stem="compare_individual_aggregate" suffix="sql out" %}
 
 -   Get average body mass in subquery
 -   Compare each row against that
@@ -599,7 +599,7 @@ home: true
 
 ## 044: compare individual values to aggregates within groups
 
-{% include without.md file="compare_within_groups.sql" %}
+{% include double.md stem="compare_within_groups" suffix="sql out" %}
 
 -   Subquery runs first to create temporary table `averaged` with average mass per species
 -   Join that with `penguins`
@@ -610,7 +610,7 @@ home: true
 
 ## 045: common table expressions
 
-{% include without.md file="common_table_expressions.sql" %}
+{% include double.md stem="common_table_expressions" suffix="sql out" %}
 
 -   Use ___common table expression___ (CTE) to make queries clearer
     -   Nested subqueries quickly become difficult to understand
@@ -621,7 +621,7 @@ home: true
 
 ## explain query plan
 
-{% include without.md file="explain_query_plan.sql" %}
+{% include double.md stem="explain_query_plan" suffix="sql out" %}
 
 -   SQLite plans to scan every row of the table
 -   It will build a temporary B-tree data structure to group rows
@@ -633,7 +633,7 @@ home: true
 
 -   Every table has a special column called `rowid`
 
-{% include without.md file="rowid.sql" %}
+{% include double.md stem="rowid" suffix="sql out" %}
 
 -   `rowid` is persistent within a session
     -   I.e., if we delete the first 5 rows we now have row IDs 6…N
@@ -645,7 +645,7 @@ home: true
 
 ## 047: if-else function
 
-{% include without.md file="if_else.sql" %}
+{% include double.md stem="if_else" suffix="sql out" %}
 
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
@@ -658,7 +658,7 @@ home: true
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
 
-{% include without.md file="case_when.sql" %}
+{% include double.md stem="case_when" suffix="sql out" %}
 
 -   Evaluate `when` options in order and take first
 -   Result of `case` is null if no condition is true
@@ -669,7 +669,7 @@ home: true
 
 ## 049: check range
 
-{% include without.md file="check_range.sql" %}
+{% include double.md stem="check_range" suffix="sql out" %}
 
 -   `between` can make queries easier to read
 -   But be careful of the `and` in the middle
@@ -686,14 +686,14 @@ home: true
 
 ![assay ER diagram](./img/assays_er.svg)
 
-{% include without.md file="assay_staff.sql" %}
+{% include double.md stem="assay_staff" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 050: pattern matching
 
-{% include without.md file="like_glob.sql" %}
+{% include double.md stem="like_glob" suffix="sql out" %}
 
 -   `like` is the original SQL pattern matcher
     -   `%` matches zero or more characters at the start or end of a string
@@ -717,7 +717,7 @@ home: true
 
 ## 051: select first and last rows
 
-{% include without.md file="union_all.sql" %}
+{% include double.md stem="union_all" suffix="sql out" %}
 
 -   `union all` combines records
     -   Keeps duplicates: `union` on its own keeps unique records
@@ -728,7 +728,7 @@ home: true
 
 ## 052: intersection
 
-{% include without.md file="intersect.sql" %}
+{% include double.md stem="intersect" suffix="sql out" %}
 
 -   Tables being intersected must have same structure
 -   Intersection usually used when pulling values from different tables
@@ -739,7 +739,7 @@ home: true
 
 ## 053: exclusion
 
-{% include without.md file="except.sql" %}
+{% include double.md stem="except" suffix="sql out" %}
 
 -   Again, tables must have same structure
     -   And this would be clearer with `where`
@@ -750,7 +750,7 @@ home: true
 
 ## 054: random numbers and why not
 
-{% include without.md file="random_numbers.sql" %}
+{% include double.md stem="random_numbers" suffix="sql out" %}
 
 -   There is no way to seed SQLite's random number generator
 -   Which means there is no way to reproduce one of its "random" sequences
@@ -760,7 +760,7 @@ home: true
 
 ## 055: creating index
 
-{% include without.md file="create_use_index.sql" %}
+{% include double.md stem="create_use_index" suffix="sql out" %}
 
 -   An ___index___ is an auxiliary data structure that enables faster access to records
     -   Spend storage space to buy speed
@@ -772,7 +772,7 @@ home: true
 
 ## 056: generate sequence
 
-{% include without.md file="generate_sequence.sql" %}
+{% include double.md stem="generate_sequence" suffix="sql out" %}
 
 -   A (non-standard) ___table-valued function_
 
@@ -781,7 +781,7 @@ home: true
 
 ## 057: generate sequence based on data
 
-{% include without.md file="data_range_sequence.sql" %}
+{% include double.md stem="data_range_sequence" suffix="sql out" %}
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
 
@@ -790,7 +790,7 @@ home: true
 
 ## 058: generate sequence of dates
 
-{% include without.md file="date_sequence.sql" %}
+{% include double.md stem="date_sequence" suffix="sql out" %}
 
 -   SQLite represents dates as YYYY-MM-DD strings
     or as Julian days or as Unix milliseconds or…
@@ -802,14 +802,14 @@ home: true
 
 ## 059: count experiments started per day without gaps
 
-{% include without.md file="experiments_per_day.sql" %}
+{% include double.md stem="experiments_per_day" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 060: self join
 
-{% include without.md file="self_join.sql" %}
+{% include double.md stem="self_join" suffix="sql out" %}
 
 -   Join a table to itself
     -   Use `as` to create ___aliases___ for copies of tables to distinguish them
@@ -821,7 +821,7 @@ home: true
 
 ## 061: generate unique pairs
 
-{% include without.md file="unique_pairs.sql" %}
+{% include double.md stem="unique_pairs" suffix="sql out" %}
 
 -   `left.ident < right.ident` ensures distinct pairs without duplicates
 -   Use `left.ident <= 4 and right.ident <= 4` to limit output
@@ -832,14 +832,14 @@ home: true
 
 ## 062: filter pairs
 
-{% include without.md file="filter_pairs.sql" %}
+{% include double.md stem="filter_pairs" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 063: existence and correlated subqueries
 
-{% include without.md file="correlated_subquery.sql" %}
+{% include double.md stem="correlated_subquery" suffix="sql out" %}
 
 -   Nobody works in Endocrinology
 -   `select 1` could equally be `select true` or any other value
@@ -851,14 +851,14 @@ home: true
 
 ## 064: nonexistence
 
-{% include without.md file="nonexistence.sql" %}
+{% include double.md stem="nonexistence" suffix="sql out" %}
 
 </section>
 <section class="aside" markdown="1">
 
 ## avoiding correlated subqueries
 
-{% include without.md file="avoid_correlated_subqueries.sql" %}
+{% include double.md stem="avoid_correlated_subqueries" suffix="sql out" %}
 
 -   The join might or might not be faster than the correlated subquery
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
@@ -868,7 +868,7 @@ home: true
 
 ## 065: lead and lag
 
-{% include without.md file="lead_lag.sql" %}
+{% include double.md stem="lead_lag" suffix="sql out" %}
 
 -   Use `strftime` to extract year and month
     -   Clumsy, but date/time handling is not SQLite's strong point
@@ -880,7 +880,7 @@ home: true
 
 ## 066: window functions
 
-{% include without.md file="window_functions.sql" %}
+{% include double.md stem="window_functions" suffix="sql out" %}
 
 -   `sum() over` does a running total
 -   `cume_dist` is fraction *of rows seen so far*
@@ -890,7 +890,7 @@ home: true
 
 ## explain another query plain
 
-{% include without.md file="explain_window_function.sql" %}
+{% include double.md stem="explain_window_function" suffix="sql out" %}
 
 -   Becomes useful…eventually
 
@@ -899,7 +899,7 @@ home: true
 
 ## 067: partitioned windows
 
-{% include without.md file="partition_window.sql" %}
+{% include double.md stem="partition_window" suffix="sql out" %}
 
 -   `partition by` creates groups
 -   So this counts experiments started since the beginning of each year
@@ -909,7 +909,7 @@ home: true
 
 ## 068: blobs
 
-{% include without.md file="blob.sql" %}
+{% include double.md stem="blob" suffix="sql out" %}
 
 -   A ___blob___ is a binary large object
     -   Bytes in, bytes out…
@@ -920,15 +920,15 @@ home: true
 
 ## yet another database
 
-{% include miscfile.md file="src/lab_log_db.sh" %}
-{% include without.md file="lab_log_schema.sql" %}
+{% include single.md file="src/lab_log_db.sh" %}
+{% include double.md stem="lab_log_schema" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 069: store JSON
 
-{% include without.md file="json_in_table.sql" %}
+{% include double.md stem="json_in_table" suffix="sql out" %}
 
 -   Store heterogeneous data as JSON-formatted text (with double-quoted strings)
     -   Database parses it each time it is queried
@@ -941,7 +941,7 @@ home: true
 
 ## 070: select field from JSON
 
-{% include without.md file="json_field.sql" %}
+{% include double.md stem="json_field" suffix="sql out" %}
 
 -   Single arrow `->` returns JSON representation result
 -   Double arrow `->>` returns SQL text, integer, real, or null
@@ -955,7 +955,7 @@ home: true
 
 ## 071: JSON array access
 
-{% include without.md file="json_array.sql" %}
+{% include double.md stem="json_array" suffix="sql out" %}
 
 -   SQLite (and other database managers) has lots of JSON manipulation functions
 -   `json_array_length` gives number of elements in selected array
@@ -967,7 +967,7 @@ home: true
 
 ## 072: unpack JSON array
 
-{% include without.md file="json_unpack.sql" %}
+{% include double.md stem="json_unpack" suffix="sql out" %}
 
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
@@ -977,14 +977,14 @@ home: true
 
 ## 073: last element of array
 
-{% include without.md file="json_array_last.sql" %}
+{% include double.md stem="json_array_last" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 074: modify JSON
 
-{% include without.md file="json_modify.sql" %}
+{% include double.md stem="json_modify" suffix="sql out" %}
 
 -   Updates the in-memory copy of the JSON, *not* the database record
 -   Please use `json_quote` rather than trying to format JSON with string operations
@@ -994,7 +994,7 @@ home: true
 
 ## refresh penguins
 
-{% include without.md file="count_penguins.sql" %}
+{% include double.md stem="count_penguins" suffix="sql out" %}
 
 -   We will restore full database after each example
 
@@ -1003,8 +1003,8 @@ home: true
 
 ## 075: tombstones
 
-{% include miscfile.md file="src/make_active.sql" %}
-{% include without.md file="active_penguins.sql" %}
+{% include single.md file="src/make_active.sql" %}
+{% include double.md stem="active_penguins" suffix="sql out" %}
 
 -   Use a ___tombstone___ to mark (in)active records
 -   Every query must now include it
@@ -1014,7 +1014,7 @@ home: true
 
 ## 076: views
 
-{% include without.md file="views.sql" %}
+{% include double.md stem="views" suffix="sql out" %}
 
 -   A ___view___ is a saved query that other queries can invoke
 -   View is re-run each time it's used
@@ -1029,14 +1029,14 @@ home: true
 
 ## hours reminder
 
-{% include without.md file="all_jobs.sql" %}
+{% include double.md stem="all_jobs" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 ## 077: add check
 
-{% include without.md file="all_jobs_check.sql" %}
+{% include double.md stem="all_jobs_check" suffix="sql out" %}
 
 -   `check` adds constraint to table
     -   Must produce a Boolean result
@@ -1058,7 +1058,7 @@ home: true
 
 ## 078: transactions
 
-{% include without.md file="transaction.sql" %}
+{% include double.md stem="transaction" suffix="sql out" %}
 
 -   Statements outside transaction execute and are committed immediately
 -   Statement(s) inside transaction don't take effect until:
@@ -1073,7 +1073,7 @@ home: true
 
 ## 079: rollback in constraint
 
-{% include without.md file="rollback_constraint.sql" %}
+{% include double.md stem="rollback_constraint" suffix="sql out" %}
 
 -   All of second `insert` rolled back as soon as error occurred
 -   But first `insert` took effect
@@ -1083,7 +1083,7 @@ home: true
 
 ## 080: rollback in statement
 
-{% include without.md file="rollback_statement.sql" %}
+{% include double.md stem="rollback_statement" suffix="sql out" %}
 
 -   Constraint is in table definition
 -   Action is in statement
@@ -1116,23 +1116,23 @@ home: true
 -   Inside trigger, refer to old and new versions of record
     as <code>old.<em>column</em></code> and <code>new.<em>column</em></code>
 
-{% include miscfile.md file="src/trigger_setup.sql" %}
-{% include without.md file="trigger_successful.sql" %}
+{% include single.md file="src/trigger_setup.sql" %}
+{% include double.md stem="trigger_successful" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
 # 081: trigger firing
 
-{% include without.md file="trigger_firing.sql" %}
+{% include double.md stem="trigger_firing" suffix="sql out" %}
 
 </section>
 <section class="aside" markdown="1">
 
 ## represent graphs
 
-{% include miscfile.md file="src/lineage_setup.sql" %}
-{% include without.md file="represent_graph.sql" %}
+{% include single.md file="src/lineage_setup.sql" %}
+{% include double.md stem="represent_graph" suffix="sql out" %}
 
 ![lineage diagram](./img/lineage.svg)
 
@@ -1141,7 +1141,7 @@ home: true
 
 ## 082: recursive query
 
-{% include without.md file="recursive_lineage.sql" %}
+{% include double.md stem="recursive_lineage" suffix="sql out" %}
 
 -   Use a ___recursive CTE___ to create a temporary table (`descendent`)
 -   ___Base case___ seeds this table
@@ -1156,8 +1156,8 @@ home: true
 
 ## contact tracing database
 
-{% include without.md file="contact_person.sql" %}
-{% include without.md file="contact_contacts.sql" %}
+{% include double.md stem="contact_person" suffix="sql out" %}
+{% include double.md stem="contact_contacts" suffix="sql out" %}
 
 ![contact diagram](./img/contact_tracing.svg)
 
@@ -1166,7 +1166,7 @@ home: true
 
 ## 083: bidirectional contacts
 
-{% include without.md file="bidirectional.sql" %}
+{% include double.md stem="bidirectional" suffix="sql out" %}
 
 -   Create a ___temporary table___ rather than using a long chain of CTEs
     -   Only lasts as long as the session (not saved to disk)
@@ -1177,7 +1177,7 @@ home: true
 
 ## 084: update group identifiers
 
-{% include without.md file="update_group_ids.sql" %}
+{% include double.md stem="update_group_ids" suffix="sql out" %}
 
 -   `new_ident` is minimum of own identifier and identifiers one step away
 -   Doesn't keep people with no contacts
@@ -1187,7 +1187,7 @@ home: true
 
 ## 085: recursive labeling
 
-{% include without.md file="recursive_labeling.sql" %}
+{% include double.md stem="recursive_labeling" suffix="sql out" %}
 
 -   Use `union` instead of `union all` to prevent ___infinite recursion_
 
@@ -1196,7 +1196,7 @@ home: true
 
 ## 086: query from Python
 
-{% include without.md file="basic_python_query.py" %}
+{% include double.md stem="basic_python_query" suffix="py out" %}
 
 -   `sqlite3` is part of Python's standard library
 -   Create a connection to a database file
@@ -1209,7 +1209,7 @@ home: true
 
 ## 087: incremental fetch
 
-{% include without.md file="incremental_fetch.py" %}
+{% include double.md stem="incremental_fetch" suffix="py out" %}
 
 -   `cursor.fetchone` returns `None` when no more data
 -   There is also `fetchmany(N)` to fetch (up to) a certain number of rows
@@ -1219,7 +1219,7 @@ home: true
 
 ## 088: insert, delete, and all that
 
-{% include without.md file="insert_delete.py" %}
+{% include double.md stem="insert_delete" suffix="py out" %}
 
 -   Each `execute` is its own transaction
 
@@ -1228,7 +1228,7 @@ home: true
 
 ## 089: interpolate values
 
-{% include without.md file="interpolate.py" %}
+{% include double.md stem="interpolate" suffix="py out" %}
 
 -   From [XKCD][xkcd-tables]
 
@@ -1239,7 +1239,7 @@ home: true
 
 ## 090: script execution
 
-{% include without.md file="script_execution.py" %}
+{% include double.md stem="script_execution" suffix="py out" %}
 
 -   But what if something goes wrong?
 
@@ -1248,14 +1248,14 @@ home: true
 
 ## 091: SQLite exceptions in Python
 
-{% include without.md file="exceptions.py" %}
+{% include double.md stem="exceptions" suffix="py out" %}
 
 </section>
 <section markdown="1">
 
 ## 092: Python in SQLite
 
-{% include without.md file="embedded_python.py" %}
+{% include double.md stem="embedded_python" suffix="py out" %}
 
 -   SQLite calls back into Python to execute the function
 -   Other databases can run Python (and other languages) in the database server process
@@ -1266,7 +1266,7 @@ home: true
 
 ## 093: handle dates and times
 
-{% include without.md file="dates_times.py" %}
+{% include double.md stem="dates_times" suffix="py out" %}
 
 -   `sqlite3.PARSE_DECLTYPES` tells `sqlite3` library to use converts based on declared column types
 -   Adapt on the way in, convert on the way out
@@ -1276,15 +1276,15 @@ home: true
 
 ## 094: SQL in Jupyter notebooks
 
-{% include miscfile.md file="src/install_jupysql.sh" %}
+{% include single.md file="src/install_jupysql.sh" %}
 
 -   And then inside the notebook:
 
-{% include miscfile.md file="src/load_ext.txt" %}
+{% include single.md file="src/load_ext.txt" %}
 
 -   Loads extension
 
-{% include without.md file="jupyter_connect.txt" %}
+{% include double.md stem="jupyter_connect" suffix="txt out" %}
 
 -   Connects to database
     -   `sqlite://` with two slashes is the protocol
@@ -1292,7 +1292,7 @@ home: true
 -   Single percent sign `%sql` introduces one-line command
 -   Use double percent sign `%%sql` to indicate that the rest of the cell is SQL
 
-{% include without.md file="jupyter_select.txt" %}
+{% include double.md stem="jupyter_select" suffix="txt out" %}
 
 <table>
   <thead>
@@ -1322,8 +1322,8 @@ home: true
 
 ## 095: Pandas and SQL
 
-{% include miscfile.md file="src/install_pandas.sh" %}
-{% include without.md file="select_pandas.py" %}
+{% include single.md file="src/install_pandas.sh" %}
+{% include double.md stem="select_pandas" suffix="py out" %}
 
 -   Be careful about datatype conversion
 
@@ -1332,8 +1332,8 @@ home: true
 
 ## 096: Polars and SQL
 
-{% include miscfile.md file="src/install_polars.sh" %}
-{% include without.md file="select_polars.py" %}
+{% include single.md file="src/install_polars.sh" %}
+{% include double.md stem="select_polars" suffix="py out" %}
 
 -   The ___Uniform Resource Identifier___ (URI) specifies the database
 -   The query is the query
@@ -1344,7 +1344,7 @@ home: true
 
 ## 097: object-relational mapper
 
-{% include without.md file="orm.py" %}
+{% include double.md stem="orm" suffix="py out" %}
 
 -   An ___object-relational mapper___ (ORM) translates table columns to object properties and vice versa
 -   SQLModel relies on Python type hints
@@ -1354,7 +1354,7 @@ home: true
 
 ## 098: relations with ORM
 
-{% include without.md file="orm_relation.py" %}
+{% include double.md stem="orm_relation" suffix="py out" %}
 
 -   Make foreign keys explicit in class definitions
 -   SQLModel automatically does the join

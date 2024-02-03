@@ -21,13 +21,13 @@ All contributors will be acknowledged.
     If you add a new example,
     please add a corresponding rule in `Makefile`.
 
--   Use `{% raw %}{% include without.md file="file.sql" %}{% endraw %}`
+-   Use `{% raw %}{% include double.md stem="file" suffix="sql out" %}{% endraw %}`
     in `index.md` to include `src/file.sql` and `out/file.out`.
+    (Any two suffixes can be provided, such as `"py out"`.)
 
--   Use `{% raw %}{% include miscfile.md file="src/file.ext" %}{% endraw %}`
+-   Use `{% raw %}{% include single.md file="dir/file.ext" %}{% endraw %}`
     in `index.md` to include an arbitrary text file *without* automatically including output.
-    (Note that `miscfile` requires a directory name such as `src`
-    but `without` does not.)
+    (Note that `single` requires a directory name such as `src` or `out` but `double` does not.)
 
 -   Wrap words or phrases in asterisks (e.g., `*word*`) for emphasis;
     wrap them in triple underscores (e.g., `___term___`) if they are glossary terms.
