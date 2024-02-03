@@ -12,6 +12,12 @@
     def: >
       TODO
 
+- key: alias
+  en:
+    term: alias
+    def: >
+      TODO
+
 - key: atomic
   en:
     term: atomic

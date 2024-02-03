@@ -783,8 +783,8 @@ home: true
 {% include without.md file="self_join.sql" %}
 
 -   Join a table to itself
-    -   Give copies aliases using `as` to distinguish them
-    -   Nothing special about the name `left` and `right`
+    -   Use `as` to create _aliases_ for copies of tables to distinguish them
+    -   Nothing special about the names `left` and `right`
 -   Get all <math>n<sup>2</sup></math> pairs, including person with themself
 
 </section>
