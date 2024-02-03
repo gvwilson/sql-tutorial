@@ -200,6 +200,10 @@ section.appendix h2,h3 {
     font-style: italic;
 }
 
+math {
+    font-style: italic;
+}
+
 table {
     border-collapse: collapse;
 }
