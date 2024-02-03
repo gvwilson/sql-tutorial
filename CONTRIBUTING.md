@@ -115,9 +115,16 @@ Why hand-drawn figures rather than [Graphviz][graphviz] or [Mermaid][mermaid]?
     programmers shouldn't have to use punchard-compatible data formats in the 21st Century
     just to get the benefits of version control.
 
-Why make this freely available?
-:   If you have to ask, you wouldn't understand.
+What fonts does this use?
+:   The prose is [Atkinson Hyperlegible][atkinson],
+    which is designed to be easy for people with impaired vision to read.
+    Program text uses Source Code Pro,
+    and diagrams use Helvetica.
 
+Why make this tutorial freely available?
+:   Because if we all give a little, we all get a lot.
+
+[atkinson]: https://brailleinstitute.org/freefont
 [draw-io]: https://www.drawio.com/
 [glosario]: https://glosario.carpentries.org/
 [graphviz]: https://graphviz.org/
