@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
 <link rel="shortcut icon" type="image/x-icon" href="{{ '/favicon.ico' | relative_url }}">
 <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
-<link rel="stylesheet" href="{{ '/res/tango.css' | relative_url }}" type="text/css">
+<link rel="stylesheet" href="{{ site.rouge_style | prepend: '/res/' | relative_url }}" type="text/css">
 <link rel="stylesheet" href="{{ '/res/site.css' | relative_url }}" type="text/css">
 <script defer src="{{ '/res/site.js' | relative_url }}"></script>
 <title>{{ site.data.meta.title }}{% unless page.home %} &middot; {{ page.title }}{% endunless %}</title>

@@ -1,5 +1,6 @@
 markdown: kramdown
 highlighter: rouge
+rouge_style: github.css
 
 exclude:
   - README.md

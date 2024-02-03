@@ -1319,11 +1319,11 @@ home: true
 
 -   And then inside the notebook:
 
-{% include single.md file="src/load_ext.txt" %}
+{% include single.md file="src/load_ext.text" %}
 
 -   Loads extension
 
-{% include double.md stem="jupyter_connect" suffix="txt out" %}
+{% include double.md stem="jupyter_connect" suffix="text out" %}
 
 -   Connects to database
     -   `sqlite://` with two slashes is the protocol
@@ -1331,7 +1331,7 @@ home: true
 -   Single percent sign `%sql` introduces one-line command
 -   Use double percent sign `%%sql` to indicate that the rest of the cell is SQL
 
-{% include double.md stem="jupyter_select" suffix="txt out" %}
+{% include double.md stem="jupyter_select" suffix="text out" %}
 
 <table>
   <thead>
