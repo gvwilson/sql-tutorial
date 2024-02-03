@@ -4,7 +4,7 @@
 {% if suffix == "sql" %}
 {% capture content %}{{content | split: "-- start" | last | split: "-- end" | first}}{% endcapture %}
 {% elsif suffix == "py" %}
-{% capture content %}{{content | split: "# -- start" | last | split: "# -- end" | first}}{% endcapture %}
+{% capture content %}{{content | split: "# start" | last | split: "# end" | first}}{% endcapture %}
 {% endif %}
 ```{{suffix}}
 {{content | strip}}

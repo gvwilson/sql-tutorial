@@ -8,7 +8,7 @@ class Department(SQLModel, table=True):
     building: str
 
 
-# -- start
+# start
 class Staff(SQLModel, table=True):
     ident: str = Field(default=None, primary_key=True)
     personal: str
@@ -23,4 +23,4 @@ with Session(engine) as session:
     statement = select(Department, Staff).where(Staff.dept == Department.ident)
     for dept, staff in session.exec(statement):
         print(f"{dept.name}: {staff.personal} {staff.family}")
-# -- end
+# end
