@@ -203,6 +203,9 @@ ${OUT}/contact_person.out: ${SRC}/contact_person.sql
 ${OUT}/correlated_subquery.out: ${SRC}/correlated_subquery.sql
 	cat ${MODE} $< | ${ASSAYS} > $@
 
+${OUT}/count_behavior.out: ${SRC}/count_behavior.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
 ${OUT}/count_penguins.out: ${SRC}/count_penguins.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 

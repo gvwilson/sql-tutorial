@@ -298,7 +298,17 @@ home: true
 </section>
 <section markdown="1">
 
-## 019: group
+## 019: counting
+
+{% include double.md stem="count_behavior" suffix="sql out" %}
+
+-   `count(*)` counts rows
+-   <code>count(<em>column</em>)</code> counts non-null entries in column
+
+</section>
+<section markdown="1">
+
+## 020: group
 
 {% include double.md stem="simple_group" suffix="sql out" %}
 
@@ -309,7 +319,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 020: behavior of unaggregated columns
+## 021: behavior of unaggregated columns
 
 {% include double.md stem="unaggregated_columns" suffix="sql out" %}
 
@@ -318,7 +328,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 021: arbitrary choice in aggregation
+## 022: arbitrary choice in aggregation
 
 {% include double.md stem="arbitrary_in_aggregation" suffix="sql out" %}
 
@@ -330,7 +340,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 022: filter aggregated values
+## 023: filter aggregated values
 
 {% include double.md stem="filter_aggregation" suffix="sql out" %}
 
@@ -339,7 +349,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 023: readable output
+## 024: readable output
 
 {% include double.md stem="readable_aggregation" suffix="sql out" %}
 
@@ -348,7 +358,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 024: filter aggregate inputs
+## 025: filter aggregate inputs
 
 {% include double.md stem="filter_aggregate_inputs" suffix="sql out" %}
 
@@ -373,7 +383,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 025: create tables
+## 026: create tables
 
 {% include single.md file="src/create_work_job.sql" %}
 {% include single.md file="out/show_work_job.out" %}
@@ -389,14 +399,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 026: insert data
+## 027: insert data
 
 {% include double.md stem="insert_values" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 027: update rows
+## 028: update rows
 
 {% include double.md stem="update_rows" suffix="sql out" %}
 
@@ -408,7 +418,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 028: delete rows
+## 029: delete rows
 
 {% include double.md stem="delete_rows" suffix="sql out" %}
 
@@ -417,14 +427,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 029: backing up
+## 030: backing up
 
 {% include double.md stem="backing_up" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 030: join tables
+## 031: join tables
 
 {% include double.md stem="cross_join" suffix="sql out" %}
 
@@ -435,7 +445,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 031: inner join
+## 032: inner join
 
 {% include double.md stem="inner_join" suffix="sql out" %}
 
@@ -447,7 +457,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 032: aggregate joined data
+## 033: aggregate joined data
 
 {% include double.md stem="aggregate_join" suffix="sql out" %}
 
@@ -457,7 +467,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 033: left join
+## 034: left join
 
 {% include double.md stem="left_join" suffix="sql out" %}
 
@@ -467,7 +477,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 034: aggregate left joins
+## 035: aggregate left joins
 
 {% include double.md stem="aggregate_left_join" suffix="sql out" %}
 
@@ -476,7 +486,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 035: coalesce values
+## 036: coalesce values
 
 {% include double.md stem="coalesce" suffix="sql out" %}
 
@@ -485,7 +495,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 036: negate incorrectly
+## 037: negate incorrectly
 
 -   Who doesn't calibrate?
 
@@ -499,7 +509,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 037: set membership
+## 038: set membership
 
 {% include double.md stem="set_membership" suffix="sql out" %}
 
@@ -508,7 +518,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 038: subqueries
+## 039: subqueries
 
 {% include double.md stem="subquery_set" suffix="sql out" %}
 
@@ -532,7 +542,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 039: autoincrement and primary key
+## 040: autoincrement and primary key
 
 {% include double.md stem="autoincrement" suffix="sql out" %}
 
@@ -554,7 +564,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 040: alter tables
+## 041: alter tables
 
 {% include double.md stem="alter_tables" suffix="sql out" %}
 
@@ -569,7 +579,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 041: create new tables from old
+## 042: create new tables from old
 
 {% include double.md stem="insert_select" suffix="sql out" %}
 
@@ -579,7 +589,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 042: remove tables
+## 043: remove tables
 
 {% include double.md stem="drop_table" suffix="sql out" %}
 
@@ -590,7 +600,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 043: compare individual values to aggregates
+## 044: compare individual values to aggregates
 
 -   Go back to penguins
 
@@ -604,7 +614,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 044: compare individual values to aggregates within groups
+## 045: compare individual values to aggregates within groups
 
 {% include double.md stem="compare_within_groups" suffix="sql out" %}
 
@@ -615,7 +625,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 045: common table expressions
+## 046: common table expressions
 
 {% include double.md stem="common_table_expressions" suffix="sql out" %}
 
@@ -636,7 +646,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 046: enumerate rows
+## 047: enumerate rows
 
 -   Every table has a special column called `rowid`
 
@@ -650,7 +660,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 047: if-else function
+## 048: if-else function
 
 {% include double.md stem="if_else" suffix="sql out" %}
 
@@ -660,7 +670,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 048: select a case
+## 049: select a case
 
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
@@ -674,7 +684,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 049: check range
+## 050: check range
 
 {% include double.md stem="check_range" suffix="sql out" %}
 
@@ -698,7 +708,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 050: pattern matching
+## 051: pattern matching
 
 {% include double.md stem="like_glob" suffix="sql out" %}
 
@@ -722,7 +732,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 051: select first and last rows
+## 052: select first and last rows
 
 {% include double.md stem="union_all" suffix="sql out" %}
 
@@ -733,7 +743,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 052: intersection
+## 053: intersection
 
 {% include double.md stem="intersect" suffix="sql out" %}
 
@@ -744,7 +754,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 053: exclusion
+## 054: exclusion
 
 {% include double.md stem="except" suffix="sql out" %}
 
@@ -755,7 +765,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 054: random numbers and why not
+## 055: random numbers and why not
 
 {% include double.md stem="random_numbers" suffix="sql out" %}
 
@@ -765,7 +775,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 055: creating index
+## 056: creating index
 
 {% include double.md stem="create_use_index" suffix="sql out" %}
 
@@ -777,7 +787,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 056: generate sequence
+## 057: generate sequence
 
 {% include double.md stem="generate_sequence" suffix="sql out" %}
 
@@ -786,7 +796,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 057: generate sequence based on data
+## 058: generate sequence based on data
 
 {% include double.md stem="data_range_sequence" suffix="sql out" %}
 
@@ -795,7 +805,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 058: generate sequence of dates
+## 059: generate sequence of dates
 
 {% include double.md stem="date_sequence" suffix="sql out" %}
 
@@ -807,14 +817,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 059: count experiments started per day without gaps
+## 060: count experiments started per day without gaps
 
 {% include double.md stem="experiments_per_day" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 060: self join
+## 061: self join
 
 {% include double.md stem="self_join" suffix="sql out" %}
 
@@ -826,7 +836,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 061: generate unique pairs
+## 062: generate unique pairs
 
 {% include double.md stem="unique_pairs" suffix="sql out" %}
 
@@ -837,14 +847,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 062: filter pairs
+## 063: filter pairs
 
 {% include double.md stem="filter_pairs" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 063: existence and correlated subqueries
+## 064: existence and correlated subqueries
 
 {% include double.md stem="correlated_subquery" suffix="sql out" %}
 
@@ -856,7 +866,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 064: nonexistence
+## 065: nonexistence
 
 {% include double.md stem="nonexistence" suffix="sql out" %}
 
@@ -873,7 +883,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 065: lead and lag
+## 066: lead and lag
 
 {% include double.md stem="lead_lag" suffix="sql out" %}
 
@@ -885,7 +895,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 066: window functions
+## 067: window functions
 
 {% include double.md stem="window_functions" suffix="sql out" %}
 
@@ -904,7 +914,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 067: partitioned windows
+## 068: partitioned windows
 
 {% include double.md stem="partition_window" suffix="sql out" %}
 
@@ -914,7 +924,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 068: blobs
+## 069: blobs
 
 {% include double.md stem="blob" suffix="sql out" %}
 
@@ -933,7 +943,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 069: store JSON
+## 070: store JSON
 
 {% include double.md stem="json_in_table" suffix="sql out" %}
 
@@ -946,7 +956,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 070: select field from JSON
+## 071: select field from JSON
 
 {% include double.md stem="json_field" suffix="sql out" %}
 
@@ -960,7 +970,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 071: JSON array access
+## 072: JSON array access
 
 {% include double.md stem="json_array" suffix="sql out" %}
 
@@ -972,7 +982,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 072: unpack JSON array
+## 073: unpack JSON array
 
 {% include double.md stem="json_unpack" suffix="sql out" %}
 
@@ -982,14 +992,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 073: last element of array
+## 074: last element of array
 
 {% include double.md stem="json_array_last" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 074: modify JSON
+## 075: modify JSON
 
 {% include double.md stem="json_modify" suffix="sql out" %}
 
@@ -1008,7 +1018,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 075: tombstones
+## 076: tombstones
 
 {% include single.md file="src/make_active.sql" %}
 {% include double.md stem="active_penguins" suffix="sql out" %}
@@ -1019,7 +1029,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 076: views
+## 077: views
 
 {% include double.md stem="views" suffix="sql out" %}
 
@@ -1041,7 +1051,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 077: add check
+## 078: add check
 
 {% include double.md stem="all_jobs_check" suffix="sql out" %}
 
@@ -1063,7 +1073,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 078: transactions
+## 079: transactions
 
 {% include double.md stem="transaction" suffix="sql out" %}
 
@@ -1078,7 +1088,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 079: rollback in constraint
+## 080: rollback in constraint
 
 {% include double.md stem="rollback_constraint" suffix="sql out" %}
 
@@ -1088,7 +1098,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 080: rollback in statement
+## 081: rollback in statement
 
 {% include double.md stem="rollback_statement" suffix="sql out" %}
 
@@ -1113,7 +1123,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 081: create trigger
+## 082: create trigger
 
 -   A ___trigger___ automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
@@ -1146,7 +1156,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 082: recursive query
+## 083: recursive query
 
 {% include double.md stem="recursive_lineage" suffix="sql out" %}
 
@@ -1171,7 +1181,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 083: bidirectional contacts
+## 084: bidirectional contacts
 
 {% include double.md stem="bidirectional" suffix="sql out" %}
 
@@ -1182,7 +1192,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 084: update group identifiers
+## 085: update group identifiers
 
 {% include double.md stem="update_group_ids" suffix="sql out" %}
 
@@ -1192,7 +1202,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 085: recursive labeling
+## 086: recursive labeling
 
 {% include double.md stem="recursive_labeling" suffix="sql out" %}
 
@@ -1201,7 +1211,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 086: query from Python
+## 087: query from Python
 
 {% include double.md stem="basic_python_query" suffix="py out" %}
 
@@ -1214,7 +1224,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 087: incremental fetch
+## 088: incremental fetch
 
 {% include double.md stem="incremental_fetch" suffix="py out" %}
 
@@ -1224,7 +1234,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 088: insert, delete, and all that
+## 089: insert, delete, and all that
 
 {% include double.md stem="insert_delete" suffix="py out" %}
 
@@ -1233,7 +1243,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 089: interpolate values
+## 090: interpolate values
 
 {% include double.md stem="interpolate" suffix="py out" %}
 
@@ -1244,7 +1254,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 090: script execution
+## 091: script execution
 
 {% include double.md stem="script_execution" suffix="py out" %}
 
@@ -1253,14 +1263,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 091: SQLite exceptions in Python
+## 092: SQLite exceptions in Python
 
 {% include double.md stem="exceptions" suffix="py out" %}
 
 </section>
 <section markdown="1">
 
-## 092: Python in SQLite
+## 093: Python in SQLite
 
 {% include double.md stem="embedded_python" suffix="py out" %}
 
@@ -1271,7 +1281,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 093: handle dates and times
+## 094: handle dates and times
 
 {% include double.md stem="dates_times" suffix="py out" %}
 
@@ -1281,7 +1291,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 094: SQL in Jupyter notebooks
+## 095: SQL in Jupyter notebooks
 
 {% include single.md file="src/install_jupysql.sh" %}
 
@@ -1327,7 +1337,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 095: Pandas and SQL
+## 096: Pandas and SQL
 
 {% include single.md file="src/install_pandas.sh" %}
 {% include double.md stem="select_pandas" suffix="py out" %}
@@ -1337,7 +1347,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 096: Polars and SQL
+## 097: Polars and SQL
 
 {% include single.md file="src/install_polars.sh" %}
 {% include double.md stem="select_polars" suffix="py out" %}
@@ -1349,7 +1359,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 097: object-relational mapper
+## 098: object-relational mapper
 
 {% include double.md stem="orm" suffix="py out" %}
 
@@ -1359,7 +1369,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 098: relations with ORM
+## 099: relations with ORM
 
 {% include double.md stem="orm_relation" suffix="py out" %}
 
