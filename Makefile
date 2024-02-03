@@ -2,6 +2,7 @@ SQLITE := sqlite3
 DB := db
 SRC := src
 OUT := out
+PAGE := index.md
 MODE := ${SRC}/mode.txt
 
 ASSAYS := ${SQLITE} ${DB}/assays.db
@@ -23,8 +24,7 @@ OUT_FILES := \
     $(patsubst ${SRC}/%.sql,${OUT}/%.out,$(filter-out ${EXCLUDED_SQL},${SQL_FILES})) \
     $(patsubst ${SRC}/%.py,${OUT}/%.out,${PY_FILES})
 
-UNUSED := \
-	create_penguins_db.sql
+UNUSED := $(notdir $(wildcard bin/*.sql) $(wildcard bin/*.py))
 
 ## commands: show available commands
 .PHONY: commands
@@ -69,7 +69,11 @@ release:
 ## lint: check project state
 .PHONY: lint
 lint:
-	@python bin/check_examples.py . ${UNUSED}
+	@python bin/lint.py \
+	--makefile Makefile \
+	--page ${PAGE} \
+	--source ${SRC} \
+	--unused ${UNUSED}
 
 ## style: check Python code style
 .PHONY: style
@@ -99,7 +103,7 @@ freq:
 ## renumber: renumber headings
 .PHONY: renumber
 renumber:
-	@python bin/renumber_headings.py index.md
+	@python bin/renumber_headings.py ${PAGE}
 
 ## clean: clean up stray files
 .PHONY: clean
