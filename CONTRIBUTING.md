@@ -29,11 +29,13 @@ All contributors will be acknowledged.
     in `index.md` to include an arbitrary text file *without* automatically including output.
     (Note that `single` requires a directory name such as `src` or `out` but `double` does not.)
 
--   Wrap words or phrases in asterisks (e.g., `*word*`) for emphasis;
-    wrap them in triple underscores (e.g., `___term___`) if they are glossary terms.
+-   Wrap words or phrases in asterisks (e.g., `*word*`) for *emphasis*.
 
 -   Add important terms to `_info/glossary.yml`,
     which is in [Glosario][glosario] format.
+
+-   Use `{% raw %}<span data-gloss="key">text</span>{% endraw %}` to link to glossary entries.
+    The key must identify an entry in `_data/glossary.yml`.
 
 -   SVG images used in the tutorial are in `img/`
     and can be edited using [draw.io][draw-io].
@@ -57,7 +59,6 @@ All contributors will be acknowledged.
 -   `_layouts/`: Jekyll layouts
 -   `_site/`: Jekyll output (not stored in version control)
 -   `bin/`: helper programs (e.g., for generating databases)
--   `css/`: CSS files for styling site
 -   `db/`: databases used in examples
 -   `favicon.ico`: favicon used in generated site
 -   `img/`: images used in tutorial
@@ -68,6 +69,7 @@ All contributors will be acknowledged.
     -   `sql_keywords.txt`: all SQLite keywords
 -   `out/`: generated output files for examples
 -   `requirements.txt`: `pip` requirements file to build Python environment
+-   `res/`: CSS and JavaScript for styling site
 -   `src/`: source files for examples
 
 ## Tags for Issues and Pull Requests

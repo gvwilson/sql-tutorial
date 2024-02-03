@@ -1,34 +1,52 @@
+# 1
+
+- key: 1_to_1
+  en:
+    term: 1-to-1 relation
+    def: >
+      A relationship between two tables in which each record from the first table
+      matches exactly one record from the second and vice versa.
+
+- key: 1_to_many
+  en:
+    term: 1-to-many relation
+    def: >
+      A relationship between two tables in which each record from the first table
+      matches zero or more records from the second,
+      but each record from the second table matches exactly one record from the first.
+
 # A
 
-- key: aggregate
+- key: aggregation
   en:
-    term: aggregate
+    term: aggregation
     def: >
-      TODO
+      Combining several values to produce one.
 
-- key: aggregation_function
+- key: aggregation_func
   en:
     term: aggregation function
     def: >
-      TODO
+      A function used to produce one value from many,
+      such as maximum or addition.
 
 - key: alias
   en:
     term: alias
     def: >
-      TODO
+      An alternate name used temporarily for a table or column.
 
 - key: atomic
   en:
     term: atomic
     def: >
-      TODO
+      An operation that cannot be broken into smaller operations.
 
 - key: autoincrement
   en:
     term: autoincrement
     def: >
-      TODO
+      Automatically add one to a value.
 
 # B
 
@@ -36,13 +54,14 @@
   en:
     term: base case
     def: >
-      TODO
+      A starting point for recursion that does not depend on previous recursive calculations.
 
 - key: blob
   en:
-    term: blob
+    term: Binary Large Object
+    acronym: blob
     def: >
-      TODO
+      Bytes that are handled as-is rather than being interpreted as numbers, text, or other data types.
 
 # C
 
@@ -51,25 +70,30 @@
     term: common table expression
     acronym: CTE
     def: >
-      TODO
+      A temporary table created at the start of a query,
+      usually to simplify writing the query.
 
 - key: consistent
   en:
     term: consistent
     def: >
-      TODO
+      A state in which all constraints are satisfied,
+      e.g.,
+      all columns contain allowed values
+      and all foreign keys refer to primary keys.
 
 - key: correlated_subquery
   en:
     term: correlated subquery
     def: >
-      TODO
+      A subquery that depends on a value or values from the enclosing query,
+      and which must therefore be executed once for each of those values.
 
 - key: cursor
   en:
     term: cursor
     def: >
-      TODO
+      A reference to the current location in the results of an ongoing query.
 
 # D
 
@@ -77,32 +101,36 @@
   en:
     term: data migration
     def: >
-      TODO
+      To move data from one form to another,
+      e.g.,
+      from one set of tables to a new set
+      or from one DBMS to another.
 
 - key: database
   en:
     term: database
     def: >
-      TODO
+      A collection of data that can be searched and retrieved.
 
 - key: dbms
   en:
     term: database management system
     acronym: DBMS
     def: >
-      TODO
+      A program that manages a particular kind of database.
 
 - key: denormalization
   en:
     term: denormalization
     def: >
-      TODO
+      To deliberately introduce duplication or other violate normal forms,
+      typically to improve query performance.
 
 - key: durable
   en:
     term: durable
     def: >
-      TODO
+      Guaranteed to survive shutdown and restart.
 
 # E
 
@@ -110,7 +138,7 @@
   en:
     term: entity-relationship diagram
     def: >
-      TODO
+      A graphical depiction of the relationships between tables in a database.
 
 # F
 
@@ -118,13 +146,13 @@
   en:
     term: filter
     def: >
-      TODO
+      To select records based on whether they pass some Boolean test.
 
 - key: foreign_key
   en:
     term: foreign key
     def: >
-      TODO
+      A value in one table that identifies a primary key in another table.
 
 # G
 
@@ -132,43 +160,56 @@
   en:
     term: group
     def: >
-      TODO
+      A set of records that share a common property,
+      such as having the same value in a particular column.
 
 # H
 
 # I
 
-- key: in_memory_database
+- key: in_memory_db
   en:
     term: in-memory database
     def: >
-      TODO
+      A database that is stored in memory rather than on disk.
+
+- key: index
+  en:
+    term: index
+    def: >
+      An auxiliary data structure that enables faster access to records.
 
 - key: infinite_recursion
   en:
     term: infinite recursion
     def: >
-      TODO
+      See "infinite recursion".
 
 - key: isolated
   en:
     term: isolated
     def: >
-      TODO
+      The appearance of having executed in an otherwise-idle system.
 
 # J
+
+- key: join
+  en:
+    term: join
+    def: >
+      To combine records from two tables.
 
 - key: join_condition
   en:
     term: join condition
     def: >
-      TODO
+      The criteria used to decide which rows from each table in a join are combined.
 
 - key: join_table
   en:
     term: join table
     def: >
-      TODO
+      A table that exists solely to enable information from two tables to be connected.
 
 # K
 
@@ -178,23 +219,44 @@
   en:
     term: left outer join
     def: >
-      TODO
+      A join that is guaranteed to keep all rows from the first (left) table.
+      Columns from the right table are filled with actual values if available
+      or with null otherwise.
 
 # M
+
+- key: many_to_many
+  en:
+    term: many-to-many relation
+    def: >
+      A relationship between two tables in which each record from the first table
+      may match zero or more records from the second and vice versa.
 
 - key: materialized_view
   en:
     term: materialized view
     def: >
-      TODO
+      A view that is stored on disk and updated on demand.
 
 # N
+
+- key: normal_form
+  en:
+    term: normal form
+    def: >
+      One of several (loosely defined) rules for organizing data in tables.
 
 - key: nosql
   en:
     term: NoSQL database
     def: >
-      TODO
+      Any database that doesn't use the relational model.
+
+- key: "null"
+  en:
+    term: "null"
+    def: >
+      A special value representing "not known".
 
 # O
 
@@ -203,13 +265,14 @@
     term: object-relational mapper
     acronym: ORM
     def: >
-      TODO
+      A library that translates objects in a program into database queries
+      and the results of those queries back into objects.
 
 - key: outer_join
   en:
     term: outer join
     def: >
-      TODO
+      A join that creates the cross-product of rows from two tables.
 
 # P
 
@@ -217,13 +280,13 @@
   en:
     term: path expression
     def: >
-      TODO
+      An expression identifying an element or a set of elements in a JSON structure.
 
 - key: primary_key
   en:
     term: primary key
     def: >
-      TODO
+      A value or values in a database table that uniquely identifies each record in that table.
 
 # Q
 
@@ -231,7 +294,7 @@
   en:
     term: query
     def: >
-      TODO
+      A command to perform some operation in a database (typically data retrieval).
 
 # R
 
@@ -239,20 +302,21 @@
   en:
     term: recursive CTE
     def: >
-      TODO
+      A common table expression that refers to itself.
+      Every recursive CTE must have a base case and a recursive case.
 
 - key: recursive_case
   en:
     term: recursive case
     def: >
-      TODO
+      The second or subsequent step in self-referential accumulation of data.
 
 - key: rdbms
   en:
     term: relational database management system
     acronym: RDBMS
     def: >
-      TODO
+      A database management system that stores data in tables with columns and rows.
 
 # S
 
@@ -260,48 +324,58 @@
   en:
     term: subquery
     def: >
-      TODO
+      A query used within another query.
 
 # T
 
-- key: table_valued_function
+- key: table_valued_func
   en:
     term: table-valued function
     def: >
-      TODO
+      A function that returns multiple values rather than a single value.
 
 - key: temporary_table
   en:
     term: temporary table
     def: >
-      TODO
+      A table that is explicitly constructed in memory outside any particular query.
 
 - key: ternary_logic
   en:
     term: ternary logic
     def: >
-      TODO
+      A logic based on three values: true, false, and "don't know" (represented as null).
 
 - key: tombstone
   en:
     term: tombstone
     def: >
-      TODO
+      A marker value added to a record to show that it is no longer active.
+      Tombstones are used as an alternative to deleting data.
 
 - key: trigger
   en:
     term: trigger
     def: >
-      TODO
+      An action that runs automatically when something happens in a database,
+      typically insertion or deletion.
 
 # U
+
+- key: upsert
+  en:
+    term: upsert
+    def: >
+      To update a record if it exists
+      or insert (create) a new record if it doesn't.
 
 - key: uri
   en:
     term: Uniform Resource Identifier
     acronym: URI
     def: >
-      TODO
+      A string that identifies a resource (such as a web page or database)
+      and the protocol used to access it.
 
 # V
 
@@ -309,15 +383,15 @@
   en:
     term: view
     def: >
-      TODO
+      A rearrangement of data in a database that is regenerated on demand.
 
 # W
 
-- key: window_function
+- key: window_func
   en:
     term: window function
     def: >
-      TODO
+      A function that combines data from adjacent rows in a database query's result.
 
 # X
 

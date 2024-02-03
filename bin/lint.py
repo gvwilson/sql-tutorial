@@ -4,7 +4,9 @@ import argparse
 from pathlib import Path
 import re
 import sys
+import yaml
 
+GLOSS_REF = re.compile(r'<span\s+data-gloss="(.+?)">')
 MAKE_INC = re.compile(r'\b(\w+?\.(sql|py))\b')
 SINGLE_INC = re.compile(r'\{%\s+include\s+single\.md\s+file=".+?/(.+?)"\s+%\}')
 DOUBLE_INC = re.compile(r'\{%\s+include\s+double\.md\s+stem="(.+?)"\s+suffix="(.+?)"\s+%\}')
@@ -12,6 +14,22 @@ DOUBLE_INC = re.compile(r'\{%\s+include\s+double\.md\s+stem="(.+?)"\s+suffix="(.
 def main():
     """Main driver."""
     options = parse_args()
+
+    do_inclusions(options)
+    do_glossary(options)
+
+
+def do_glossary(options):
+    """Handle glossary checks."""
+    used = {ref for ref in GLOSS_REF.findall(Path(options.page).read_text())}
+    with open(options.glossary, "r") as reader:
+        known = {entry["key"] for entry in yaml.load(reader, Loader=yaml.FullLoader)}
+    report("unknown glossary keys", used - known)
+    report("unused glossary keys", known - used)
+
+
+def do_inclusions(options):
+    """Handle inclusion checking."""
 
     make_inc = find_make_inc(options.makefile, options.unused)
     page_inc = find_page_inc(options.page)
@@ -51,6 +69,7 @@ def find_page_inc(filename):
 def parse_args():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser()
+    parser.add_argument("--glossary", type=str, required=True, help="path to glossary")
     parser.add_argument("--makefile", type=str, required=True, help="path to Makefile")
     parser.add_argument("--output", type=str, required=True, help="path to output directory")
     parser.add_argument("--page", type=str, required=True, help="path to tutorial source page")

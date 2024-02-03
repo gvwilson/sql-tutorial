@@ -71,6 +71,7 @@ release:
 .PHONY: lint
 lint:
 	@python bin/lint.py \
+	--glossary _data/glossary.yml \
 	--makefile Makefile \
 	--output ${OUT} \
 	--page ${PAGE} \

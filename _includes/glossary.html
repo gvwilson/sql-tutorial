@@ -1,5 +1,6 @@
-<ul>
+<dl>
   {% for item in site.data.glossary %}
-  <li>{{item.en.term}}{% if item.en.acronym %} ({{item.en.acronym}}){% endif %}</li>
+  <dt id="gloss:{{item.key}}">{{item.en.term}}{% if item.en.acronym %} ({{item.en.acronym}}){% endif %}</dt>
+  <dd>{{item.en.def | markdownify | replace: "<p>", "" | replace: "</p>", ""}}</dd>
   {% endfor %}
-</ul>
+</dl>

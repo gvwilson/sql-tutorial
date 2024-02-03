@@ -226,6 +226,11 @@ p.inclusion {
     margin-bottom: -1rem;
 }
 
+span[data-gloss] {
+    font-style: italic;
+    font-weight: bold;
+}
+
 table {
     border-collapse: collapse;
 }
