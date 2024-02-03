@@ -65,7 +65,7 @@ ${DB}/penguins.db : bin/create_penguins_db.sql misc/penguins.csv
 ## release: create a release
 .PHONY: release
 release:
-	zip -r sql-tutorial.zip db src -x \*~
+	zip -r sql-tutorial.zip db src out -x \*~
 
 ## lint: check project state
 .PHONY: lint

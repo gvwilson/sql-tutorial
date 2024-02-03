@@ -9,6 +9,7 @@ home: true
 -   Unzip the file in a temporary directory to create:
     -   `./db/*.db`: the SQLite databases used in the examples
     -   `./src/*.*`: SQL queries, Python scripts, and other source code
+    -   `./out/*.*`: expected output for examples
 
 </section>
 <section class="aside" markdown="1">

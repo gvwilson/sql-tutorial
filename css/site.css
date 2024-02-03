@@ -32,6 +32,7 @@
     --page-width: 60rem;
     --body-size: large;
     --code-size: medium;
+    --filename-size: small;
     --image-width: 80%;
 
     --no-spacing: 0px;
@@ -100,9 +101,20 @@ div.language-plaintext {
     padding-left: var(--mediumborder);
 }
 
+div.language-py {
+    border-left: solid var(--heavyborder) var(--stamp-blue-light);
+    padding-left: var(--mediumborder);
+}
+
 div.language-sql {
     border-left: solid var(--heavyborder) var(--stamp-blue-light);
     padding-left: var(--mediumborder);
+}
+
+div.language-txt {
+    border-left: solid var(--heavyborder) var(--stamp-green-light);
+    padding-left: var(--mediumborder);
+    font-style: italic;
 }
 
 /*
@@ -206,6 +218,12 @@ math {
 
 p:has(img) {
     text-align: center;
+}
+
+p.inclusion {
+    font-size: var(--filename-size);
+    text-align: right;
+    margin-bottom: -1rem;
 }
 
 table {
