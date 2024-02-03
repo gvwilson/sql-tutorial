@@ -76,6 +76,11 @@ lint:
 	--source ${SRC} \
 	--unused ${UNUSED}
 
+## ordered: get all inclusions in order
+.PHONY: ordered
+ordered:
+	@python bin/ordered.py < index.md
+
 ## style: check Python code style
 .PHONY: style
 style:
