@@ -5,8 +5,10 @@ home: true
 
 ## setup
 
--   Download the ZIP file containing [the SQLite databases used in the examples][release]
--   Unzip the file in a temporary directory
+-   Download [the latest release][release]
+-   Unzip the file in a temporary directory to create:
+    -   `./db/*.db`: the SQLite databases used in the examples
+    -   `./src/*.*`: SQL queries, Python scripts, and other source code
 
 </section>
 <section class="aside" markdown="1">
@@ -1419,7 +1421,7 @@ I would also like to thank the following for spotting issues, making suggestions
 [fossil]: https://fossil-scm.org/
 [mongodb]: https://www.mongodb.com/
 [postgresql]: https://www.postgresql.org/
-[release]: https://github.com/{{site.repository}}/blob/main/sql-tutorial.zip
+[release]: https://github.com/{{site.repository}}/raw/main/sql-tutorial.zip
 [sql]: https://en.wikipedia.org/wiki/SQL
 [sqlite]: https://sqlite.org/
 [sqlparse]: https://pypi.org/project/sqlparse/
