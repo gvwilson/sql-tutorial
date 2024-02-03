@@ -1,0 +1,15 @@
+after first
+| person | num |
+|--------|-----|
+| zia    | 1   |
+
+Runtime error near line 14: UNIQUE constraint failed: jobs_done.person (19)
+after failed
+| person | num |
+|--------|-----|
+| zia    | 1   |
+
+after upsert
+| person | num |
+|--------|-----|
+| zia    | 2   |

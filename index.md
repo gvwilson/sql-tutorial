@@ -1106,6 +1106,19 @@ home: true
 -   Action is in statement
 
 </section>
+<section markdown="1">
+
+## 082: upsert
+
+{% include double.md stem="upsert" suffix="sql out" %}
+
+-   ___upsert__ stands for "update or insert"
+    -   Create if record doesn't exist
+    -   Update if it does
+-   Not standard SQL but widely implemented
+-   Example also shows use of SQLite `.print` command
+
+</section>
 <section class="aside" markdown="1">
 
 ## normalization
@@ -1123,7 +1136,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 082: create trigger
+## 083: create trigger
 
 -   A ___trigger___ automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
@@ -1156,7 +1169,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 083: recursive query
+## 084: recursive query
 
 {% include double.md stem="recursive_lineage" suffix="sql out" %}
 
@@ -1181,7 +1194,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 084: bidirectional contacts
+## 085: bidirectional contacts
 
 {% include double.md stem="bidirectional" suffix="sql out" %}
 
@@ -1192,7 +1205,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 085: update group identifiers
+## 086: update group identifiers
 
 {% include double.md stem="update_group_ids" suffix="sql out" %}
 
@@ -1202,7 +1215,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 086: recursive labeling
+## 087: recursive labeling
 
 {% include double.md stem="recursive_labeling" suffix="sql out" %}
 
@@ -1211,7 +1224,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 087: query from Python
+## 088: query from Python
 
 {% include double.md stem="basic_python_query" suffix="py out" %}
 
@@ -1224,7 +1237,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 088: incremental fetch
+## 089: incremental fetch
 
 {% include double.md stem="incremental_fetch" suffix="py out" %}
 
@@ -1234,7 +1247,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 089: insert, delete, and all that
+## 090: insert, delete, and all that
 
 {% include double.md stem="insert_delete" suffix="py out" %}
 
@@ -1243,7 +1256,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 090: interpolate values
+## 091: interpolate values
 
 {% include double.md stem="interpolate" suffix="py out" %}
 
@@ -1254,7 +1267,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 091: script execution
+## 092: script execution
 
 {% include double.md stem="script_execution" suffix="py out" %}
 
@@ -1263,14 +1276,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 092: SQLite exceptions in Python
+## 093: SQLite exceptions in Python
 
 {% include double.md stem="exceptions" suffix="py out" %}
 
 </section>
 <section markdown="1">
 
-## 093: Python in SQLite
+## 094: Python in SQLite
 
 {% include double.md stem="embedded_python" suffix="py out" %}
 
@@ -1281,7 +1294,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 094: handle dates and times
+## 095: handle dates and times
 
 {% include double.md stem="dates_times" suffix="py out" %}
 
@@ -1291,7 +1304,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 095: SQL in Jupyter notebooks
+## 096: SQL in Jupyter notebooks
 
 {% include single.md file="src/install_jupysql.sh" %}
 
@@ -1337,7 +1350,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 096: Pandas and SQL
+## 097: Pandas and SQL
 
 {% include single.md file="src/install_pandas.sh" %}
 {% include double.md stem="select_pandas" suffix="py out" %}
@@ -1347,7 +1360,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 097: Polars and SQL
+## 098: Polars and SQL
 
 {% include single.md file="src/install_polars.sh" %}
 {% include double.md stem="select_polars" suffix="py out" %}
@@ -1359,7 +1372,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 098: object-relational mapper
+## 099: object-relational mapper
 
 {% include double.md stem="orm" suffix="py out" %}
 
@@ -1369,7 +1382,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 099: relations with ORM
+## 100: relations with ORM
 
 {% include double.md stem="orm_relation" suffix="py out" %}
 

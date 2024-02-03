@@ -454,6 +454,9 @@ ${OUT}/update_group_ids.out: ${SRC}/update_group_ids.sql
 ${OUT}/update_rows.out: ${SRC}/update_rows.sql ${SRC}/create_work_job.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
+${OUT}/upsert.out: ${SRC}/upsert.sql
+	-cat ${MODE} $< | ${MEMORY} >& $@
+
 ${OUT}/views.out: ${SRC}/views.sql
 	cp ${DB}/penguins.db /tmp
 	cat ${MODE} $< | ${PENGUINS_TMP} > $@
