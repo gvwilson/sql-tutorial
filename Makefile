@@ -3,7 +3,7 @@ DB := db
 SRC := src
 OUT := out
 PAGE := index.md
-MODE := ${SRC}/mode.txt
+MODE := misc/mode.txt
 
 ASSAYS := ${SQLITE} ${DB}/assays.db
 ASSAYS_TMP := ${SQLITE} /tmp/assays.db
@@ -72,6 +72,7 @@ release:
 lint:
 	@python bin/lint.py \
 	--makefile Makefile \
+	--output ${OUT} \
 	--page ${PAGE} \
 	--source ${SRC} \
 	--unused ${UNUSED}

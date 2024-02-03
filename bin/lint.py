@@ -5,46 +5,54 @@ from pathlib import Path
 import re
 import sys
 
-IN_MAKE = re.compile(r'\b(\w+?\.(sql|py))\b')
-MISCFILE = re.compile(r'\{%\s+include\s+miscfile\.md\s+file="src/(.+?)"\s+%\}')
-WITHOUT = re.compile(r'\{%\s+include\s+without\.md\s+file="(.+?)"\s+%\}')
+MAKE_INC = re.compile(r'\b(\w+?\.(sql|py))\b')
+SINGLE_INC = re.compile(r'\{%\s+include\s+single\.md\s+file=".+?/(.+?)"\s+%\}')
+DOUBLE_INC = re.compile(r'\{%\s+include\s+double\.md\s+stem="(.+?)"\s+suffix="(.+?)"\s+%\}')
 
 def main():
     """Main driver."""
     options = parse_args()
 
-    in_make = find_in_make(options.makefile, options.unused)
-    in_page = find_in_page(options.page)
-    actual = find_actual(options.source)
+    make_inc = find_make_inc(options.makefile, options.unused)
+    page_inc = find_page_inc(options.page)
+    actual = find_actual(options.source, options.output)
 
-    report("in Make but do not exist", in_make - actual)
-    report("in page but do not exist", in_page - actual)
-    report("exist but not in page or Makefile", (actual - in_page) - in_make)
+    report("in Make but do not exist", make_inc - actual)
+    report("in page but do not exist", page_inc - actual)
+    unused = (actual - make_inc) - page_inc
+    report("exist but not in page or Makefile", unused)
 
 
-def find_actual(dirname):
+def find_actual(src, out):
     """Find actual source files."""
-    names = {f.name for f in Path(dirname).glob("*.*")}
+    names = set()
+    for dirname in (src, out):
+        names |= {f.name for f in Path(dirname).glob("*.*")}
     names = {n for n in names if not n.endswith("~")}
     return names
 
 
-def find_in_make(makefile, unused):
+def find_make_inc(makefile, unused):
     """Find mentions in Makefile."""
-    in_make = {m[0] for m in IN_MAKE.findall(Path(makefile).read_text())}
-    return in_make - set(unused)
+    make_inc = {m[0] for m in MAKE_INC.findall(Path(makefile).read_text())}
+    return make_inc - set(unused)
 
 
-def find_in_page(filename):
+def find_page_inc(filename):
     """Find filenames in page."""
     text = Path(filename).read_text()
-    return {m for m in MISCFILE.findall(text)} | {m for m in WITHOUT.findall(text)}
+    result = {m for m in SINGLE_INC.findall(text)}
+    for m in DOUBLE_INC.findall(text):
+        for suffix in m[1].split():
+            result.add(f"{m[0]}.{suffix}")
+    return result
 
 
 def parse_args():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--makefile", type=str, required=True, help="path to Makefile")
+    parser.add_argument("--output", type=str, required=True, help="path to output directory")
     parser.add_argument("--page", type=str, required=True, help="path to tutorial source page")
     parser.add_argument("--source", type=str, required=True, help="path to source directory")
     parser.add_argument("--unused", type=str, nargs="+", help="source files not used directly")
