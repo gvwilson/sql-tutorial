@@ -6,6 +6,7 @@ PAGE := index.md
 MODE := ${SRC}/mode.txt
 
 ASSAYS := ${SQLITE} ${DB}/assays.db
+ASSAYS_TMP := ${SQLITE} /tmp/assays.db
 CONTACTS := ${SQLITE} ${DB}/contact_tracing.db
 CONTACTS_TMP := ${SQLITE} /tmp/contact_tracing.db
 LAB_LOG := ${SQLITE} ${DB}/lab_log.db
@@ -199,6 +200,10 @@ ${OUT}/correlated_subquery.out: ${SRC}/correlated_subquery.sql
 
 ${OUT}/count_penguins.out: ${SRC}/count_penguins.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
+
+${OUT}/create_use_index.out: ${SRC}/create_use_index.sql
+	cp ${DB}/assays.db /tmp
+	cat ${MODE} $< | ${ASSAYS_TMP} > $@
 
 ${OUT}/cross_join.out: ${SRC}/cross_join.sql ${SRC}/create_work_job.sql
 	cat ${MODE} $< | ${MEMORY} > $@

@@ -741,7 +741,19 @@ home: true
 </section>
 <section markdown="1">
 
-## 055: generate sequence
+## 055: creating index
+
+{% include without.md file="create_use_index.sql" %}
+
+-   An _index_ is an auxiliary data structure that enables faster access to records
+    -   Spend storage space to buy speed
+-   Don't have to mention it explicitly in queries
+    -   Database manager will use it automatically
+
+</section>
+<section markdown="1">
+
+## 056: generate sequence
 
 {% include without.md file="generate_sequence.sql" %}
 
@@ -750,7 +762,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 056: generate sequence based on data
+## 057: generate sequence based on data
 
 {% include without.md file="data_range_sequence.sql" %}
 
@@ -759,7 +771,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 057: generate sequence of dates
+## 058: generate sequence of dates
 
 {% include without.md file="date_sequence.sql" %}
 
@@ -771,14 +783,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 058: count experiments started per day without gaps
+## 059: count experiments started per day without gaps
 
 {% include without.md file="experiments_per_day.sql" %}
 
 </section>
 <section markdown="1">
 
-## 059: self join
+## 060: self join
 
 {% include without.md file="self_join.sql" %}
 
@@ -790,7 +802,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 060: generate unique pairs
+## 061: generate unique pairs
 
 {% include without.md file="unique_pairs.sql" %}
 
@@ -801,14 +813,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 061: filter pairs
+## 062: filter pairs
 
 {% include without.md file="filter_pairs.sql" %}
 
 </section>
 <section markdown="1">
 
-## 062: existence and correlated subqueries
+## 063: existence and correlated subqueries
 
 {% include without.md file="correlated_subquery.sql" %}
 
@@ -820,7 +832,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 063: nonexistence
+## 064: nonexistence
 
 {% include without.md file="nonexistence.sql" %}
 
@@ -837,7 +849,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 064: lead and lag
+## 065: lead and lag
 
 {% include without.md file="lead_lag.sql" %}
 
@@ -849,7 +861,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 065: window functions
+## 066: window functions
 
 {% include without.md file="window_functions.sql" %}
 
@@ -868,7 +880,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 066: partitioned windows
+## 067: partitioned windows
 
 {% include without.md file="partition_window.sql" %}
 
@@ -878,7 +890,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 067: blobs
+## 068: blobs
 
 {% include without.md file="blob.sql" %}
 
@@ -897,7 +909,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 068: store JSON
+## 069: store JSON
 
 {% include without.md file="json_in_table.sql" %}
 
@@ -910,7 +922,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 069: select field from JSON
+## 070: select field from JSON
 
 {% include without.md file="json_field.sql" %}
 
@@ -924,7 +936,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 070: JSON array access
+## 071: JSON array access
 
 {% include without.md file="json_array.sql" %}
 
@@ -936,7 +948,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 071: unpack JSON array
+## 072: unpack JSON array
 
 {% include without.md file="json_unpack.sql" %}
 
@@ -946,14 +958,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 072: last element of array
+## 073: last element of array
 
 {% include without.md file="json_array_last.sql" %}
 
 </section>
 <section markdown="1">
 
-## 073: modify JSON
+## 074: modify JSON
 
 {% include without.md file="json_modify.sql" %}
 
@@ -972,7 +984,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 074: tombstones
+## 075: tombstones
 
 {% include miscfile.md file="src/make_active.sql" %}
 {% include without.md file="active_penguins.sql" %}
@@ -983,7 +995,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 075: views
+## 076: views
 
 {% include without.md file="views.sql" %}
 
@@ -1005,7 +1017,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 076: add check
+## 077: add check
 
 {% include without.md file="all_jobs_check.sql" %}
 
@@ -1027,7 +1039,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 077: transactions
+## 078: transactions
 
 {% include without.md file="transaction.sql" %}
 
@@ -1042,7 +1054,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 078: rollback in constraint
+## 079: rollback in constraint
 
 {% include without.md file="rollback_constraint.sql" %}
 
@@ -1052,7 +1064,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 079: rollback in statement
+## 080: rollback in statement
 
 {% include without.md file="rollback_statement.sql" %}
 
@@ -1077,7 +1089,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 080: create trigger
+## 081: create trigger
 
 -   A _trigger_ automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
@@ -1110,7 +1122,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 081: recursive query
+## 082: recursive query
 
 {% include without.md file="recursive_lineage.sql" %}
 
@@ -1135,7 +1147,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 082: bidirectional contacts
+## 083: bidirectional contacts
 
 {% include without.md file="bidirectional.sql" %}
 
@@ -1146,7 +1158,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 083: update group identifiers
+## 084: update group identifiers
 
 {% include without.md file="update_group_ids.sql" %}
 
@@ -1156,7 +1168,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 084: recursive labeling
+## 085: recursive labeling
 
 {% include without.md file="recursive_labeling.sql" %}
 
@@ -1165,7 +1177,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 085: query from Python
+## 086: query from Python
 
 {% include without.md file="basic_python_query.py" %}
 
@@ -1178,7 +1190,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 086: incremental fetch
+## 087: incremental fetch
 
 {% include without.md file="incremental_fetch.py" %}
 
@@ -1188,7 +1200,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 087: insert, delete, and all that
+## 088: insert, delete, and all that
 
 {% include without.md file="insert_delete.py" %}
 
@@ -1197,7 +1209,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 088: interpolate values
+## 089: interpolate values
 
 {% include without.md file="interpolate.py" %}
 
@@ -1208,7 +1220,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 089: script execution
+## 090: script execution
 
 {% include without.md file="script_execution.py" %}
 
@@ -1217,14 +1229,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 090: SQLite exceptions in Python
+## 091: SQLite exceptions in Python
 
 {% include without.md file="exceptions.py" %}
 
 </section>
 <section markdown="1">
 
-## 091: Python in SQLite
+## 092: Python in SQLite
 
 {% include without.md file="embedded_python.py" %}
 
@@ -1235,7 +1247,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 092: handle dates and times
+## 093: handle dates and times
 
 {% include without.md file="dates_times.py" %}
 
@@ -1245,7 +1257,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 093: SQL in Jupyter notebooks
+## 094: SQL in Jupyter notebooks
 
 {% include miscfile.md file="src/install_jupysql.sh" %}
 
@@ -1291,7 +1303,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 094: Pandas and SQL
+## 095: Pandas and SQL
 
 {% include miscfile.md file="src/install_pandas.sh" %}
 {% include without.md file="select_pandas.py" %}
@@ -1301,7 +1313,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 095: Polars and SQL
+## 096: Polars and SQL
 
 {% include miscfile.md file="src/install_polars.sh" %}
 {% include without.md file="select_polars.py" %}
@@ -1313,7 +1325,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 096: object-relational mapper
+## 097: object-relational mapper
 
 {% include without.md file="orm.py" %}
 
@@ -1323,7 +1335,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 097: relations with ORM
+## 098: relations with ORM
 
 {% include without.md file="orm_relation.py" %}
 
