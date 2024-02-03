@@ -204,6 +204,10 @@ math {
     font-style: italic;
 }
 
+p:has(img) {
+    text-align: center;
+}
+
 table {
     border-collapse: collapse;
 }

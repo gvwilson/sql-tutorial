@@ -79,6 +79,19 @@
     def: >
       TODO
 
+- key: database
+  en:
+    term: database
+    def: >
+      TODO
+
+- key: dbms
+  en:
+    term: database management system
+    acronym: DBMS
+    def: >
+      TODO
+
 - key: denormalization
   en:
     term: denormalization
@@ -177,6 +190,12 @@
 
 # N
 
+- key: nosql
+  en:
+    term: NoSQL database
+    def: >
+      TODO
+
 # O
 
 - key: orm
@@ -225,6 +244,13 @@
 - key: recursive_case
   en:
     term: recursive case
+    def: >
+      TODO
+
+- key: rdbms
+  en:
+    term: relational database management system
+    acronym: RDBMS
     def: >
       TODO
 

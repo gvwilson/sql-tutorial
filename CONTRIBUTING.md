@@ -30,9 +30,7 @@ All contributors will be acknowledged.
     but `without` does not.)
 
 -   Wrap words or phrases in asterisks (e.g., `*word*`) for emphasis;
-    wrap them in underscores (e.g., `_term_`) if they are important terms.
-    Both render as *italics*,
-    but using underscores for important terms makes them easier to find.
+    wrap them in triple underscores (e.g., `___term___`) if they are glossary terms.
 
 -   Add important terms to `_info/glossary.yml`,
     which is in [Glosario][glosario] format.
