@@ -225,7 +225,7 @@ home: true
 -   If we don't know the left and right values, we don't know if they're equal or not
 -   So the result is `null`
 -   Get the same answer for `null != null`
--   ___Ternary logic_
+-   ___Ternary logic___
 
 <table>
   <tr>
@@ -281,7 +281,7 @@ home: true
 
 {% include double.md stem="simple_sum" suffix="sql out" %}
 
--   `sum` is an ___aggregation function_
+-   `sum` is an ___aggregation function___
 -   Combines corresponding values from multiple rows
 
 </section>
@@ -368,7 +368,7 @@ home: true
 
 {% include single.md file="src/in_memory_db.sh" %}
 
--   "Connect" to an ___in-memory database_
+-   "Connect" to an ___in-memory database___
 
 </section>
 <section markdown="1">
@@ -400,12 +400,19 @@ home: true
 
 {% include double.md stem="update_rows" suffix="sql out" %}
 
+-   (Almost) always specify row(w) to update using `where`
+    -   Would otherwise update all rows
+-   Useful to give each row a ___primary key___ that uniquely identifies it for this purpose
+    -   Will see other uses below
+
 </section>
 <section markdown="1">
 
 ## 028: delete rows
 
 {% include double.md stem="delete_rows" suffix="sql out" %}
+
+-   Again, (almost) always specify row(s) to delete using `where`
 
 </section>
 <section markdown="1">
@@ -434,7 +441,7 @@ home: true
 
 -   Use <code><em>table</em>.<em>column</em></code> notation to specify columns
     -   A column can have the same name as a table
--   Use <code>on <em>condition</em></code> to specify ___join condition_
+-   Use <code>on <em>condition</em></code> to specify ___join condition___
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
 
 </section>
@@ -516,9 +523,9 @@ home: true
 
 -   Relationships between entities are usually characterized as:
     -   1-to-1: fields in the same record
-    -   1-to-many: the many have a ___foreign key___ referring to the one's ___primary key_
+    -   1-to-many: the many have a ___foreign key___ referring to the one's primary key
     -   many-to-many: don't know how many keys to add to records ("maximum" never is)
--   Nearly-universal solution is a ___join table_
+-   Nearly-universal solution is a ___join table___
     -   Each record is a pair of foreign keys
     -   I.e., each record is the fact that records A and B are related
 
@@ -557,7 +564,7 @@ home: true
 -   Then use `update` to modify existing records
     -   Can modify any number of records at once
     -   So be careful about `where` clause
--   ___Data migration_
+-   ___Data migration___
 
 </section>
 <section markdown="1">
@@ -774,7 +781,7 @@ home: true
 
 {% include double.md stem="generate_sequence" suffix="sql out" %}
 
--   A (non-standard) ___table-valued function_
+-   A (non-standard) ___table-valued function___
 
 </section>
 <section markdown="1">
@@ -946,7 +953,7 @@ home: true
 -   Single arrow `->` returns JSON representation result
 -   Double arrow `->>` returns SQL text, integer, real, or null
 -   Left side is column
--   Right side is ___path expression_
+-   Right side is ___path expression___
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
 
@@ -1021,7 +1028,7 @@ home: true
 -   Like a CTE, but:
     -   Can be shared between queries
     -   Views came first
--   Some databases offer ___materialized views_
+-   Some databases offer ___materialized views___
     -   Update-on-demand temporary tables
 
 </section>
@@ -1189,7 +1196,7 @@ home: true
 
 {% include double.md stem="recursive_labeling" suffix="sql out" %}
 
--   Use `union` instead of `union all` to prevent ___infinite recursion_
+-   Use `union` instead of `union all` to prevent ___infinite recursion___
 
 </section>
 <section markdown="1">
