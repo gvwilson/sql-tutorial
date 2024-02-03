@@ -584,6 +584,10 @@ home: true
 
 {% include without.md file="compare_within_groups.sql" %}
 
+-   Subquery runs first to create temporary table `averaged` with average mass per species
+-   Join that with `penguins`
+-   Filter to find penguins heavier than average within their species
+
 </section>
 <section markdown="1">
 
