@@ -5,4 +5,5 @@
 <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
 <link rel="stylesheet" href="{{ site.rouge_style | prepend: '/res/' | relative_url }}" type="text/css">
 <link rel="stylesheet" href="{{ '/res/tutorial.css' | relative_url }}" type="text/css">
+{% if site.data.meta.plausible %}<script defer data-domain="{{site.data.meta.plausible}}" src="https://plausible.io/js/script.js"></script>{% endif %}
 <title>{{ site.data.meta.title }}{% unless page.home %} &middot; {{ page.title }}{% endunless %}</title>
