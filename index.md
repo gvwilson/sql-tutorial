@@ -3,9 +3,21 @@ home: true
 ---
 <section class="aside" markdown="1">
 
-## introduction
+## what this is
 
--   [Intended audience][persona]
+-   notes and working examples that instructors can use to perform a lesson
+    -   do *not* expect novices with no prior SQL experience to be able to learn from them
+-   musical analogy
+    -   this is the chord changes and melody
+    -   we expect instructors to create an arrangement and/or improvise while delivering
+    -   see [*Teaching Tech Together*][t3] for background
+
+</section>
+<section class="aside" markdown="1">
+
+## scope
+
+-   [intended audience][persona]
     -   Rachel has a master's degree in cell biology
         and now works in a research hospital doing cell assays.
     -   She learned a bit of R in an undergrad biostatistics course
@@ -14,24 +26,19 @@ home: true
         and would like to understand how data is stored and managed.
     -   Her work schedule is unpredictable and highly variable,
         so she needs to be able to learn a bit at a time.
--   Prerequisites
-    -   Basic Unix command line: `cd`, `ls`, `*` wildcard
-    -   Basic tabular data analysis: filtering rows, aggregating within groups
-
-</section>
-<section class="aside" markdown="1">
-
-## learning outcomes
-
-1.  Explain the difference between a database and a database manager.
-1.  Write SQL to select, filter, sort, group, and aggregate data.
-1.  Define tables and insert, update, and delete records.
-1.  Describe different types of join and write queries that use them to combine data.
-1.  Use windowing functions to operate on adjacent rows.
-1.  Explain what transactions are and write queries that roll back when constraints are violated.
-1.  Explain what triggers are and write SQL to create them.
-1.  Manipulate JSON data using SQL.
-1.  Interact with a database using Python directly, from a Jupyter notebook, and via an ORM.
+-   prerequisites
+    -   basic Unix command line: `cd`, `ls`, `*` wildcard
+    -   basic tabular data analysis: filtering rows, aggregating within groups
+-   learning outcomes
+    1.  Explain the difference between a database and a database manager.
+    1.  Write SQL to select, filter, sort, group, and aggregate data.
+    1.  Define tables and insert, update, and delete records.
+    1.  Describe different types of join and write queries that use them to combine data.
+    1.  Use windowing functions to operate on adjacent rows.
+    1.  Explain what transactions are and write queries that roll back when constraints are violated.
+    1.  Explain what triggers are and write SQL to create them.
+    1.  Manipulate JSON data using SQL.
+    1.  Interact with a database using Python directly, from a Jupyter notebook, and via an ORM.
 
 </section>
 <section class="aside" markdown="1">
@@ -1473,4 +1480,5 @@ I would also like to thank the following for spotting issues, making suggestions
 [sql]: https://en.wikipedia.org/wiki/SQL
 [sqlite]: https://sqlite.org/
 [sqlparse]: https://pypi.org/project/sqlparse/
+[t3]: https://teachtogether.tech/
 [xkcd-tables]: https://xkcd.com/327/
