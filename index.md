@@ -1420,6 +1420,8 @@ I would also like to thank the following for spotting issues, making suggestions
 
 {% include thanks.html %}
 
+{% include colophon.md %}
+
 </section>
 
 [albrecht-andi]: http://andialbrecht.de/

@@ -36,7 +36,8 @@ template:
 	favicon.ico \
 	license_.md \
 	misc/tutorial.mk \
-	res
+	res \
+	-x \*~
 
 ## ordered: get all inclusions in order
 .PHONY: ordered
