@@ -43,7 +43,32 @@ All contributors will be acknowledged.
     solid 1-point black lines,
     and unfilled objects.
 
-## Repository Contents
+## Logical Structure
+
+-   Introduction
+    -   A *learner persona* that characterizes the intended audience in concrete terms.
+    -   *Prerequisites* (which should be interpreted with reference to the learner persona).
+    -   *Learning objectives* that define the tutorial's scope.
+    -   *Setup instructions* that instructors and learners must go through in order to code along
+-   Episodes
+    -   *Runnable episodes* are numbered.
+        Each contains one code sample, its output, and notes for the instructor.
+        Learners are *not* expected to be able to understand episodes without instructor elaboration.
+    -   *Asides* are not numbered,
+        and contain code-less explanatory material,
+        additional setup instructions,
+        *concept maps* summarizing recently-introduced ideas,
+        etc.
+    -   Episodes of both kinds may contain *glossary references*
+        and/or *explanatory diagrams*.
+-   Appendices
+    -   A *glossary* that defines terms called out in the episodes.
+    -   *Acknowledgments* that point at inspirations and thank contributors.
+-   Links
+    -   All external links are written using `{% raw %}[box][notation]{% endraw %}` inline
+        and defined at the foot of the document.
+
+## Physical Structure
 
 -   `CODE_OF_CONDUCT.md`: source for Code of Conduct
     -   `conduct_.md`: auxiliary file to translate CoC into HTML
