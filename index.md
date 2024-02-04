@@ -38,7 +38,7 @@ home: true
 
 ## setup
 
--   Download [the latest release][release]
+-   Download [the latest release]({{site.data.meta.release}})
 -   Unzip the file in a temporary directory to create:
     -   `./db/*.db`: the SQLite databases used in the examples
     -   `./src/*.*`: SQL queries, Python scripts, and other source code
@@ -1460,8 +1460,6 @@ I would also like to thank the following for spotting issues, making suggestions
 
 {% include thanks.html %}
 
-{% include colophon.md %}
-
 </section>
 
 [albrecht-andi]: http://andialbrecht.de/
@@ -1472,7 +1470,6 @@ I would also like to thank the following for spotting issues, making suggestions
 [mongodb]: https://www.mongodb.com/
 [persona]: http://teachtogether.tech/en/index.html#s:process-personas
 [postgresql]: https://www.postgresql.org/
-[release]: https://github.com/{{site.repository}}/raw/main/sql-tutorial.zip
 [sql]: https://en.wikipedia.org/wiki/SQL
 [sqlite]: https://sqlite.org/
 [sqlparse]: https://pypi.org/project/sqlparse/

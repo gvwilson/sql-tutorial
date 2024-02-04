@@ -24,5 +24,5 @@
 [conduct]: https://gvwilson.github.io/sql-tutorial/conduct/
 [contribute]: https://gvwilson.github.io/sql-tutorial/contributing/
 [license]: https://gvwilson.github.io/sql-tutorial/license/
-[release]: https://github.com/gvwilson/sql-tutorial/blob/main/sql-tutorial.zip
+[release]: https://github.com/gvwilson/sql-tutorial/raw/main/sql-tutorial.zip
 [site]: https://gvwilson.github.io/sql-tutorial/
