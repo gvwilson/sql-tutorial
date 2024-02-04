@@ -1,8 +1,7 @@
+include misc/tutorial.mk
+
 SQLITE := sqlite3
 DB := db
-SRC := src
-OUT := out
-PAGE := index.md
 MODE := misc/mode.txt
 
 ASSAYS := ${SQLITE} ${DB}/assays.db
@@ -26,21 +25,6 @@ OUT_FILES := \
     $(patsubst ${SRC}/%.py,${OUT}/%.out,${PY_FILES})
 
 UNUSED := $(notdir $(wildcard bin/*.sql) $(wildcard bin/*.py))
-
-## commands: show available commands
-.PHONY: commands
-commands:
-	@grep -h -E '^##' ${MAKEFILE_LIST} | sed -e 's/## //g' | column -t -s ':'
-
-## build: rebuild website
-.PHONY: build
-build:
-	@jekyll build
-
-## serve: rebuild and serve website
-.PHONY: serve
-serve:
-	@jekyll serve
 
 ## databases: make required files
 .PHONY: databases
@@ -78,21 +62,6 @@ lint:
 	--source ${SRC} \
 	--unused ${UNUSED}
 
-## ordered: get all inclusions in order
-.PHONY: ordered
-ordered:
-	@python bin/ordered.py < index.md
-
-## style: check Python code style
-.PHONY: style
-style:
-	@ruff check .
-
-## reformat: reformat unstylish Python code
-.PHONY: reformat
-reformat:
-	@ruff format .
-
 ## missing: list unused keywords
 .PHONY: missing
 missing:
@@ -112,14 +81,6 @@ freq:
 .PHONY: renumber
 renumber:
 	@python bin/renumber_headings.py ${PAGE}
-
-## clean: clean up stray files
-.PHONY: clean
-clean:
-	@rm -f *~
-	@rm -rf _site
-
-# ----------------------------------------------------------------------
 
 ## run: re-run all examples
 .PHONY: run

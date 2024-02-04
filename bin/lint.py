@@ -7,9 +7,12 @@ import sys
 import yaml
 
 GLOSS_REF = re.compile(r'<span\s+data-gloss="(.+?)">')
-MAKE_INC = re.compile(r'\b(\w+?\.(sql|py))\b')
+MAKE_INC = re.compile(r"\b(\w+?\.(sql|py))\b")
 SINGLE_INC = re.compile(r'\{%\s+include\s+single\.md\s+file=".+?/(.+?)"\s+%\}')
-DOUBLE_INC = re.compile(r'\{%\s+include\s+double\.md\s+stem="(.+?)"\s+suffix="(.+?)"\s+%\}')
+DOUBLE_INC = re.compile(
+    r'\{%\s+include\s+double\.md\s+stem="(.+?)"\s+suffix="(.+?)"\s+%\}'
+)
+
 
 def main():
     """Main driver."""
@@ -71,10 +74,18 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--glossary", type=str, required=True, help="path to glossary")
     parser.add_argument("--makefile", type=str, required=True, help="path to Makefile")
-    parser.add_argument("--output", type=str, required=True, help="path to output directory")
-    parser.add_argument("--page", type=str, required=True, help="path to tutorial source page")
-    parser.add_argument("--source", type=str, required=True, help="path to source directory")
-    parser.add_argument("--unused", type=str, nargs="+", help="source files not used directly")
+    parser.add_argument(
+        "--output", type=str, required=True, help="path to output directory"
+    )
+    parser.add_argument(
+        "--page", type=str, required=True, help="path to tutorial source page"
+    )
+    parser.add_argument(
+        "--source", type=str, required=True, help="path to source directory"
+    )
+    parser.add_argument(
+        "--unused", type=str, nargs="+", help="source files not used directly"
+    )
     return parser.parse_args()
 
 

@@ -1,7 +1,7 @@
 import re
 import sys
 
-NUMBERED = re.compile(r'^##\s+\d+:(.+)$')
+NUMBERED = re.compile(r"^##\s+\d+:(.+)$")
 
 with open(sys.argv[1], "r") as reader:
     text = reader.readlines()
