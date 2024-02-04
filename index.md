@@ -374,7 +374,7 @@ home: true
 
 ## check your understanding
 
-![concept map: null](./img/concept_map_aggregate.svg)
+![concept map: aggregation](./img/concept_map_aggregate.svg)
 
 </section>
 <section class="aside" markdown="1">
@@ -435,6 +435,13 @@ home: true
 ## 030: backing up
 
 {% include double.md stem="backing_up" suffix="sql out" %}
+
+</section>
+<section class="aside" markdown="1">
+
+## check your understanding
+
+![concept map: data definition and modification](./img/concept_map_datamod.svg)
 
 </section>
 <section markdown="1">
