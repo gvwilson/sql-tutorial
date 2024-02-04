@@ -29,17 +29,19 @@ All contributors will be acknowledged.
     in `index.md` to include an arbitrary text file *without* automatically including output.
     (Note that `single` requires a directory name such as `src` or `out` but `double` does not.)
 
--   Wrap words or phrases in asterisks (e.g., `*word*`) for *emphasis*.
-
 -   Add important terms to `_info/glossary.yml`,
     which is in [Glosario][glosario] format.
 
--   Use `{% raw %}<span data-gloss="key">text</span>{% endraw %}` to link to glossary entries.
-    The key must identify an entry in `_data/glossary.yml`.
+-   Use `{% raw %}<a href="#g:key">text</span>{% endraw %}` to link to glossary entries.
+    The key must identify an entry in `_data/glossary.yml`;
+    the `#` makes it an in-page reference,
+    while the `g:` prefix triggers CSS styling.
 
 -   SVG images used in the tutorial are in `img/`
     and can be edited using [draw.io][draw-io].
-    Please use 12-point Helvetica for text.
+    Please use 12-point Helvetica for text,
+    solid 1-point black lines,
+    and unfilled objects.
 
 ## Repository Contents
 

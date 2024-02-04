@@ -232,7 +232,7 @@ p.inclusion {
     margin-bottom: -1rem;
 }
 
-span[data-gloss] {
+a[href*="#g:"] {
     font-style: italic;
     font-weight: bold;
 }

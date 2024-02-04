@@ -16,15 +16,15 @@ home: true
 
 ## background concepts
 
--   A <span data-gloss="database">database</span> is a collection of data that can be searched and retrieved
--   A <span data-gloss="dbms">database management system</span> (DBMS) is a program that manages a particular kind of database
+-   A <a href="#g:database">database</a> is a collection of data that can be searched and retrieved
+-   A <a href="#g:dbms">database management system</a> (DBMS) is a program that manages a particular kind of database
 -   Each DBMS stores data in its own way
     -   [SQLite][sqlite] stores each database in a single file
     -   [PostgreSQL][postgresql] spreads information across many files for higher performance
 -   DBMS can be a library embedded in other programs ([SQLite][sqlite]) or a server ([PostgreSQL][postgresql])
--   A <span data-gloss="rdbms">relational database management system</span> (RDBMS) stores data in tables and uses [SQL][sql] for queries
+-   A <a href="#g:rdbms">relational database management system</a> (RDBMS) stores data in tables and uses [SQL][sql] for queries
     -   Unfortunately, every RDBMS has its own dialect of SQL
--   There are also <span data-gloss="nosql">NoSQL databases</span> like [MongoDB][mongodb] that don't use tables
+-   There are also <a href="#g:nosql">NoSQL databases</a> like [MongoDB][mongodb] that don't use tables
 
 ![concept map: overview](./img/concept_map_overview.svg)
 
@@ -57,7 +57,7 @@ home: true
 
 {% include double.md stem="select_star" suffix="sql out" %}
 
--   An actual <span data-gloss="query">query</span>
+-   An actual <a href="#g:query">query</a>
 -   Use `*` to mean "all columns"
 -   Use <code>from <em>tablename</em></code> to specify table
 -   Output format is not particularly readable
@@ -139,7 +139,7 @@ home: true
 
 {% include double.md stem="filter" suffix="sql out" %}
 
--   <code>where <em>condition</em></code> <span data-gloss="filter">filters</span> the rows produced by selection
+-   <code>where <em>condition</em></code> <a href="#g:filter">filters</a> the rows produced by selection
 -   Condition is evaluated independently for each row
 -   Only rows that pass the test appear in results
 -   Use single quotes for `'text data'` and double quotes for `"weird column names"`
@@ -192,7 +192,7 @@ home: true
 ## 012: calculate with missing values
 {% include double.md stem="show_missing_values" suffix="sql out" %}
 
--   SQL uses a special value <span data-gloss="null"><code>null</code></span> to representing missing data
+-   SQL uses a special value <a href="#g:null"><code>null</code></a> to representing missing data
     -   Not 0 or empty string, but "I don't know"
 -   Flipper length and body weight not known for one of the first five penguins
 -   "I don't know" divided by 10 or 1000 is "I don't know"
@@ -229,7 +229,7 @@ home: true
 -   If we don't know the left and right values, we don't know if they're equal or not
 -   So the result is `null`
 -   Get the same answer for `null != null`
--   <span data-gloss="ternary_logic">Ternary logic</span>
+-   <a href="#g:ternary_logic">Ternary logic</a>
 
 <table>
   <tr>
@@ -285,8 +285,8 @@ home: true
 
 {% include double.md stem="simple_sum" suffix="sql out" %}
 
--   <span data-gloss="aggregation">Aggregation</span> combines many values to produce one
--   `sum` is an <span data-gloss="aggregation_func">aggregation function</span>
+-   <a href="#g:aggregation">Aggregation</a> combines many values to produce one
+-   `sum` is an <a href="#g:aggregation_func">aggregation function</a>
 -   Combines corresponding values from multiple rows
 
 </section>
@@ -317,7 +317,7 @@ home: true
 
 {% include double.md stem="simple_group" suffix="sql out" %}
 
--   Put rows in <span data-gloss="group">groups</span> based on distinct combinations of values in columns specified with `group by`
+-   Put rows in <a href="#g:group">groups</a> based on distinct combinations of values in columns specified with `group by`
 -   Then perform aggregation separately for each group
 -   But which is which?
 
@@ -383,7 +383,7 @@ home: true
 
 {% include single.md file="src/in_memory_db.sh" %}
 
--   "Connect" to an <span data-gloss="in_memory_db">in-memory database</span>
+-   "Connect" to an <a href="#g:in_memory_db">in-memory database</a>
 
 </section>
 <section markdown="1">
@@ -417,7 +417,7 @@ home: true
 
 -   (Almost) always specify row(w) to update using `where`
     -   Would otherwise update all rows
--   Useful to give each row a <span data-gloss="primary_key">primary key</span> that uniquely identifies it for this purpose
+-   Useful to give each row a <a href="#g:primary_key">primary key</a> that uniquely identifies it for this purpose
     -   Will see other uses below
 
 </section>
@@ -443,8 +443,8 @@ home: true
 
 {% include double.md stem="cross_join" suffix="sql out" %}
 
--   A <span data-gloss="join">join</span> combines information from two tables
--   `cross join` (also called <span data-gloss="outer_join">outer join</span>) constructs their cross product
+-   A <a href="#g:join">join</a> combines information from two tables
+-   `cross join` (also called <a href="#g:outer_join">outer join</a>) constructs their cross product
     -   All combinations of rows from each
 -   Result isn't particularly useful: `job` and `name` don't match
 
@@ -457,7 +457,7 @@ home: true
 
 -   Use <code><em>table</em>.<em>column</em></code> notation to specify columns
     -   A column can have the same name as a table
--   Use <code>on <em>condition</em></code> to specify <span data-gloss="join_condition">join condition</span>
+-   Use <code>on <em>condition</em></code> to specify <a href="#g:join_condition">join condition</a>
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
 
 </section>
@@ -477,7 +477,7 @@ home: true
 
 {% include double.md stem="left_join" suffix="sql out" %}
 
--   A <span data-gloss="left_outer_join">left outer join</span> keeps all rows from the left table
+-   A <a href="#g:left_outer_join">left outer join</a> keeps all rows from the left table
 -   Fills missing values from right table with null
 
 </section>
@@ -528,7 +528,7 @@ home: true
 
 {% include double.md stem="subquery_set" suffix="sql out" %}
 
--   Use a <span data-gloss="subquery">subquery</span> to select the people who *do* calibrate
+-   Use a <a href="#g:subquery">subquery</a> to select the people who *do* calibrate
 -   Then select all the people who aren't in that set
 -   Initially feels odd, but subqueries are useful in other ways
 
@@ -538,13 +538,13 @@ home: true
 ## M to N relationships
 
 -   Relationships between entities are usually characterized as:
-    -   <span data-gloss="1_to_1">1-to-1</span>:
+    -   <a href="#g:1_to_1">1-to-1</a>:
         fields in the same record
-    -   <span data-gloss="1_to_many">1-to-many</span>:
-        the many have a <span data-gloss="foreign_key">foreign key</span> referring to the one's primary key
-    -   <span data-gloss="many_to_many">many-to-many</span>:
+    -   <a href="#g:1_to_many">1-to-many</a>:
+        the many have a <a href="#g:foreign_key">foreign key</a> referring to the one's primary key
+    -   <a href="#g:many_to_many">many-to-many</a>:
         don't know how many keys to add to records ("maximum" never is)
--   Nearly-universal solution is a <span data-gloss="join_table">join table</span>
+-   Nearly-universal solution is a <a href="#g:join_table">join table</a>
     -   Each record is a pair of foreign keys
     -   I.e., each record is the fact that records A and B are related
 
@@ -555,7 +555,7 @@ home: true
 
 {% include double.md stem="autoincrement" suffix="sql out" %}
 
--   Database <span data-gloss="autoincrement">autoincrements</span> `ident` each time a new record is added
+-   Database <a href="#g:autoincrement">autoincrements</a> `ident` each time a new record is added
 -   Use that field as the primary key
     -   So that if Mik changes their name again,
         we only have to change one fact in the database
@@ -583,7 +583,7 @@ home: true
 -   Then use `update` to modify existing records
     -   Can modify any number of records at once
     -   So be careful about `where` clause
--   <span data-gloss="data_migration">Data migration</span>
+-   <a href="#g:data_migration">Data migration</a>
 
 </section>
 <section markdown="1">
@@ -638,7 +638,7 @@ home: true
 
 {% include double.md stem="common_table_expressions" suffix="sql out" %}
 
--   Use <span data-gloss="cte">common table expression</span> (CTE) to make queries clearer
+-   Use <a href="#g:cte">common table expression</a> (CTE) to make queries clearer
     -   Nested subqueries quickly become difficult to understand
 -   Database decides how to optimize
 
@@ -705,7 +705,7 @@ home: true
 
 ## yet another database
 
--   <span data-gloss="er_diagram">Entity-relationship diagram</span> (ER diagram) shows relationships between tables
+-   <a href="#g:er_diagram">Entity-relationship diagram</a> (ER diagram) shows relationships between tables
 -   Like everything to do with databases, there are lots of variations
 
 ![assay database table diagram](./img/assays_tables.svg)
@@ -788,7 +788,7 @@ home: true
 
 {% include double.md stem="create_use_index" suffix="sql out" %}
 
--   An <span data-gloss="index">index</span> is an auxiliary data structure that enables faster access to records
+-   An <a href="#g:index">index</a> is an auxiliary data structure that enables faster access to records
     -   Spend storage space to buy speed
 -   Don't have to mention it explicitly in queries
     -   Database manager will use it automatically
@@ -800,7 +800,7 @@ home: true
 
 {% include double.md stem="generate_sequence" suffix="sql out" %}
 
--   A (non-standard) <span data-gloss="table_valued_func">table-valued function</span>
+-   A (non-standard) <a href="#g:table_valued_func">table-valued function</a>
 
 </section>
 <section markdown="1">
@@ -838,7 +838,7 @@ home: true
 {% include double.md stem="self_join" suffix="sql out" %}
 
 -   Join a table to itself
-    -   Use `as` to create <span data-gloss="alias">aliases</span> for copies of tables to distinguish them
+    -   Use `as` to create <a href="#g:alias">aliases</a> for copies of tables to distinguish them
     -   Nothing special about the names `left` and `right`
 -   Get all <math>n<sup>2</sup></math> pairs, including person with themself
 
@@ -869,7 +869,7 @@ home: true
 
 -   Nobody works in Endocrinology
 -   `select 1` could equally be `select true` or any other value
--   A <span data-gloss="correlated_subquery">correlated subquery</span> depends on a value from the outer query
+-   A <a href="#g:correlated_subquery">correlated subquery</a> depends on a value from the outer query
     -   Equivalent to nested loop
 
 </section>
@@ -898,7 +898,7 @@ home: true
 
 -   Use `strftime` to extract year and month
     -   Clumsy, but date/time handling is not SQLite's strong point
--   Use <span data-gloss="window_func">window functions</span> `lead` and `lag` to shift values
+-   Use <a href="#g:window_func">window functions</a> `lead` and `lag` to shift values
     -   Unavailable values are null
 
 </section>
@@ -937,7 +937,7 @@ home: true
 
 {% include double.md stem="blob" suffix="sql out" %}
 
--   A <span data-gloss="blob">blob</span> is a binary large object
+-   A <a href="#g:blob">blob</a> is a binary large object
     -   Bytes in, bytes out…
 -   If you think that's odd, check out [Fossil][fossil]
 
@@ -972,7 +972,7 @@ home: true
 -   Single arrow `->` returns JSON representation result
 -   Double arrow `->>` returns SQL text, integer, real, or null
 -   Left side is column
--   Right side is <span data-gloss="path_expression">path expression</span>
+-   Right side is <a href="#g:path_expression">path expression</a>
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
 
@@ -1032,7 +1032,7 @@ home: true
 {% include single.md file="src/make_active.sql" %}
 {% include double.md stem="active_penguins" suffix="sql out" %}
 
--   Use a <span data-gloss="tombstone">tombstone</span> to mark (in)active records
+-   Use a <a href="#g:tombstone">tombstone</a> to mark (in)active records
 -   Every query must now include it
 
 </section>
@@ -1042,12 +1042,12 @@ home: true
 
 {% include double.md stem="views" suffix="sql out" %}
 
--   A <span data-gloss="view">view</span> is a saved query that other queries can invoke
+-   A <a href="#g:view">view</a> is a saved query that other queries can invoke
 -   View is re-run each time it's used
 -   Like a CTE, but:
     -   Can be shared between queries
     -   Views came first
--   Some databases offer <span data-gloss="materialized_view">materialized views</span>
+-   Some databases offer <a href="#g:materialized_view">materialized views</a>
     -   Update-on-demand temporary tables
 
 </section>
@@ -1074,10 +1074,10 @@ home: true
 
 ## ACID
 
--   <span data-gloss="atomic">Atomic</span>: change cannot be broken down into smaller ones (i.e., all or nothing)
--   <span data-gloss="consistent">Consistent</span>: database goes from one consistent state to another
--   <span data-gloss="isolated">Isolated</span>: looks like changes happened one after another
--   <span data-gloss="durable">Durable</span>: if change takes place, it's still there after a restart
+-   <a href="#g:atomic">Atomic</a>: change cannot be broken down into smaller ones (i.e., all or nothing)
+-   <a href="#g:consistent">Consistent</a>: database goes from one consistent state to another
+-   <a href="#g:isolated">Isolated</a>: looks like changes happened one after another
+-   <a href="#g:durable">Durable</a>: if change takes place, it's still there after a restart
 
 </section>
 <section markdown="1">
@@ -1121,7 +1121,7 @@ home: true
 
 {% include double.md stem="upsert" suffix="sql out" %}
 
--   <span data-gloss="upsert">upsert</span> stands for "update or insert"
+-   <a href="#g:upsert">upsert</a> stands for "update or insert"
     -   Create if record doesn't exist
     -   Update if it does
 -   Not standard SQL but widely implemented
@@ -1132,14 +1132,14 @@ home: true
 
 ## normalization
 
--   First <span data-gloss="normal_form">normal form</span> (1NF):
+-   First <a href="#g:normal_form">normal form</a> (1NF):
     every field of every record contains one indivisible value.
 
 -   Second normal form (2NF) and third normal form (3NF):
     every value in a record that isn't a key depends solely on the key,
     not on other values.
 
--   <span data-gloss="denormalization">Denormalization</span>: explicitly store values that could be calculated on the fly
+-   <a href="#g:denormalization">Denormalization</a>: explicitly store values that could be calculated on the fly
     -   To simplify queries and/or make processing faster
 
 </section>
@@ -1147,7 +1147,7 @@ home: true
 
 ## 083: create trigger
 
--   A <span data-gloss="trigger">trigger</span> automatically runs before or after a specified operation
+-   A <a href="#g:trigger">trigger</a> automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
 -   And/or implement checks (e.g., make sure other records exist)
 -   Add processing overhead…
@@ -1182,9 +1182,9 @@ home: true
 
 {% include double.md stem="recursive_lineage" suffix="sql out" %}
 
--   Use a <span data-gloss="recursive_cte">recursive CTE</span> to create a temporary table (`descendent`)
--   <span data-gloss="base_case">Base case</span> seeds this table
--   <span data-gloss="recursive_case">Recursive case</span> relies on value(s) already in that table and external table(s)
+-   Use a <a href="#g:recursive_cte">recursive CTE</a> to create a temporary table (`descendent`)
+-   <a href="#g:base_case">Base case</a> seeds this table
+-   <a href="#g:recursive_case">Recursive case</a> relies on value(s) already in that table and external table(s)
 -   `union all` to combine rows
     -   Can use `union` but that has lower performance (must check uniqueness each time)
 -   Stops when the recursive case yields an empty row set (nothing new to add)
@@ -1207,7 +1207,7 @@ home: true
 
 {% include double.md stem="bidirectional" suffix="sql out" %}
 
--   Create a <span data-gloss="temporary_table">temporary table</span> rather than using a long chain of CTEs
+-   Create a <a href="#g:temporary_table">temporary table</a> rather than using a long chain of CTEs
     -   Only lasts as long as the session (not saved to disk)
 -   Duplicate information rather than writing more complicated query
 
@@ -1228,7 +1228,7 @@ home: true
 
 {% include double.md stem="recursive_labeling" suffix="sql out" %}
 
--   Use `union` instead of `union all` to prevent <span data-gloss="infinite_recursion">infinite recursion</span>
+-   Use `union` instead of `union all` to prevent <a href="#g:infinite_recursion">infinite recursion</a>
 
 </section>
 <section markdown="1">
@@ -1239,7 +1239,7 @@ home: true
 
 -   `sqlite3` is part of Python's standard library
 -   Create a connection to a database file
--   Get a <span data-gloss="cursor">cursor</span> by executing a query
+-   Get a <a href="#g:cursor">cursor</a> by executing a query
     -   More common to create cursor and use that to run queries
 -   Fetch all rows at once as list of tuples
 
@@ -1374,7 +1374,7 @@ home: true
 {% include single.md file="src/install_polars.sh" %}
 {% include double.md stem="select_polars" suffix="py out" %}
 
--   The <span data-gloss="uri">Uniform Resource Identifier</span> (URI) specifies the database
+-   The <a href="#g:uri">Uniform Resource Identifier</a> (URI) specifies the database
 -   The query is the query
 -   Use the ADBC engine instead of the default ConnectorX
 
@@ -1385,7 +1385,7 @@ home: true
 
 {% include double.md stem="orm" suffix="py out" %}
 
--   An <span data-gloss="orm">object-relational mapper</span> (ORM) translates table columns to object properties and vice versa
+-   An <a href="#g:orm">object-relational mapper</a> (ORM) translates table columns to object properties and vice versa
 -   SQLModel relies on Python type hints
 
 </section>
