@@ -12,9 +12,11 @@ legibility was checked using [WebAIM WAVE][wave].
 Diagrams were created with the desktop version of [draw.io][draw-io].
 
 The colors in headings and to distinguish code samples
-are lightened versions of those used in classic Canadian postage stamps.
+are lightened versions of those used in
+[classic Canadian postage stamps][stamps].
 
 [atkinson]: https://brailleinstitute.org/freefont
 [draw-io]: https://www.drawio.com/
 [highlight-css]: https://numist.github.io/highlight-css/
+[stamps]: https://third-bit.com/colophon/
 [wave]: https://wave.webaim.org/

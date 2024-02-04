@@ -3,6 +3,39 @@ home: true
 ---
 <section class="aside" markdown="1">
 
+## introduction
+
+-   [Intended audience][persona]
+    -   Rachel has a master's degree in cell biology
+        and now works in a research hospital doing cell assays.
+    -   She learned a bit of R in an undergrad biostatistics course
+        and has been through [the Carpentries lesson on the Unix shell][carpentries-shell].
+    -   Rachel is thinking about becoming a data scientist
+        and would like to understand how data is stored and managed.
+    -   Her work schedule is unpredictable and highly variable,
+        so she needs to be able to learn a bit at a time.
+-   Prerequisites
+    -   Basic Unix command line: `cd`, `ls`, `*` wildcard
+    -   Basic tabular data analysis: filtering rows, aggregating within groups
+
+</section>
+<section class="aside" markdown="1">
+
+## learning outcomes
+
+1.  Explain the difference between a database and a database manager.
+1.  Write SQL to select, filter, sort, group, and aggregate data.
+1.  Define tables and insert, update, and delete records.
+1.  Describe different types of join and write queries that use them to combine data.
+1.  Use windowing functions to operate on adjacent rows.
+1.  Explain what transactions are and write queries that roll back when constraints are violated.
+1.  Explain what triggers are and write SQL to create them.
+1.  Manipulate JSON data using SQL.
+1.  Interact with a database using Python directly, from a Jupyter notebook, and via an ORM.
+
+</section>
+<section class="aside" markdown="1">
+
 ## setup
 
 -   Download [the latest release][release]
@@ -1433,9 +1466,11 @@ I would also like to thank the following for spotting issues, making suggestions
 
 [albrecht-andi]: http://andialbrecht.de/
 [art-postgresql]: https://theartofpostgresql.com/
+[carpentries-shell]: https://swcarpentry.github.io/shell-novice/
 [fontaine-dimitri]: https://tapoueh.org/
 [fossil]: https://fossil-scm.org/
 [mongodb]: https://www.mongodb.com/
+[persona]: http://teachtogether.tech/en/index.html#s:process-personas
 [postgresql]: https://www.postgresql.org/
 [release]: https://github.com/{{site.repository}}/raw/main/sql-tutorial.zip
 [sql]: https://en.wikipedia.org/wiki/SQL
