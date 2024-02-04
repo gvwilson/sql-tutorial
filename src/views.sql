@@ -2,7 +2,7 @@
 
 -- start
 create view if not exists
-active_penguins(
+active_penguins (
     species,
     island,
     bill_length_mm,

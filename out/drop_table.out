@@ -1,14 +1,14 @@
-CREATE TABLE job(
+CREATE TABLE job (
     ident integer primary key autoincrement,
     name text not null,
     billable real not null
 );
 CREATE TABLE sqlite_sequence(name,seq);
-CREATE TABLE person(
+CREATE TABLE person (
     ident integer primary key autoincrement,
     name text not null
 );
-CREATE TABLE IF NOT EXISTS "work"(
+CREATE TABLE IF NOT EXISTS "work" (
     person_id integer not null,
     job_id integer not null,
     foreign key(person_id) references person(ident),

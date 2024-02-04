@@ -7,5 +7,6 @@ pandas
 polars
 pyarrow
 ruff
+sqlfluff
 sqlmodel
 sqlparse

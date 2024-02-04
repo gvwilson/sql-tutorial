@@ -1,24 +1,22 @@
-create table job(
+create table job (
     ident integer primary key autoincrement,
     name text not null,
     billable real not null
 );
 insert into job values
     (null, 'calibrate', 1.5),
-    (null, 'clean', 0.5)
-;
+    (null, 'clean', 0.5);
 
-create table person(
+create table person (
     ident integer primary key autoincrement,
     name text not null
 );
 insert into person values
     (null, 'mik'),
     (null, 'po'),
-    (null, 'tay')
-;
+    (null, 'tay');
 
-create table work(
+create table work (
     person text not null,
     job text not null
 );
@@ -32,7 +30,7 @@ insert into work values
 ;
 
 -- start
-create table new_work(
+create table new_work (
     person_id integer not null,
     job_id integer not null,
     foreign key(person_id) references person(ident),
@@ -45,7 +43,6 @@ select
     job.ident as job_id
 from
     (person join work on person.name = work.person)
-    join job on job.name = work.job
-;
+    join job on job.name = work.job;
 select * from new_work;
 -- end

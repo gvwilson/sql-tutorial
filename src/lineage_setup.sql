@@ -1,4 +1,4 @@
-create table lineage(
+create table lineage (
     parent text not null,
     child text not null
 );
@@ -9,5 +9,4 @@ insert into lineage values
     ('Clemente', 'Ivonne'),
     ('Ivonne', 'Lourdes'),
     ('Soledad', 'Lourdes'),
-    ('Lourdes', 'Santiago')
-;
+    ('Lourdes', 'Santiago');

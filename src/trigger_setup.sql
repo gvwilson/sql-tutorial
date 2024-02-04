@@ -1,11 +1,11 @@
 -- Track hours of lab work.
-create table job(
+create table job (
     person text not null,
-    reported real not null check(reported >= 0.0)
+    reported real not null check (reported >= 0.0)
 );
 
 -- Explicitly store per-person total rather than using sum().
-create table total(
+create table total (
     person text unique not null,
     hours real
 );
@@ -13,8 +13,7 @@ create table total(
 -- Initialize totals.
 insert into total values
     ("gene", 0.0),
-    ("august", 0.0)
-;
+    ("august", 0.0);
 
 -- Define a trigger.
 create trigger total_trigger

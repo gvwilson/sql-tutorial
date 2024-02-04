@@ -1,12 +1,11 @@
-create table job(
+create table job (
     name text not null,
     billable real not null
 );
 insert into job values
     ('calibrate', 1.5),
-    ('clean', 0.5)
-;
-create table work(
+    ('clean', 0.5);
+create table work (
     person text not null,
     job text not null
 );
@@ -16,8 +15,7 @@ insert into work values
     ('mik', 'complain'),
     ('po', 'clean'),
     ('po', 'complain'),
-    ('tay', 'complain')
-;
+    ('tay', 'complain');
 
 -- start
 alter table job

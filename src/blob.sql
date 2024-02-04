@@ -9,8 +9,7 @@ insert into images(name, content) values
     ("crush", readfile("img/crush.png")),
     ("fire", readfile("img/fire.png")),
     ("radioactive", readfile("img/radioactive.png")),
-    ("tripping", readfile("img/tripping.png"))
-;
+    ("tripping", readfile("img/tripping.png"));
 -- end
 
 select name, length(content) from images;

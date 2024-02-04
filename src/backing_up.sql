@@ -1,7 +1,7 @@
 .read src/create_work_job.sql
 
 -- start
-create table backup(
+create table backup (
     person text not null,
     job text not null
 );
