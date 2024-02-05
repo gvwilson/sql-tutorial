@@ -29,8 +29,6 @@ template:
 	_includes \
 	_layouts \
 	bin/ordered.py \
-	bin/renumber_headings.py \
-	bin/lint.py \
 	colophon.md \
 	conduct_.md \
 	contributing_.md \

@@ -77,11 +77,6 @@ used:
 freq:
 	@python bin/get_sql_features.py --report freq --files ${SQL_FILES}
 
-## renumber: renumber headings
-.PHONY: renumber
-renumber:
-	@python bin/renumber_headings.py ${PAGE}
-
 ## run: re-run all examples
 .PHONY: run
 run: ${OUT_FILES}
