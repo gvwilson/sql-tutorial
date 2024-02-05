@@ -25,6 +25,7 @@ def analyze(counter, sql):
     wanted = {
         sqlparse.tokens.Keyword,
         sqlparse.tokens.Keyword.Order,
+        sqlparse.tokens.Name,
         sqlparse.tokens.CTE,
         sqlparse.tokens.DDL,
         sqlparse.tokens.DML,

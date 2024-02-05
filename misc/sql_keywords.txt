@@ -59,7 +59,7 @@ from
 full
 generated
 glob
-group
+group by
 groups
 having
 if
