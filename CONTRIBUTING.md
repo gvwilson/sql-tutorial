@@ -1,7 +1,7 @@
 # Contributing
 
 Contributions are very welcome.
-Please file issues or submit pull requests in our [GitHub repository][repo].
+Please file issues or submit pull requests in our GitHub repository.
 All contributors will be acknowledged.
 
 ## In Brief
@@ -157,6 +157,5 @@ Why make this tutorial freely available?
 [pandas]: https://pandas.pydata.org/
 [polars]: https://pola.rs/
 [postgresql]: https://www.postgresql.org/
-[repo]: https://github.com/{{site.repository}}
 [tidyverse]: https://www.tidyverse.org/
 [udell]: https://blog.jonudell.net/
