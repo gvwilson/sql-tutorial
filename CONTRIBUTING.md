@@ -151,7 +151,7 @@ Why make this tutorial freely available?
 [draw-io]: https://www.drawio.com/
 [glosario]: https://glosario.carpentries.org/
 [graphviz]: https://graphviz.org/
-[jeykll]: https://jekyllrb.com/
+[jekyll]: https://jekyllrb.com/
 [mermaid]: https://mermaid.js.org/
 [palmer-penguins]: https://allisonhorst.github.io/palmerpenguins/
 [pandas]: https://pandas.pydata.org/
