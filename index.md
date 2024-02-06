@@ -350,6 +350,7 @@ home: true
 
 -   `count(*)` counts rows
 -   <code>count(<em>column</em>)</code> counts non-null entries in column
+-   <code>count(distinct <em>column</em>)</code> counts distinct non-null entries
 
 </section>
 <section markdown="1">
