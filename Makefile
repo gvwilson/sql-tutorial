@@ -1,4 +1,5 @@
 include misc/tutorial.mk
+include depend.mk
 
 SQLITE := sqlite3
 DB := db
@@ -53,6 +54,10 @@ ${DB}/penguins.db : bin/create_penguins_db.sql misc/penguins.csv
 release:
 	zip -r sql-tutorial.zip db src out -x \*~
 
+## depend.mk: rebuild SQL-to-SQL dependencies
+depend.mk:
+	@python bin/make_depend.py ${SQL_FILES} > $@
+
 ## lint: check project state
 .PHONY: lint
 lint:
@@ -83,17 +88,17 @@ freq:
 .PHONY: run
 run: ${OUT_FILES}
 
-${OUT}/active_penguins.out: ${SRC}/active_penguins.sql ${SRC}/make_active.sql
+${OUT}/active_penguins.out: ${SRC}/active_penguins.sql
 	cp ${DB}/penguins.db /tmp
 	cat ${MODE} $< | ${PENGUINS_TMP} > $@
 
 ${OUT}/admin_commands.out: ${SRC}/admin_commands.sql
 	cat $< | ${PENGUINS} > $@
 
-${OUT}/aggregate_join.out: ${SRC}/aggregate_join.sql ${SRC}/create_work_job.sql
+${OUT}/aggregate_join.out: ${SRC}/aggregate_join.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
-${OUT}/aggregate_left_join.out: ${SRC}/aggregate_left_join.sql ${SRC}/create_work_job.sql
+${OUT}/aggregate_left_join.out: ${SRC}/aggregate_left_join.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/all_jobs.out: ${SRC}/all_jobs.sql
@@ -117,7 +122,7 @@ ${OUT}/autoincrement.out: ${SRC}/autoincrement.sql
 ${OUT}/avoid_correlated_subqueries.out: ${SRC}/avoid_correlated_subqueries.sql
 	cat ${MODE} $< | ${ASSAYS} > $@
 
-${OUT}/backing_up.out: ${SRC}/backing_up.sql ${SRC}/create_work_job.sql ${SRC}/populate_work_job.sql ${SRC}/update_work_job.sql
+${OUT}/backing_up.out: ${SRC}/backing_up.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/basic_python_query.out: ${SRC}/basic_python_query.py
@@ -139,7 +144,7 @@ ${OUT}/case_when.out: ${SRC}/case_when.sql
 ${OUT}/check_range.out: ${SRC}/check_range.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
-${OUT}/coalesce.out: ${SRC}/coalesce.sql ${SRC}/create_work_job.sql
+${OUT}/coalesce.out: ${SRC}/coalesce.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/common_aggregations.out: ${SRC}/common_aggregations.sql
@@ -173,7 +178,7 @@ ${OUT}/create_use_index.out: ${SRC}/create_use_index.sql
 	cp ${DB}/assays.db /tmp
 	cat ${MODE} $< | ${ASSAYS_TMP} > $@
 
-${OUT}/cross_join.out: ${SRC}/cross_join.sql ${SRC}/create_work_job.sql
+${OUT}/cross_join.out: ${SRC}/cross_join.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/data_range_sequence.out: ${SRC}/data_range_sequence.sql
@@ -185,7 +190,7 @@ ${OUT}/date_sequence.out: ${SRC}/date_sequence.sql
 ${OUT}/dates_times.out: ${SRC}/dates_times.py
 	python $< > $@
 
-${OUT}/delete_rows.out: ${SRC}/delete_rows.sql ${SRC}/create_work_job.sql ${SRC}/populate_work_job.sql
+${OUT}/delete_rows.out: ${SRC}/delete_rows.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/distinct.out: ${SRC}/distinct.sql
@@ -236,7 +241,7 @@ ${OUT}/if_else.out: ${SRC}/if_else.sql
 ${OUT}/incremental_fetch.out: ${SRC}/incremental_fetch.py
 	python $< > $@
 
-${OUT}/inner_join.out: ${SRC}/inner_join.sql ${SRC}/create_work_job.sql
+${OUT}/inner_join.out: ${SRC}/inner_join.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/insert_delete.out: ${SRC}/insert_delete.py
@@ -245,7 +250,7 @@ ${OUT}/insert_delete.out: ${SRC}/insert_delete.py
 ${OUT}/insert_select.out: ${SRC}/insert_select.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
-${OUT}/insert_values.out: ${SRC}/insert_values.sql ${SRC}/create_work_job.sql ${SRC}/populate_work_job.sql
+${OUT}/insert_values.out: ${SRC}/insert_values.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/interpolate.out: ${SRC}/interpolate.py
@@ -278,7 +283,7 @@ ${OUT}/lab_log_schema.out: ${SRC}/lab_log_schema.sql
 ${OUT}/lead_lag.out: ${SRC}/lead_lag.sql
 	cat ${MODE} $< | ${ASSAYS} > $@
 
-${OUT}/left_join.out: ${SRC}/left_join.sql ${SRC}/create_work_job.sql
+${OUT}/left_join.out: ${SRC}/left_join.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/like_glob.out: ${SRC}/like_glob.sql
@@ -287,7 +292,7 @@ ${OUT}/like_glob.out: ${SRC}/like_glob.sql
 ${OUT}/limit.out: ${SRC}/limit.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
-${OUT}/negate_incorrectly.out: ${SRC}/negate_incorrectly.sql ${SRC}/create_work_job.sql
+${OUT}/negate_incorrectly.out: ${SRC}/negate_incorrectly.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/nonexistence.out: ${SRC}/nonexistence.sql
@@ -320,13 +325,13 @@ ${OUT}/readable_aggregation.out: ${SRC}/readable_aggregation.sql
 ${OUT}/recursive_labeling.out: ${SRC}/recursive_labeling.sql
 	cat ${MODE} $< | ${CONTACTS} > $@
 
-${OUT}/recursive_lineage.out: ${SRC}/recursive_lineage.sql ${SRC}/lineage_setup.sql
+${OUT}/recursive_lineage.out: ${SRC}/recursive_lineage.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/rename_columns.out: ${SRC}/rename_columns.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
-${OUT}/represent_graph.out: ${SRC}/represent_graph.sql ${SRC}/lineage_setup.sql
+${OUT}/represent_graph.out: ${SRC}/represent_graph.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/rollback_constraint.out: ${SRC}/rollback_constraint.sql
@@ -362,7 +367,7 @@ ${OUT}/self_join.out: ${SRC}/self_join.sql
 ${OUT}/sequence_table.out: ${SRC}/sequence_table.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
-${OUT}/set_membership.out: ${SRC}/set_membership.sql ${SRC}/create_work_job.sql
+${OUT}/set_membership.out: ${SRC}/set_membership.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/show_missing_values.out: ${SRC}/show_missing_values.sql
@@ -380,7 +385,7 @@ ${OUT}/sort.out: ${SRC}/sort.sql
 ${OUT}/specify_columns.out: ${SRC}/specify_columns.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
-${OUT}/subquery_set.out: ${SRC}/subquery_set.sql ${SRC}/create_work_job.sql
+${OUT}/subquery_set.out: ${SRC}/subquery_set.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/ternary_logic.out: ${SRC}/ternary_logic.sql
@@ -389,10 +394,10 @@ ${OUT}/ternary_logic.out: ${SRC}/ternary_logic.sql
 ${OUT}/transaction.out: ${SRC}/transaction.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
-${OUT}/trigger_firing.out: ${SRC}/trigger_firing.sql ${SRC}/trigger_setup.sql
+${OUT}/trigger_firing.out: ${SRC}/trigger_firing.sql
 	-cat ${MODE} $< | ${MEMORY} >& $@
 
-${OUT}/trigger_successful.out: ${SRC}/trigger_successful.sql ${SRC}/trigger_setup.sql
+${OUT}/trigger_successful.out: ${SRC}/trigger_successful.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/unaggregated_columns.out: ${SRC}/unaggregated_columns.sql
@@ -408,13 +413,13 @@ ${OUT}/update_group_ids.out: ${SRC}/update_group_ids.sql
 	cp ${DB}/contact_tracing.db /tmp
 	cat ${MODE} $< | ${CONTACTS_TMP} > $@
 
-${OUT}/update_rows.out: ${SRC}/update_rows.sql ${SRC}/create_work_job.sql ${SRC}/populate_work_job.sql ${SRC}/update_work_job.sql
+${OUT}/update_rows.out: ${SRC}/update_rows.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/upsert.out: ${SRC}/upsert.sql
 	-cat ${MODE} $< | ${MEMORY} >& $@
 
-${OUT}/views.out: ${SRC}/views.sql ${SRC}/make_active.sql
+${OUT}/views.out: ${SRC}/views.sql
 	cp ${DB}/penguins.db /tmp
 	cat ${MODE} $< | ${PENGUINS_TMP} > $@
 
