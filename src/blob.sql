@@ -1,4 +1,3 @@
--- start
 create table images (
     name text not null,
     content blob
@@ -10,6 +9,5 @@ insert into images(name, content) values
     ("fire", readfile("img/fire.png")),
     ("radioactive", readfile("img/radioactive.png")),
     ("tripping", readfile("img/tripping.png"));
--- end
 
 select name, length(content) from images;
