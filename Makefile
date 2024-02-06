@@ -19,7 +19,9 @@ EXCLUDED_SQL := \
   ${SRC}/make_active.sql \
   ${SRC}/create_work_job.sql \
   ${SRC}/lineage_setup.sql \
-  ${SRC}/trigger_setup.sql
+  ${SRC}/populate_work_job.sql \
+  ${SRC}/trigger_setup.sql \
+  ${SRC}/update_work_job.sql
 OUT_FILES := \
     $(patsubst ${SRC}/%.sql,${OUT}/%.out,$(filter-out ${EXCLUDED_SQL},${SQL_FILES})) \
     $(patsubst ${SRC}/%.py,${OUT}/%.out,${PY_FILES})
@@ -115,7 +117,7 @@ ${OUT}/autoincrement.out: ${SRC}/autoincrement.sql
 ${OUT}/avoid_correlated_subqueries.out: ${SRC}/avoid_correlated_subqueries.sql
 	cat ${MODE} $< | ${ASSAYS} > $@
 
-${OUT}/backing_up.out: ${SRC}/backing_up.sql ${SRC}/create_work_job.sql
+${OUT}/backing_up.out: ${SRC}/backing_up.sql ${SRC}/create_work_job.sql ${SRC}/populate_work_job.sql ${SRC}/update_work_job.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/basic_python_query.out: ${SRC}/basic_python_query.py
@@ -183,7 +185,7 @@ ${OUT}/date_sequence.out: ${SRC}/date_sequence.sql
 ${OUT}/dates_times.out: ${SRC}/dates_times.py
 	python $< > $@
 
-${OUT}/delete_rows.out: ${SRC}/delete_rows.sql ${SRC}/create_work_job.sql
+${OUT}/delete_rows.out: ${SRC}/delete_rows.sql ${SRC}/create_work_job.sql ${SRC}/populate_work_job.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/distinct.out: ${SRC}/distinct.sql
@@ -243,7 +245,7 @@ ${OUT}/insert_delete.out: ${SRC}/insert_delete.py
 ${OUT}/insert_select.out: ${SRC}/insert_select.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
-${OUT}/insert_values.out: ${SRC}/insert_values.sql ${SRC}/create_work_job.sql
+${OUT}/insert_values.out: ${SRC}/insert_values.sql ${SRC}/create_work_job.sql ${SRC}/populate_work_job.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/interpolate.out: ${SRC}/interpolate.py
@@ -318,13 +320,13 @@ ${OUT}/readable_aggregation.out: ${SRC}/readable_aggregation.sql
 ${OUT}/recursive_labeling.out: ${SRC}/recursive_labeling.sql
 	cat ${MODE} $< | ${CONTACTS} > $@
 
-${OUT}/recursive_lineage.out: ${SRC}/recursive_lineage.sql
+${OUT}/recursive_lineage.out: ${SRC}/recursive_lineage.sql ${SRC}/lineage_setup.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/rename_columns.out: ${SRC}/rename_columns.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
-${OUT}/represent_graph.out: ${SRC}/represent_graph.sql
+${OUT}/represent_graph.out: ${SRC}/represent_graph.sql ${SRC}/lineage_setup.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/rollback_constraint.out: ${SRC}/rollback_constraint.sql
@@ -366,9 +368,6 @@ ${OUT}/set_membership.out: ${SRC}/set_membership.sql ${SRC}/create_work_job.sql
 ${OUT}/show_missing_values.out: ${SRC}/show_missing_values.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
-${OUT}/show_work_job.out: ${SRC}/show_work_job.sql ${SRC}/create_work_job.sql
-	cat ${MODE} $< | ${MEMORY} > $@
-
 ${OUT}/simple_group.out: ${SRC}/simple_group.sql
 	cat ${MODE} $< | ${PENGUINS} > $@
 
@@ -409,13 +408,13 @@ ${OUT}/update_group_ids.out: ${SRC}/update_group_ids.sql
 	cp ${DB}/contact_tracing.db /tmp
 	cat ${MODE} $< | ${CONTACTS_TMP} > $@
 
-${OUT}/update_rows.out: ${SRC}/update_rows.sql ${SRC}/create_work_job.sql
+${OUT}/update_rows.out: ${SRC}/update_rows.sql ${SRC}/create_work_job.sql ${SRC}/populate_work_job.sql ${SRC}/update_work_job.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 
 ${OUT}/upsert.out: ${SRC}/upsert.sql
 	-cat ${MODE} $< | ${MEMORY} >& $@
 
-${OUT}/views.out: ${SRC}/views.sql
+${OUT}/views.out: ${SRC}/views.sql ${SRC}/make_active.sql
 	cp ${DB}/penguins.db /tmp
 	cat ${MODE} $< | ${PENGUINS_TMP} > $@
 

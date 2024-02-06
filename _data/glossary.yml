@@ -69,7 +69,7 @@
   en:
     term: cross join
     def: >
-    A join that creates the cross-product of rows from two tables.
+      A join that creates the cross-product of rows from two tables.
 
 - key: cte
   en:

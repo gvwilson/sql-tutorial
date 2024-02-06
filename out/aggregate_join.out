@@ -1,8 +1,4 @@
-CREATE TABLE job (
-    name text not null,
-    billable real not null
-);
-CREATE TABLE work (
-    person text not null,
-    job text not null
-);
+| person | pay |
+|--------|-----|
+| mik    | 2.0 |
+| po     | 0.5 |

@@ -432,7 +432,6 @@ home: true
 {% include h2_numbered.md title="create tables" %}
 
 {% include single.md file="src/create_work_job.sql" %}
-{% include single.md file="out/show_work_job.out" %}
 
 -   <code>create table <em>name</em></code> followed by parenthesized list of columns
 -   Each column is a name, a data type, and optional extra information
@@ -447,14 +446,16 @@ home: true
 
 {% include h2_numbered.md title="insert data" %}
 
-{% include double.md stem="insert_values" suffix="sql out" %}
+{% include single.md file="src/populate_work_job.sql" %}
+{% include single.md file="out/insert_values.out" %}
 
 </section>
 <section markdown="1">
 
 {% include h2_numbered.md title="update rows" %}
 
-{% include double.md stem="update_rows" suffix="sql out" %}
+{% include single.md file="src/update_work_job.sql" %}
+{% include single.md file="out/update_rows.out" %}
 
 -   (Almost) always specify row(w) to update using `where`
     -   Would otherwise update all rows
