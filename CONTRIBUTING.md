@@ -1,7 +1,7 @@
 # Contributing
 
 Contributions are very welcome.
-Please file issues or submit pull requests in our [GitHub repository][repo].
+Please file issues or submit pull requests in our GitHub repository.
 All contributors will be acknowledged.
 
 ## In Brief
@@ -159,12 +159,11 @@ Why make this tutorial freely available?
 [draw-io]: https://www.drawio.com/
 [glosario]: https://glosario.carpentries.org/
 [graphviz]: https://graphviz.org/
-[jeykll]: https://jekyllrb.com/
+[jekyll]: https://jekyllrb.com/
 [mermaid]: https://mermaid.js.org/
 [palmer-penguins]: https://allisonhorst.github.io/palmerpenguins/
 [pandas]: https://pandas.pydata.org/
 [polars]: https://pola.rs/
 [postgresql]: https://www.postgresql.org/
-[repo]: https://github.com/{{site.repository}}
 [tidyverse]: https://www.tidyverse.org/
 [udell]: https://blog.jonudell.net/
