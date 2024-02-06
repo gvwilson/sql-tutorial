@@ -1,9 +1,10 @@
 ---
 home: true
 ---
-<section class="aside" markdown="1">
+{% include init_counters.md %}
+<section markdown="1">
 
-## what this is
+{% include h2_unnumbered.md title="what this is" %}
 
 -   notes and working examples that instructors can use to perform a lesson
     -   do *not* expect novices with no prior SQL experience to be able to learn from them
@@ -13,9 +14,9 @@ home: true
     -   see [*Teaching Tech Together*][t3] for background
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## scope
+{% include h2_unnumbered.md title="scope" %}
 
 -   [intended audience][persona]
     -   Rachel has a master's degree in cell biology
@@ -41,9 +42,9 @@ home: true
     1.  Interact with a database using Python directly, from a Jupyter notebook, and via an ORM.
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## setup
+{% include h2_unnumbered.md title="setup" %}
 
 -   Download [the latest release]({{site.data.meta.release}})
 -   Unzip the file in a temporary directory to create:
@@ -52,9 +53,9 @@ home: true
     -   `./out/*.*`: expected output for examples
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## background concepts
+{% include h2_unnumbered.md title="background concepts" %}
 
 -   A <a href="#g:database">database</a> is a collection of data that can be searched and retrieved
 -   A <a href="#g:dbms">database management system</a> (DBMS) is a program that manages a particular kind of database
@@ -69,9 +70,9 @@ home: true
 ![concept map: overview](./img/concept_map_overview.svg)
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## connect to database
+{% include h2_unnumbered.md title="connect to database" %}
 
 {% include single.md file="src/connect_penguins.sh" %}
 
@@ -81,7 +82,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 001: select constant
+{% include h2_numbered.md title="select constant" %}
 
 {% include double.md stem="select_1" suffix="sql out" %}
 
@@ -93,7 +94,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 002: select all values from table
+{% include h2_numbered.md title="select all values from table" %}
 
 {% include double.md stem="select_star" suffix="sql out" %}
 
@@ -103,9 +104,9 @@ home: true
 -   Output format is not particularly readable
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## administrative commands
+{% include h2_unnumbered.md title="administrative commands" %}
 
 {% include double.md stem="admin_commands" suffix="sql out" %}
 
@@ -116,7 +117,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 003: specify columns
+{% include h2_numbered.md title="specify columns" %}
 
 {% include double.md stem="specify_columns" suffix="sql out" %}
 
@@ -128,7 +129,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 004: sort
+{% include h2_numbered.md title="sort" %}
 
 {% include double.md stem="sort" suffix="sql out" %}
 
@@ -139,7 +140,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 005: limit output
+{% include h2_numbered.md title="limit output" %}
 
 -   Full dataset has 344 rows
 
@@ -151,7 +152,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 006: page output
+{% include h2_numbered.md title="page output" %}
 
 {% include double.md stem="page" suffix="sql out" %}
 
@@ -162,7 +163,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 007: remove duplicates
+{% include h2_numbered.md title="remove duplicates" %}
 
 {% include double.md stem="distinct" suffix="sql out" %}
 
@@ -175,7 +176,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 008: filter results
+{% include h2_numbered.md title="filter results" %}
 
 {% include double.md stem="filter" suffix="sql out" %}
 
@@ -188,7 +189,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 009: filter with more complex conditions
+{% include h2_numbered.md title="filter with more complex conditions" %}
 
 {% include double.md stem="filter_and" suffix="sql out" %}
 
@@ -200,7 +201,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 010: do calculations
+{% include h2_numbered.md title="do calculations" %}
 
 {% include double.md stem="calculations" suffix="sql out" %}
 
@@ -211,7 +212,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 011: rename columns
+{% include h2_numbered.md title="rename columns" %}
 
 {% include double.md stem="rename_columns" suffix="sql out" %}
 
@@ -220,16 +221,16 @@ home: true
 -   Can also rename columns without modifying
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## check your understanding
+{% include h2_unnumbered.md title="check your understanding" %}
 
 ![concept map: selection](./img/concept_map_select.svg)
 
 </section>
 <section markdown="1">
 
-## 012: calculate with missing values
+{% include h2_numbered.md title="calculate with missing values" %}
 {% include double.md stem="show_missing_values" suffix="sql out" %}
 
 -   SQL uses a special value <a href="#g:null"><code>null</code></a> to representing missing data
@@ -240,7 +241,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 013: null equality
+{% include h2_numbered.md title="null equality" %}
 
 -   Repeated from above so it doesn't count against our query limit
 
@@ -253,7 +254,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 014: null inequality
+{% include h2_numbered.md title="null inequality" %}
 
 -   But if we ask for penguins that *aren't* female it drops out as well
 
@@ -262,7 +263,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 015: ternary logic
+{% include h2_numbered.md title="ternary logic" %}
 
 {% include double.md stem="ternary_logic" suffix="sql out" %}
 
@@ -304,7 +305,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 016: handle null safely
+{% include h2_numbered.md title="handle null safely" %}
 
 {% include double.md stem="safe_null_equality" suffix="sql out" %}
 
@@ -312,16 +313,16 @@ home: true
 -   Other parts of SQL handle nulls specially
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## check your understanding
+{% include h2_unnumbered.md title="check your understanding" %}
 
 ![concept map: null](./img/concept_map_null.svg)
 
 </section>
 <section markdown="1">
 
-## 017: aggregate
+{% include h2_numbered.md title="aggregate" %}
 
 {% include double.md stem="simple_sum" suffix="sql out" %}
 
@@ -332,7 +333,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 018: common aggregation functions
+{% include h2_numbered.md title="common aggregation functions" %}
 
 {% include double.md stem="common_aggregations" suffix="sql out" %}
 
@@ -343,7 +344,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 019: counting
+{% include h2_numbered.md title="counting" %}
 
 {% include double.md stem="count_behavior" suffix="sql out" %}
 
@@ -353,7 +354,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 020: group
+{% include h2_numbered.md title="group" %}
 
 {% include double.md stem="simple_group" suffix="sql out" %}
 
@@ -364,7 +365,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 021: behavior of unaggregated columns
+{% include h2_numbered.md title="behavior of unaggregated columns" %}
 
 {% include double.md stem="unaggregated_columns" suffix="sql out" %}
 
@@ -373,7 +374,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 022: arbitrary choice in aggregation
+{% include h2_numbered.md title="arbitrary choice in aggregation" %}
 
 {% include double.md stem="arbitrary_in_aggregation" suffix="sql out" %}
 
@@ -385,7 +386,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 023: filter aggregated values
+{% include h2_numbered.md title="filter aggregated values" %}
 
 {% include double.md stem="filter_aggregation" suffix="sql out" %}
 
@@ -394,7 +395,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 024: readable output
+{% include h2_numbered.md title="readable output" %}
 
 {% include double.md stem="readable_aggregation" suffix="sql out" %}
 
@@ -403,23 +404,23 @@ home: true
 </section>
 <section markdown="1">
 
-## 025: filter aggregate inputs
+{% include h2_numbered.md title="filter aggregate inputs" %}
 
 {% include double.md stem="filter_aggregate_inputs" suffix="sql out" %}
 
 -   <code>filter (where <em>condition</em>)</code> applies to *inputs*
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## check your understanding
+{% include h2_unnumbered.md title="check your understanding" %}
 
 ![concept map: aggregation](./img/concept_map_aggregate.svg)
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## create in-memory database
+{% include h2_unnumbered.md title="create in-memory database" %}
 
 {% include single.md file="src/in_memory_db.sh" %}
 
@@ -428,7 +429,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 026: create tables
+{% include h2_numbered.md title="create tables" %}
 
 {% include single.md file="src/create_work_job.sql" %}
 {% include single.md file="out/show_work_job.out" %}
@@ -444,14 +445,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 027: insert data
+{% include h2_numbered.md title="insert data" %}
 
 {% include double.md stem="insert_values" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 028: update rows
+{% include h2_numbered.md title="update rows" %}
 
 {% include double.md stem="update_rows" suffix="sql out" %}
 
@@ -463,7 +464,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 029: delete rows
+{% include h2_numbered.md title="delete rows" %}
 
 {% include double.md stem="delete_rows" suffix="sql out" %}
 
@@ -472,21 +473,21 @@ home: true
 </section>
 <section markdown="1">
 
-## 030: backing up
+{% include h2_numbered.md title="backing up" %}
 
 {% include double.md stem="backing_up" suffix="sql out" %}
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## check your understanding
+{% include h2_unnumbered.md title="check your understanding" %}
 
 ![concept map: data definition and modification](./img/concept_map_datamod.svg)
 
 </section>
 <section markdown="1">
 
-## 031: join tables
+{% include h2_numbered.md title="join tables" %}
 
 {% include double.md stem="cross_join" suffix="sql out" %}
 
@@ -498,7 +499,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 032: inner join
+{% include h2_numbered.md title="inner join" %}
 
 {% include double.md stem="inner_join" suffix="sql out" %}
 
@@ -510,7 +511,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 033: aggregate joined data
+{% include h2_numbered.md title="aggregate joined data" %}
 
 {% include double.md stem="aggregate_join" suffix="sql out" %}
 
@@ -520,7 +521,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 034: left join
+{% include h2_numbered.md title="left join" %}
 
 {% include double.md stem="left_join" suffix="sql out" %}
 
@@ -530,7 +531,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 035: aggregate left joins
+{% include h2_numbered.md title="aggregate left joins" %}
 
 {% include double.md stem="aggregate_left_join" suffix="sql out" %}
 
@@ -539,7 +540,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 036: coalesce values
+{% include h2_numbered.md title="coalesce values" %}
 
 {% include double.md stem="coalesce" suffix="sql out" %}
 
@@ -548,7 +549,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 037: negate incorrectly
+{% include h2_numbered.md title="negate incorrectly" %}
 
 -   Who doesn't calibrate?
 
@@ -562,7 +563,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 038: set membership
+{% include h2_numbered.md title="set membership" %}
 
 {% include double.md stem="set_membership" suffix="sql out" %}
 
@@ -571,7 +572,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 039: subqueries
+{% include h2_numbered.md title="subqueries" %}
 
 {% include double.md stem="subquery_set" suffix="sql out" %}
 
@@ -580,9 +581,9 @@ home: true
 -   Initially feels odd, but subqueries are useful in other ways
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## M to N relationships
+{% include h2_unnumbered.md title="M to N relationships" %}
 
 -   Relationships between entities are usually characterized as:
     -   <a href="#g:1_to_1">1-to-1</a>:
@@ -598,7 +599,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 040: autoincrement and primary key
+{% include h2_numbered.md title="autoincrement and primary key" %}
 
 {% include double.md stem="autoincrement" suffix="sql out" %}
 
@@ -609,9 +610,9 @@ home: true
     -   Downside: manual queries are harder to read (who is person 17?)
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## internal tables
+{% include h2_unnumbered.md title="internal tables" %}
 
 {% include double.md stem="sequence_table" suffix="sql out" %}
 
@@ -620,7 +621,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 041: alter tables
+{% include h2_numbered.md title="alter tables" %}
 
 {% include double.md stem="alter_tables" suffix="sql out" %}
 
@@ -635,7 +636,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 042: create new tables from old
+{% include h2_numbered.md title="create new tables from old" %}
 
 {% include double.md stem="insert_select" suffix="sql out" %}
 
@@ -645,7 +646,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 043: remove tables
+{% include h2_numbered.md title="remove tables" %}
 
 {% include double.md stem="drop_table" suffix="sql out" %}
 
@@ -656,7 +657,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 044: compare individual values to aggregates
+{% include h2_numbered.md title="compare individual values to aggregates" %}
 
 -   Go back to penguins
 
@@ -670,7 +671,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 045: compare individual values to aggregates within groups
+{% include h2_numbered.md title="compare individual values to aggregates within groups" %}
 
 {% include double.md stem="compare_within_groups" suffix="sql out" %}
 
@@ -681,7 +682,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 046: common table expressions
+{% include h2_numbered.md title="common table expressions" %}
 
 {% include double.md stem="common_table_expressions" suffix="sql out" %}
 
@@ -690,9 +691,9 @@ home: true
 -   Database decides how to optimize
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## explain query plan
+{% include h2_unnumbered.md title="explain query plan" %}
 
 {% include double.md stem="explain_query_plan" suffix="sql out" %}
 
@@ -702,7 +703,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 047: enumerate rows
+{% include h2_numbered.md title="enumerate rows" %}
 
 -   Every table has a special column called `rowid`
 
@@ -716,7 +717,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 048: if-else function
+{% include h2_numbered.md title="if-else function" %}
 
 {% include double.md stem="if_else" suffix="sql out" %}
 
@@ -726,7 +727,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 049: select a case
+{% include h2_numbered.md title="select a case" %}
 
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
@@ -740,7 +741,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 050: check range
+{% include h2_numbered.md title="check range" %}
 
 {% include double.md stem="check_range" suffix="sql out" %}
 
@@ -748,9 +749,9 @@ home: true
 -   But be careful of the `and` in the middle
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## yet another database
+{% include h2_unnumbered.md title="yet another database" %}
 
 -   <a href="#g:er_diagram">Entity-relationship diagram</a> (ER diagram) shows relationships between tables
 -   Like everything to do with databases, there are lots of variations
@@ -764,7 +765,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 051: pattern matching
+{% include h2_numbered.md title="pattern matching" %}
 
 {% include double.md stem="like_glob" suffix="sql out" %}
 
@@ -788,7 +789,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 052: select first and last rows
+{% include h2_numbered.md title="select first and last rows" %}
 
 {% include double.md stem="union_all" suffix="sql out" %}
 
@@ -799,7 +800,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 053: intersection
+{% include h2_numbered.md title="intersection" %}
 
 {% include double.md stem="intersect" suffix="sql out" %}
 
@@ -810,7 +811,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 054: exclusion
+{% include h2_numbered.md title="exclusion" %}
 
 {% include double.md stem="except" suffix="sql out" %}
 
@@ -821,7 +822,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 055: random numbers and why not
+{% include h2_numbered.md title="random numbers and why not" %}
 
 {% include double.md stem="random_numbers" suffix="sql out" %}
 
@@ -831,7 +832,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 056: creating index
+{% include h2_numbered.md title="creating index" %}
 
 {% include double.md stem="create_use_index" suffix="sql out" %}
 
@@ -843,7 +844,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 057: generate sequence
+{% include h2_numbered.md title="generate sequence" %}
 
 {% include double.md stem="generate_sequence" suffix="sql out" %}
 
@@ -852,7 +853,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 058: generate sequence based on data
+{% include h2_numbered.md title="generate sequence based on data" %}
 
 {% include double.md stem="data_range_sequence" suffix="sql out" %}
 
@@ -861,7 +862,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 059: generate sequence of dates
+{% include h2_numbered.md title="generate sequence of dates" %}
 
 {% include double.md stem="date_sequence" suffix="sql out" %}
 
@@ -873,14 +874,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 060: count experiments started per day without gaps
+{% include h2_numbered.md title="count experiments started per day without gaps" %}
 
 {% include double.md stem="experiments_per_day" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 061: self join
+{% include h2_numbered.md title="self join" %}
 
 {% include double.md stem="self_join" suffix="sql out" %}
 
@@ -892,7 +893,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 062: generate unique pairs
+{% include h2_numbered.md title="generate unique pairs" %}
 
 {% include double.md stem="unique_pairs" suffix="sql out" %}
 
@@ -903,14 +904,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 063: filter pairs
+{% include h2_numbered.md title="filter pairs" %}
 
 {% include double.md stem="filter_pairs" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 064: existence and correlated subqueries
+{% include h2_numbered.md title="existence and correlated subqueries" %}
 
 {% include double.md stem="correlated_subquery" suffix="sql out" %}
 
@@ -922,14 +923,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 065: nonexistence
+{% include h2_numbered.md title="nonexistence" %}
 
 {% include double.md stem="nonexistence" suffix="sql out" %}
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## avoiding correlated subqueries
+{% include h2_unnumbered.md title="avoiding correlated subqueries" %}
 
 {% include double.md stem="avoid_correlated_subqueries" suffix="sql out" %}
 
@@ -939,7 +940,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 066: lead and lag
+{% include h2_numbered.md title="lead and lag" %}
 
 {% include double.md stem="lead_lag" suffix="sql out" %}
 
@@ -951,7 +952,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 067: window functions
+{% include h2_numbered.md title="window functions" %}
 
 {% include double.md stem="window_functions" suffix="sql out" %}
 
@@ -959,9 +960,9 @@ home: true
 -   `cume_dist` is fraction *of rows seen so far*
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## explain another query plain
+{% include h2_unnumbered.md title="explain another query plain" %}
 
 {% include double.md stem="explain_window_function" suffix="sql out" %}
 
@@ -970,7 +971,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 068: partitioned windows
+{% include h2_numbered.md title="partitioned windows" %}
 
 {% include double.md stem="partition_window" suffix="sql out" %}
 
@@ -980,7 +981,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 069: blobs
+{% include h2_numbered.md title="blobs" %}
 
 {% include double.md stem="blob" suffix="sql out" %}
 
@@ -989,9 +990,9 @@ home: true
 -   If you think that's odd, check out [Fossil][fossil]
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## yet another database
+{% include h2_unnumbered.md title="yet another database" %}
 
 {% include single.md file="src/lab_log_db.sh" %}
 {% include double.md stem="lab_log_schema" suffix="sql out" %}
@@ -999,7 +1000,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 070: store JSON
+{% include h2_numbered.md title="store JSON" %}
 
 {% include double.md stem="json_in_table" suffix="sql out" %}
 
@@ -1012,7 +1013,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 071: select field from JSON
+{% include h2_numbered.md title="select field from JSON" %}
 
 {% include double.md stem="json_field" suffix="sql out" %}
 
@@ -1026,7 +1027,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 072: JSON array access
+{% include h2_numbered.md title="JSON array access" %}
 
 {% include double.md stem="json_array" suffix="sql out" %}
 
@@ -1038,7 +1039,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 073: unpack JSON array
+{% include h2_numbered.md title="unpack JSON array" %}
 
 {% include double.md stem="json_unpack" suffix="sql out" %}
 
@@ -1048,14 +1049,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 074: last element of array
+{% include h2_numbered.md title="last element of array" %}
 
 {% include double.md stem="json_array_last" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 075: modify JSON
+{% include h2_numbered.md title="modify JSON" %}
 
 {% include double.md stem="json_modify" suffix="sql out" %}
 
@@ -1063,9 +1064,9 @@ home: true
 -   Please use `json_quote` rather than trying to format JSON with string operations
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## refresh penguins
+{% include h2_unnumbered.md title="refresh penguins" %}
 
 {% include double.md stem="count_penguins" suffix="sql out" %}
 
@@ -1074,7 +1075,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 076: tombstones
+{% include h2_numbered.md title="tombstones" %}
 
 {% include single.md file="src/make_active.sql" %}
 {% include double.md stem="active_penguins" suffix="sql out" %}
@@ -1085,7 +1086,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 077: views
+{% include h2_numbered.md title="views" %}
 
 {% include double.md stem="views" suffix="sql out" %}
 
@@ -1098,16 +1099,16 @@ home: true
     -   Update-on-demand temporary tables
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## hours reminder
+{% include h2_unnumbered.md title="hours reminder" %}
 
 {% include double.md stem="all_jobs" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-## 078: add check
+{% include h2_numbered.md title="add check" %}
 
 {% include double.md stem="all_jobs_check" suffix="sql out" %}
 
@@ -1117,9 +1118,9 @@ home: true
 -   But changes made before the error have taken effect
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## ACID
+{% include h2_unnumbered.md title="ACID" %}
 
 -   <a href="#g:atomic">Atomic</a>: change cannot be broken down into smaller ones (i.e., all or nothing)
 -   <a href="#g:consistent">Consistent</a>: database goes from one consistent state to another
@@ -1129,7 +1130,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 079: transactions
+{% include h2_numbered.md title="transactions" %}
 
 {% include double.md stem="transaction" suffix="sql out" %}
 
@@ -1144,7 +1145,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 080: rollback in constraint
+{% include h2_numbered.md title="rollback in constraint" %}
 
 {% include double.md stem="rollback_constraint" suffix="sql out" %}
 
@@ -1154,7 +1155,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 081: rollback in statement
+{% include h2_numbered.md title="rollback in statement" %}
 
 {% include double.md stem="rollback_statement" suffix="sql out" %}
 
@@ -1164,7 +1165,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 082: upsert
+{% include h2_numbered.md title="upsert" %}
 
 {% include double.md stem="upsert" suffix="sql out" %}
 
@@ -1175,9 +1176,9 @@ home: true
 -   Example also shows use of SQLite `.print` command
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## normalization
+{% include h2_unnumbered.md title="normalization" %}
 
 -   First <a href="#g:normal_form">normal form</a> (1NF):
     every field of every record contains one indivisible value.
@@ -1192,7 +1193,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 083: create trigger
+{% include h2_numbered.md title="create trigger" %}
 
 -   A <a href="#g:trigger">trigger</a> automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
@@ -1213,9 +1214,9 @@ home: true
 {% include double.md stem="trigger_firing" suffix="sql out" %}
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## represent graphs
+{% include h2_unnumbered.md title="represent graphs" %}
 
 {% include single.md file="src/lineage_setup.sql" %}
 {% include double.md stem="represent_graph" suffix="sql out" %}
@@ -1225,7 +1226,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 084: recursive query
+{% include h2_numbered.md title="recursive query" %}
 
 {% include double.md stem="recursive_lineage" suffix="sql out" %}
 
@@ -1238,9 +1239,9 @@ home: true
 -   Then select the desired values from the CTE
 
 </section>
-<section class="aside" markdown="1">
+<section markdown="1">
 
-## contact tracing database
+{% include h2_unnumbered.md title="contact tracing database" %}
 
 {% include double.md stem="contact_person" suffix="sql out" %}
 {% include double.md stem="contact_contacts" suffix="sql out" %}
@@ -1250,7 +1251,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 085: bidirectional contacts
+{% include h2_numbered.md title="bidirectional contacts" %}
 
 {% include double.md stem="bidirectional" suffix="sql out" %}
 
@@ -1261,7 +1262,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 086: update group identifiers
+{% include h2_numbered.md title="update group identifiers" %}
 
 {% include double.md stem="update_group_ids" suffix="sql out" %}
 
@@ -1271,7 +1272,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 087: recursive labeling
+{% include h2_numbered.md title="recursive labeling" %}
 
 {% include double.md stem="recursive_labeling" suffix="sql out" %}
 
@@ -1280,7 +1281,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 088: query from Python
+{% include h2_numbered.md title="query from Python" %}
 
 {% include double.md stem="basic_python_query" suffix="py out" %}
 
@@ -1293,7 +1294,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 089: incremental fetch
+{% include h2_numbered.md title="incremental fetch" %}
 
 {% include double.md stem="incremental_fetch" suffix="py out" %}
 
@@ -1303,7 +1304,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 090: insert, delete, and all that
+{% include h2_numbered.md title="insert, delete, and all that" %}
 
 {% include double.md stem="insert_delete" suffix="py out" %}
 
@@ -1312,7 +1313,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 091: interpolate values
+{% include h2_numbered.md title="interpolate values" %}
 
 {% include double.md stem="interpolate" suffix="py out" %}
 
@@ -1323,7 +1324,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 092: script execution
+{% include h2_numbered.md title="script execution" %}
 
 {% include double.md stem="script_execution" suffix="py out" %}
 
@@ -1332,14 +1333,14 @@ home: true
 </section>
 <section markdown="1">
 
-## 093: SQLite exceptions in Python
+{% include h2_numbered.md title="SQLite exceptions in Python" %}
 
 {% include double.md stem="exceptions" suffix="py out" %}
 
 </section>
 <section markdown="1">
 
-## 094: Python in SQLite
+{% include h2_numbered.md title="Python in SQLite" %}
 
 {% include double.md stem="embedded_python" suffix="py out" %}
 
@@ -1350,7 +1351,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 095: handle dates and times
+{% include h2_numbered.md title="handle dates and times" %}
 
 {% include double.md stem="dates_times" suffix="py out" %}
 
@@ -1360,7 +1361,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 096: SQL in Jupyter notebooks
+{% include h2_numbered.md title="SQL in Jupyter notebooks" %}
 
 {% include single.md file="src/install_jupysql.sh" %}
 
@@ -1406,7 +1407,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 097: Pandas and SQL
+{% include h2_numbered.md title="Pandas and SQL" %}
 
 {% include single.md file="src/install_pandas.sh" %}
 {% include double.md stem="select_pandas" suffix="py out" %}
@@ -1416,7 +1417,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 098: Polars and SQL
+{% include h2_numbered.md title="Polars and SQL" %}
 
 {% include single.md file="src/install_polars.sh" %}
 {% include double.md stem="select_polars" suffix="py out" %}
@@ -1428,7 +1429,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 099: object-relational mapper
+{% include h2_numbered.md title="object-relational mapper" %}
 
 {% include double.md stem="orm" suffix="py out" %}
 
@@ -1438,7 +1439,7 @@ home: true
 </section>
 <section markdown="1">
 
-## 100: relations with ORM
+{% include h2_numbered.md title="relations with ORM" %}
 
 {% include double.md stem="orm_relation" suffix="py out" %}
 
@@ -1449,13 +1450,13 @@ home: true
 </section>
 <section class="appendix" markdown="1">
 
-## Appendices
+{% include h2_unnumbered.md title="Appendices" %}
 
-### Terms
+{% include h2_unnumbered.md title=" Terms" %}
 
 {% include glossary.html %}
 
-### Acknowledgments
+{% include h2_unnumbered.md title=" Acknowledgments" %}
 
 This tutorial would not have been possible without:
 

@@ -21,6 +21,14 @@ All contributors will be acknowledged.
     If you add a new example,
     please add a corresponding rule in `Makefile`.
 
+-   Use `{% raw %}{% include h2_numbered.md title="words" %}{% endraw %}`
+    to create a numbered section
+    that includes a runnable code example.
+
+-   Use `{% raw %}{% include h2_unnumbered.md title="words" %}{% endraw %}`
+    to create an unnumbered section
+    that *doesn't* include a runnable code example.
+
 -   Use `{% raw %}{% include double.md stem="file" suffix="sql out" %}{% endraw %}`
     in `index.md` to include `src/file.sql` and `out/file.out`.
     (Any two suffixes can be provided, such as `"py out"`.)
@@ -43,6 +51,9 @@ All contributors will be acknowledged.
     solid 1-point black lines,
     and unfilled objects.
 
+-   All external links are written using `{% raw %}[box][notation]{% endraw %}` inline
+    and defined at the foot of the document.
+
 ## Logical Structure
 
 -   Introduction
@@ -64,9 +75,6 @@ All contributors will be acknowledged.
 -   Appendices
     -   A *glossary* that defines terms called out in the episodes.
     -   *Acknowledgments* that point at inspirations and thank contributors.
--   Links
-    -   All external links are written using `{% raw %}[box][notation]{% endraw %}` inline
-        and defined at the foot of the document.
 
 ## Physical Structure
 
