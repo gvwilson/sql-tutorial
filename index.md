@@ -432,7 +432,6 @@ home: true
 {% include h2_numbered.md title="create tables" %}
 
 {% include single.md file="src/create_work_job.sql" %}
-{% include single.md file="out/show_work_job.out" %}
 
 -   <code>create table <em>name</em></code> followed by parenthesized list of columns
 -   Each column is a name, a data type, and optional extra information
@@ -447,14 +446,16 @@ home: true
 
 {% include h2_numbered.md title="insert data" %}
 
-{% include double.md stem="insert_values" suffix="sql out" %}
+{% include single.md file="src/populate_work_job.sql" %}
+{% include single.md file="out/insert_values.out" %}
 
 </section>
 <section markdown="1">
 
 {% include h2_numbered.md title="update rows" %}
 
-{% include double.md stem="update_rows" suffix="sql out" %}
+{% include single.md file="src/update_work_job.sql" %}
+{% include single.md file="out/update_rows.out" %}
 
 -   (Almost) always specify row(w) to update using `where`
     -   Would otherwise update all rows
@@ -492,7 +493,7 @@ home: true
 {% include double.md stem="cross_join" suffix="sql out" %}
 
 -   A <a href="#g:join">join</a> combines information from two tables
--   `cross join` (also called <a href="#g:outer_join">outer join</a>) constructs their cross product
+-   <a href="#g:full_outer_join">full outer join</a> (also called <a href="#g:cross_join">cross join</a>) constructs their cross product
     -   All combinations of rows from each
 -   Result isn't particularly useful: `job` and `name` don't match
 
@@ -536,6 +537,13 @@ home: true
 {% include double.md stem="aggregate_left_join" suffix="sql out" %}
 
 -   That's better, but we'd like to see 0 rather than a blank
+
+</section>
+<section markdown="1">
+
+{% include h2_unnumbered.md title="check your understanding" %}
+
+![concept map: join](./img/concept_map_join.svg)
 
 </section>
 <section markdown="1">

@@ -1,8 +1,8 @@
-CREATE TABLE job (
-    name text not null,
-    billable real not null
-);
-CREATE TABLE work (
-    person text not null,
-    job text not null
-);
+| person |    job    |   name    | billable |
+|--------|-----------|-----------|----------|
+| mik    | calibrate | calibrate | 1.5      |
+| mik    | clean     | clean     | 0.5      |
+| mik    | complain  |           |          |
+| po     | clean     | clean     | 0.5      |
+| po     | complain  |           |          |
+| tay    | complain  |           |          |

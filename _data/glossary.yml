@@ -65,6 +65,12 @@
 
 # C
 
+- key: cross_join
+  en:
+    term: cross join
+    def: >
+      A join that creates the cross-product of rows from two tables.
+
 - key: cte
   en:
     term: common table expression
@@ -153,6 +159,12 @@
     term: foreign key
     def: >
       A value in one table that identifies a primary key in another table.
+
+- key: full_outer_join
+  en:
+    term: full outer join
+    def: >
+      See <a href="#g:cross_join">cross join</a>.
 
 # G
 
@@ -267,12 +279,6 @@
     def: >
       A library that translates objects in a program into database queries
       and the results of those queries back into objects.
-
-- key: outer_join
-  en:
-    term: outer join
-    def: >
-      A join that creates the cross-product of rows from two tables.
 
 # P
 
