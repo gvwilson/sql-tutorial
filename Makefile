@@ -319,6 +319,9 @@ ${OUT}/page.out: ${SRC}/page.sql
 ${OUT}/partition_window.out: ${SRC}/partition_window.sql
 	cat ${MODE} $< | ${ASSAYS} > $@
 
+${OUT}/primary_key.out: ${SRC}/primary_key.sql
+	-cat ${MODE} $< | ${MEMORY} >& $@
+
 ${OUT}/random_numbers.out: ${SRC}/random_numbers.sql
 	cat ${MODE} $< | ${ASSAYS} > $@
 

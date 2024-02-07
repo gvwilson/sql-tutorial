@@ -462,9 +462,7 @@ home: true
 {% include single.md file="out/update_rows.out" %}
 
 -   (Almost) always specify row(s) to update using `where`
-    -   Would otherwise update all rows
--   Useful to give each row a <a href="#g:primary_key">primary key</a> that uniquely identifies it for this purpose
-    -   Will see other uses below
+    -   Otherwise update all rows in table, which is usually not wanted
 
 </section>
 <section markdown="1">
@@ -628,9 +626,10 @@ home: true
 {% include double.md stem="autoincrement" suffix="sql out" %}
 
 -   Database <a href="#g:autoincrement">autoincrements</a> `ident` each time a new record is added
--   Use that field as the primary key
-    -   So that if Mik changes their name again,
-        we only have to change one fact in the database
+-   Use that field as the <a href="#g:primary_key">primary key</a>
+    -   Uniquely identifies a particular record in a particular table
+-   If Mik changes their name again,
+    we only have to change one fact in the database
     -   Downside: manual queries are harder to read (who is person 17?)
 
 </section>
@@ -641,6 +640,16 @@ home: true
 {% include double.md stem="sequence_table" suffix="sql out" %}
 
 -   Sequence numbers are *not* reset when rows are deleted
+
+</section>
+<section markdown="1">
+
+{% include h2_unnumbered.md title="choose your own key" %}
+
+-   Can use any field (or combination of fields) in a table as a primary key
+    -   As long as value(s) unique for each record
+
+{% include double.md stem="primary_key" suffix="sql out" %}
 
 </section>
 <section markdown="1">
