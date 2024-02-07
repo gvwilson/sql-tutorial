@@ -379,10 +379,13 @@ home: true
 
 {% include double.md stem="arbitrary_in_aggregation" suffix="sql out" %}
 
--   If we don't specify how to aggregate a column, SQL can choose *any arbitrary value* from the group
--   All penguins in each group have the same sex because we grouped by that, so we get the right answer
--   The body mass values are in the data but unpredictable
--   A common mistake
+-   If we don't specify how to aggregate a column,
+    SQLite chooses *any arbitrary value* from the group
+    -   All penguins in each group have the same sex because we grouped by that, so we get the right answer
+    -   The body mass values are in the data but unpredictable
+    -   A common mistake
+-   Other database managers don't do this
+    -   E.g., PostgreSQL complains that column must be used in an aggregation function
 
 </section>
 <section markdown="1">
