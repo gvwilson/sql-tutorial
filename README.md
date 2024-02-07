@@ -1,4 +1,4 @@
-# SQL for Data Scientists in 100 Queries
+# SQL for the Weary
 
 -   Please see [the website][site] to view the current version of this tutorial.
 
