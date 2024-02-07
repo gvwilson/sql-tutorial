@@ -22,12 +22,4 @@ The colors in this theme
 are lightened versions of those used in
 [classic Canadian postage stamps][stamps].
 
-[atkinson]: https://brailleinstitute.org/freefont
-[draw-io]: https://www.drawio.com/
-[ghp]: https://pages.github.com/
-[highlight-css]: https://numist.github.io/highlight-css/
-[jekyll]: https://jekyllrb.com/
-[plausible]: https://plausible.io/
-[rouge]: https://rouge.jneen.net/
-[stamps]: https://third-bit.com/colophon/
-[wave]: https://wave.webaim.org/
+{% include links.md links=site.data.colophon %}

@@ -26,6 +26,7 @@ template:
 	CODE_OF_CONDUCT.md \
 	LICENSE.md \
 	_config.yml \
+	_data/colophon.yml \
 	_includes \
 	_layouts \
 	bin/ordered.py \

@@ -52,7 +52,7 @@ All contributors will be acknowledged.
     and unfilled objects.
 
 -   All external links are written using `{% raw %}[box][notation]{% endraw %}` inline
-    and defined at the foot of the document.
+    and defined in `_data/tutorial.yml`.
 
 ## Logical Structure
 

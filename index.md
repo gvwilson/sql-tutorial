@@ -1479,16 +1479,4 @@ I would also like to thank the following for spotting issues, making suggestions
 
 </section>
 
-[albrecht-andi]: http://andialbrecht.de/
-[art-postgresql]: https://theartofpostgresql.com/
-[carpentries-shell]: https://swcarpentry.github.io/shell-novice/
-[fontaine-dimitri]: https://tapoueh.org/
-[fossil]: https://fossil-scm.org/
-[mongodb]: https://www.mongodb.com/
-[persona]: http://teachtogether.tech/en/index.html#s:process-personas
-[postgresql]: https://www.postgresql.org/
-[sql]: https://en.wikipedia.org/wiki/SQL
-[sqlite]: https://sqlite.org/
-[sqlparse]: https://pypi.org/project/sqlparse/
-[t3]: https://teachtogether.tech/
-[xkcd-tables]: https://xkcd.com/327/
+{% include links.md links=site.data.tutorial %}
