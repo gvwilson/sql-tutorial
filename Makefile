@@ -232,6 +232,9 @@ ${OUT}/filter_and.out: ${SRC}/filter_and.sql
 ${OUT}/filter_pairs.out: ${SRC}/filter_pairs.sql
 	cat ${MODE} $< | ${ASSAYS} > $@
 
+${OUT}/full_outer_join.out: ${SRC}/full_outer_join.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
 ${OUT}/generate_sequence.out: ${SRC}/generate_sequence.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 

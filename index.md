@@ -497,7 +497,7 @@ home: true
 {% include double.md stem="cross_join" suffix="sql out" %}
 
 -   A <a href="#g:join">join</a> combines information from two tables
--   <a href="#g:full_outer_join">full outer join</a> (also called <a href="#g:cross_join">cross join</a>) constructs their cross product
+-   <a href="#g:cross_join">cross join</a> constructs their cross product
     -   All combinations of rows from each
 -   Result isn't particularly useful: `job` and `name` don't match
 
@@ -541,6 +541,18 @@ home: true
 {% include double.md stem="aggregate_left_join" suffix="sql out" %}
 
 -   That's better, but we'd like to see 0 rather than a blank
+
+</section>
+<section markdown="1">
+
+{% include h2_unnumbered.md title="full outer join" %}
+
+-   <a href="#g:full_outer_join">Full outer join</a> is the union of left outer join and right outer join
+-   Almost the same as cross join, but consider:
+
+{% include double.md stem="full_outer_join" suffix="sql out" %}
+
+-   A cross join would produce empty result
 
 </section>
 <section markdown="1">

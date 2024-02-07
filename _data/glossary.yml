@@ -164,7 +164,7 @@
   en:
     term: full outer join
     def: >
-      See <a href="#g:cross_join">cross join</a>.
+      A join that produces the union of a left outer join and a right outer join.
 
 # G
 
