@@ -1110,6 +1110,13 @@ home: true
 </section>
 <section markdown="1">
 
+{% include h2_unnumbered.md title="check your understanding" %}
+
+![concept map: temporary tables](./img/concept_map_temp.svg)
+
+</section>
+<section markdown="1">
+
 {% include h2_unnumbered.md title="hours reminder" %}
 
 {% include double.md stem="all_jobs" suffix="sql out" %}

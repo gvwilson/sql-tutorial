@@ -4,5 +4,6 @@
 .jekyll-cache
 _site
 *.bkp
+*.dtmp
 \#*
 .\#*
