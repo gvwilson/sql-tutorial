@@ -461,7 +461,7 @@ home: true
 {% include single.md file="src/update_work_job.sql" %}
 {% include single.md file="out/update_rows.out" %}
 
--   (Almost) always specify row(w) to update using `where`
+-   (Almost) always specify row(s) to update using `where`
     -   Would otherwise update all rows
 -   Useful to give each row a <a href="#g:primary_key">primary key</a> that uniquely identifies it for this purpose
     -   Will see other uses below
