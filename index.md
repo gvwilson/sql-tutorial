@@ -1012,7 +1012,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="explain another query plain" %}
+{% include h2_unnumbered.md title="explain another query plan" %}
 
 {% include double.md stem="explain_window_function" suffix="sql out" %}
 
