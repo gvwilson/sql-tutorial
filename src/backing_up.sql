@@ -9,7 +9,9 @@ create table backup (
 );
 
 insert into backup
-select person, job
+select
+    person,
+    job
 from work
 where person = 'tae';
 

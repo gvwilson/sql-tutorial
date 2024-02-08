@@ -8,7 +8,11 @@ with sized_penguins as (
         ) as size
     from penguins
 )
-select species, size, count(*) as num
+
+select
+    species,
+    size,
+    count(*) as num
 from sized_penguins
 group by species, size
 order by species, num;

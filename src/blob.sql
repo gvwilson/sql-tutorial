@@ -3,11 +3,14 @@ create table images (
     content blob
 );
 
-insert into images(name, content) values
-    ("biohazard", readfile("img/biohazard.png")),
-    ("crush", readfile("img/crush.png")),
-    ("fire", readfile("img/fire.png")),
-    ("radioactive", readfile("img/radioactive.png")),
-    ("tripping", readfile("img/tripping.png"));
+insert into images (name, content) values
+('biohazard', readfile('img/biohazard.png')),
+('crush', readfile('img/crush.png')),
+('fire', readfile('img/fire.png')),
+('radioactive', readfile('img/radioactive.png')),
+('tripping', readfile('img/tripping.png'));
 
-select name, length(content) from images;
+select
+    name,
+    length(content)
+from images;

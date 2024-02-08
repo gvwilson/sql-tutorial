@@ -3,8 +3,8 @@ create table person (
     name text not null
 );
 insert into person values
-    (null, 'mik'),
-    (null, 'po'),
-    (null, 'tay');
+(null, 'mik'),
+(null, 'po'),
+(null, 'tay');
 select * from person;
-insert into person values (1, "prevented");
+insert into person values (1, 'prevented');

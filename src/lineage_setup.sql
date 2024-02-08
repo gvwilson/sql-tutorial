@@ -3,10 +3,10 @@ create table lineage (
     child text not null
 );
 insert into lineage values
-    ('Arturo', 'Clemente'),
-    ('Darío', 'Clemente'),
-    ('Clemente', 'Homero'),
-    ('Clemente', 'Ivonne'),
-    ('Ivonne', 'Lourdes'),
-    ('Soledad', 'Lourdes'),
-    ('Lourdes', 'Santiago');
+('Arturo', 'Clemente'),
+('Darío', 'Clemente'),
+('Clemente', 'Homero'),
+('Clemente', 'Ivonne'),
+('Ivonne', 'Lourdes'),
+('Soledad', 'Lourdes'),
+('Lourdes', 'Santiago');

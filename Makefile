@@ -30,6 +30,8 @@ OUT_FILES := \
 
 UNUSED := $(notdir $(wildcard bin/*.sql) $(wildcard bin/*.py))
 
+SQLFLUFF := python bin/tidy_sql.py | sqlfluff lint -
+
 ## databases: make required files
 .PHONY: databases
 databases : \
@@ -74,6 +76,11 @@ lint:
 	--page ${PAGE} \
 	--source ${SRC} \
 	--unused ${UNUSED}
+
+## lint_sql: check SQL files
+.PHONY: lint_sql
+lint_sql:
+	@for filename in ${SQL_FILES}; do echo $${filename}; cat $${filename} | ${SQLFLUFF} | fgrep -v "All Finished!"; done
 
 ## missing: list unused keywords
 .PHONY: missing

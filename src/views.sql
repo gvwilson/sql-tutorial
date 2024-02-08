@@ -22,7 +22,9 @@ select
 from penguins
 where active;
 
-select species, count(*) as num
+select
+    species,
+    count(*) as num
 from active_penguins
 group by species;
 -- end

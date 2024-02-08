@@ -6,6 +6,7 @@ with y_m_num as (
     from experiment
     group by year, month
 )
+
 select
     year,
     month,

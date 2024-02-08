@@ -14,16 +14,16 @@ select
 with recursive labeled as (
     select
         person.name as name,
-	person.ident as label
+        person.ident as label
     from
         person
     union -- not 'union all'
     select
         person.name as name,
-	labeled.label as label
+        labeled.label as label
     from
         (person join bi_contact on person.name = bi_contact.left)
-	join labeled on bi_contact.right = labeled.name
+        join labeled on bi_contact.right = labeled.name
     where labeled.label < person.ident
 )
 select name, min(label) as group_id

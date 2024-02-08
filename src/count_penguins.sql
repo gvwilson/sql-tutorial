@@ -1,3 +1,5 @@
-select species, count(*) as num
+select
+    species,
+    count(*) as num
 from penguins
 group by species;

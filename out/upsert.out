@@ -3,13 +3,12 @@ after first
 |--------|-----|
 | zia    | 1   |
 
-Runtime error near line 14: UNIQUE constraint failed: jobs_done.person (19)
+Runtime error near line 15: UNIQUE constraint failed: jobs_done.person (19)
 after failed
 | person | num |
 |--------|-----|
 | zia    | 1   |
-
-after upsert
+\nafter upsert
 | person | num |
 |--------|-----|
 | zia    | 2   |

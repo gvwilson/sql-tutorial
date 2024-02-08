@@ -3,6 +3,6 @@ create table job (
     billable real not null
 );
 insert into job values
-    ('calibrate', 1.5),
-    ('clean', 0.5);
+('calibrate', 1.5),
+('clean', 0.5);
 select * from job;

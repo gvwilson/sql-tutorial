@@ -3,4 +3,4 @@
 | 1.5  | blue  | 2   |
 | 1.5  | green | 1   |
 | 2.5  | blue  | 1   |
-Runtime error near line 18: UNIQUE constraint failed: lab_equipment.size, lab_equipment.color (19)
+Runtime error near line 17: UNIQUE constraint failed: lab_equipment.size, lab_equipment.color (19)

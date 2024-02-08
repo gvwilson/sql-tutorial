@@ -3,9 +3,9 @@ create table person (
     name text not null
 );
 insert into person values
-    (null, 'mik'),
-    (null, 'po'),
-    (null, 'tay');
+(null, 'mik'),
+(null, 'po'),
+(null, 'tay');
 
 -- start
 select * from sqlite_sequence;

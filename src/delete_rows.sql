@@ -4,7 +4,7 @@
 
 -- start
 delete from work
-where person = "tae";
+where person = 'tae';
 
 select * from work;
 -- end

@@ -6,6 +6,6 @@ select
     work.person,
     sum(job.billable) as pay
 from work left join job
-on work.job = job.name
+    on work.job = job.name
 group by work.person;
 -- end

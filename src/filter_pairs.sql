@@ -5,16 +5,18 @@ person as (
         personal || ' ' || family as name
     from staff
 ),
+
 together as (
     select
-        left.staff as left_staff,
-        right.staff as right_staff
-    from performed as left join performed as right
-    on left.experiment = right.experiment
+        left_perf.staff as left_staff,
+        right_perf.staff as right_staff
+    from performed as left_perf inner join performed as right_perf
+        on left_perf.experiment = right_perf.experiment
     where left_staff < right_staff
 )
+
 select
-    left.name as person_1,
-    right.name as person_2
-from person as left join person as right join together
-on left.ident = left_staff and right.ident = right_staff;
+    left_person.name as person_1,
+    right_person.name as person_2
+from person as left_person inner join person as right_person join together
+    on left_person.ident = left_staff and right_person.ident = right_staff;

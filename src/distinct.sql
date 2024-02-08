@@ -1,2 +1,5 @@
-select distinct species, sex, island
+select distinct
+    species,
+    sex,
+    island
 from penguins;

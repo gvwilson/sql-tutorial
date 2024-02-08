@@ -1,3 +1,3 @@
 update work
-set person = "tae"
-where person = "tay";
+set person = 'tae'
+where person = 'tay';

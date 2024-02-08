@@ -3,5 +3,4 @@ select * from (
     union all
     select * from (select * from experiment order by started desc limit 5)
 )
-order by started asc
-;
+order by started asc;

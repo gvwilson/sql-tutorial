@@ -5,9 +5,9 @@ create table job (
 );
 
 insert or rollback into job values
-    ('calibrate', 1.5);
+('calibrate', 1.5);
 insert or rollback into job values
-    ('clean', 0.5),
-    ('reset', -0.5);
+('clean', 0.5),
+('reset', -0.5);
 
 select * from job;

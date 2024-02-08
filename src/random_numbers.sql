@@ -3,6 +3,10 @@ with decorated as (
     personal || ' ' || family as name
     from staff
 )
-select rand, abs(rand) % 10 as selector, name
+
+select
+    rand,
+    abs(rand) % 10 as selector,
+    name
 from decorated
 where selector < 5;

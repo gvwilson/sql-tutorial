@@ -12,8 +12,8 @@ create table total (
 
 -- Initialize totals.
 insert into total values
-    ("gene", 0.0),
-    ("august", 0.0);
+('gene', 0.0),
+('august', 0.0);
 
 -- Define a trigger.
 create trigger total_trigger

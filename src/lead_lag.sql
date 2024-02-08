@@ -5,6 +5,7 @@ with ym_num as (
     from experiment
     group by ym
 )
+
 select
     ym,
     lag(num) over (order by ym) as prev_num,

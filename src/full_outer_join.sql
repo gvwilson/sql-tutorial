@@ -1,7 +1,7 @@
 create table size (
     s text not null
 );
-insert into size values ("light"), ("heavy");
+insert into size values ('light'), ('heavy');
 
 create table weight (
     w text not null
