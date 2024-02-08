@@ -95,6 +95,13 @@
       A subquery that depends on a value or values from the enclosing query,
       and which must therefore be executed once for each of those values.
 
+- key: csv
+  en:
+    term: comma-separated values
+    acronym: CSV
+    def: >
+      A text format for tabular data that uses commas to separate columns.
+
 - key: cursor
   en:
     term: cursor

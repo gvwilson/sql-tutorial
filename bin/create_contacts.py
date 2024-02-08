@@ -29,8 +29,8 @@ def main():
     random.seed(SEED)
     f = Faker(LOCALE)
 
-    connection = sqlite3.connect(filename)
-    connection.executescript(CREATE_TABLE)
+    conn = sqlite3.connect(filename)
+    conn.executescript(CREATE_TABLE)
 
     for _ in range(NUM_GROUPS):
         people = [f"{f.first_name()} {f.last_name()}" for _ in range(NUM_PER_GROUP)]
@@ -41,11 +41,11 @@ def main():
         ]
         num_connections = random.randint(1, NUM_PER_GROUP - 1)
         pairs = random.sample(pairs, k=num_connections)
-        connection.executemany(
+        conn.executemany(
             "insert into person values (null, ?);", [[x] for x in people]
         )
-        connection.executemany("insert into contact values (?, ?);", pairs)
-        connection.commit()
+        conn.executemany("insert into contact values (?, ?);", pairs)
+        conn.commit()
 
 
 if __name__ == "__main__":

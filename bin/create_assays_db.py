@@ -94,17 +94,17 @@ def main():
     random.seed(PARAMS["seed"])
     sqlite_configure()
     fake = Faker(PARAMS["locale"])
-    connection = create_tables(filename)
-    fill_staff(connection, fake)
-    fill_experiments(connection, fake)
-    connection.commit()
+    conn = create_tables(filename)
+    fill_staff(conn, fake)
+    fill_experiments(conn, fake)
+    conn.commit()
 
 
 def create_tables(filename):
     """Create database tables."""
-    connection = sqlite3.connect(filename)
-    connection.executescript(CREATE_TABLES)
-    return connection
+    conn = sqlite3.connect(filename)
+    conn.executescript(CREATE_TABLES)
+    return conn
 
 
 def date_to_timestamp(d):
@@ -112,7 +112,7 @@ def date_to_timestamp(d):
     return datetime(d.year, d.month, d.day).timestamp()
 
 
-def fill_experiments(connection, fake):
+def fill_experiments(conn, fake):
     """Create experiments and their data."""
     kinds = list(EXPERIMENTS.keys())
     staff_ids = list(range(1, PARAMS["staff"] + 1))
@@ -139,26 +139,26 @@ def fill_experiments(connection, fake):
 
     invalidated = invalidate_plates(plates)
 
-    connection.executemany(
+    conn.executemany(
         "insert into department values (?, ?, ?)",
         [
             (d["ident"], d["name"], d["building"])
             for d in DEPARTMENTS + EXTRA_DEPARTMENTS
         ],
     )
-    connection.executemany("insert into experiment values (?, ?, ?, ?)", experiments)
-    connection.executemany("insert into performed values (?, ?)", performed)
-    connection.executemany("insert into plate values (null, ?, ?, ?)", plates)
-    connection.executemany("insert into invalidated values (?, ?, ?)", invalidated)
+    conn.executemany("insert into experiment values (?, ?, ?, ?)", experiments)
+    conn.executemany("insert into performed values (?, ?)", performed)
+    conn.executemany("insert into plate values (null, ?, ?, ?)", plates)
+    conn.executemany("insert into invalidated values (?, ?, ?)", invalidated)
 
 
-def fill_staff(connection, fake):
+def fill_staff(conn, fake):
     """Create people."""
     data = [
         (fake.first_name(), fake.last_name(), random_department(i), random_age())
         for i in range(PARAMS["staff"])
     ]
-    connection.executemany("insert into staff values (null, ?, ?, ?, ?)", data)
+    conn.executemany("insert into staff values (null, ?, ?, ?, ?)", data)
 
 
 def invalidate_plates(plates):

@@ -1119,6 +1119,20 @@ home: true
 </section>
 <section markdown="1">
 
+{% include h2_unnumbered.md title="importing CSV data" %}
+
+-   SQLite and most other database managers have tools for importing and exporting <a href="#g:csv">CSV</a>
+-   In SQLite:
+    -   Define table
+    -   Import data
+    -   Convert empty strings to nulls (if desired)
+    -   Convert types from text to whatever (not shown below)
+
+{% include single.md file="src/create_penguins.sql" %}
+
+</section>
+<section markdown="1">
+
 {% include h2_numbered.md title="views" %}
 
 {% include double.md stem="views" suffix="sql out" %}

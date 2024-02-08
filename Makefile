@@ -18,6 +18,7 @@ SQL_FILES := $(wildcard ${SRC}/*.sql)
 PY_FILES := $(wildcard ${SRC}/*.py)
 EXCLUDED_SQL := \
   ${SRC}/make_active.sql \
+  ${SRC}/create_penguins.sql \
   ${SRC}/create_work_job.sql \
   ${SRC}/lineage_setup.sql \
   ${SRC}/populate_work_job.sql \
@@ -46,13 +47,18 @@ ${DB}/contact_tracing.db: bin/create_contacts.py
 ${DB}/lab_log.db: bin/create_lab_log.py
 	python $< $@
 
-${DB}/penguins.db : bin/create_penguins_db.sql misc/penguins.csv
-	sqlite3 $@ < $<
+${DB}/penguins.db : bin/create_penguins.py misc/penguins.csv
+	python $< $@ misc/penguins.csv
 
 ## release: create a release
 .PHONY: release
 release:
-	zip -r sql-tutorial.zip db src out -x \*~
+	zip -r sql-tutorial.zip \
+	db \
+	misc/penguins.csv \
+	src \
+	out \
+	-x \*~
 
 ## depend.mk: rebuild SQL-to-SQL dependencies
 depend.mk:
