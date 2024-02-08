@@ -1506,11 +1506,11 @@ home: true
 
 {% include h2_unnumbered.md title="Appendices" %}
 
-{% include h2_unnumbered.md title=" Terms" %}
+{% include h2_unnumbered.md title="Terms" %}
 
 {% include glossary.html %}
 
-{% include h2_unnumbered.md title=" Acknowledgments" %}
+{% include h2_unnumbered.md title="Acknowledgments" %}
 
 This tutorial would not have been possible without:
 
