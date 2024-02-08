@@ -2,6 +2,23 @@
 home: true
 ---
 {% include init_counters.md %}
+
+> **2024-02-07: Exercises Needed**
+>
+> This tutorial needs (at least) 40 exercises.
+> If you would like to propose one,
+> please [submit an issue]({{site.data.meta.repo}}/issues)
+> with the question you would ask and the SQL you would want the learner to write.
+> It doesn't have to use the databases in the `db` folder,
+> but that would make learners' lives easier.
+> All contributions will be acknowledged in the lesson.
+>
+> Note: I'm asking for proposals partly because I'm lazy,
+> but also because I know from experience that
+> I often focus on a handful of things that I personally found challenging
+> and overlook other topics.
+> Asking for help is one way to compensate for those blind spots.
+
 <section markdown="1">
 
 {% include h2_unnumbered.md title="what this is" %}
