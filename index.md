@@ -1352,6 +1352,13 @@ home: true
 </section>
 <section markdown="1">
 
+{% include h2_unnumbered.md title="check your understanding" %}
+
+![concept map: common table expressions](./img/concept_map_cte.svg)
+
+</section>
+<section markdown="1">
+
 {% include h2_numbered.md title="query from Python" %}
 
 {% include double.md stem="basic_python_query" suffix="py out" %}
