@@ -7,7 +7,7 @@ home: true
 >
 > This tutorial needs (at least) 40 exercises.
 > If you would like to propose one,
-> please [submit an issue]({{site.data.meta.repo}}/issues)
+> please [submit an issue]({{site.data.tutorial.repo}}/issues)
 > with the question you would ask and the SQL you would want the learner to write.
 > It doesn't have to use the databases in the `db` folder,
 > but that would make learners' lives easier.
@@ -63,7 +63,7 @@ home: true
 
 {% include h2_unnumbered.md title="setup" %}
 
--   Download [the latest release]({{site.data.meta.release}})
+-   Download [the latest release]({{site.data.tutorial.release}})
 -   Unzip the file in a temporary directory to create:
     -   `./db/*.db`: the SQLite databases used in the examples
     -   `./src/*.*`: SQL queries, Python scripts, and other source code
@@ -1548,4 +1548,4 @@ I would also like to thank the following for spotting issues, making suggestions
 
 </section>
 
-{% include links.md links=site.data.tutorial %}
+{% include links.md links=site.data.links %}
