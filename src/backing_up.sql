@@ -2,7 +2,7 @@
 .read src/populate_work_job.sql
 .read src/update_work_job.sql
 
--- start
+-- [keep]
 create table backup (
     person text not null,
     job text not null
@@ -19,4 +19,4 @@ delete from work
 where person = 'tae';
 
 select * from backup;
--- end
+-- [/keep]

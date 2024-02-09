@@ -1,4 +1,4 @@
 .read src/lineage_setup.sql
--- start
+-- [keep]
 select * from lineage;
--- end
+-- [/keep]

@@ -10,7 +10,7 @@ select
     select right, left from contact
 ;
 
--- start
+-- [keep]
 with recursive labeled as (
     select
         person.name as name,
@@ -30,4 +30,4 @@ select name, min(label) as group_id
 from labeled
 group by name
 order by label, name;
--- end
+-- [/keep]

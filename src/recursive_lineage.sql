@@ -1,6 +1,6 @@
 .read src/lineage_setup.sql
 
--- start
+-- [keep]
 with recursive descendent as (
     select
         'Clemente' as person,
@@ -17,4 +17,4 @@ select
     person,
     generations
 from descendent;
--- end
+-- [/keep]

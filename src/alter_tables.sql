@@ -17,7 +17,7 @@ insert into work values
     ('po', 'complain'),
     ('tay', 'complain');
 
--- start
+-- [keep]
 alter table job
 add ident integer not null default -1;
 
@@ -30,4 +30,4 @@ set ident = 2
 where name = 'clean';
 
 select * from job;
--- end
+-- [/keep]

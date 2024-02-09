@@ -1,10 +1,10 @@
 .read src/trigger_setup.sql
 
--- start
+-- [keep]
 insert into job values
 ('gene', 1.0),
 ('august', -1.0);
--- end
+-- [/keep]
 
 select * from job;
 .print

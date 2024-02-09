@@ -55,6 +55,7 @@ ${DB}/penguins.db : bin/create_penguins.py misc/penguins.csv
 ## release: create a release
 .PHONY: release
 release:
+	@rm -f sql-tutorial.zip
 	zip -r sql-tutorial.zip \
 	db \
 	misc/penguins.csv \

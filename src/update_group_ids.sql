@@ -10,7 +10,7 @@ select
     select right, left from contact
 ;
 
--- start
+-- [keep]
 select
     left.name as left_name,
     left.ident as left_ident,
@@ -20,4 +20,4 @@ select
 from
     (person as left join bi_contact on left.name = bi_contact.left)
     join person as right on bi_contact.right = right.name;
--- end
+-- [/keep]

@@ -7,6 +7,6 @@ insert into person values
 (null, 'po'),
 (null, 'tay');
 
--- start
+-- [keep]
 select * from sqlite_sequence;
--- end
+-- [/keep]

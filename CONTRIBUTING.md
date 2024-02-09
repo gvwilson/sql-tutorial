@@ -37,6 +37,11 @@ All contributors will be acknowledged.
     in `index.md` to include an arbitrary text file *without* automatically including output.
     (Note that `single` requires a directory name such as `src` or `out` but `double` does not.)
 
+-   By default, file inclusion strips out everything between `-- [keep]` and `-- [/keep]`
+    for SQL files and `# [keep]` and `# [/keep]` for Python files.
+    The start and end tags can be customized by passing `keep="label"` to either
+    `single.md` or `double.md`.
+
 -   Add important terms to `_info/glossary.yml`,
     which is in [Glosario][glosario] format.
 

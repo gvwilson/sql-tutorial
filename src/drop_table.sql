@@ -21,9 +21,9 @@ create table new_work (
     foreign key(job_id) references job(ident)
 );
 
--- start
+-- [keep]
 drop table work;
 alter table new_work rename to work;
--- end
+-- [/keep]
 
 .schema

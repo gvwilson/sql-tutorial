@@ -1,4 +1,4 @@
--- start
+-- [keep]
 create temporary table bi_contact (
     left text,
     right text
@@ -10,7 +10,7 @@ select
     union all
     select right, left from contact
 ;
--- end
+-- [/keep]
 
 select count(*) as original_count from contact;
 .print

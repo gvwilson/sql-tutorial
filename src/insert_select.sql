@@ -28,7 +28,7 @@ insert into work values
 ('po', 'complain'),
 ('tay', 'complain');
 
--- start
+-- [keep]
 create table new_work (
     person_id integer not null,
     job_id integer not null,
@@ -44,4 +44,4 @@ from
     (person inner join work on person.name = work.person)
     inner join job on job.name = work.job;
 select * from new_work;
--- end
+-- [/keep]

@@ -1,6 +1,6 @@
 .read src/make_active.sql
 
--- start
+-- [keep]
 create view if not exists
 active_penguins (
     species,
@@ -27,4 +27,4 @@ select
     count(*) as num
 from active_penguins
 group by species;
--- end
+-- [/keep]
