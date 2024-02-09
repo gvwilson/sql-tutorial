@@ -22,5 +22,7 @@
   value: "https://pypi.org/project/sqlparse/"
 - key: "t3"
   value: "https://teachtogether.tech/"
+- key: wilson-greg
+  value: "https://third-bit.com/"
 - key: "xkcd-tables"
   value: "https://xkcd.com/327/"
