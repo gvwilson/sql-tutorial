@@ -1,4 +1,4 @@
-# SQL for the Weary
+# An Introduction to SQL for Weary Data Scientists
 
 -   Please see [the website][site] to view the current version of this tutorial.
 

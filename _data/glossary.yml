@@ -153,6 +153,14 @@
     def: >
       A graphical depiction of the relationships between tables in a database.
 
+- key: exclusive_or
+  en:
+    term: exclusive or
+    def: >
+      A Boolean operation that is true if either but not both of its conditions are true.
+      SQL does not provide an exclusive or operator,
+      but the same result can be achieved using operators it has.
+
 # F
 
 - key: filter
@@ -191,6 +199,13 @@
     term: in-memory database
     def: >
       A database that is stored in memory rather than on disk.
+
+- key: inclusive_or
+  en:
+    term: inclusive or
+    def: >
+      A Boolean operator that is true if either or both of its conditions are true.
+      SQL's `or` is inclusive.
 
 - key: index
   en:

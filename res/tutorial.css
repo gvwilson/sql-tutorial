@@ -204,6 +204,17 @@ h2 {
     background-color: var(--stamp-green-light);
 }
 
+h2.topic {
+}
+
+h2.aside::before {
+    content: "☆ ";
+}
+
+h2.exercise {
+    font-style: italic
+}
+
 h3 {
     background-color: var(--stamp-orange-light);
     margin-top: var(--medium-spacing);

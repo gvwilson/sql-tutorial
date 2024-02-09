@@ -16,6 +16,8 @@
   value: "https://www.postgresql.org/"
 - key: "sql"
   value: "https://en.wikipedia.org/wiki/SQL"
+- key: "sqlfluff"
+  value: "SQLFluff"
 - key: "sqlite"
   value: "https://sqlite.org/"
 - key: "sqlparse"

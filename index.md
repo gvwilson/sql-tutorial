@@ -21,7 +21,7 @@ home: true
 
 <section markdown="1">
 
-{% include h2_unnumbered.md title="what this is" %}
+{% include h2_aside.md title="what this is" %}
 
 -   notes and working examples that instructors can use to perform a lesson
     -   do *not* expect novices with no prior SQL experience to be able to learn from them
@@ -38,7 +38,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="scope" %}
+{% include h2_aside.md title="scope" %}
 
 -   [intended audience][persona]
     -   Rachel has a master's degree in cell biology
@@ -66,18 +66,18 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="setup" %}
+{% include h2_aside.md title="setup" %}
 
 -   Download [the latest release]({{site.data.tutorial.release}})
 -   Unzip the file in a temporary directory to create:
-    -   `./db/*.db`: the SQLite databases used in the examples
+    -   `./db/*.db`: the [SQLite][sqlite] databases used in the examples
     -   `./src/*.*`: SQL queries, Python scripts, and other source code
     -   `./out/*.*`: expected output for examples
 
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="background concepts" %}
+{% include h2_aside.md title="background concepts" %}
 
 -   A <a href="#g:database">database</a> is a collection of data that can be searched and retrieved
 -   A <a href="#g:dbms">database management system</a> (DBMS) is a program that manages a particular kind of database
@@ -94,17 +94,18 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="connect to database" %}
+{% include h2_aside.md title="connect to database" %}
 
 {% include single.md file="src/connect_penguins.sh" %}
 
--   Not actually a query
--   But we have to do it before we can do anything else
+-   Not actually a query: starts an interactive session
+-   Alternative: provide a single query on the command line <code>sqlite3 <em>database</em> "<em>query</em>"</code>
+-   Or put query in file and run <code>sqlite3 <em>database</em> < <em>filename</em></code>
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="select constant" %}
+{% include h2_topic.md title="select constant" %}
 
 {% include double.md stem="select_1" suffix="sql out" %}
 
@@ -116,7 +117,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="select all values from table" %}
+{% include h2_topic.md title="select all values from table" %}
 
 {% include double.md stem="select_star" suffix="sql out" %}
 
@@ -128,18 +129,18 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="administrative commands" %}
+{% include h2_aside.md title="administrative commands" %}
 
 {% include double.md stem="admin_commands" suffix="sql out" %}
 
--   SQLite administrative commands start with `.` and *aren't* part of the SQL standard
+-   [SQLite][sqlite] administrative commands start with `.` and *aren't* part of the SQL standard
     -   PostgreSQL's special commands start with `\`
 -   Use `.help` for a complete list
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="specify columns" %}
+{% include h2_topic.md title="specify columns" %}
 
 {% include double.md stem="specify_columns" suffix="sql out" %}
 
@@ -151,7 +152,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="sort" %}
+{% include h2_topic.md title="sort" %}
 
 {% include double.md stem="sort" suffix="sql out" %}
 
@@ -162,7 +163,15 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="limit output" %}
+{% include h2_exercise.md title="select and sort" %}
+
+Write a SQL query to select the sex and body mass columns from the `little_penguins` in that order,
+sorted such that the largest body mass appears first.
+
+</section>
+<section markdown="1">
+
+{% include h2_topic.md title="limit output" %}
 
 -   Full dataset has 344 rows
 
@@ -174,7 +183,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="page output" %}
+{% include h2_topic.md title="page output" %}
 
 {% include double.md stem="page" suffix="sql out" %}
 
@@ -185,7 +194,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="remove duplicates" %}
+{% include h2_topic.md title="remove duplicates" %}
 
 {% include double.md stem="distinct" suffix="sql out" %}
 
@@ -198,7 +207,20 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="filter results" %}
+{% include h2_exercise.md title="slicing" %}
+
+1.  Write a SQL query to select the islands and species
+    from rows 50 to 60 inclusive of the `penguins` table.
+    Your result should have 11 rows.
+
+2.  Modify your query to select distinct combinations of island and species
+    from the same rows
+    and compare the result to what you got in part 1.
+
+</section>
+<section markdown="1">
+
+{% include h2_topic.md title="filter results" %}
 
 {% include double.md stem="filter" suffix="sql out" %}
 
@@ -206,12 +228,22 @@ home: true
 -   Condition is evaluated independently for each row
 -   Only rows that pass the test appear in results
 -   Use single quotes for `'text data'` and double quotes for `"weird column names"`
-    -   SQLite will accept double-quoted text data
+    -   [SQLite][sqlite] will accept double-quoted text data but [SQLFluff][sqlfluff] will complain
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="filter with more complex conditions" %}
+{% include h2_exercise.md title="filter and display" %}
+
+1.  Write a query to select the body masses from `penguins` that are less than 3000.0 grams.
+
+2.  Write another query to select the species and sex of penguins that weight less than 3000.0 grams.
+    -   This shows that the columns displayed and those used in filtering are independent of each other.
+
+</section>
+<section markdown="1">
+
+{% include h2_topic.md title="filter with more complex conditions" %}
 
 {% include double.md stem="filter_and" suffix="sql out" %}
 
@@ -223,7 +255,21 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="do calculations" %}
+{% include h2_exercise.md title="Boolean operators" %}
+
+1.  Use the `not` operator to select penguins that are *not* Gentoos.
+
+2.  SQL's `or` is an <a href="#g:inclusive_or">inclusive or</a>:
+    it succeeds if either *or both* conditions are true.
+    SQL does not provide a specific operator for <a href="#g:exclusive_or">exclusive or</a>,
+    which is true if either *but not both* conditions are true,
+    but the same effect can be achieved using `and`, `or`, and `not`.
+    Write a query to select penguins that are female *or* on Torgersen Island *but not both*.
+
+</section>
+<section markdown="1">
+
+{% include h2_topic.md title="do calculations" %}
 
 {% include double.md stem="calculations" suffix="sql out" %}
 
@@ -234,7 +280,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="rename columns" %}
+{% include h2_topic.md title="rename columns" %}
 
 {% include double.md stem="rename_columns" suffix="sql out" %}
 
@@ -245,14 +291,14 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="check your understanding" %}
+{% include h2_aside.md title="check your understanding" %}
 
 ![concept map: selection](./img/concept_map_select.svg)
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="calculate with missing values" %}
+{% include h2_topic.md title="calculate with missing values" %}
 {% include double.md stem="show_missing_values" suffix="sql out" %}
 
 -   SQL uses a special value <a href="#g:null"><code>null</code></a> to representing missing data
@@ -263,7 +309,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="null equality" %}
+{% include h2_topic.md title="null equality" %}
 
 -   Repeated from above so it doesn't count against our query limit
 
@@ -276,7 +322,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="null inequality" %}
+{% include h2_topic.md title="null inequality" %}
 
 -   But if we ask for penguins that *aren't* female it drops out as well
 
@@ -285,7 +331,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="ternary logic" %}
+{% include h2_topic.md title="ternary logic" %}
 
 {% include double.md stem="ternary_logic" suffix="sql out" %}
 
@@ -327,7 +373,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="handle null safely" %}
+{% include h2_topic.md title="handle null safely" %}
 
 {% include double.md stem="safe_null_equality" suffix="sql out" %}
 
@@ -337,14 +383,14 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="check your understanding" %}
+{% include h2_aside.md title="check your understanding" %}
 
 ![concept map: null](./img/concept_map_null.svg)
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="aggregate" %}
+{% include h2_topic.md title="aggregate" %}
 
 {% include double.md stem="simple_sum" suffix="sql out" %}
 
@@ -355,7 +401,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="common aggregation functions" %}
+{% include h2_topic.md title="common aggregation functions" %}
 
 {% include double.md stem="common_aggregations" suffix="sql out" %}
 
@@ -366,7 +412,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="counting" %}
+{% include h2_topic.md title="counting" %}
 
 {% include double.md stem="count_behavior" suffix="sql out" %}
 
@@ -377,7 +423,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="group" %}
+{% include h2_topic.md title="group" %}
 
 {% include double.md stem="simple_group" suffix="sql out" %}
 
@@ -388,7 +434,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="behavior of unaggregated columns" %}
+{% include h2_topic.md title="behavior of unaggregated columns" %}
 
 {% include double.md stem="unaggregated_columns" suffix="sql out" %}
 
@@ -397,12 +443,12 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="arbitrary choice in aggregation" %}
+{% include h2_topic.md title="arbitrary choice in aggregation" %}
 
 {% include double.md stem="arbitrary_in_aggregation" suffix="sql out" %}
 
 -   If we don't specify how to aggregate a column,
-    SQLite chooses *any arbitrary value* from the group
+    [SQLite][sqlite] chooses *any arbitrary value* from the group
     -   All penguins in each group have the same sex because we grouped by that, so we get the right answer
     -   The body mass values are in the data but unpredictable
     -   A common mistake
@@ -412,7 +458,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="filter aggregated values" %}
+{% include h2_topic.md title="filter aggregated values" %}
 
 {% include double.md stem="filter_aggregation" suffix="sql out" %}
 
@@ -421,7 +467,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="readable output" %}
+{% include h2_topic.md title="readable output" %}
 
 {% include double.md stem="readable_aggregation" suffix="sql out" %}
 
@@ -430,7 +476,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="filter aggregate inputs" %}
+{% include h2_topic.md title="filter aggregate inputs" %}
 
 {% include double.md stem="filter_aggregate_inputs" suffix="sql out" %}
 
@@ -439,14 +485,14 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="check your understanding" %}
+{% include h2_aside.md title="check your understanding" %}
 
 ![concept map: aggregation](./img/concept_map_aggregate.svg)
 
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="create in-memory database" %}
+{% include h2_aside.md title="create in-memory database" %}
 
 {% include single.md file="src/in_memory_db.sh" %}
 
@@ -455,7 +501,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="create tables" %}
+{% include h2_topic.md title="create tables" %}
 
 {% include single.md file="src/create_work_job.sql" %}
 
@@ -463,14 +509,14 @@ home: true
 -   Each column is a name, a data type, and optional extra information
     -   E.g., `not null` prevents nulls from being added
 -   `.schema` is *not* standard SQL
--   SQLite has added a few things
+-   [SQLite][sqlite] has added a few things
     -   `create if not exists`
     -   upper-case keywords (SQL is case insensitive)
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="insert data" %}
+{% include h2_topic.md title="insert data" %}
 
 {% include single.md file="src/populate_work_job.sql" %}
 {% include single.md file="out/insert_values.out" %}
@@ -478,7 +524,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="update rows" %}
+{% include h2_topic.md title="update rows" %}
 
 {% include single.md file="src/update_work_job.sql" %}
 {% include single.md file="out/update_rows.out" %}
@@ -489,7 +535,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="delete rows" %}
+{% include h2_topic.md title="delete rows" %}
 
 {% include double.md stem="delete_rows" suffix="sql out" %}
 
@@ -498,21 +544,21 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="backing up" %}
+{% include h2_topic.md title="backing up" %}
 
 {% include double.md stem="backing_up" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="check your understanding" %}
+{% include h2_aside.md title="check your understanding" %}
 
 ![concept map: data definition and modification](./img/concept_map_datamod.svg)
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="join tables" %}
+{% include h2_topic.md title="join tables" %}
 
 {% include double.md stem="cross_join" suffix="sql out" %}
 
@@ -524,7 +570,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="inner join" %}
+{% include h2_topic.md title="inner join" %}
 
 {% include double.md stem="inner_join" suffix="sql out" %}
 
@@ -536,7 +582,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="aggregate joined data" %}
+{% include h2_topic.md title="aggregate joined data" %}
 
 {% include double.md stem="aggregate_join" suffix="sql out" %}
 
@@ -546,7 +592,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="left join" %}
+{% include h2_topic.md title="left join" %}
 
 {% include double.md stem="left_join" suffix="sql out" %}
 
@@ -556,7 +602,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="aggregate left joins" %}
+{% include h2_topic.md title="aggregate left joins" %}
 
 {% include double.md stem="aggregate_left_join" suffix="sql out" %}
 
@@ -565,7 +611,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="full outer join" %}
+{% include h2_aside.md title="full outer join" %}
 
 -   <a href="#g:full_outer_join">Full outer join</a> is the union of left outer join and right outer join
 -   Almost the same as cross join, but consider:
@@ -577,14 +623,14 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="check your understanding" %}
+{% include h2_aside.md title="check your understanding" %}
 
 ![concept map: join](./img/concept_map_join.svg)
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="coalesce values" %}
+{% include h2_topic.md title="coalesce values" %}
 
 {% include double.md stem="coalesce" suffix="sql out" %}
 
@@ -593,7 +639,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="negate incorrectly" %}
+{% include h2_topic.md title="negate incorrectly" %}
 
 -   Who doesn't calibrate?
 
@@ -607,7 +653,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="set membership" %}
+{% include h2_topic.md title="set membership" %}
 
 {% include double.md stem="set_membership" suffix="sql out" %}
 
@@ -616,7 +662,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="subqueries" %}
+{% include h2_topic.md title="subqueries" %}
 
 {% include double.md stem="subquery_set" suffix="sql out" %}
 
@@ -627,7 +673,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="M to N relationships" %}
+{% include h2_aside.md title="M to N relationships" %}
 
 -   Relationships between entities are usually characterized as:
     -   <a href="#g:1_to_1">1-to-1</a>:
@@ -643,7 +689,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="autoincrement and primary key" %}
+{% include h2_topic.md title="autoincrement and primary key" %}
 
 {% include double.md stem="autoincrement" suffix="sql out" %}
 
@@ -657,7 +703,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="internal tables" %}
+{% include h2_aside.md title="internal tables" %}
 
 {% include double.md stem="sequence_table" suffix="sql out" %}
 
@@ -666,7 +712,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="choose your own key" %}
+{% include h2_aside.md title="choose your own key" %}
 
 -   Can use any field (or combination of fields) in a table as a primary key
     -   As long as value(s) unique for each record
@@ -676,13 +722,13 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="alter tables" %}
+{% include h2_topic.md title="alter tables" %}
 
 {% include double.md stem="alter_tables" suffix="sql out" %}
 
 -   Add a column after the fact
 -   Since it can't be null, we have to provide a default value
-    -   Really want to make it the primary key, but SQLite doesn't allow that (easily) after the fact
+    -   Really want to make it the primary key, but [SQLite][sqlite] doesn't allow that (easily) after the fact
 -   Then use `update` to modify existing records
     -   Can modify any number of records at once
     -   So be careful about `where` clause
@@ -691,7 +737,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="create new tables from old" %}
+{% include h2_topic.md title="create new tables from old" %}
 
 {% include double.md stem="insert_select" suffix="sql out" %}
 
@@ -701,7 +747,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="remove tables" %}
+{% include h2_topic.md title="remove tables" %}
 
 {% include double.md stem="drop_table" suffix="sql out" %}
 
@@ -712,7 +758,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="compare individual values to aggregates" %}
+{% include h2_topic.md title="compare individual values to aggregates" %}
 
 -   Go back to penguins
 
@@ -726,7 +772,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="compare individual values to aggregates within groups" %}
+{% include h2_topic.md title="compare individual values to aggregates within groups" %}
 
 {% include double.md stem="compare_within_groups" suffix="sql out" %}
 
@@ -737,7 +783,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="common table expressions" %}
+{% include h2_topic.md title="common table expressions" %}
 
 {% include double.md stem="common_table_expressions" suffix="sql out" %}
 
@@ -748,17 +794,17 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="explain query plan" %}
+{% include h2_aside.md title="explain query plan" %}
 
 {% include double.md stem="explain_query_plan" suffix="sql out" %}
 
--   SQLite plans to scan every row of the table
+-   [SQLite][sqlite] plans to scan every row of the table
 -   It will build a temporary B-tree data structure to group rows
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="enumerate rows" %}
+{% include h2_topic.md title="enumerate rows" %}
 
 -   Every table has a special column called `rowid`
 
@@ -772,7 +818,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="if-else function" %}
+{% include h2_topic.md title="if-else function" %}
 
 {% include double.md stem="if_else" suffix="sql out" %}
 
@@ -782,7 +828,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="select a case" %}
+{% include h2_topic.md title="select a case" %}
 
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
@@ -796,7 +842,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="check range" %}
+{% include h2_topic.md title="check range" %}
 
 {% include double.md stem="check_range" suffix="sql out" %}
 
@@ -806,7 +852,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="yet another database" %}
+{% include h2_aside.md title="yet another database" %}
 
 -   <a href="#g:er_diagram">Entity-relationship diagram</a> (ER diagram) shows relationships between tables
 -   Like everything to do with databases, there are lots of variations
@@ -820,7 +866,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="pattern matching" %}
+{% include h2_topic.md title="pattern matching" %}
 
 {% include double.md stem="like_glob" suffix="sql out" %}
 
@@ -844,7 +890,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="select first and last rows" %}
+{% include h2_topic.md title="select first and last rows" %}
 
 {% include double.md stem="union_all" suffix="sql out" %}
 
@@ -855,7 +901,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="intersection" %}
+{% include h2_topic.md title="intersection" %}
 
 {% include double.md stem="intersect" suffix="sql out" %}
 
@@ -866,7 +912,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="exclusion" %}
+{% include h2_topic.md title="exclusion" %}
 
 {% include double.md stem="except" suffix="sql out" %}
 
@@ -877,17 +923,17 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="random numbers and why not" %}
+{% include h2_topic.md title="random numbers and why not" %}
 
 {% include double.md stem="random_numbers" suffix="sql out" %}
 
--   There is no way to seed SQLite's random number generator
+-   There is no way to seed [SQLite][sqlite]'s random number generator
 -   Which means there is no way to reproduce one of its "random" sequences
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="creating index" %}
+{% include h2_topic.md title="creating index" %}
 
 {% include double.md stem="create_use_index" suffix="sql out" %}
 
@@ -899,7 +945,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="generate sequence" %}
+{% include h2_topic.md title="generate sequence" %}
 
 {% include double.md stem="generate_sequence" suffix="sql out" %}
 
@@ -908,20 +954,20 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="generate sequence based on data" %}
+{% include h2_topic.md title="generate sequence based on data" %}
 
 {% include double.md stem="data_range_sequence" suffix="sql out" %}
 
--   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
+-   Must have the parentheses around the `min` and `max` selections to keep [SQLite][sqlite] happy
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="generate sequence of dates" %}
+{% include h2_topic.md title="generate sequence of dates" %}
 
 {% include double.md stem="date_sequence" suffix="sql out" %}
 
--   SQLite represents dates as YYYY-MM-DD strings
+-   [SQLite][sqlite] represents dates as YYYY-MM-DD strings
     or as Julian days or as Unix milliseconds or…
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
@@ -929,14 +975,14 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="count experiments started per day without gaps" %}
+{% include h2_topic.md title="count experiments started per day without gaps" %}
 
 {% include double.md stem="experiments_per_day" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="self join" %}
+{% include h2_topic.md title="self join" %}
 
 {% include double.md stem="self_join" suffix="sql out" %}
 
@@ -948,7 +994,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="generate unique pairs" %}
+{% include h2_topic.md title="generate unique pairs" %}
 
 {% include double.md stem="unique_pairs" suffix="sql out" %}
 
@@ -959,14 +1005,14 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="filter pairs" %}
+{% include h2_topic.md title="filter pairs" %}
 
 {% include double.md stem="filter_pairs" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="existence and correlated subqueries" %}
+{% include h2_topic.md title="existence and correlated subqueries" %}
 
 {% include double.md stem="correlated_subquery" suffix="sql out" %}
 
@@ -978,14 +1024,14 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="nonexistence" %}
+{% include h2_topic.md title="nonexistence" %}
 
 {% include double.md stem="nonexistence" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="avoiding correlated subqueries" %}
+{% include h2_aside.md title="avoiding correlated subqueries" %}
 
 {% include double.md stem="avoid_correlated_subqueries" suffix="sql out" %}
 
@@ -995,19 +1041,19 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="lead and lag" %}
+{% include h2_topic.md title="lead and lag" %}
 
 {% include double.md stem="lead_lag" suffix="sql out" %}
 
 -   Use `strftime` to extract year and month
-    -   Clumsy, but date/time handling is not SQLite's strong point
+    -   Clumsy, but date/time handling is not [SQLite][sqlite]'s strong point
 -   Use <a href="#g:window_func">window functions</a> `lead` and `lag` to shift values
     -   Unavailable values are null
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="window functions" %}
+{% include h2_topic.md title="window functions" %}
 
 {% include double.md stem="window_functions" suffix="sql out" %}
 
@@ -1017,7 +1063,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="explain another query plan" %}
+{% include h2_aside.md title="explain another query plan" %}
 
 {% include double.md stem="explain_window_function" suffix="sql out" %}
 
@@ -1026,7 +1072,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="partitioned windows" %}
+{% include h2_topic.md title="partitioned windows" %}
 
 {% include double.md stem="partition_window" suffix="sql out" %}
 
@@ -1036,7 +1082,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="blobs" %}
+{% include h2_topic.md title="blobs" %}
 
 {% include double.md stem="blob" suffix="sql out" %}
 
@@ -1047,7 +1093,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="yet another database" %}
+{% include h2_aside.md title="yet another database" %}
 
 {% include single.md file="src/lab_log_db.sh" %}
 {% include double.md stem="lab_log_schema" suffix="sql out" %}
@@ -1055,7 +1101,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="store JSON" %}
+{% include h2_topic.md title="store JSON" %}
 
 {% include double.md stem="json_in_table" suffix="sql out" %}
 
@@ -1068,7 +1114,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="select field from JSON" %}
+{% include h2_topic.md title="select field from JSON" %}
 
 {% include double.md stem="json_field" suffix="sql out" %}
 
@@ -1082,11 +1128,11 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="JSON array access" %}
+{% include h2_topic.md title="JSON array access" %}
 
 {% include double.md stem="json_array" suffix="sql out" %}
 
--   SQLite (and other database managers) has lots of JSON manipulation functions
+-   [SQLite][sqlite] (and other database managers) has lots of JSON manipulation functions
 -   `json_array_length` gives number of elements in selected array
 -   subscripts start with 0
 -   Characters outside 7-bit ASCII represented as Unicode escapes
@@ -1094,7 +1140,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="unpack JSON array" %}
+{% include h2_topic.md title="unpack JSON array" %}
 
 {% include double.md stem="json_unpack" suffix="sql out" %}
 
@@ -1104,14 +1150,14 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="last element of array" %}
+{% include h2_topic.md title="last element of array" %}
 
 {% include double.md stem="json_array_last" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="modify JSON" %}
+{% include h2_topic.md title="modify JSON" %}
 
 {% include double.md stem="json_modify" suffix="sql out" %}
 
@@ -1121,7 +1167,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="refresh penguins" %}
+{% include h2_aside.md title="refresh penguins" %}
 
 {% include double.md stem="count_penguins" suffix="sql out" %}
 
@@ -1130,7 +1176,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="tombstones" %}
+{% include h2_topic.md title="tombstones" %}
 
 {% include single.md file="src/make_active.sql" %}
 {% include double.md stem="active_penguins" suffix="sql out" %}
@@ -1141,10 +1187,10 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="importing CSV data" %}
+{% include h2_aside.md title="importing CSV data" %}
 
--   SQLite and most other database managers have tools for importing and exporting <a href="#g:csv">CSV</a>
--   In SQLite:
+-   [SQLite][sqlite] and most other database managers have tools for importing and exporting <a href="#g:csv">CSV</a>
+-   In [SQLite][sqlite]:
     -   Define table
     -   Import data
     -   Convert empty strings to nulls (if desired)
@@ -1155,7 +1201,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="views" %}
+{% include h2_topic.md title="views" %}
 
 {% include double.md stem="views" suffix="sql out" %}
 
@@ -1170,21 +1216,21 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="check your understanding" %}
+{% include h2_aside.md title="check your understanding" %}
 
 ![concept map: temporary tables](./img/concept_map_temp.svg)
 
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="hours reminder" %}
+{% include h2_aside.md title="hours reminder" %}
 
 {% include double.md stem="all_jobs" suffix="sql out" %}
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="add check" %}
+{% include h2_topic.md title="add check" %}
 
 {% include double.md stem="all_jobs_check" suffix="sql out" %}
 
@@ -1196,7 +1242,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="ACID" %}
+{% include h2_aside.md title="ACID" %}
 
 -   <a href="#g:atomic">Atomic</a>: change cannot be broken down into smaller ones (i.e., all or nothing)
 -   <a href="#g:consistent">Consistent</a>: database goes from one consistent state to another
@@ -1206,7 +1252,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="transactions" %}
+{% include h2_topic.md title="transactions" %}
 
 {% include double.md stem="transaction" suffix="sql out" %}
 
@@ -1215,13 +1261,13 @@ home: true
     -   `end transaction` (success)
     -   `rollback` (undo)
 -   Can have any number of statements inside a transaction
--   But *cannot* nest transactions in SQLite
+-   But *cannot* nest transactions in [SQLite][sqlite]
     -   Other databases support this
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="rollback in constraint" %}
+{% include h2_topic.md title="rollback in constraint" %}
 
 {% include double.md stem="rollback_constraint" suffix="sql out" %}
 
@@ -1231,7 +1277,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="rollback in statement" %}
+{% include h2_topic.md title="rollback in statement" %}
 
 {% include double.md stem="rollback_statement" suffix="sql out" %}
 
@@ -1241,7 +1287,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="upsert" %}
+{% include h2_topic.md title="upsert" %}
 
 {% include double.md stem="upsert" suffix="sql out" %}
 
@@ -1249,12 +1295,12 @@ home: true
     -   Create if record doesn't exist
     -   Update if it does
 -   Not standard SQL but widely implemented
--   Example also shows use of SQLite `.print` command
+-   Example also shows use of [SQLite][sqlite] `.print` command
 
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="normalization" %}
+{% include h2_aside.md title="normalization" %}
 
 -   First <a href="#g:normal_form">normal form</a> (1NF):
     every field of every record contains one indivisible value.
@@ -1269,7 +1315,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="create trigger" %}
+{% include h2_topic.md title="create trigger" %}
 
 -   A <a href="#g:trigger">trigger</a> automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
@@ -1292,7 +1338,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="represent graphs" %}
+{% include h2_aside.md title="represent graphs" %}
 
 {% include single.md file="src/lineage_setup.sql" %}
 {% include double.md stem="represent_graph" suffix="sql out" %}
@@ -1302,7 +1348,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="recursive query" %}
+{% include h2_topic.md title="recursive query" %}
 
 {% include double.md stem="recursive_lineage" suffix="sql out" %}
 
@@ -1317,7 +1363,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="contact tracing database" %}
+{% include h2_aside.md title="contact tracing database" %}
 
 {% include double.md stem="contact_person" suffix="sql out" %}
 {% include double.md stem="contact_contacts" suffix="sql out" %}
@@ -1327,7 +1373,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="bidirectional contacts" %}
+{% include h2_topic.md title="bidirectional contacts" %}
 
 {% include double.md stem="bidirectional" suffix="sql out" %}
 
@@ -1338,7 +1384,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="update group identifiers" %}
+{% include h2_topic.md title="update group identifiers" %}
 
 {% include double.md stem="update_group_ids" suffix="sql out" %}
 
@@ -1348,7 +1394,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="recursive labeling" %}
+{% include h2_topic.md title="recursive labeling" %}
 
 {% include double.md stem="recursive_labeling" suffix="sql out" %}
 
@@ -1357,14 +1403,14 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_unnumbered.md title="check your understanding" %}
+{% include h2_aside.md title="check your understanding" %}
 
 ![concept map: common table expressions](./img/concept_map_cte.svg)
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="query from Python" %}
+{% include h2_topic.md title="query from Python" %}
 
 {% include double.md stem="basic_python_query" suffix="py out" %}
 
@@ -1377,7 +1423,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="incremental fetch" %}
+{% include h2_topic.md title="incremental fetch" %}
 
 {% include double.md stem="incremental_fetch" suffix="py out" %}
 
@@ -1387,7 +1433,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="insert, delete, and all that" %}
+{% include h2_topic.md title="insert, delete, and all that" %}
 
 {% include double.md stem="insert_delete" suffix="py out" %}
 
@@ -1396,7 +1442,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="interpolate values" %}
+{% include h2_topic.md title="interpolate values" %}
 
 {% include double.md stem="interpolate" suffix="py out" %}
 
@@ -1407,7 +1453,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="script execution" %}
+{% include h2_topic.md title="script execution" %}
 
 {% include double.md stem="script_execution" suffix="py out" %}
 
@@ -1416,25 +1462,25 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="SQLite exceptions in Python" %}
+{% include h2_topic.md title="SQLite exceptions in Python" %}
 
 {% include double.md stem="exceptions" suffix="py out" %}
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="Python in SQLite" %}
+{% include h2_topic.md title="Python in SQLite" %}
 
 {% include double.md stem="embedded_python" suffix="py out" %}
 
--   SQLite calls back into Python to execute the function
+-   [SQLite][sqlite] calls back into Python to execute the function
 -   Other databases can run Python (and other languages) in the database server process
 -   Be careful
 
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="handle dates and times" %}
+{% include h2_topic.md title="handle dates and times" %}
 
 {% include double.md stem="dates_times" suffix="py out" %}
 
@@ -1444,7 +1490,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="SQL in Jupyter notebooks" %}
+{% include h2_topic.md title="SQL in Jupyter notebooks" %}
 
 {% include single.md file="src/install_jupysql.sh" %}
 
@@ -1490,7 +1536,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="Pandas and SQL" %}
+{% include h2_topic.md title="Pandas and SQL" %}
 
 {% include single.md file="src/install_pandas.sh" %}
 {% include double.md stem="select_pandas" suffix="py out" %}
@@ -1500,7 +1546,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="Polars and SQL" %}
+{% include h2_topic.md title="Polars and SQL" %}
 
 {% include single.md file="src/install_polars.sh" %}
 {% include double.md stem="select_polars" suffix="py out" %}
@@ -1512,7 +1558,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="object-relational mapper" %}
+{% include h2_topic.md title="object-relational mapper" %}
 
 {% include double.md stem="orm" suffix="py out" %}
 
@@ -1522,7 +1568,7 @@ home: true
 </section>
 <section markdown="1">
 
-{% include h2_numbered.md title="relations with ORM" %}
+{% include h2_topic.md title="relations with ORM" %}
 
 {% include double.md stem="orm_relation" suffix="py out" %}
 
@@ -1533,13 +1579,13 @@ home: true
 </section>
 <section class="appendix" markdown="1">
 
-{% include h2_unnumbered.md title="Appendices" %}
+{% include h2_aside.md title="Appendices" %}
 
-{% include h2_unnumbered.md title="Terms" %}
+{% include h2_aside.md title="Terms" %}
 
 {% include glossary.html %}
 
-{% include h2_unnumbered.md title="Acknowledgments" %}
+{% include h2_aside.md title="Acknowledgments" %}
 
 This tutorial would not have been possible without:
 
