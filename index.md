@@ -19,9 +19,8 @@ home: true
 > and overlook other topics.
 > Asking for help is one way to compensate for those blind spots.
 
-<section markdown="1">
-
-{% include h2_aside.md title="what this is" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_start.md class="aside" title="what this is" %}
 
 -   notes and working examples that instructors can use to perform a lesson
     -   do *not* expect novices with no prior SQL experience to be able to learn from them
@@ -35,10 +34,8 @@ home: true
 -   about the author:
     [Greg Wilson][wilson-greg] is a programmer, author, and educator based in Toronto
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="scope" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="scope" %}
 
 -   [intended audience][persona]
     -   Rachel has a master's degree in cell biology
@@ -63,10 +60,8 @@ home: true
     1.  Manipulate JSON data using SQL.
     1.  Interact with a database using Python directly, from a Jupyter notebook, and via an ORM.
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="setup" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="setup" %}
 
 -   Download [the latest release]({{site.data.tutorial.release}})
 -   Unzip the file in a temporary directory to create:
@@ -74,10 +69,8 @@ home: true
     -   `./src/*.*`: SQL queries, Python scripts, and other source code
     -   `./out/*.*`: expected output for examples
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="background concepts" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="background concepts" %}
 
 -   A <a href="#g:database">database</a> is a collection of data that can be searched and retrieved
 -   A <a href="#g:dbms">database management system</a> (DBMS) is a program that manages a particular kind of database
@@ -91,10 +84,8 @@ home: true
 
 ![concept map: overview](./img/concept_map_overview.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="connect to database" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="connect to database" %}
 
 {% include single.md file="src/connect_penguins.sh" %}
 
@@ -102,10 +93,8 @@ home: true
 -   Alternative: provide a single query on the command line <code>sqlite3 <em>database</em> "<em>query</em>"</code>
 -   Or put query in file and run <code>sqlite3 <em>database</em> < <em>filename</em></code>
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="select constant" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="select constant" %}
 
 {% include double.md stem="select_1" suffix="sql out" %}
 
@@ -114,10 +103,8 @@ home: true
 -   …but if all we want is a constant value, we don't need to specify one
 -   Semi-colon terminator is required
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="select all values from table" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="select all values from table" %}
 
 {% include double.md stem="select_star" suffix="sql out" %}
 
@@ -126,10 +113,8 @@ home: true
 -   Use <code>from <em>tablename</em></code> to specify table
 -   Output format is not particularly readable
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="administrative commands" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="administrative commands" %}
 
 {% include double.md stem="admin_commands" suffix="sql out" %}
 
@@ -137,10 +122,8 @@ home: true
     -   PostgreSQL's special commands start with `\`
 -   Use `.help` for a complete list
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="specify columns" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="specify columns" %}
 
 {% include double.md stem="specify_columns" suffix="sql out" %}
 
@@ -149,10 +132,8 @@ home: true
     -   Duplicates allowed
 -   Line breaks <strike>allowed</strike> encouraged for readability
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="sort" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="sort" %}
 
 {% include double.md stem="sort" suffix="sql out" %}
 
@@ -160,18 +141,15 @@ home: true
 -   `asc` is ascending, `desc` is descending
     -   Default is ascending, but please specify
 
-</section>
-<section markdown="1">
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
 
-{% include h2_exercise.md title="select and sort" %}
-
+{% include exercise.md %}
 Write a SQL query to select the sex and body mass columns from the `little_penguins` in that order,
 sorted such that the largest body mass appears first.
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="limit output" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="limit output" %}
 
 -   Full dataset has 344 rows
 
@@ -180,10 +158,8 @@ sorted such that the largest body mass appears first.
 -   Comments start with `--` and run to the end of the line
 -   <code>limit <em>N</em></code> specifies maximum number of rows returned by query
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="page output" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="page output" %}
 
 {% include double.md stem="page" suffix="sql out" %}
 
@@ -191,10 +167,8 @@ sorted such that the largest body mass appears first.
 -   Specifies number of rows to skip from the start of the selection
 -   So this query skips the first 3 and shows the next 10
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="remove duplicates" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="remove duplicates" %}
 
 {% include double.md stem="distinct" suffix="sql out" %}
 
@@ -204,23 +178,21 @@ sorted such that the largest body mass appears first.
 -   Blanks in `sex` column show missing data
     -   We'll talk about this in a bit
 
-</section>
-<section markdown="1">
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
 
-{% include h2_exercise.md title="slicing" %}
+{% include exercise.md %}
+Write a SQL query to select the islands and species
+from rows 50 to 60 inclusive of the `penguins` table.
+Your result should have 11 rows.
 
-1.  Write a SQL query to select the islands and species
-    from rows 50 to 60 inclusive of the `penguins` table.
-    Your result should have 11 rows.
+{% include exercise.md %}
+Modify your query to select distinct combinations of island and species
+from the same rows
+and compare the result to what you got in part 1.
 
-2.  Modify your query to select distinct combinations of island and species
-    from the same rows
-    and compare the result to what you got in part 1.
-
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="filter results" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="filter results" %}
 
 {% include double.md stem="filter" suffix="sql out" %}
 
@@ -230,20 +202,18 @@ sorted such that the largest body mass appears first.
 -   Use single quotes for `'text data'` and double quotes for `"weird column names"`
     -   [SQLite][sqlite] will accept double-quoted text data but [SQLFluff][sqlfluff] will complain
 
-</section>
-<section markdown="1">
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
 
-{% include h2_exercise.md title="filter and display" %}
+{% include exercise.md %}
+Write a query to select the body masses from `penguins` that are less than 3000.0 grams.
 
-1.  Write a query to select the body masses from `penguins` that are less than 3000.0 grams.
+{% include exercise.md %}
+Write another query to select the species and sex of penguins that weight less than 3000.0 grams.
+This shows that the columns displayed and those used in filtering are independent of each other.
 
-2.  Write another query to select the species and sex of penguins that weight less than 3000.0 grams.
-    -   This shows that the columns displayed and those used in filtering are independent of each other.
-
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="filter with more complex conditions" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="filter with more complex conditions" %}
 
 {% include double.md stem="filter_and" suffix="sql out" %}
 
@@ -252,24 +222,22 @@ sorted such that the largest body mass appears first.
 -   Notice that the row for Gentoo penguins on Biscoe island with unknown (empty) sex didn't pass the test
     -   We'll talk about this in a bit
 
-</section>
-<section markdown="1">
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
 
-{% include h2_exercise.md title="Boolean operators" %}
+{% include exercise.md %}
+Use the `not` operator to select penguins that are *not* Gentoos.
 
-1.  Use the `not` operator to select penguins that are *not* Gentoos.
+{% include exercise.md %}
+SQL's `or` is an <a href="#g:inclusive_or">inclusive or</a>:
+it succeeds if either *or both* conditions are true.
+SQL does not provide a specific operator for <a href="#g:exclusive_or">exclusive or</a>,
+which is true if either *but not both* conditions are true,
+but the same effect can be achieved using `and`, `or`, and `not`.
+Write a query to select penguins that are female *or* on Torgersen Island *but not both*.
 
-2.  SQL's `or` is an <a href="#g:inclusive_or">inclusive or</a>:
-    it succeeds if either *or both* conditions are true.
-    SQL does not provide a specific operator for <a href="#g:exclusive_or">exclusive or</a>,
-    which is true if either *but not both* conditions are true,
-    but the same effect can be achieved using `and`, `or`, and `not`.
-    Write a query to select penguins that are female *or* on Torgersen Island *but not both*.
-
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="do calculations" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="do calculations" %}
 
 {% include double.md stem="calculations" suffix="sql out" %}
 
@@ -277,10 +245,8 @@ sorted such that the largest body mass appears first.
     -   Calculation done for each row independently
 -   Column name shows the calculation done
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="rename columns" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="rename columns" %}
 
 {% include double.md stem="rename_columns" suffix="sql out" %}
 
@@ -288,17 +254,13 @@ sorted such that the largest body mass appears first.
 -   Give result of calculation a meaningful name
 -   Can also rename columns without modifying
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="check your understanding" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="check your understanding" %}
 
 ![concept map: selection](./img/concept_map_select.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="calculate with missing values" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="calculate with missing values" %}
 {% include double.md stem="show_missing_values" suffix="sql out" %}
 
 -   SQL uses a special value <a href="#g:null"><code>null</code></a> to representing missing data
@@ -306,10 +268,8 @@ sorted such that the largest body mass appears first.
 -   Flipper length and body weight not known for one of the first five penguins
 -   "I don't know" divided by 10 or 1000 is "I don't know"
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="null equality" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="null equality" %}
 
 -   Repeated from above so it doesn't count against our query limit
 
@@ -319,19 +279,15 @@ sorted such that the largest body mass appears first.
 
 {% include double.md stem="null_equality" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="null inequality" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="null inequality" %}
 
 -   But if we ask for penguins that *aren't* female it drops out as well
 
 {% include double.md stem="null_inequality" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="ternary logic" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="ternary logic" %}
 
 {% include double.md stem="ternary_logic" suffix="sql out" %}
 
@@ -370,27 +326,21 @@ sorted such that the largest body mass appears first.
   </tr>
 </table>
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="handle null safely" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="handle null safely" %}
 
 {% include double.md stem="safe_null_equality" suffix="sql out" %}
 
 -   Use `is null` and `is not null` to handle null safely
 -   Other parts of SQL handle nulls specially
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="check your understanding" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="check your understanding" %}
 
 ![concept map: null](./img/concept_map_null.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="aggregate" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="aggregate" %}
 
 {% include double.md stem="simple_sum" suffix="sql out" %}
 
@@ -398,10 +348,8 @@ sorted such that the largest body mass appears first.
 -   `sum` is an <a href="#g:aggregation_func">aggregation function</a>
 -   Combines corresponding values from multiple rows
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="common aggregation functions" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="common aggregation functions" %}
 
 {% include double.md stem="common_aggregations" suffix="sql out" %}
 
@@ -409,10 +357,8 @@ sorted such that the largest body mass appears first.
     can't calculate maximum or average if any values are null
 -   SQL does the useful thing instead of the right one
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="counting" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="counting" %}
 
 {% include double.md stem="count_behavior" suffix="sql out" %}
 
@@ -420,10 +366,8 @@ sorted such that the largest body mass appears first.
 -   <code>count(<em>column</em>)</code> counts non-null entries in column
 -   <code>count(distinct <em>column</em>)</code> counts distinct non-null entries
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="group" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="group" %}
 
 {% include double.md stem="simple_group" suffix="sql out" %}
 
@@ -431,19 +375,15 @@ sorted such that the largest body mass appears first.
 -   Then perform aggregation separately for each group
 -   But which is which?
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="behavior of unaggregated columns" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="behavior of unaggregated columns" %}
 
 {% include double.md stem="unaggregated_columns" suffix="sql out" %}
 
 -   All rows in each group have the same value for `sex`, so no need to aggregate
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="arbitrary choice in aggregation" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="arbitrary choice in aggregation" %}
 
 {% include double.md stem="arbitrary_in_aggregation" suffix="sql out" %}
 
@@ -455,53 +395,41 @@ sorted such that the largest body mass appears first.
 -   Other database managers don't do this
     -   E.g., PostgreSQL complains that column must be used in an aggregation function
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="filter aggregated values" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="filter aggregated values" %}
 
 {% include double.md stem="filter_aggregation" suffix="sql out" %}
 
 -   Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="readable output" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="readable output" %}
 
 {% include double.md stem="readable_aggregation" suffix="sql out" %}
 
 -   Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="filter aggregate inputs" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="filter aggregate inputs" %}
 
 {% include double.md stem="filter_aggregate_inputs" suffix="sql out" %}
 
 -   <code>filter (where <em>condition</em>)</code> applies to *inputs*
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="check your understanding" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="check your understanding" %}
 
 ![concept map: aggregation](./img/concept_map_aggregate.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="create in-memory database" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="create in-memory database" %}
 
 {% include single.md file="src/in_memory_db.sh" %}
 
 -   "Connect" to an <a href="#g:in_memory_db">in-memory database</a>
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="create tables" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="create tables" %}
 
 {% include single.md file="src/create_work_job.sql" %}
 
@@ -513,18 +441,14 @@ sorted such that the largest body mass appears first.
     -   `create if not exists`
     -   upper-case keywords (SQL is case insensitive)
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="insert data" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="insert data" %}
 
 {% include single.md file="src/populate_work_job.sql" %}
 {% include single.md file="out/insert_values.out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="update rows" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="update rows" %}
 
 {% include single.md file="src/update_work_job.sql" %}
 {% include single.md file="out/update_rows.out" %}
@@ -532,33 +456,25 @@ sorted such that the largest body mass appears first.
 -   (Almost) always specify row(s) to update using `where`
     -   Otherwise update all rows in table, which is usually not wanted
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="delete rows" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="delete rows" %}
 
 {% include double.md stem="delete_rows" suffix="sql out" %}
 
 -   Again, (almost) always specify row(s) to delete using `where`
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="backing up" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="backing up" %}
 
 {% include double.md stem="backing_up" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="check your understanding" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="check your understanding" %}
 
 ![concept map: data definition and modification](./img/concept_map_datamod.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="join tables" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="join tables" %}
 
 {% include double.md stem="cross_join" suffix="sql out" %}
 
@@ -567,10 +483,8 @@ sorted such that the largest body mass appears first.
     -   All combinations of rows from each
 -   Result isn't particularly useful: `job` and `name` don't match
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="inner join" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="inner join" %}
 
 {% include double.md stem="inner_join" suffix="sql out" %}
 
@@ -579,39 +493,31 @@ sorted such that the largest body mass appears first.
 -   Use <code>on <em>condition</em></code> to specify <a href="#g:join_condition">join condition</a>
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="aggregate joined data" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="aggregate joined data" %}
 
 {% include double.md stem="aggregate_join" suffix="sql out" %}
 
 -   Combines ideas we've seen before
 -   But Tay is missing from the table
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="left join" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="left join" %}
 
 {% include double.md stem="left_join" suffix="sql out" %}
 
 -   A <a href="#g:left_outer_join">left outer join</a> keeps all rows from the left table
 -   Fills missing values from right table with null
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="aggregate left joins" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="aggregate left joins" %}
 
 {% include double.md stem="aggregate_left_join" suffix="sql out" %}
 
 -   That's better, but we'd like to see 0 rather than a blank
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="full outer join" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="full outer join" %}
 
 -   <a href="#g:full_outer_join">Full outer join</a> is the union of left outer join and right outer join
 -   Almost the same as cross join, but consider:
@@ -620,26 +526,20 @@ sorted such that the largest body mass appears first.
 
 -   A cross join would produce empty result
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="check your understanding" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="check your understanding" %}
 
 ![concept map: join](./img/concept_map_join.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="coalesce values" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="coalesce values" %}
 
 {% include double.md stem="coalesce" suffix="sql out" %}
 
 -   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="negate incorrectly" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="negate incorrectly" %}
 
 -   Who doesn't calibrate?
 
@@ -650,19 +550,15 @@ sorted such that the largest body mass appears first.
 -   And since `'clean' != 'calibrate'`, that row is included in the results
 -   We need a different approach
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="set membership" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="set membership" %}
 
 {% include double.md stem="set_membership" suffix="sql out" %}
 
 -   <code>in <em>values</em></code> and <code>not in <em>values</em></code> do exactly what you expect
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="subqueries" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="subqueries" %}
 
 {% include double.md stem="subquery_set" suffix="sql out" %}
 
@@ -670,10 +566,8 @@ sorted such that the largest body mass appears first.
 -   Then select all the people who aren't in that set
 -   Initially feels odd, but subqueries are useful in other ways
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="M to N relationships" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="M to N relationships" %}
 
 -   Relationships between entities are usually characterized as:
     -   <a href="#g:1_to_1">1-to-1</a>:
@@ -686,10 +580,8 @@ sorted such that the largest body mass appears first.
     -   Each record is a pair of foreign keys
     -   I.e., each record is the fact that records A and B are related
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="autoincrement and primary key" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="autoincrement and primary key" %}
 
 {% include double.md stem="autoincrement" suffix="sql out" %}
 
@@ -700,29 +592,23 @@ sorted such that the largest body mass appears first.
     we only have to change one fact in the database
     -   Downside: manual queries are harder to read (who is person 17?)
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="internal tables" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="internal tables" %}
 
 {% include double.md stem="sequence_table" suffix="sql out" %}
 
 -   Sequence numbers are *not* reset when rows are deleted
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="choose your own key" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="choose your own key" %}
 
 -   Can use any field (or combination of fields) in a table as a primary key
     -   As long as value(s) unique for each record
 
 {% include double.md stem="primary_key" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="alter tables" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="alter tables" %}
 
 {% include double.md stem="alter_tables" suffix="sql out" %}
 
@@ -734,20 +620,16 @@ sorted such that the largest body mass appears first.
     -   So be careful about `where` clause
 -   <a href="#g:data_migration">Data migration</a>
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="create new tables from old" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="create new tables from old" %}
 
 {% include double.md stem="insert_select" suffix="sql out" %}
 
 -   `new_work` is our join table
 -   Each column refers to a record in some other table
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="remove tables" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="remove tables" %}
 
 {% include double.md stem="drop_table" suffix="sql out" %}
 
@@ -755,10 +637,8 @@ sorted such that the largest body mass appears first.
     -   Note `if exists`
 -   Be careful…
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="compare individual values to aggregates" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="compare individual values to aggregates" %}
 
 -   Go back to penguins
 
@@ -769,10 +649,8 @@ sorted such that the largest body mass appears first.
 -   Requires two scans of the data, but there's no way to avoid that
 -   Null values aren't included in the average or in the final results
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="compare individual values to aggregates within groups" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="compare individual values to aggregates within groups" %}
 
 {% include double.md stem="compare_within_groups" suffix="sql out" %}
 
@@ -780,10 +658,8 @@ sorted such that the largest body mass appears first.
 -   Join that with `penguins`
 -   Filter to find penguins heavier than average within their species
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="common table expressions" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="common table expressions" %}
 
 {% include double.md stem="common_table_expressions" suffix="sql out" %}
 
@@ -791,20 +667,16 @@ sorted such that the largest body mass appears first.
     -   Nested subqueries quickly become difficult to understand
 -   Database decides how to optimize
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="explain query plan" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="explain query plan" %}
 
 {% include double.md stem="explain_query_plan" suffix="sql out" %}
 
 -   [SQLite][sqlite] plans to scan every row of the table
 -   It will build a temporary B-tree data structure to group rows
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="enumerate rows" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="enumerate rows" %}
 
 -   Every table has a special column called `rowid`
 
@@ -815,20 +687,16 @@ sorted such that the largest body mass appears first.
 -   *Do not rely on row ID*
     -   In particular, do not use it as a key
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="if-else function" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="if-else function" %}
 
 {% include double.md stem="if_else" suffix="sql out" %}
 
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="select a case" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="select a case" %}
 
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
@@ -839,20 +707,16 @@ sorted such that the largest body mass appears first.
 -   Result of `case` is null if no condition is true
 -   Use `else` as fallback
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="check range" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="check range" %}
 
 {% include double.md stem="check_range" suffix="sql out" %}
 
 -   `between` can make queries easier to read
 -   But be careful of the `and` in the middle
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="yet another database" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="yet another database" %}
 
 -   <a href="#g:er_diagram">Entity-relationship diagram</a> (ER diagram) shows relationships between tables
 -   Like everything to do with databases, there are lots of variations
@@ -863,10 +727,8 @@ sorted such that the largest body mass appears first.
 
 {% include double.md stem="assay_staff" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="pattern matching" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="pattern matching" %}
 
 {% include double.md stem="like_glob" suffix="sql out" %}
 
@@ -887,10 +749,8 @@ sorted such that the largest body mass appears first.
 | `lower`   | Return lower-case version of string |
 | `instr`   | Find location of first occurrence of substring (returns 0 if not found) |
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="select first and last rows" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="select first and last rows" %}
 
 {% include double.md stem="union_all" suffix="sql out" %}
 
@@ -898,10 +758,8 @@ sorted such that the largest body mass appears first.
     -   Keeps duplicates: `union` on its own keeps unique records
 -   Yes, it feels like the extra `select * from` should be unnecessary
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="intersection" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="intersection" %}
 
 {% include double.md stem="intersect" suffix="sql out" %}
 
@@ -909,10 +767,8 @@ sorted such that the largest body mass appears first.
 -   Intersection usually used when pulling values from different tables
     -   In this case, would be clearer to use `where`
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="exclusion" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="exclusion" %}
 
 {% include double.md stem="except" suffix="sql out" %}
 
@@ -920,20 +776,16 @@ sorted such that the largest body mass appears first.
     -   And this would be clearer with `where`
 -   SQL operates on sets, not tables, except where it doesn't
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="random numbers and why not" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="random numbers and why not" %}
 
 {% include double.md stem="random_numbers" suffix="sql out" %}
 
 -   There is no way to seed [SQLite][sqlite]'s random number generator
 -   Which means there is no way to reproduce one of its "random" sequences
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="creating index" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="creating index" %}
 
 {% include double.md stem="create_use_index" suffix="sql out" %}
 
@@ -942,28 +794,22 @@ sorted such that the largest body mass appears first.
 -   Don't have to mention it explicitly in queries
     -   Database manager will use it automatically
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="generate sequence" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="generate sequence" %}
 
 {% include double.md stem="generate_sequence" suffix="sql out" %}
 
 -   A (non-standard) <a href="#g:table_valued_func">table-valued function</a>
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="generate sequence based on data" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="generate sequence based on data" %}
 
 {% include double.md stem="data_range_sequence" suffix="sql out" %}
 
 -   Must have the parentheses around the `min` and `max` selections to keep [SQLite][sqlite] happy
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="generate sequence of dates" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="generate sequence of dates" %}
 
 {% include double.md stem="date_sequence" suffix="sql out" %}
 
@@ -972,17 +818,13 @@ sorted such that the largest body mass appears first.
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="count experiments started per day without gaps" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="count experiments started per day without gaps" %}
 
 {% include double.md stem="experiments_per_day" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="self join" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="self join" %}
 
 {% include double.md stem="self_join" suffix="sql out" %}
 
@@ -991,10 +833,8 @@ sorted such that the largest body mass appears first.
     -   Nothing special about the names `left` and `right`
 -   Get all <math>n<sup>2</sup></math> pairs, including person with themself
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="generate unique pairs" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="generate unique pairs" %}
 
 {% include double.md stem="unique_pairs" suffix="sql out" %}
 
@@ -1002,17 +842,13 @@ sorted such that the largest body mass appears first.
 -   Use `left.ident <= 4 and right.ident <= 4` to limit output
 -   Quick check: <math>n(n-1)/2</math> pairs
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="filter pairs" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="filter pairs" %}
 
 {% include double.md stem="filter_pairs" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="existence and correlated subqueries" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="existence and correlated subqueries" %}
 
 {% include double.md stem="correlated_subquery" suffix="sql out" %}
 
@@ -1021,27 +857,21 @@ sorted such that the largest body mass appears first.
 -   A <a href="#g:correlated_subquery">correlated subquery</a> depends on a value from the outer query
     -   Equivalent to nested loop
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="nonexistence" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="nonexistence" %}
 
 {% include double.md stem="nonexistence" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="avoiding correlated subqueries" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="avoiding correlated subqueries" %}
 
 {% include double.md stem="avoid_correlated_subqueries" suffix="sql out" %}
 
 -   The join might or might not be faster than the correlated subquery
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="lead and lag" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="lead and lag" %}
 
 {% include double.md stem="lead_lag" suffix="sql out" %}
 
@@ -1050,39 +880,31 @@ sorted such that the largest body mass appears first.
 -   Use <a href="#g:window_func">window functions</a> `lead` and `lag` to shift values
     -   Unavailable values are null
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="window functions" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="window functions" %}
 
 {% include double.md stem="window_functions" suffix="sql out" %}
 
 -   `sum() over` does a running total
 -   `cume_dist` is fraction *of rows seen so far*
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="explain another query plan" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="explain another query plan" %}
 
 {% include double.md stem="explain_window_function" suffix="sql out" %}
 
 -   Becomes useful…eventually
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="partitioned windows" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="partitioned windows" %}
 
 {% include double.md stem="partition_window" suffix="sql out" %}
 
 -   `partition by` creates groups
 -   So this counts experiments started since the beginning of each year
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="blobs" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="blobs" %}
 
 {% include double.md stem="blob" suffix="sql out" %}
 
@@ -1090,18 +912,14 @@ sorted such that the largest body mass appears first.
     -   Bytes in, bytes out…
 -   If you think that's odd, check out [Fossil][fossil]
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="yet another database" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="yet another database" %}
 
 {% include single.md file="src/lab_log_db.sh" %}
 {% include double.md stem="lab_log_schema" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="store JSON" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="store JSON" %}
 
 {% include double.md stem="json_in_table" suffix="sql out" %}
 
@@ -1111,10 +929,8 @@ sorted such that the largest body mass appears first.
     -   Can't just view it
     -   But more efficient
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="select field from JSON" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="select field from JSON" %}
 
 {% include double.md stem="json_field" suffix="sql out" %}
 
@@ -1125,10 +941,8 @@ sorted such that the largest body mass appears first.
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="JSON array access" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="JSON array access" %}
 
 {% include double.md stem="json_array" suffix="sql out" %}
 
@@ -1137,46 +951,36 @@ sorted such that the largest body mass appears first.
 -   subscripts start with 0
 -   Characters outside 7-bit ASCII represented as Unicode escapes
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="unpack JSON array" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="unpack JSON array" %}
 
 {% include double.md stem="json_unpack" suffix="sql out" %}
 
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="last element of array" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="last element of array" %}
 
 {% include double.md stem="json_array_last" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="modify JSON" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="modify JSON" %}
 
 {% include double.md stem="json_modify" suffix="sql out" %}
 
 -   Updates the in-memory copy of the JSON, *not* the database record
 -   Please use `json_quote` rather than trying to format JSON with string operations
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="refresh penguins" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="refresh penguins" %}
 
 {% include double.md stem="count_penguins" suffix="sql out" %}
 
 -   We will restore full database after each example
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="tombstones" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="tombstones" %}
 
 {% include single.md file="src/make_active.sql" %}
 {% include double.md stem="active_penguins" suffix="sql out" %}
@@ -1184,10 +988,8 @@ sorted such that the largest body mass appears first.
 -   Use a <a href="#g:tombstone">tombstone</a> to mark (in)active records
 -   Every query must now include it
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="importing CSV data" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="importing CSV data" %}
 
 -   [SQLite][sqlite] and most other database managers have tools for importing and exporting <a href="#g:csv">CSV</a>
 -   In [SQLite][sqlite]:
@@ -1198,10 +1000,8 @@ sorted such that the largest body mass appears first.
 
 {% include single.md file="src/create_penguins.sql" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="views" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="views" %}
 
 {% include double.md stem="views" suffix="sql out" %}
 
@@ -1213,24 +1013,18 @@ sorted such that the largest body mass appears first.
 -   Some databases offer <a href="#g:materialized_view">materialized views</a>
     -   Update-on-demand temporary tables
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="check your understanding" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="check your understanding" %}
 
 ![concept map: temporary tables](./img/concept_map_temp.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="hours reminder" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="hours reminder" %}
 
 {% include double.md stem="all_jobs" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="add check" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="add check" %}
 
 {% include double.md stem="all_jobs_check" suffix="sql out" %}
 
@@ -1239,20 +1033,16 @@ sorted such that the largest body mass appears first.
     -   Run each time values added or modified
 -   But changes made before the error have taken effect
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="ACID" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="ACID" %}
 
 -   <a href="#g:atomic">Atomic</a>: change cannot be broken down into smaller ones (i.e., all or nothing)
 -   <a href="#g:consistent">Consistent</a>: database goes from one consistent state to another
 -   <a href="#g:isolated">Isolated</a>: looks like changes happened one after another
 -   <a href="#g:durable">Durable</a>: if change takes place, it's still there after a restart
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="transactions" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="transactions" %}
 
 {% include double.md stem="transaction" suffix="sql out" %}
 
@@ -1264,30 +1054,24 @@ sorted such that the largest body mass appears first.
 -   But *cannot* nest transactions in [SQLite][sqlite]
     -   Other databases support this
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="rollback in constraint" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="rollback in constraint" %}
 
 {% include double.md stem="rollback_constraint" suffix="sql out" %}
 
 -   All of second `insert` rolled back as soon as error occurred
 -   But first `insert` took effect
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="rollback in statement" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="rollback in statement" %}
 
 {% include double.md stem="rollback_statement" suffix="sql out" %}
 
 -   Constraint is in table definition
 -   Action is in statement
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="upsert" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="upsert" %}
 
 {% include double.md stem="upsert" suffix="sql out" %}
 
@@ -1297,10 +1081,8 @@ sorted such that the largest body mass appears first.
 -   Not standard SQL but widely implemented
 -   Example also shows use of [SQLite][sqlite] `.print` command
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="normalization" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="normalization" %}
 
 -   First <a href="#g:normal_form">normal form</a> (1NF):
     every field of every record contains one indivisible value.
@@ -1312,10 +1094,8 @@ sorted such that the largest body mass appears first.
 -   <a href="#g:denormalization">Denormalization</a>: explicitly store values that could be calculated on the fly
     -   To simplify queries and/or make processing faster
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="create trigger" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="create trigger" %}
 
 -   A <a href="#g:trigger">trigger</a> automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
@@ -1335,20 +1115,16 @@ sorted such that the largest body mass appears first.
 
 {% include double.md stem="trigger_firing" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="represent graphs" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="represent graphs" %}
 
 {% include single.md file="src/lineage_setup.sql" %}
 {% include double.md stem="represent_graph" suffix="sql out" %}
 
 ![lineage diagram](./img/lineage.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="recursive query" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="recursive query" %}
 
 {% include double.md stem="recursive_lineage" suffix="sql out" %}
 
@@ -1360,20 +1136,16 @@ sorted such that the largest body mass appears first.
 -   Stops when the recursive case yields an empty row set (nothing new to add)
 -   Then select the desired values from the CTE
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="contact tracing database" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="contact tracing database" %}
 
 {% include double.md stem="contact_person" suffix="sql out" %}
 {% include double.md stem="contact_contacts" suffix="sql out" %}
 
 ![contact diagram](./img/contact_tracing.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="bidirectional contacts" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="bidirectional contacts" %}
 
 {% include double.md stem="bidirectional" suffix="sql out" %}
 
@@ -1381,36 +1153,28 @@ sorted such that the largest body mass appears first.
     -   Only lasts as long as the session (not saved to disk)
 -   Duplicate information rather than writing more complicated query
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="update group identifiers" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="update group identifiers" %}
 
 {% include double.md stem="update_group_ids" suffix="sql out" %}
 
 -   `new_ident` is minimum of own identifier and identifiers one step away
 -   Doesn't keep people with no contacts
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="recursive labeling" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="recursive labeling" %}
 
 {% include double.md stem="recursive_labeling" suffix="sql out" %}
 
 -   Use `union` instead of `union all` to prevent <a href="#g:infinite_recursion">infinite recursion</a>
 
-</section>
-<section markdown="1">
-
-{% include h2_aside.md title="check your understanding" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="check your understanding" %}
 
 ![concept map: common table expressions](./img/concept_map_cte.svg)
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="query from Python" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="query from Python" %}
 
 {% include double.md stem="basic_python_query" suffix="py out" %}
 
@@ -1420,29 +1184,23 @@ sorted such that the largest body mass appears first.
     -   More common to create cursor and use that to run queries
 -   Fetch all rows at once as list of tuples
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="incremental fetch" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="incremental fetch" %}
 
 {% include double.md stem="incremental_fetch" suffix="py out" %}
 
 -   `cursor.fetchone` returns `None` when no more data
 -   There is also `fetchmany(N)` to fetch (up to) a certain number of rows
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="insert, delete, and all that" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="insert, delete, and all that" %}
 
 {% include double.md stem="insert_delete" suffix="py out" %}
 
 -   Each `execute` is its own transaction
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="interpolate values" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="interpolate values" %}
 
 {% include double.md stem="interpolate" suffix="py out" %}
 
@@ -1450,26 +1208,20 @@ sorted such that the largest body mass appears first.
 
 ![XKCD Exploits of a Mom](./img/xkcd_327_exploits_of_a_mom.png)
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="script execution" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="script execution" %}
 
 {% include double.md stem="script_execution" suffix="py out" %}
 
 -   But what if something goes wrong?
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="SQLite exceptions in Python" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="SQLite exceptions in Python" %}
 
 {% include double.md stem="exceptions" suffix="py out" %}
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="Python in SQLite" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="Python in SQLite" %}
 
 {% include double.md stem="embedded_python" suffix="py out" %}
 
@@ -1477,20 +1229,16 @@ sorted such that the largest body mass appears first.
 -   Other databases can run Python (and other languages) in the database server process
 -   Be careful
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="handle dates and times" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="handle dates and times" %}
 
 {% include double.md stem="dates_times" suffix="py out" %}
 
 -   `sqlite3.PARSE_DECLTYPES` tells `sqlite3` library to use converts based on declared column types
 -   Adapt on the way in, convert on the way out
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="SQL in Jupyter notebooks" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="SQL in Jupyter notebooks" %}
 
 {% include single.md file="src/install_jupysql.sh" %}
 
@@ -1533,20 +1281,16 @@ sorted such that the largest body mass appears first.
   </tbody>
 </table>
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="Pandas and SQL" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="Pandas and SQL" %}
 
 {% include single.md file="src/install_pandas.sh" %}
 {% include double.md stem="select_pandas" suffix="py out" %}
 
 -   Be careful about datatype conversion
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="Polars and SQL" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="Polars and SQL" %}
 
 {% include single.md file="src/install_polars.sh" %}
 {% include double.md stem="select_polars" suffix="py out" %}
@@ -1555,20 +1299,16 @@ sorted such that the largest body mass appears first.
 -   The query is the query
 -   Use the ADBC engine instead of the default ConnectorX
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="object-relational mapper" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="object-relational mapper" %}
 
 {% include double.md stem="orm" suffix="py out" %}
 
 -   An <a href="#g:orm">object-relational mapper</a> (ORM) translates table columns to object properties and vice versa
 -   SQLModel relies on Python type hints
 
-</section>
-<section markdown="1">
-
-{% include h2_topic.md title="relations with ORM" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="relations with ORM" %}
 
 {% include double.md stem="orm_relation" suffix="py out" %}
 
@@ -1576,16 +1316,14 @@ sorted such that the largest body mass appears first.
 -   SQLModel automatically does the join
     -   The two staff with no department aren't included in the result
 
-</section>
-<section class="appendix" markdown="1">
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="Appendices" %}
 
-{% include h2_aside.md title="Appendices" %}
-
-{% include h2_aside.md title="Terms" %}
+### Terms
 
 {% include glossary.html %}
 
-{% include h2_aside.md title="Acknowledgments" %}
+### Acknowledgments
 
 This tutorial would not have been possible without:
 
@@ -1597,6 +1335,6 @@ I would also like to thank the following for spotting issues, making suggestions
 
 {% include thanks.html %}
 
-</section>
+{% include section_end.md %}
 
 {% include links.md links=site.data.links %}

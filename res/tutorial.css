@@ -211,8 +211,8 @@ h2.aside::before {
     content: "☆ ";
 }
 
-h2.exercise {
-    font-style: italic
+h2.exercise::before {
+    content: "✏ Practice";
 }
 
 h3 {

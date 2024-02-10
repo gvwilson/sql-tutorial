@@ -1,0 +1,1 @@
+<strong>Exercise {% increment exercise_counter %}</strong>: 

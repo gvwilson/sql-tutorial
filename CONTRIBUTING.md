@@ -21,13 +21,19 @@ All contributors will be acknowledged.
     If you add a new example,
     please add a corresponding rule in `Makefile`.
 
--   Use `{% raw %}{% include h2_numbered.md title="words" %}{% endraw %}`
-    to create a numbered section
-    that includes a runnable code example.
+-   Use `{% raw %}{% include section_start.md class="CLASS" title="TITLE" %}{% endraw %}`
+    at the start of the first section.
+    The class can be `topic` for a numbered topic,
+    `aside` for an unnumbered aside,
+    or `exercise` for practice exercises.
+    Topics and asides must have titled;
+    exercise section do not (the name is filled in automatically).
 
--   Use `{% raw %}{% include h2_unnumbered.md title="words" %}{% endraw %}`
-    to create an unnumbered section
-    that *doesn't* include a runnable code example.
+-   Use `{% raw %}{% include section_end.md %}{% endraw %}`
+    at the end of the final section.
+
+-   Use `{% raw %}{% include section_break.md class="CLASS" title="TITLE" %}{% endraw %}`
+    to end the previous section and start a new one.
 
 -   Use `{% raw %}{% include double.md stem="file" suffix="sql out" %}{% endraw %}`
     in `index.md` to include `src/file.sql` and `out/file.out`.
@@ -36,6 +42,9 @@ All contributors will be acknowledged.
 -   Use `{% raw %}{% include single.md file="dir/file.ext" %}{% endraw %}`
     in `index.md` to include an arbitrary text file *without* automatically including output.
     (Note that `single` requires a directory name such as `src` or `out` but `double` does not.)
+
+-   Use `{% raw %}{% include exercise.md %}{% endraw %}` to introduce a numbered exercise.
+    Do not leave a blank link between the inclusion and the text of the exercise.
 
 -   By default, file inclusion strips out everything between `-- [keep]` and `-- [/keep]`
     for SQL files and `# [keep]` and `# [/keep]` for Python files.
@@ -58,6 +67,8 @@ All contributors will be acknowledged.
 
 -   All external links are written using `{% raw %}[box][notation]{% endraw %}` inline
     and defined in `_data/tutorial.yml`.
+    The inclusion `{% raw %}{% include links.md links=site.data.links %}{% endraw %}`
+    at the end of `index.md` fills in these links.
 
 ## Logical Structure
 
@@ -66,19 +77,25 @@ All contributors will be acknowledged.
     -   *Prerequisites* (which should be interpreted with reference to the learner persona).
     -   *Learning objectives* that define the tutorial's scope.
     -   *Setup instructions* that instructors and learners must go through in order to code along
--   Episodes
-    -   *Runnable episodes* are numbered.
-        Each contains one code sample, its output, and notes for the instructor.
-        Learners are *not* expected to be able to understand episodes without instructor elaboration.
-    -   *Asides* are not numbered,
-        and contain code-less explanatory material,
-        additional setup instructions,
-        *concept maps* summarizing recently-introduced ideas,
-        etc.
-    -   Episodes of both kinds may contain *glossary references*
-        and/or *explanatory diagrams*.
+
+-   *Topics* are numbered.
+    Each contains one code sample, its output, and notes for the instructor.
+    Learners are *not* expected to be able to understand topics without instructor elaboration.
+
+-   *Asides* are not numbered,
+    and contain code-less explanatory material,
+    additional setup instructions,
+    *concept maps* summarizing recently-introduced ideas,
+    etc.
+
+-   *Exercises* are numbered.
+    An exercise section may include any number of exercises.
+
+-   Topics of both kinds may contain *glossary references*
+    and/or *explanatory diagrams*.
+
 -   Appendices
-    -   A *glossary* that defines terms called out in the episodes.
+    -   A *glossary* that defines terms called out in the topics.
     -   *Acknowledgments* that point at inspirations and thank contributors.
 
 ## Physical Structure
