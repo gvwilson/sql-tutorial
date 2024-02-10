@@ -52,16 +52,28 @@ ${DB}/lab_log.db: bin/create_lab_log.py
 ${DB}/penguins.db : bin/create_penguins.py misc/penguins.csv
 	python $< $@ misc/penguins.csv
 
+## redirect: build for redirection
+.PHONY: redirect
+redirect:
+	JEKYLL_ENV=redirect jekyll build
+
 ## release: create a release
 .PHONY: release
+ifeq ($(origin TUT_RELEASE),undefined)
 release:
-	@rm -f sql-tutorial.zip
-	zip -r sql-tutorial.zip \
+	@echo "TUT_RELEASE not defined"
+else
+release:
+	@rm -rf sql-tutorial.zip ${TUT_RELEASE} _site
+	jekyll build
+	@zip -r sql-tutorial.zip \
 	db \
 	misc/penguins.csv \
 	src \
 	out \
 	-x \*~
+	cp -r _site ${TUT_RELEASE}
+endif
 
 ## depend.mk: rebuild SQL-to-SQL dependencies
 depend.mk:
