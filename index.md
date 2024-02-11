@@ -714,22 +714,8 @@ using the SQL you have seen so far?
 {% include double.md stem="subquery_set" suffix="sql out" %}
 
 -   Use a <a href="#g:subquery">subquery</a> to select the people who *do* calibrate
--   Then select all the people who aren't in that set
+-   Then select all the people who *aren't* in that set
 -   Initially feels odd, but subqueries are useful in other ways
-
-<!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="M-to-N Relationships" %}
-
--   Relationships between entities are usually characterized as:
-    -   <a href="#g:1_to_1">1-to-1</a>:
-        fields in the same record
-    -   <a href="#g:1_to_many">1-to-many</a>:
-        the many have a <a href="#g:foreign_key">foreign key</a> referring to the one's primary key
-    -   <a href="#g:many_to_many">many-to-many</a>:
-        don't know how many keys to add to records ("maximum" never is)
--   Nearly-universal solution is a <a href="#g:join_table">join table</a>
-    -   Each record is a pair of foreign keys
-    -   I.e., each record is the fact that records A and B are related
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Autoincrementing and Primary Keys" %}
@@ -770,6 +756,20 @@ using the SQL you have seen so far?
     -   Can modify any number of records at once
     -   So be careful about `where` clause
 -   <a href="#g:data_migration">Data migration</a>
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="M-to-N Relationships" %}
+
+-   Relationships between entities are usually characterized as:
+    -   <a href="#g:1_to_1">1-to-1</a>:
+        fields in the same record
+    -   <a href="#g:1_to_many">1-to-many</a>:
+        the many have a <a href="#g:foreign_key">foreign key</a> referring to the one's primary key
+    -   <a href="#g:many_to_many">many-to-many</a>:
+        don't know how many keys to add to records ("maximum" never is)
+-   Nearly-universal solution is a <a href="#g:join_table">join table</a>
+    -   Each record is a pair of foreign keys
+    -   I.e., each record is the fact that records A and B are related
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Creating New Tables from Old" %}
