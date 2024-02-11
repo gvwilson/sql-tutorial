@@ -6,6 +6,7 @@ exclude:
   - README.md
   - LICENSE.md
   - CODE_OF_CONDUCT.md
+  - CONTRIBUTING.md
   - Gemfile
   - Gemfile.lock
   - Makefile

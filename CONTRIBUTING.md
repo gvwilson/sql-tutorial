@@ -133,7 +133,8 @@ All contributors will be acknowledged.
 
 -   `contribute-addition`: a pull request that contains new material
 -   `contribute-change`: a pull request that changes or fixes existing material
--   `governance`: discussion of direction, use, etc.
+-   `discuss`: discussion of proposed change or fix
+-   `governance`: meta-discussion of project direction, etc.
 -   `help-wanted`: requires knowledge or skills the core maintainer lacks
 -   `in-content`: issue or PR is related to lesson content
 -   `in-infrastructure`: issue or PR is related to build tools, styling, etc.
