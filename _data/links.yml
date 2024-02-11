@@ -20,6 +20,8 @@
   value: "SQLFluff"
 - key: "sqlite"
   value: "https://sqlite.org/"
+- key: "sqlite_format"
+  value: "https://sqlite.org/printf.html"
 - key: "sqlparse"
   value: "https://pypi.org/project/sqlparse/"
 - key: "t3"

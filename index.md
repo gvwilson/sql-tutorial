@@ -255,6 +255,19 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
 -   Can also rename columns without modifying
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a single query that calculates and returns:
+
+1.  A column called `what_where` that has the species and island of each penguin
+    separated by a single space.
+2.  A column called `bill_ratio` that has the ratio of bill length to bill depth.
+
+You can use the `||` operator to concatenate text to solve part 1,
+or look at [the documentation for SQLite's `format()` function][sqlite_format].
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="check your understanding" %}
 
 ![concept map: selection](./img/concept_map_select.svg)
@@ -269,9 +282,19 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
 -   "I don't know" divided by 10 or 1000 is "I don't know"
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Use [SQLite][sqlite]'s `.nullvalue` command
+to change the printed representation of null to the string `null`
+and then re-run the previous query.
+When will displaying null as `null` be easier to understand?
+When might it be misleading?
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="null equality" %}
 
--   Repeated from above so it doesn't count against our query limit
+-   Repeated from earlier (so it doesn't count against our query limit)
 
 {% include double.md stem="filter" suffix="sql out" %}
 
@@ -335,6 +358,15 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
 -   Other parts of SQL handle nulls specially
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a query to find penguins whose body mass is known but whose sex is not.
+
+{% include exercise.md %}
+Write another query to find penguins whose sex is known but whose body mass is not.
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="check your understanding" %}
 
 ![concept map: null](./img/concept_map_null.svg)
@@ -358,6 +390,12 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
 -   SQL does the useful thing instead of the right one
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+What is the average body mass of penguins that weight more than 3000.0 grams?
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="counting" %}
 
 {% include double.md stem="count_behavior" suffix="sql out" %}
@@ -365,6 +403,12 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
 -   `count(*)` counts rows
 -   <code>count(<em>column</em>)</code> counts non-null entries in column
 -   <code>count(distinct <em>column</em>)</code> counts distinct non-null entries
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+How many different body masses are in the penguins dataset?
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="group" %}
@@ -396,6 +440,17 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
     -   E.g., PostgreSQL complains that column must be used in an aggregation function
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Explain why the output of the previous query
+has a blank line before the rows for female and male penguins.
+
+{% include exercise.md %}
+Write a query that shows each distinct body mass in the penguin dataset
+and the number of penguins that weigh that much.
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="filter aggregated values" %}
 
 {% include double.md stem="filter_aggregation" suffix="sql out" %}
@@ -415,6 +470,16 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
 {% include double.md stem="filter_aggregate_inputs" suffix="sql out" %}
 
 -   <code>filter (where <em>condition</em>)</code> applies to *inputs*
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a query that uses `filter` to calculate the average body masses
+of heavy penguins (those over 4500 grams)
+and light penguins (those under 3500 grams)
+simultaneously.
+Is it possible to do this using `where` instead of `filter`?
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="check your understanding" %}
