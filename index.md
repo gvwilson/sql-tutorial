@@ -5,7 +5,7 @@ home: true
 
 > **2024-02-07: Exercises Needed**
 >
-> This tutorial needs (at least) 40 exercises.
+> This tutorial needs (at least) 50 exercises.
 > If you would like to propose one,
 > please [submit an issue]({{site.data.tutorial.repo}}/issues)
 > with the question you would ask and the SQL you would want the learner to write.
