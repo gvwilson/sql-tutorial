@@ -699,7 +699,7 @@ using the SQL you have seen so far?
 -   But Mik *does* calibrate
 -   Problem is that there's an entry for Mik cleaning
 -   And since `'clean' != 'calibrate'`, that row is included in the results
--   We need a different approach
+-   We need a different approach…
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Set Membership" %}
@@ -718,16 +718,40 @@ using the SQL you have seen so far?
 -   Initially feels odd, but subqueries are useful in other ways
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Use a subquery to find the number of penguins
+that weigh the same as the lightest penguin.
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="Defining a Primary Key" %}
+
+-   Can use any field (or combination of fields) in a table as a <a href="#g:primary_key">primary key</a>
+    as long as value(s) unique for each record
+-   Uniquely identifies a particular record in a particular table
+
+{% include double.md stem="primary_key" suffix="sql out" %}
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Does the `penguins` table have a primary key?
+If so, what is it?
+What about the `work` and `job` tables?
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Autoincrementing and Primary Keys" %}
 
 {% include double.md stem="autoincrement" suffix="sql out" %}
 
 -   Database <a href="#g:autoincrement">autoincrements</a> `ident` each time a new record is added
--   Use that field as the <a href="#g:primary_key">primary key</a>
-    -   Uniquely identifies a particular record in a particular table
+-   Common to use that field as the primary key
+    -   Unique for each record
 -   If Mik changes their name again,
     we only have to change one fact in the database
-    -   Downside: manual queries are harder to read (who is person 17?)
+-   Downside: manual queries are harder to read (who is person 17?)
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Internal Tables" %}
@@ -735,14 +759,7 @@ using the SQL you have seen so far?
 {% include double.md stem="sequence_table" suffix="sql out" %}
 
 -   Sequence numbers are *not* reset when rows are deleted
-
-<!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="Choosing Your Own Key" %}
-
--   Can use any field (or combination of fields) in a table as a primary key
-    -   As long as value(s) unique for each record
-
-{% include double.md stem="primary_key" suffix="sql out" %}
+    -   In part so that they can be used as primary keys
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Altering Tables" %}
@@ -751,11 +768,11 @@ using the SQL you have seen so far?
 
 -   Add a column after the fact
 -   Since it can't be null, we have to provide a default value
-    -   Really want to make it the primary key, but [SQLite][sqlite] doesn't allow that (easily) after the fact
+    -   Really want to make it the primary key, but [SQLite][sqlite] doesn't allow that after the fact
 -   Then use `update` to modify existing records
     -   Can modify any number of records at once
     -   So be careful about `where` clause
--   <a href="#g:data_migration">Data migration</a>
+-   An example of <a href="#g:data_migration">data migration</a>
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="M-to-N Relationships" %}
