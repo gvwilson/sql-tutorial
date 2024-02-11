@@ -20,7 +20,7 @@ home: true
 > Asking for help is one way to compensate for those blind spots.
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_start.md class="aside" title="what this is" %}
+{% include section_start.md class="aside" title="What This Is" %}
 
 -   notes and working examples that instructors can use to perform a lesson
     -   do *not* expect novices with no prior SQL experience to be able to learn from them
@@ -35,7 +35,7 @@ home: true
     [Greg Wilson][wilson-greg] is a programmer, author, and educator based in Toronto
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="scope" %}
+{% include section_break.md class="aside" title="Scope" %}
 
 -   [intended audience][persona]
     -   Rachel has a master's degree in cell biology
@@ -61,7 +61,7 @@ home: true
     1.  Interact with a database using Python directly, from a Jupyter notebook, and via an ORM.
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="setup" %}
+{% include section_break.md class="aside" title="Setup" %}
 
 -   Download [the latest release]({{site.data.tutorial.release}})
 -   Unzip the file in a temporary directory to create:
@@ -70,7 +70,7 @@ home: true
     -   `./out/*.*`: expected output for examples
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="background concepts" %}
+{% include section_break.md class="aside" title="Background Concepts" %}
 
 -   A <a href="#g:database">database</a> is a collection of data that can be searched and retrieved
 -   A <a href="#g:dbms">database management system</a> (DBMS) is a program that manages a particular kind of database
@@ -85,7 +85,7 @@ home: true
 ![concept map: overview](./img/concept_map_overview.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="connect to database" %}
+{% include section_break.md class="aside" title="Connecting to Database" %}
 
 {% include single.md file="src/connect_penguins.sh" %}
 
@@ -94,7 +94,7 @@ home: true
 -   Or put query in file and run <code>sqlite3 <em>database</em> < <em>filename</em></code>
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="select constant" %}
+{% include section_break.md class="topic" title="Selecting Constant" %}
 
 {% include double.md stem="select_1" suffix="sql out" %}
 
@@ -104,7 +104,7 @@ home: true
 -   Semi-colon terminator is required
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="select all values from table" %}
+{% include section_break.md class="topic" title="Selecting All Values from Table" %}
 
 {% include double.md stem="select_star" suffix="sql out" %}
 
@@ -114,7 +114,7 @@ home: true
 -   Output format is not particularly readable
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="administrative commands" %}
+{% include section_break.md class="aside" title="Administrative Commands" %}
 
 {% include double.md stem="admin_commands" suffix="sql out" %}
 
@@ -123,7 +123,7 @@ home: true
 -   Use `.help` for a complete list
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="specify columns" %}
+{% include section_break.md class="topic" title="Specifying Columns" %}
 
 {% include double.md stem="specify_columns" suffix="sql out" %}
 
@@ -133,7 +133,7 @@ home: true
 -   Line breaks <strike>allowed</strike> encouraged for readability
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="sort" %}
+{% include section_break.md class="topic" title="Sorting" %}
 
 {% include double.md stem="sort" suffix="sql out" %}
 
@@ -149,7 +149,7 @@ Write a SQL query to select the sex and body mass columns from the `little_pengu
 sorted such that the largest body mass appears first.
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="limit output" %}
+{% include section_break.md class="topic" title="Limiting Output" %}
 
 -   Full dataset has 344 rows
 
@@ -159,7 +159,7 @@ sorted such that the largest body mass appears first.
 -   <code>limit <em>N</em></code> specifies maximum number of rows returned by query
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="page output" %}
+{% include section_break.md class="topic" title="Paging Output" %}
 
 {% include double.md stem="page" suffix="sql out" %}
 
@@ -168,7 +168,7 @@ sorted such that the largest body mass appears first.
 -   So this query skips the first 3 and shows the next 10
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="remove duplicates" %}
+{% include section_break.md class="topic" title="Removing Duplicates" %}
 
 {% include double.md stem="distinct" suffix="sql out" %}
 
@@ -192,7 +192,7 @@ from the same rows
 and compare the result to what you got in part 1.
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="filter results" %}
+{% include section_break.md class="topic" title="Filtering Results" %}
 
 {% include double.md stem="filter" suffix="sql out" %}
 
@@ -213,7 +213,7 @@ Write another query to select the species and sex of penguins that weight less t
 This shows that the columns displayed and those used in filtering are independent of each other.
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="filter with more complex conditions" %}
+{% include section_break.md class="topic" title="Filtering with More Complex Conditions" %}
 
 {% include double.md stem="filter_and" suffix="sql out" %}
 
@@ -237,7 +237,7 @@ but the same effect can be achieved using `and`, `or`, and `not`.
 Write a query to select penguins that are female *or* on Torgersen Island *but not both*.
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="do calculations" %}
+{% include section_break.md class="topic" title="Doing Calculations" %}
 
 {% include double.md stem="calculations" suffix="sql out" %}
 
@@ -246,7 +246,7 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
 -   Column name shows the calculation done
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="rename columns" %}
+{% include section_break.md class="topic" title="Renaming Columns" %}
 
 {% include double.md stem="rename_columns" suffix="sql out" %}
 
@@ -268,12 +268,13 @@ You can use the `||` operator to concatenate text to solve part 1,
 or look at [the documentation for SQLite's `format()` function][sqlite_format].
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="check your understanding" %}
+{% include section_break.md class="aside" title="Check Understanding" %}
 
 ![concept map: selection](./img/concept_map_select.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="calculate with missing values" %}
+{% include section_break.md class="topic" title="Calculating with Missing Values" %}
+
 {% include double.md stem="show_missing_values" suffix="sql out" %}
 
 -   SQL uses a special value <a href="#g:null"><code>null</code></a> to representing missing data
@@ -292,7 +293,7 @@ When will displaying null as `null` be easier to understand?
 When might it be misleading?
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="null equality" %}
+{% include section_break.md class="topic" title="Null Equality" %}
 
 -   Repeated from earlier (so it doesn't count against our query limit)
 
@@ -303,14 +304,14 @@ When might it be misleading?
 {% include double.md stem="null_equality" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="null inequality" %}
+{% include section_break.md class="topic" title="Null Inequality" %}
 
 -   But if we ask for penguins that *aren't* female it drops out as well
 
 {% include double.md stem="null_inequality" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="ternary logic" %}
+{% include section_break.md class="topic" title="Ternary Logic" %}
 
 {% include double.md stem="ternary_logic" suffix="sql out" %}
 
@@ -350,7 +351,7 @@ When might it be misleading?
 </table>
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="handle null safely" %}
+{% include section_break.md class="topic" title="Handling Null Safely" %}
 
 {% include double.md stem="safe_null_equality" suffix="sql out" %}
 
@@ -367,12 +368,12 @@ Write a query to find penguins whose body mass is known but whose sex is not.
 Write another query to find penguins whose sex is known but whose body mass is not.
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="check your understanding" %}
+{% include section_break.md class="aside" title="Check Understanding" %}
 
 ![concept map: null](./img/concept_map_null.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="aggregate" %}
+{% include section_break.md class="topic" title="Aggregating" %}
 
 {% include double.md stem="simple_sum" suffix="sql out" %}
 
@@ -381,7 +382,7 @@ Write another query to find penguins whose sex is known but whose body mass is n
 -   Combines corresponding values from multiple rows
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="common aggregation functions" %}
+{% include section_break.md class="topic" title="Common Aggregation Functions" %}
 
 {% include double.md stem="common_aggregations" suffix="sql out" %}
 
@@ -396,7 +397,7 @@ Write another query to find penguins whose sex is known but whose body mass is n
 What is the average body mass of penguins that weight more than 3000.0 grams?
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="counting" %}
+{% include section_break.md class="topic" title="Counting" %}
 
 {% include double.md stem="count_behavior" suffix="sql out" %}
 
@@ -411,7 +412,7 @@ What is the average body mass of penguins that weight more than 3000.0 grams?
 How many different body masses are in the penguins dataset?
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="group" %}
+{% include section_break.md class="topic" title="Grouping" %}
 
 {% include double.md stem="simple_group" suffix="sql out" %}
 
@@ -420,14 +421,14 @@ How many different body masses are in the penguins dataset?
 -   But which is which?
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="behavior of unaggregated columns" %}
+{% include section_break.md class="topic" title="Behavior of Unaggregated Columns" %}
 
 {% include double.md stem="unaggregated_columns" suffix="sql out" %}
 
 -   All rows in each group have the same value for `sex`, so no need to aggregate
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="arbitrary choice in aggregation" %}
+{% include section_break.md class="topic" title="Arbitrary Choice in Aggregation" %}
 
 {% include double.md stem="arbitrary_in_aggregation" suffix="sql out" %}
 
@@ -451,21 +452,21 @@ Write a query that shows each distinct body mass in the penguin dataset
 and the number of penguins that weigh that much.
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="filter aggregated values" %}
+{% include section_break.md class="topic" title="Filtering Aggregated Values" %}
 
 {% include double.md stem="filter_aggregation" suffix="sql out" %}
 
 -   Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="readable output" %}
+{% include section_break.md class="topic" title="Readable Output" %}
 
 {% include double.md stem="readable_aggregation" suffix="sql out" %}
 
 -   Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="filter aggregate inputs" %}
+{% include section_break.md class="topic" title="Filtering Aggregate Inputs" %}
 
 {% include double.md stem="filter_aggregate_inputs" suffix="sql out" %}
 
@@ -482,19 +483,21 @@ simultaneously.
 Is it possible to do this using `where` instead of `filter`?
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="check your understanding" %}
+{% include section_break.md class="aside" title="Check Understanding" %}
 
 ![concept map: aggregation](./img/concept_map_aggregate.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="create in-memory database" %}
+{% include section_break.md class="aside" title="Creating In-memory Database" %}
 
 {% include single.md file="src/in_memory_db.sh" %}
 
 -   "Connect" to an <a href="#g:in_memory_db">in-memory database</a>
+    -   Changes aren't saved to disk
+    -   Very useful for testing (discussed later)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="create tables" %}
+{% include section_break.md class="topic" title="Creating Tables" %}
 
 {% include single.md file="src/create_work_job.sql" %}
 
@@ -507,13 +510,36 @@ Is it possible to do this using `where` instead of `filter`?
     -   upper-case keywords (SQL is case insensitive)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="insert data" %}
+{% include section_break.md class="topic" title="Inserting Data" %}
 
 {% include single.md file="src/populate_work_job.sql" %}
 {% include single.md file="out/insert_values.out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="update rows" %}
+{% include section_break.md class="aside" title="Following Along" %}
+
+-   To re-create this database:
+    -   [Download the examples]({{site.data.tutorial.release}})
+    -   Unzip that file
+    -   `.read src/create_work_job.sql`
+    -   `.read src/populate_work_job.sql`
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Using an in-memory database,
+define a table called `notes` with two text columns `author` and `note`
+and then add three or four rows.
+Use a query to check that the notes have been stored
+and that you can (for example) select by author name.
+
+{% include exercise.md %}
+What happens if you try to insert too many or too few values into `notes`?
+What happens if you insert a number instead of a string into the `note` field?
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="Updating Rows" %}
 
 {% include single.md file="src/update_work_job.sql" %}
 {% include single.md file="out/update_rows.out" %}
@@ -522,34 +548,74 @@ Is it possible to do this using `where` instead of `filter`?
     -   Otherwise update all rows in table, which is usually not wanted
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="delete rows" %}
+{% include section_break.md class="topic" title="Deleting Rows" %}
 
 {% include double.md stem="delete_rows" suffix="sql out" %}
 
 -   Again, (almost) always specify row(s) to delete using `where`
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="backing up" %}
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+What happens if you try to delete rows that don't exist
+(e.g., all entries in `work` that refer to `juna`)?
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="Backing Up" %}
 
 {% include double.md stem="backing_up" suffix="sql out" %}
 
+-   We will explore another strategy based on <a href="#g:tombstone">tombstones</a> below
+
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="check your understanding" %}
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Saving and restoring data as text:
+
+1.  Re-create the `notes` table in an in-memory database
+    and then use [SQLite][sqlite]'s `.output` and `.dump` commands
+    to save the database to a file called `notes.sql`.
+    Inspect the contents of this file:
+    how has your data been stored?
+
+2.  Start a fresh [SQLite][sqlite] session
+    and load `notes.sql` using the `.read` command.
+    Inspect the database using `.schema` and `select *`:
+    is everything as you expected?
+
+{% include exercise.md %}
+Saving and restoring data in binary format:
+
+1.  Re-create the `notes` table in an in-memory database once again
+    and use [SQLite][sqlite]'s `.backup` command to save it to a file called `notes.db`.
+    Inspect this file using `od -c notes.db` or a text editor that can handle binary data:
+    how has your data been stored?
+
+2.  Start a fresh [SQLite][sqlite] session
+    and load `notes.db` using the `.restore` command.
+    Inspect the database using `.schema` and `select *`:
+    is everything as you expected?
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="Check Understanding" %}
 
 ![concept map: data definition and modification](./img/concept_map_datamod.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="join tables" %}
+{% include section_break.md class="topic" title="Combining Information" %}
 
 {% include double.md stem="cross_join" suffix="sql out" %}
 
 -   A <a href="#g:join">join</a> combines information from two tables
 -   <a href="#g:cross_join">cross join</a> constructs their cross product
     -   All combinations of rows from each
--   Result isn't particularly useful: `job` and `name` don't match
+-   Result isn't particularly useful: `job` and `name` values don't match
+    -   I.e., the combined data has records whose parts have nothing to do with each other
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="inner join" %}
+{% include section_break.md class="topic" title="Inner Join" %}
 
 {% include double.md stem="inner_join" suffix="sql out" %}
 
@@ -559,15 +625,25 @@ Is it possible to do this using `where` instead of `filter`?
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="aggregate joined data" %}
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Re-run the query shown above using `where job = name` instead of the full `table.name` notation.
+Is the shortened form easier or harder to read
+and more or less likely to cause errors?
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="Aggregating Joined Data" %}
 
 {% include double.md stem="aggregate_join" suffix="sql out" %}
 
 -   Combines ideas we've seen before
 -   But Tay is missing from the table
+    -   No records in the `job` table with `tay` as name
+    -   So no records to be grouped and summed
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="left join" %}
+{% include section_break.md class="topic" title="Left Join" %}
 
 {% include double.md stem="left_join" suffix="sql out" %}
 
@@ -575,16 +651,24 @@ Is it possible to do this using `where` instead of `filter`?
 -   Fills missing values from right table with null
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="aggregate left joins" %}
+{% include section_break.md class="topic" title="Aggregating Left Joins" %}
 
 {% include double.md stem="aggregate_left_join" suffix="sql out" %}
 
 -   That's better, but we'd like to see 0 rather than a blank
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="full outer join" %}
+{% include section_break.md class="topic" title="Coalescing Values" %}
 
--   <a href="#g:full_outer_join">Full outer join</a> is the union of left outer join and right outer join
+{% include double.md stem="coalesce" suffix="sql out" %}
+
+-   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="Full Outer Join" %}
+
+-   <a href="#g:full_outer_join">Full outer join</a> is the union of
+    left outer join and <a href="#g:right_outer_join">right outer join</a>
 -   Almost the same as cross join, but consider:
 
 {% include double.md stem="full_outer_join" suffix="sql out" %}
@@ -592,19 +676,21 @@ Is it possible to do this using `where` instead of `filter`?
 -   A cross join would produce empty result
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="check your understanding" %}
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Find the least time each person spent on any job.
+Your output should show that `mik` and `po` each spent 0.5 hours on some job.
+Can you find a way to show the name of the job as well
+using the SQL you have seen so far?
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="Check Understanding" %}
 
 ![concept map: join](./img/concept_map_join.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="coalesce values" %}
-
-{% include double.md stem="coalesce" suffix="sql out" %}
-
--   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
-
-<!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="negate incorrectly" %}
+{% include section_break.md class="topic" title="Negating Incorrectly" %}
 
 -   Who doesn't calibrate?
 
@@ -616,14 +702,14 @@ Is it possible to do this using `where` instead of `filter`?
 -   We need a different approach
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="set membership" %}
+{% include section_break.md class="topic" title="Set Membership" %}
 
 {% include double.md stem="set_membership" suffix="sql out" %}
 
 -   <code>in <em>values</em></code> and <code>not in <em>values</em></code> do exactly what you expect
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="subqueries" %}
+{% include section_break.md class="topic" title="Subqueries" %}
 
 {% include double.md stem="subquery_set" suffix="sql out" %}
 
@@ -632,7 +718,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Initially feels odd, but subqueries are useful in other ways
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="M to N relationships" %}
+{% include section_break.md class="aside" title="M-to-N Relationships" %}
 
 -   Relationships between entities are usually characterized as:
     -   <a href="#g:1_to_1">1-to-1</a>:
@@ -646,7 +732,7 @@ Is it possible to do this using `where` instead of `filter`?
     -   I.e., each record is the fact that records A and B are related
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="autoincrement and primary key" %}
+{% include section_break.md class="topic" title="Autoincrementing and Primary Keys" %}
 
 {% include double.md stem="autoincrement" suffix="sql out" %}
 
@@ -658,14 +744,14 @@ Is it possible to do this using `where` instead of `filter`?
     -   Downside: manual queries are harder to read (who is person 17?)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="internal tables" %}
+{% include section_break.md class="aside" title="Internal Tables" %}
 
 {% include double.md stem="sequence_table" suffix="sql out" %}
 
 -   Sequence numbers are *not* reset when rows are deleted
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="choose your own key" %}
+{% include section_break.md class="aside" title="Choosing Your Own Key" %}
 
 -   Can use any field (or combination of fields) in a table as a primary key
     -   As long as value(s) unique for each record
@@ -673,7 +759,7 @@ Is it possible to do this using `where` instead of `filter`?
 {% include double.md stem="primary_key" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="alter tables" %}
+{% include section_break.md class="topic" title="Altering Tables" %}
 
 {% include double.md stem="alter_tables" suffix="sql out" %}
 
@@ -686,7 +772,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   <a href="#g:data_migration">Data migration</a>
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="create new tables from old" %}
+{% include section_break.md class="topic" title="Creating New Tables from Old" %}
 
 {% include double.md stem="insert_select" suffix="sql out" %}
 
@@ -694,7 +780,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Each column refers to a record in some other table
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="remove tables" %}
+{% include section_break.md class="topic" title="Removing Tables" %}
 
 {% include double.md stem="drop_table" suffix="sql out" %}
 
@@ -703,7 +789,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Be careful…
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="compare individual values to aggregates" %}
+{% include section_break.md class="topic" title="Comparing Individual Values to Aggregates" %}
 
 -   Go back to penguins
 
@@ -715,7 +801,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Null values aren't included in the average or in the final results
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="compare individual values to aggregates within groups" %}
+{% include section_break.md class="topic" title="Comparing Individual Values to Aggregates Within Groups" %}
 
 {% include double.md stem="compare_within_groups" suffix="sql out" %}
 
@@ -724,7 +810,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Filter to find penguins heavier than average within their species
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="common table expressions" %}
+{% include section_break.md class="topic" title="Common Table Expressions" %}
 
 {% include double.md stem="common_table_expressions" suffix="sql out" %}
 
@@ -733,7 +819,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Database decides how to optimize
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="explain query plan" %}
+{% include section_break.md class="aside" title="Explaining Query Plans" %}
 
 {% include double.md stem="explain_query_plan" suffix="sql out" %}
 
@@ -741,7 +827,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   It will build a temporary B-tree data structure to group rows
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="enumerate rows" %}
+{% include section_break.md class="topic" title="Enumerating Rows" %}
 
 -   Every table has a special column called `rowid`
 
@@ -753,7 +839,7 @@ Is it possible to do this using `where` instead of `filter`?
     -   In particular, do not use it as a key
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="if-else function" %}
+{% include section_break.md class="topic" title="Conditionals" %}
 
 {% include double.md stem="if_else" suffix="sql out" %}
 
@@ -761,7 +847,7 @@ Is it possible to do this using `where` instead of `filter`?
     -   Note: `iif` with two i's
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="select a case" %}
+{% include section_break.md class="topic" title="Selecting a Case" %}
 
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
@@ -773,7 +859,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Use `else` as fallback
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="check range" %}
+{% include section_break.md class="topic" title="Checking a Range" %}
 
 {% include double.md stem="check_range" suffix="sql out" %}
 
@@ -781,7 +867,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   But be careful of the `and` in the middle
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="yet another database" %}
+{% include section_break.md class="aside" title="Yet Another Database" %}
 
 -   <a href="#g:er_diagram">Entity-relationship diagram</a> (ER diagram) shows relationships between tables
 -   Like everything to do with databases, there are lots of variations
@@ -793,7 +879,7 @@ Is it possible to do this using `where` instead of `filter`?
 {% include double.md stem="assay_staff" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="pattern matching" %}
+{% include section_break.md class="topic" title="Pattern Matching" %}
 
 {% include double.md stem="like_glob" suffix="sql out" %}
 
@@ -815,7 +901,7 @@ Is it possible to do this using `where` instead of `filter`?
 | `instr`   | Find location of first occurrence of substring (returns 0 if not found) |
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="select first and last rows" %}
+{% include section_break.md class="topic" title="Selecting First and Last Rows" %}
 
 {% include double.md stem="union_all" suffix="sql out" %}
 
@@ -824,7 +910,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Yes, it feels like the extra `select * from` should be unnecessary
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="intersection" %}
+{% include section_break.md class="topic" title="Intersection" %}
 
 {% include double.md stem="intersect" suffix="sql out" %}
 
@@ -833,7 +919,7 @@ Is it possible to do this using `where` instead of `filter`?
     -   In this case, would be clearer to use `where`
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="exclusion" %}
+{% include section_break.md class="topic" title="Exclusion" %}
 
 {% include double.md stem="except" suffix="sql out" %}
 
@@ -842,7 +928,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   SQL operates on sets, not tables, except where it doesn't
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="random numbers and why not" %}
+{% include section_break.md class="topic" title="Random Numbers and Why Not" %}
 
 {% include double.md stem="random_numbers" suffix="sql out" %}
 
@@ -850,7 +936,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Which means there is no way to reproduce one of its "random" sequences
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="creating index" %}
+{% include section_break.md class="topic" title="Creating an Index" %}
 
 {% include double.md stem="create_use_index" suffix="sql out" %}
 
@@ -860,21 +946,21 @@ Is it possible to do this using `where` instead of `filter`?
     -   Database manager will use it automatically
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="generate sequence" %}
+{% include section_break.md class="topic" title="Generating Sequences" %}
 
 {% include double.md stem="generate_sequence" suffix="sql out" %}
 
 -   A (non-standard) <a href="#g:table_valued_func">table-valued function</a>
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="generate sequence based on data" %}
+{% include section_break.md class="topic" title="Generating Sequences Based on Data" %}
 
 {% include double.md stem="data_range_sequence" suffix="sql out" %}
 
 -   Must have the parentheses around the `min` and `max` selections to keep [SQLite][sqlite] happy
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="generate sequence of dates" %}
+{% include section_break.md class="topic" title="Generating Sequences of Dates" %}
 
 {% include double.md stem="date_sequence" suffix="sql out" %}
 
@@ -884,12 +970,12 @@ Is it possible to do this using `where` instead of `filter`?
 -   `julianday` and `date` convert back and forth
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="count experiments started per day without gaps" %}
+{% include section_break.md class="topic" title="Counting Experiments Started per Day Without Gaps" %}
 
 {% include double.md stem="experiments_per_day" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="self join" %}
+{% include section_break.md class="topic" title="Self Join" %}
 
 {% include double.md stem="self_join" suffix="sql out" %}
 
@@ -899,7 +985,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Get all <math>n<sup>2</sup></math> pairs, including person with themself
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="generate unique pairs" %}
+{% include section_break.md class="topic" title="Generating Unique Pairs" %}
 
 {% include double.md stem="unique_pairs" suffix="sql out" %}
 
@@ -908,12 +994,12 @@ Is it possible to do this using `where` instead of `filter`?
 -   Quick check: <math>n(n-1)/2</math> pairs
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="filter pairs" %}
+{% include section_break.md class="topic" title="Filtering Pairs" %}
 
 {% include double.md stem="filter_pairs" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="existence and correlated subqueries" %}
+{% include section_break.md class="topic" title="Existence and Correlated Subqueries" %}
 
 {% include double.md stem="correlated_subquery" suffix="sql out" %}
 
@@ -923,12 +1009,12 @@ Is it possible to do this using `where` instead of `filter`?
     -   Equivalent to nested loop
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="nonexistence" %}
+{% include section_break.md class="topic" title="Nonexistence" %}
 
 {% include double.md stem="nonexistence" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="avoiding correlated subqueries" %}
+{% include section_break.md class="aside" title="Avoiding Correlated Subqueries" %}
 
 {% include double.md stem="avoid_correlated_subqueries" suffix="sql out" %}
 
@@ -936,7 +1022,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="lead and lag" %}
+{% include section_break.md class="topic" title="Lead and Lag" %}
 
 {% include double.md stem="lead_lag" suffix="sql out" %}
 
@@ -946,7 +1032,7 @@ Is it possible to do this using `where` instead of `filter`?
     -   Unavailable values are null
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="window functions" %}
+{% include section_break.md class="topic" title="Windowing Functions" %}
 
 {% include double.md stem="window_functions" suffix="sql out" %}
 
@@ -954,14 +1040,14 @@ Is it possible to do this using `where` instead of `filter`?
 -   `cume_dist` is fraction *of rows seen so far*
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="explain another query plan" %}
+{% include section_break.md class="aside" title="Explaining Another Query Plan" %}
 
 {% include double.md stem="explain_window_function" suffix="sql out" %}
 
 -   Becomes useful…eventually
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="partitioned windows" %}
+{% include section_break.md class="topic" title="Partitioned Windows" %}
 
 {% include double.md stem="partition_window" suffix="sql out" %}
 
@@ -969,7 +1055,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   So this counts experiments started since the beginning of each year
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="blobs" %}
+{% include section_break.md class="topic" title="Blobs" %}
 
 {% include double.md stem="blob" suffix="sql out" %}
 
@@ -978,13 +1064,13 @@ Is it possible to do this using `where` instead of `filter`?
 -   If you think that's odd, check out [Fossil][fossil]
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="yet another database" %}
+{% include section_break.md class="aside" title="Yet Another Database" %}
 
 {% include single.md file="src/lab_log_db.sh" %}
 {% include double.md stem="lab_log_schema" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="store JSON" %}
+{% include section_break.md class="topic" title="Storing JSON" %}
 
 {% include double.md stem="json_in_table" suffix="sql out" %}
 
@@ -995,7 +1081,7 @@ Is it possible to do this using `where` instead of `filter`?
     -   But more efficient
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="select field from JSON" %}
+{% include section_break.md class="topic" title="Select Fields from JSON" %}
 
 {% include double.md stem="json_field" suffix="sql out" %}
 
@@ -1007,7 +1093,7 @@ Is it possible to do this using `where` instead of `filter`?
     -   Fields separated by `.`
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="JSON array access" %}
+{% include section_break.md class="topic" title="JSON Array Access" %}
 
 {% include double.md stem="json_array" suffix="sql out" %}
 
@@ -1017,7 +1103,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Characters outside 7-bit ASCII represented as Unicode escapes
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="unpack JSON array" %}
+{% include section_break.md class="topic" title="Unpacking JSON Arrays" %}
 
 {% include double.md stem="json_unpack" suffix="sql out" %}
 
@@ -1025,12 +1111,12 @@ Is it possible to do this using `where` instead of `filter`?
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="last element of array" %}
+{% include section_break.md class="topic" title="Selecting the Last Element of an  Array" %}
 
 {% include double.md stem="json_array_last" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="modify JSON" %}
+{% include section_break.md class="topic" title="Modifying JSON" %}
 
 {% include double.md stem="json_modify" suffix="sql out" %}
 
@@ -1038,14 +1124,14 @@ Is it possible to do this using `where` instead of `filter`?
 -   Please use `json_quote` rather than trying to format JSON with string operations
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="refresh penguins" %}
+{% include section_break.md class="aside" title="Refreshing the Penguins Database" %}
 
 {% include double.md stem="count_penguins" suffix="sql out" %}
 
 -   We will restore full database after each example
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="tombstones" %}
+{% include section_break.md class="topic" title="Tombstones" %}
 
 {% include single.md file="src/make_active.sql" %}
 {% include double.md stem="active_penguins" suffix="sql out" %}
@@ -1054,7 +1140,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Every query must now include it
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="importing CSV data" %}
+{% include section_break.md class="aside" title="Importing CSV Data" %}
 
 -   [SQLite][sqlite] and most other database managers have tools for importing and exporting <a href="#g:csv">CSV</a>
 -   In [SQLite][sqlite]:
@@ -1066,7 +1152,7 @@ Is it possible to do this using `where` instead of `filter`?
 {% include single.md file="src/create_penguins.sql" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="views" %}
+{% include section_break.md class="topic" title="Views" %}
 
 {% include double.md stem="views" suffix="sql out" %}
 
@@ -1079,17 +1165,17 @@ Is it possible to do this using `where` instead of `filter`?
     -   Update-on-demand temporary tables
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="check your understanding" %}
+{% include section_break.md class="aside" title="Check Understanding" %}
 
 ![concept map: temporary tables](./img/concept_map_temp.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="hours reminder" %}
+{% include section_break.md class="aside" title="Hours Reminder" %}
 
 {% include double.md stem="all_jobs" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="add check" %}
+{% include section_break.md class="topic" title="Adding Checks" %}
 
 {% include double.md stem="all_jobs_check" suffix="sql out" %}
 
@@ -1107,7 +1193,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   <a href="#g:durable">Durable</a>: if change takes place, it's still there after a restart
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="transactions" %}
+{% include section_break.md class="topic" title="Transactions" %}
 
 {% include double.md stem="transaction" suffix="sql out" %}
 
@@ -1120,7 +1206,7 @@ Is it possible to do this using `where` instead of `filter`?
     -   Other databases support this
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="rollback in constraint" %}
+{% include section_break.md class="topic" title="Rollback in Constraints" %}
 
 {% include double.md stem="rollback_constraint" suffix="sql out" %}
 
@@ -1128,7 +1214,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   But first `insert` took effect
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="rollback in statement" %}
+{% include section_break.md class="topic" title="Rollback in Statements" %}
 
 {% include double.md stem="rollback_statement" suffix="sql out" %}
 
@@ -1136,7 +1222,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Action is in statement
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="upsert" %}
+{% include section_break.md class="topic" title="Upsert" %}
 
 {% include double.md stem="upsert" suffix="sql out" %}
 
@@ -1147,7 +1233,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Example also shows use of [SQLite][sqlite] `.print` command
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="normalization" %}
+{% include section_break.md class="aside" title="Normalization" %}
 
 -   First <a href="#g:normal_form">normal form</a> (1NF):
     every field of every record contains one indivisible value.
@@ -1160,7 +1246,7 @@ Is it possible to do this using `where` instead of `filter`?
     -   To simplify queries and/or make processing faster
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="create trigger" %}
+{% include section_break.md class="topic" title="Creating Triggers" %}
 
 -   A <a href="#g:trigger">trigger</a> automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
@@ -1181,7 +1267,7 @@ Is it possible to do this using `where` instead of `filter`?
 {% include double.md stem="trigger_firing" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="represent graphs" %}
+{% include section_break.md class="aside" title="Represent Graphs" %}
 
 {% include single.md file="src/lineage_setup.sql" %}
 {% include double.md stem="represent_graph" suffix="sql out" %}
@@ -1189,7 +1275,7 @@ Is it possible to do this using `where` instead of `filter`?
 ![lineage diagram](./img/lineage.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="recursive query" %}
+{% include section_break.md class="topic" title="Recursive Queries" %}
 
 {% include double.md stem="recursive_lineage" suffix="sql out" %}
 
@@ -1202,7 +1288,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Then select the desired values from the CTE
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="contact tracing database" %}
+{% include section_break.md class="aside" title="Contact Tracing Database" %}
 
 {% include double.md stem="contact_person" suffix="sql out" %}
 {% include double.md stem="contact_contacts" suffix="sql out" %}
@@ -1210,7 +1296,7 @@ Is it possible to do this using `where` instead of `filter`?
 ![contact diagram](./img/contact_tracing.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="bidirectional contacts" %}
+{% include section_break.md class="topic" title="Bidirectional Contacts" %}
 
 {% include double.md stem="bidirectional" suffix="sql out" %}
 
@@ -1219,7 +1305,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Duplicate information rather than writing more complicated query
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="update group identifiers" %}
+{% include section_break.md class="topic" title="Updating Group Identifiers" %}
 
 {% include double.md stem="update_group_ids" suffix="sql out" %}
 
@@ -1227,19 +1313,19 @@ Is it possible to do this using `where` instead of `filter`?
 -   Doesn't keep people with no contacts
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="recursive labeling" %}
+{% include section_break.md class="topic" title="Recursive Labeling" %}
 
 {% include double.md stem="recursive_labeling" suffix="sql out" %}
 
 -   Use `union` instead of `union all` to prevent <a href="#g:infinite_recursion">infinite recursion</a>
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="aside" title="check your understanding" %}
+{% include section_break.md class="aside" title="Check Understanding" %}
 
 ![concept map: common table expressions](./img/concept_map_cte.svg)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="query from Python" %}
+{% include section_break.md class="topic" title="Querying from Python" %}
 
 {% include double.md stem="basic_python_query" suffix="py out" %}
 
@@ -1250,7 +1336,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Fetch all rows at once as list of tuples
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="incremental fetch" %}
+{% include section_break.md class="topic" title="Incremental Fetch" %}
 
 {% include double.md stem="incremental_fetch" suffix="py out" %}
 
@@ -1258,14 +1344,14 @@ Is it possible to do this using `where` instead of `filter`?
 -   There is also `fetchmany(N)` to fetch (up to) a certain number of rows
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="insert, delete, and all that" %}
+{% include section_break.md class="topic" title="Insert, Delete, and All That" %}
 
 {% include double.md stem="insert_delete" suffix="py out" %}
 
 -   Each `execute` is its own transaction
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="interpolate values" %}
+{% include section_break.md class="topic" title="Interpolating Values" %}
 
 {% include double.md stem="interpolate" suffix="py out" %}
 
@@ -1274,14 +1360,14 @@ Is it possible to do this using `where` instead of `filter`?
 ![XKCD Exploits of a Mom](./img/xkcd_327_exploits_of_a_mom.png)
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="script execution" %}
+{% include section_break.md class="topic" title="Script Execution" %}
 
 {% include double.md stem="script_execution" suffix="py out" %}
 
 -   But what if something goes wrong?
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="SQLite exceptions in Python" %}
+{% include section_break.md class="topic" title="SQLite Exceptions in Python" %}
 
 {% include double.md stem="exceptions" suffix="py out" %}
 
@@ -1295,7 +1381,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Be careful
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="handle dates and times" %}
+{% include section_break.md class="topic" title="Handling Dates and Times" %}
 
 {% include double.md stem="dates_times" suffix="py out" %}
 
@@ -1303,7 +1389,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Adapt on the way in, convert on the way out
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="SQL in Jupyter notebooks" %}
+{% include section_break.md class="topic" title="SQL in Jupyter Notebooks" %}
 
 {% include single.md file="src/install_jupysql.sh" %}
 
@@ -1365,7 +1451,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Use the ADBC engine instead of the default ConnectorX
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="object-relational mapper" %}
+{% include section_break.md class="topic" title="Object-Relational Mappers" %}
 
 {% include double.md stem="orm" suffix="py out" %}
 
@@ -1373,7 +1459,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   SQLModel relies on Python type hints
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="topic" title="relations with ORM" %}
+{% include section_break.md class="topic" title="Relations with ORMs" %}
 
 {% include double.md stem="orm_relation" suffix="py out" %}
 

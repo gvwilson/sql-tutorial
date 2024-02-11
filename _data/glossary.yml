@@ -346,6 +346,17 @@
     def: >
       A database management system that stores data in tables with columns and rows.
 
+- key: right_outer_join
+  en:
+    term: right outer join
+    def: >
+      A join that is guaranteed to keep all rows from the second (right) table.
+      Columns from the left table are filled with actual values if available
+      or with null otherwise.
+      SQLite does not implement right outer join
+      since its behavior can be reproduced by swapping the order of the tables
+      and using a left outer join.
+
 # S
 
 - key: subquery
