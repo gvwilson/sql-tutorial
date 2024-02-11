@@ -1,15 +1,15 @@
 <nav>
   <div class="row underline">
     <div class="col-2 left">
-      <a class="navlink" href="{{'/' | relative_url}}">Home</a>
+      <a class="navlink" href="{{root}}/">Home</a>
     </div>
     <div class="col-10 right">
       <a href="{{site.data.tutorial.repo}}">repo</a>
       {% if site.data.tutorial.release %}<a href="{{site.data.tutorial.release}}">download</a>{% endif %}
-      <a class="navlink" href="{{ '/license/' | relative_url }}">license</a>
-      <a class="navlink" href="{{ '/conduct/' | relative_url }}">conduct</a>
-      <a class="navlink" href="{{ '/contributing/' | relative_url }}">contributing</a>
-      <a class="navlink" href="{{ '/colophon/' | relative_url }}">colophon</a>
+      <a class="navlink" href="{{root}}/license/">license</a>
+      <a class="navlink" href="{{root}}/conduct/">conduct</a>
+      <a class="navlink" href="{{root}}/contributing/">contributing</a>
+      <a class="navlink" href="{{root}}/colophon/">colophon</a>
     </div>
   </div>
 </nav>

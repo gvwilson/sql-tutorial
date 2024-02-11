@@ -2,9 +2,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="shortcut icon" type="image/x-icon" href="{{ '/favicon.ico' | relative_url }}">
 <script src="https://kit.fontawesome.com/4eee35f757.js"></script>
-<link rel="stylesheet" href="{{ site.rouge_style | prepend: '/res/' | relative_url }}" type="text/css">
-<link rel="stylesheet" href="{{ '/res/tutorial.css' | relative_url }}" type="text/css">
+<link rel="shortcut icon" type="image/x-icon" href="{{root}}/favicon.ico">
+<link rel="stylesheet" href="{{root}}/res/{{site.rouge_style}}" type="text/css">
+<link rel="stylesheet" href="{{root}}/res/tutorial.css" type="text/css">
 {% if site.data.tutorial.plausible %}<script defer data-domain="{{site.data.tutorial.plausible}}" src="https://plausible.io/js/script.js"></script>{% endif %}
 <title>{{ site.data.tutorial.title }}{% unless page.home %} &middot; {{ page.title }}{% endunless %}</title>
