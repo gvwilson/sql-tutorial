@@ -218,7 +218,7 @@ h2.aside::before {
 }
 
 h2.exercise::before {
-    content: "✏ Practice";
+    content: "✏ ";
 }
 
 h3 {
