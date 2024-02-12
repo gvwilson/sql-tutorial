@@ -258,6 +258,13 @@
     def: >
       A table that exists solely to enable information from two tables to be connected.
 
+- key: json
+  en:
+    term: JavaScript Object Notation
+    acronym: JSON
+    def: >
+      A text format for representing numbers, strings, lists, and key-value maps.
+
 # K
 
 # L

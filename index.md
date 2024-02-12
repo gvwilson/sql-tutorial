@@ -1117,8 +1117,11 @@ How can you check that your query is working correctly?
 
 {% include exercise.md %}
 Write a query that:
+
 -   uses a CTE to create 1000 random numbers between 0 and 10 inclusive;
+
 -   uses a second CTE to calculate their mean; and
+
 -   uses a third CTE and [SQLite's built-in math functions][sqlite_math]
     to calculate their standard deviation.
 
@@ -1269,9 +1272,13 @@ If the query cannot be rewritten, why not?
 
 {% include exercise.md %}
 Create a query that:
+
 1.  finds the unique weights of the penguins in the `penguins` database;
+
 2.  sorts them;
+
 3.  finds the difference between each successive distinct weight; and
+
 4.  counts how many times each unique difference appears.
 
 <!-- ---------------------------------------------------------------- -->
@@ -1303,10 +1310,12 @@ Does using SQLite's `hex()` function make it any more readable?
 
 {% include double.md stem="json_in_table" suffix="sql out" %}
 
--   Store heterogeneous data as JSON-formatted text (with double-quoted strings)
-    -   Database parses it each time it is queried
--   Alternatively store as blob
-    -   Can't just view it
+-   Store heterogeneous data as <a href="#g:json">JSON</a>-formatted text
+    (with double-quoted strings)
+    -   Database parses the text each time it is queried,
+        so performance can be an issue
+-   Can alternatively store as blob (`jsonb`)
+    -   Can't view it directly
     -   But more efficient
 
 <!-- ---------------------------------------------------------------- -->
@@ -1314,7 +1323,7 @@ Does using SQLite's `hex()` function make it any more readable?
 
 {% include double.md stem="json_field" suffix="sql out" %}
 
--   Single arrow `->` returns JSON representation result
+-   Single arrow `->` returns JSON representation of result
 -   Double arrow `->>` returns SQL text, integer, real, or null
 -   Left side is column
 -   Right side is <a href="#g:path_expression">path expression</a>
@@ -1322,13 +1331,20 @@ Does using SQLite's `hex()` function make it any more readable?
     -   Fields separated by `.`
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a query that selects the year from the `"refurbished"` field
+of the JSON data associated with the Inphormex plate reader.
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="JSON Array Access" %}
 
 {% include double.md stem="json_array" suffix="sql out" %}
 
--   SQLite (and other database managers) has lots of JSON manipulation functions
+-   SQLite and other database managers have many [JSON manipulation functions][sqlite_json]
 -   `json_array_length` gives number of elements in selected array
--   subscripts start with 0
+-   Subscripts start with 0
 -   Characters outside 7-bit ASCII represented as Unicode escapes
 
 <!-- ---------------------------------------------------------------- -->
@@ -1338,6 +1354,13 @@ Does using SQLite's `hex()` function make it any more readable?
 
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a query that counts how many times each person appears
+in the first log entry associated with any piece of equipment.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Selecting the Last Element of an  Array" %}
@@ -1351,6 +1374,14 @@ Does using SQLite's `hex()` function make it any more readable?
 
 -   Updates the in-memory copy of the JSON, *not* the database record
 -   Please use `json_quote` rather than trying to format JSON with string operations
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+As part of cleaning up the lab log database,
+replace the machine names in the JSON records in `usage`
+with the corresopnding machine IDs from the `machine` table.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Refreshing the Penguins Database" %}
@@ -1381,6 +1412,14 @@ Does using SQLite's `hex()` function make it any more readable?
 {% include single.md file="src/create_penguins.sql" %}
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+What are the data types of the columns in the `penguins` table
+created by the CSV import shown above?
+How can you correct the ones that need correcting?
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Views" %}
 
 {% include double.md stem="views" suffix="sql out" %}
@@ -1392,6 +1431,15 @@ Does using SQLite's `hex()` function make it any more readable?
     -   Views came first
 -   Some databases offer <a href="#g:materialized_view">materialized views</a>
     -   Update-on-demand temporary tables
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Create a view in the lab log database called `busy` with two columns:
+`machine_id` and `total_log_length`.
+The first column records the numeric ID of each machine;
+the second shows the total number of log entries for that machine.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Check Understanding" %}
@@ -1416,6 +1464,17 @@ Does using SQLite's `hex()` function make it any more readable?
     -   Must produce a Boolean result
     -   Run each time values added or modified
 -   But changes made before the error have taken effect
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Rewrite the definition of the `penguins` table to add the following constraints:
+
+1.  `body_mass_g` must be null or non-negative.
+
+2.  `island` must be one of `"Biscoe"`, `"Dream"`, or `"Torgersen"`.
+    (Hint: the `in` operator will be useful here.)
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="ACID" %}
@@ -1466,6 +1525,19 @@ Does using SQLite's `hex()` function make it any more readable?
 -   Example also shows use of SQLite `.print` command
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Using the assay database,
+write a query that adds or modifies people in the `staff` table as shown:
+
+| personal | family | dept | age |
+| -------- | ------ | ---- | --- |
+| Pranay   | Khanna | mb   | 41  |
+| Riaan    | Dua    | gen  | 23  |
+| Parth    | Johel  | gen  | 27  |
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Normalization" %}
 
 -   First <a href="#g:normal_form">normal form</a> (1NF):
@@ -1481,6 +1553,8 @@ Does using SQLite's `hex()` function make it any more readable?
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Creating Triggers" %}
 
+{% include single.md file="src/trigger_setup.sql" %}
+
 -   A <a href="#g:trigger">trigger</a> automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
 -   And/or implement checks (e.g., make sure other records exist)
@@ -1489,15 +1563,29 @@ Does using SQLite's `hex()` function make it any more readable?
 -   Inside trigger, refer to old and new versions of record
     as <code>old.<em>column</em></code> and <code>new.<em>column</em></code>
 
-{% include single.md file="src/trigger_setup.sql" %}
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="Trigger Not Firing" %}
+
 {% include double.md stem="trigger_successful" suffix="sql out" %}
 
-</section>
-<section markdown="1">
-
-# 081: trigger firing
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="topic" title="Trigger Firing" %}
 
 {% include double.md stem="trigger_firing" suffix="sql out" %}
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Using the penguins database:
+
+1.  create a table called `species` with columns `name` and `count`; and
+
+2.  define a trigger that increments the count associated with each species
+    each time a new penguin is added to the `penguins` table.
+
+Does your solution behave correctly when several penguins are added
+by a single `insert` statement?
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Represent Graphs" %}
@@ -1512,6 +1600,12 @@ Does using SQLite's `hex()` function make it any more readable?
 %}
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a query that uses a self join to find every person's grandchildren.
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Recursive Queries" %}
 
 {% include double.md stem="recursive_lineage" suffix="sql out" %}
@@ -1523,6 +1617,14 @@ Does using SQLite's `hex()` function make it any more readable?
     -   Can use `union` but that has lower performance (must check uniqueness each time)
 -   Stops when the recursive case yields an empty row set (nothing new to add)
 -   Then select the desired values from the CTE
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Modify the recursive query shown above to use `union` instead of `union all`.
+Does this affect the result?
+Why or why not?
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Contact Tracing Database" %}
@@ -1559,6 +1661,14 @@ Does using SQLite's `hex()` function make it any more readable?
 {% include double.md stem="recursive_labeling" suffix="sql out" %}
 
 -   Use `union` instead of `union all` to prevent <a href="#g:infinite_recursion">infinite recursion</a>
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Modify the query above to use `union all` instead of `union` to trigger infinite recursion.
+How can you modify the query so that it stops at a certain depth
+so that you can trace its output?
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Check Understanding" %}
@@ -1609,6 +1719,13 @@ Does using SQLite's `hex()` function make it any more readable?
 %}
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a Python script that takes island, species, sex, and other values as command-line arguments
+and inserts an entry into the penguins database.
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Script Execution" %}
 
 {% include double.md stem="script_execution" suffix="py out" %}
@@ -1636,6 +1753,13 @@ Does using SQLite's `hex()` function make it any more readable?
 
 -   `sqlite3.PARSE_DECLTYPES` tells `sqlite3` library to use converts based on declared column types
 -   Adapt on the way in, convert on the way out
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a Python adapter that truncates real values to two decimal places
+as they are being written to the database.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="SQL in Jupyter Notebooks" %}
@@ -1690,6 +1814,12 @@ Does using SQLite's `hex()` function make it any more readable?
 -   Be careful about datatype conversion when using [Pandas][pandas]
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a command-line Python script that uses Pandas to re-create the penguins database.
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Polars and SQL" %}
 
 {% include single.md file="src/install_polars.sh" %}
@@ -1700,12 +1830,24 @@ Does using SQLite's `hex()` function make it any more readable?
 -   Use the ADBC engine instead of the default ConnectorX with [Polars][polars]
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a command-line Python script that uses Polars to re-create the penguins database.
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Object-Relational Mappers" %}
 
 {% include double.md stem="orm" suffix="py out" %}
 
 -   An <a href="#g:orm">object-relational mapper</a> (ORM) translates table columns to object properties and vice versa
--   SQLModel relies on Python type hints
+-   [SQLModel][sqlmodel] relies on Python type hints
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a command-line Python script that uses SQLModel to re-create the penguins database.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Relations with ORMs" %}
