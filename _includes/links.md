@@ -1,3 +1,3 @@
 {% for entry in include.links %}
-[{{entry.key}}]: {{entry.value}}
+[{{entry.key}}]: {{entry.url}}
 {% endfor %}

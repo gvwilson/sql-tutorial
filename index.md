@@ -1521,6 +1521,10 @@ I would also like to thank the following for spotting issues, making suggestions
 
 {% include thanks.html %}
 
+### Links
+
+{% include link_list.md links=site.data.links %}
+
 {% include section_end.md %}
 
 {% include links.md links=site.data.links %}
