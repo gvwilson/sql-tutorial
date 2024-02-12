@@ -762,6 +762,15 @@ What about the `work` and `job` tables?
     -   In part so that they can be used as primary keys
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Are you able to modify the values stored in `sqlite_sequence`?
+In particular,
+are you able to reset the values so that
+the same sequence numbers are generated again?
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Altering Tables" %}
 
 {% include double.md stem="alter_tables" suffix="sql out" %}
@@ -803,7 +812,16 @@ What about the `work` and `job` tables?
 
 -   Remove the old table and rename the new one to take its place
     -   Note `if exists`
--   Be careful…
+-   Please back up your data first
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Tools like [Sqitch][sqitch] can manage changes to database schemas and data
+so that they can be saved in version control
+and rolled back if they are unsuccessful.
+Translate the changes made by the scripts above into [Sqitch][sqitch].
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Comparing Individual Values to Aggregates" %}
