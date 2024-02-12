@@ -30,6 +30,7 @@
     --heavyborder: 5px;
 
     --page-width: 60rem;
+    --subtitle-size: x-large;
     --body-size: large;
     --code-size: medium;
     --filename-size: small;
@@ -204,6 +205,12 @@ figure {
 h1 {
     text-align: center;
     background-color: var(--stamp-blue-light);
+}
+
+p.subtitle {
+    text-align: center;
+    font-size: var(--subtitle-size);
+    font-style: italic;
 }
 
 h2 {
