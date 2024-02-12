@@ -161,6 +161,12 @@
       SQL does not provide an exclusive or operator,
       but the same result can be achieved using operators it has.
 
+- key: expression
+  en:
+    term: expression
+    def: >
+      A part of a program that produces a value, such as `1+2`.
+
 # F
 
 - key: filter
@@ -359,6 +365,12 @@
 
 # S
 
+- key: statement
+  en:
+    term: statement
+    def: >
+      A part of a program that doesn't produce a value.
+
 - key: subquery
   en:
     term: subquery
@@ -417,6 +429,13 @@
       and the protocol used to access it.
 
 # V
+
+- key: vectorization
+  en:
+    term: vectorization
+    def: >
+      Performing the same operation on a stream of values
+      rather than using a loop to operate on one value at a time.
 
 - key: view
   en:

@@ -718,13 +718,6 @@ using the SQL you have seen so far?
 -   Initially feels odd, but subqueries are useful in other ways
 
 <!-- ---------------------------------------------------------------- -->
-{% include section_break.md class="exercise" %}
-
-{% include exercise.md %}
-Use a subquery to find the number of penguins
-that weigh the same as the lightest penguin.
-
-<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Defining a Primary Key" %}
 
 -   Can use any field (or combination of fields) in a table as a <a href="#g:primary_key">primary key</a>
@@ -818,22 +811,42 @@ the same sequence numbers are generated again?
 {% include section_break.md class="exercise" %}
 
 {% include exercise.md %}
+Reorganize the penguins database:
+
+1.  Make a copy of the `penguins.db` file
+    so that your changes won't affect the original.
+
+2.  Write a SQL script that reorganizes the data into three tables:
+    one for each island.
+
+3.  Why is organizing data like this a bad idea?
+
+{% include exercise.md %}
 Tools like [Sqitch][sqitch] can manage changes to database schemas and data
 so that they can be saved in version control
 and rolled back if they are unsuccessful.
 Translate the changes made by the scripts above into [Sqitch][sqitch].
+Note: this exercise may take an hour or more.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Comparing Individual Values to Aggregates" %}
 
--   Go back to penguins
+-   Go back to the original penguins database
 
 {% include double.md stem="compare_individual_aggregate" suffix="sql out" %}
 
 -   Get average body mass in subquery
 -   Compare each row against that
--   Requires two scans of the data, but there's no way to avoid that
+-   Requires two scans of the data, but no way to avoid that
+    -   Except calculating a running total each time a penguin is added to the table
 -   Null values aren't included in the average or in the final results
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Use a subquery to find the number of penguins
+that weigh the same as the lightest penguin.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Comparing Individual Values to Aggregates Within Groups" %}
@@ -843,6 +856,13 @@ Translate the changes made by the scripts above into [Sqitch][sqitch].
 -   Subquery runs first to create temporary table `averaged` with average mass per species
 -   Join that with `penguins`
 -   Filter to find penguins heavier than average within their species
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Use a subquery to find the number of penguins
+that weigh the same as the lightest penguin of the same sex and species.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Common Table Expressions" %}
@@ -862,6 +882,14 @@ Translate the changes made by the scripts above into [Sqitch][sqitch].
 -   It will build a temporary B-tree data structure to group rows
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Use a CTE to find
+the number of penguins
+that weigh the same as the lightest penguin of the same sex and species.
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Enumerating Rows" %}
 
 -   Every table has a special column called `rowid`
@@ -874,12 +902,42 @@ Translate the changes made by the scripts above into [Sqitch][sqitch].
     -   In particular, do not use it as a key
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+To explore how row IDs behave:
+
+1.  Suppose that you create a new table,
+    add three rows,
+    delete those rows,
+    and add the same values again.
+    Do you expect the row IDs of the final rows to be 1–3 or 4–6?
+
+2.  Using an in-memory database,
+    perform the steps in part 1.
+    Was the result what you expected?
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Conditionals" %}
 
 {% include double.md stem="if_else" suffix="sql out" %}
 
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
+-   May feel odd to think of `if`/`else` as a function,
+    but common in <a href="#g:vectorization">vectorized</a> calculations
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+What does each of the expressions shown below produce?
+Which ones do you think actually attempt to divide by zero?
+
+1.  `iif(0, 123, 1/0)`
+1.  `iif(1, 123, 1/0)`
+1.  `iif(0, 1/0, 123)`
+1.  `iif(1, 1/0, 123)`
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Selecting a Case" %}
@@ -894,12 +952,32 @@ Translate the changes made by the scripts above into [Sqitch][sqitch].
 -   Use `else` as fallback
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Modify the query above so that
+the outputs are `"penguin is small"` and `"penguin is large"`
+by concatenating the string `"penguin is "` to the entire `case`
+rather than to the individual `when` branches.
+(This exercise shows that `case`/`when` is an <a href="#g:expression">expression</a>
+rather than a <a href="#g:statement">statement</a>.)
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Checking a Range" %}
 
 {% include double.md stem="check_range" suffix="sql out" %}
 
 -   `between` can make queries easier to read
 -   But be careful of the `and` in the middle
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+The expression `val between 'A' and 'Z'` is true if `val` is `'M'` (upper case)
+but false if `val` is `'m'` (lower case).
+Rewrite the expression using [SQLite's built-in scalar functions][sqlite_function]
+so that it is true in both cases.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Yet Another Database" %}
