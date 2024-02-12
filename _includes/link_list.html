@@ -1,0 +1,10 @@
+<ul>
+{% for entry in include.links %}
+  {% if entry.title %}
+    <li>
+      {{entry.title | markdownify | replace: "<p>", "" | replace: "</p>", ""}}:
+      <a href="{{entry.url}}">{{entry.url}}</a>
+    </li>
+  {% endif %}
+{% endfor %}
+</ul>

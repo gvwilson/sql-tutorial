@@ -3,6 +3,46 @@ home: true
 ---
 {% include init_counters.md %}
 
+<div class="row">
+  <div class="col-6 center">
+    <img src="./res/cthulhu-300x253.jpg" alt="stylized Cthulhu"/>
+  </div>
+  <div class="col-6">
+    <p>
+      <a href="{{site.data.tutorial.repo}}/issues/"><strong>The Querynomicon Needs Your Help</strong></a>
+    </p>
+    <ol>
+      <li>
+        <p><em>More exercises</em> to help learners practice.</p>
+      </li>
+      <li>
+        <p><em>Sample solutions</em> so that they can check their work.</p>
+      </li>
+      <li>
+        <p><em>CSS show/hide for solutions</em> because He Who Lies Dreaming said, "No JavaScript."</p>
+      </li>
+      <li>
+        <p><em>Ideas for <a href="https://github.com/gvwilson/sys-tutorial/issues/1">the next tutorial</a></em> because why stop learning now?</p>
+      </li>
+    </ol>
+  </div>
+</div>
+
+> Upon first encountering SQL after two decades of Fortran, C, Java, and Python,
+> I thought I had stumbled into hell.
+> I quickly realized that was optimistic:
+> after all,
+> hell has rules.
+>
+> I have since realized that SQL does too,
+> and that they are no more confusing or contradictory than those of most other programming languages.
+> They only appear so because it draws on a tradition unfamiliar to those of us raised with derivatives of C.
+> To quote <a href="https://terrypratchett.com/">the other bard</a>,
+> it is not mad, just differently sane.
+>
+> Welcome, then, to a world in which the strange will become familiar, and the familiar, strange.
+> Welcome, thrice welcome, to SQL.
+
 <!-- ---------------------------------------------------------------- -->
 {% include section_start.md class="aside" title="What This Is" %}
 
@@ -61,7 +101,7 @@ home: true
 -   Each DBMS stores data in its own way
     -   SQLite stores each database in a single file
     -   [PostgreSQL][postgresql] spreads information across many files for higher performance
--   DBMS can be a library embedded in other programs (SQLite) or a server ([PostgreSQL][postgresql])
+-   DBMS can be a library embedded in other programs (SQLite) or a server (PostgreSQL)
 -   A <a href="#g:rdbms">relational database management system</a> (RDBMS) stores data in tables and uses [SQL][sql] for queries
     -   Unfortunately, every RDBMS has its own dialect of SQL
 -   There are also <a href="#g:nosql">NoSQL databases</a> like [MongoDB][mongodb] that don't use tables
@@ -833,7 +873,7 @@ Reorganize the penguins database:
 Tools like [Sqitch][sqitch] can manage changes to database schemas and data
 so that they can be saved in version control
 and rolled back if they are unsuccessful.
-Translate the changes made by the scripts above into [Sqitch][sqitch].
+Translate the changes made by the scripts above into Sqitch.
 Note: this exercise may take an hour or more.
 
 <!-- ---------------------------------------------------------------- -->
@@ -1879,7 +1919,7 @@ I would also like to thank the following for spotting issues, making suggestions
 
 ### Links
 
-{% include link_list.md links=site.data.links %}
+{% include link_list.html links=site.data.links %}
 
 {% include section_end.md %}
 

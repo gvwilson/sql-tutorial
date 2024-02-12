@@ -7,7 +7,7 @@
   <body>
     {% include nav.html %}
     <main>
-      <h1>{% if page.home %}{{ site.data.tutorial.title }}{% else %}{{ page.title }}{% endif %}</h1>
+      {% include title.html %}
       {{ content }}
     </main>
     {% include foot.html %}
