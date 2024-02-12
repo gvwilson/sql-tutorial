@@ -949,9 +949,9 @@ Translate the changes made by the scripts above into [Sqitch][sqitch].
 
 {% include double.md stem="intersect" suffix="sql out" %}
 
--   Tables being intersected must have same structure
--   Intersection usually used when pulling values from different tables
-    -   In this case, would be clearer to use `where`
+-   Rows involved must have the same structure
+-   Intersection usually used when pulling values from different sources
+    -   In the query above, would be clearer to use `where`
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Exclusion" %}
