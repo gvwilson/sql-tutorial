@@ -1473,7 +1473,7 @@ Translate the changes made by the scripts above into [Sqitch][sqitch].
 {% include single.md file="src/install_pandas.sh" %}
 {% include double.md stem="select_pandas" suffix="py out" %}
 
--   Be careful about datatype conversion
+-   Be careful about datatype conversion when using [Pandas][pandas]
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Polars and SQL" %}
@@ -1483,7 +1483,7 @@ Translate the changes made by the scripts above into [Sqitch][sqitch].
 
 -   The <a href="#g:uri">Uniform Resource Identifier</a> (URI) specifies the database
 -   The query is the query
--   Use the ADBC engine instead of the default ConnectorX
+-   Use the ADBC engine instead of the default ConnectorX with [Polars][polars]
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Object-Relational Mappers" %}
