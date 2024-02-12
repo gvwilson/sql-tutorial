@@ -59,9 +59,9 @@ home: true
 -   A <a href="#g:database">database</a> is a collection of data that can be searched and retrieved
 -   A <a href="#g:dbms">database management system</a> (DBMS) is a program that manages a particular kind of database
 -   Each DBMS stores data in its own way
-    -   [SQLite][sqlite] stores each database in a single file
+    -   SQLite stores each database in a single file
     -   [PostgreSQL][postgresql] spreads information across many files for higher performance
--   DBMS can be a library embedded in other programs ([SQLite][sqlite]) or a server ([PostgreSQL][postgresql])
+-   DBMS can be a library embedded in other programs (SQLite) or a server ([PostgreSQL][postgresql])
 -   A <a href="#g:rdbms">relational database management system</a> (RDBMS) stores data in tables and uses [SQL][sql] for queries
     -   Unfortunately, every RDBMS has its own dialect of SQL
 -   There are also <a href="#g:nosql">NoSQL databases</a> like [MongoDB][mongodb] that don't use tables
@@ -106,7 +106,7 @@ home: true
 
 {% include double.md stem="admin_commands" suffix="sql out" %}
 
--   [SQLite][sqlite] administrative commands start with `.` and *aren't* part of the SQL standard
+-   SQLite administrative commands start with `.` and *aren't* part of the SQL standard
     -   PostgreSQL's special commands start with `\`
 -   Use `.help` for a complete list
 
@@ -188,7 +188,7 @@ and compare the result to what you got in part 1.
 -   Condition is evaluated independently for each row
 -   Only rows that pass the test appear in results
 -   Use single quotes for `'text data'` and double quotes for `"weird column names"`
-    -   [SQLite][sqlite] will accept double-quoted text data but [SQLFluff][sqlfluff] will complain
+    -   SQLite will accept double-quoted text data but [SQLFluff][sqlfluff] will complain
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="exercise" %}
@@ -278,7 +278,7 @@ or look at [the documentation for SQLite's `format()` function][sqlite_format].
 {% include section_break.md class="exercise" %}
 
 {% include exercise.md %}
-Use [SQLite][sqlite]'s `.nullvalue` command
+Use SQLite's `.nullvalue` command
 to change the printed representation of null to the string `null`
 and then re-run the previous query.
 When will displaying null as `null` be easier to understand?
@@ -429,7 +429,7 @@ How many different body masses are in the penguins dataset?
 {% include double.md stem="arbitrary_in_aggregation" suffix="sql out" %}
 
 -   If we don't specify how to aggregate a column,
-    [SQLite][sqlite] chooses *any arbitrary value* from the group
+    SQLite chooses *any arbitrary value* from the group
     -   All penguins in each group have the same sex because we grouped by that, so we get the right answer
     -   The body mass values are in the data but unpredictable
     -   A common mistake
@@ -505,7 +505,7 @@ Is it possible to do this using `where` instead of `filter`?
 -   Each column is a name, a data type, and optional extra information
     -   E.g., `not null` prevents nulls from being added
 -   `.schema` is *not* standard SQL
--   [SQLite][sqlite] has added a few things
+-   SQLite has added a few things
     -   `create if not exists`
     -   upper-case keywords (SQL is case insensitive)
 
@@ -575,12 +575,12 @@ What happens if you try to delete rows that don't exist
 Saving and restoring data as text:
 
 1.  Re-create the `notes` table in an in-memory database
-    and then use [SQLite][sqlite]'s `.output` and `.dump` commands
+    and then use SQLite's `.output` and `.dump` commands
     to save the database to a file called `notes.sql`.
     Inspect the contents of this file:
     how has your data been stored?
 
-2.  Start a fresh [SQLite][sqlite] session
+2.  Start a fresh SQLite session
     and load `notes.sql` using the `.read` command.
     Inspect the database using `.schema` and `select *`:
     is everything as you expected?
@@ -589,11 +589,11 @@ Saving and restoring data as text:
 Saving and restoring data in binary format:
 
 1.  Re-create the `notes` table in an in-memory database once again
-    and use [SQLite][sqlite]'s `.backup` command to save it to a file called `notes.db`.
+    and use SQLite's `.backup` command to save it to a file called `notes.db`.
     Inspect this file using `od -c notes.db` or a text editor that can handle binary data:
     how has your data been stored?
 
-2.  Start a fresh [SQLite][sqlite] session
+2.  Start a fresh SQLite session
     and load `notes.db` using the `.restore` command.
     Inspect the database using `.schema` and `select *`:
     is everything as you expected?
@@ -778,7 +778,7 @@ the same sequence numbers are generated again?
 
 -   Add a column after the fact
 -   Since it can't be null, we have to provide a default value
-    -   Really want to make it the primary key, but [SQLite][sqlite] doesn't allow that after the fact
+    -   Really want to make it the primary key, but SQLite doesn't allow that after the fact
 -   Then use `update` to modify existing records
     -   Can modify any number of records at once
     -   So be careful about `where` clause
@@ -886,8 +886,8 @@ that weigh the same as the lightest penguin of the same sex and species.
 
 {% include double.md stem="explain_query_plan" suffix="sql out" %}
 
--   [SQLite][sqlite] plans to scan every row of the table
--   It will build a temporary B-tree data structure to group rows
+-   SQLite plans to scan every row of the table
+-   It will build a temporary <a href="#g:b_tree">B-tree data structure</a> to group rows
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="exercise" %}
@@ -987,6 +987,18 @@ but false if `val` is `'m'` (lower case).
 Rewrite the expression using [SQLite's built-in scalar functions][sqlite_function]
 so that it is true in both cases.
 
+| name      | purpose |
+| --------- | ------- |
+| `substr`  | Get substring given starting point and length |
+| `trim`    | Remove characters from beginning and end of string |
+| `ltrim`   | Remove characters from beginning of string |
+| `rtrim`   | Remove characters from end of string |
+| `length`  | Length of string |
+| `replace` | Replace occurrences of substring with another string |
+| `upper`   | Return upper-case version of string |
+| `lower`   | Return lower-case version of string |
+| `instr`   | Find location of first occurrence of substring (returns 0 if not found) |
+
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Yet Another Database" %}
 
@@ -1008,6 +1020,17 @@ so that it is true in both cases.
 {% include double.md stem="assay_staff" suffix="sql out" %}
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Draw a table diagram and an ER diagram to represent the following database:
+-   `person` has `id` and `full_name`
+-   `course` has `id` and `name`
+-   `section` has `course_id`, `start_date`, and `end_date`
+-   `instructor` has `person_id` and `section_id`
+-   `student` has `person_id`, `section_id`, and `status`
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Pattern Matching" %}
 
 {% include double.md stem="like_glob" suffix="sql out" %}
@@ -1017,17 +1040,11 @@ so that it is true in both cases.
     -   Case insensitive by default
 -   `glob` supports Unix-style wildcards
 
-| name      | purpose |
-| --------- | ------- |
-| `substr`  | Get substring given starting point and length |
-| `trim`    | Remove characters from beginning and end of string |
-| `ltrim`   | Remove characters from beginning of string |
-| `rtrim`   | Remove characters from end of string |
-| `length`  | Length of string |
-| `replace` | Replace occurrences of substring with another string |
-| `upper`   | Return upper-case version of string |
-| `lower`   | Return lower-case version of string |
-| `instr`   | Find location of first occurrence of substring (returns 0 if not found) |
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Rewrite the pattern-matching query shown above using `glob`.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Selecting First and Last Rows" %}
@@ -1035,8 +1052,17 @@ so that it is true in both cases.
 {% include double.md stem="union_all" suffix="sql out" %}
 
 -   `union all` combines records
-    -   Keeps duplicates: `union` on its own keeps unique records
+    -   Keeps duplicates: `union` on its own only keeps unique records
+    -   Which is more work but sometimes more useful
 -   Yes, it feels like the extra `select * from` should be unnecessary
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a query whose result includes two rows for each Adelie penguin
+in the `penguins` database.
+How can you check that your query is working correctly?
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Intersection" %}
@@ -1048,6 +1074,19 @@ so that it is true in both cases.
     -   In the query above, would be clearer to use `where`
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Use `intersect` to find all Adelie penguins that weigh more than 4000 grams.
+How can you check that your query is working correctly?
+
+{% include exercise.md %}
+Use `explain query plan` to compare the `intersect`-based query you just wrote
+with one that uses `where`.
+Which query looks like it will be more efficient?
+Why do you believe this?
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Exclusion" %}
 
 {% include double.md stem="except" suffix="sql out" %}
@@ -1057,12 +1096,31 @@ so that it is true in both cases.
 -   SQL operates on sets, not tables, except where it doesn't
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Use `exclude` to find all Gentoo penguins that *aren't* male.
+How can you check that your query is working correctly?
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Random Numbers and Why Not" %}
 
 {% include double.md stem="random_numbers" suffix="sql out" %}
 
--   There is no way to seed [SQLite][sqlite]'s random number generator
--   Which means there is no way to reproduce one of its "random" sequences
+-   There is no way to seed SQLite's random number generator
+-   Which means there is no way to reproduce its pseudo-random sequences
+-   Which means you should *never* use it
+    -   How are you going to debug something you can't re-run?
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Write a query that:
+-   uses a CTE to create 1000 random numbers between 0 and 10 inclusive;
+-   uses a second CTE to calculate their mean; and
+-   uses a third CTE and [SQLite's built-in math functions][sqlite_math]
+    to calculate their standard deviation.
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Creating an Index" %}
@@ -1073,6 +1131,7 @@ so that it is true in both cases.
     -   Spend storage space to buy speed
 -   Don't have to mention it explicitly in queries
     -   Database manager will use it automatically
+-   Unlike primary keys, SQLite supports defining indexes after the fact
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Generating Sequences" %}
@@ -1086,14 +1145,14 @@ so that it is true in both cases.
 
 {% include double.md stem="data_range_sequence" suffix="sql out" %}
 
--   Must have the parentheses around the `min` and `max` selections to keep [SQLite][sqlite] happy
+-   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Generating Sequences of Dates" %}
 
 {% include double.md stem="date_sequence" suffix="sql out" %}
 
--   [SQLite][sqlite] represents dates as YYYY-MM-DD strings
+-   SQLite represents dates as YYYY-MM-DD strings
     or as Julian days or as Unix milliseconds or…
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
@@ -1102,6 +1161,13 @@ so that it is true in both cases.
 {% include section_break.md class="topic" title="Counting Experiments Started per Day Without Gaps" %}
 
 {% include double.md stem="experiments_per_day" suffix="sql out" %}
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+What does the expression `date('now', 'start of month', '+1 month', '-1 day')` produce?
+(You may find [the documentation on SQLite's date and time functions][sqlite_datetime] helpful.)
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Self Join" %}
@@ -1119,7 +1185,7 @@ so that it is true in both cases.
 {% include double.md stem="unique_pairs" suffix="sql out" %}
 
 -   `left.ident < right.ident` ensures distinct pairs without duplicates
--   Use `left.ident <= 4 and right.ident <= 4` to limit output
+    -   Query uses `left.ident <= 4 and right.ident <= 4` to shorten output
 -   Quick check: <math>n(n-1)/2</math> pairs
 
 <!-- ---------------------------------------------------------------- -->
@@ -1132,7 +1198,7 @@ so that it is true in both cases.
 
 {% include double.md stem="correlated_subquery" suffix="sql out" %}
 
--   Nobody works in Endocrinology
+-   Endocrinology is missing from the list
 -   `select 1` could equally be `select true` or any other value
 -   A <a href="#g:correlated_subquery">correlated subquery</a> depends on a value from the outer query
     -   Equivalent to nested loop
@@ -1141,6 +1207,14 @@ so that it is true in both cases.
 {% include section_break.md class="topic" title="Nonexistence" %}
 
 {% include double.md stem="nonexistence" suffix="sql out" %}
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Can you rewrite the previous query using `exclude`?
+If so, is your new query easier to understand?
+If the query cannot be rewritten, why not?
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Avoiding Correlated Subqueries" %}
@@ -1156,9 +1230,16 @@ so that it is true in both cases.
 {% include double.md stem="lead_lag" suffix="sql out" %}
 
 -   Use `strftime` to extract year and month
-    -   Clumsy, but date/time handling is not [SQLite][sqlite]'s strong point
+    -   Clumsy, but date/time handling is not SQLite's strong point
 -   Use <a href="#g:window_func">window functions</a> `lead` and `lag` to shift values
-    -   Unavailable values are null
+    -   Unavailable values at the top or bottom are null
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="aside" title="Boundaries" %}
+
+-   [Documentation on SQLite's window functions][sqlite_window] describes
+    three frame types and five kinds of frame boundary
+-   It feels very ad hoc, but so does the real world
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Windowing Functions" %}
@@ -1184,6 +1265,16 @@ so that it is true in both cases.
 -   So this counts experiments started since the beginning of each year
 
 <!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Create a query that:
+1.  finds the unique weights of the penguins in the `penguins` database;
+2.  sorts them;
+3.  finds the difference between each successive distinct weight; and
+4.  counts how many times each unique difference appears.
+
+<!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Blobs" %}
 
 {% include double.md stem="blob" suffix="sql out" %}
@@ -1191,6 +1282,15 @@ so that it is true in both cases.
 -   A <a href="#g:blob">blob</a> is a binary large object
     -   Bytes in, bytes out…
 -   If you think that's odd, check out [Fossil][fossil]
+
+<!-- ---------------------------------------------------------------- -->
+{% include section_break.md class="exercise" %}
+
+{% include exercise.md %}
+Modify the query shown above to select the value of `content`
+rather than its length.
+How intelligible is the output?
+Does using SQLite's `hex()` function make it any more readable?
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Yet Another Database" %}
@@ -1226,7 +1326,7 @@ so that it is true in both cases.
 
 {% include double.md stem="json_array" suffix="sql out" %}
 
--   [SQLite][sqlite] (and other database managers) has lots of JSON manipulation functions
+-   SQLite (and other database managers) has lots of JSON manipulation functions
 -   `json_array_length` gives number of elements in selected array
 -   subscripts start with 0
 -   Characters outside 7-bit ASCII represented as Unicode escapes
@@ -1271,8 +1371,8 @@ so that it is true in both cases.
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Importing CSV Data" %}
 
--   [SQLite][sqlite] and most other database managers have tools for importing and exporting <a href="#g:csv">CSV</a>
--   In [SQLite][sqlite]:
+-   SQLite and most other database managers have tools for importing and exporting <a href="#g:csv">CSV</a>
+-   In SQLite:
     -   Define table
     -   Import data
     -   Convert empty strings to nulls (if desired)
@@ -1335,7 +1435,7 @@ so that it is true in both cases.
     -   `end transaction` (success)
     -   `rollback` (undo)
 -   Can have any number of statements inside a transaction
--   But *cannot* nest transactions in [SQLite][sqlite]
+-   But *cannot* nest transactions in SQLite
     -   Other databases support this
 
 <!-- ---------------------------------------------------------------- -->
@@ -1363,7 +1463,7 @@ so that it is true in both cases.
     -   Create if record doesn't exist
     -   Update if it does
 -   Not standard SQL but widely implemented
--   Example also shows use of [SQLite][sqlite] `.print` command
+-   Example also shows use of SQLite `.print` command
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Normalization" %}
@@ -1525,7 +1625,7 @@ so that it is true in both cases.
 
 {% include double.md stem="embedded_python" suffix="py out" %}
 
--   [SQLite][sqlite] calls back into Python to execute the function
+-   SQLite calls back into Python to execute the function
 -   Other databases can run Python (and other languages) in the database server process
 -   Be careful
 

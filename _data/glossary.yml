@@ -50,6 +50,13 @@
 
 # B
 
+- key: b_tree
+  en:
+    term: B-tree
+    def: >
+      A self-balancing tree data structure that allows search, insertion, and deletion
+      in logarithmic time.
+
 - key: base_case
   en:
     term: base case
