@@ -5,3 +5,4 @@ Initialize per-file counters.
 {%- endcomment %}
 <!-- {% increment topic_counter %} -->
 <!-- {% increment exercise_counter %} -->
+<!-- {% increment figure_counter %} -->

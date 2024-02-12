@@ -66,7 +66,11 @@ home: true
     -   Unfortunately, every RDBMS has its own dialect of SQL
 -   There are also <a href="#g:nosql">NoSQL databases</a> like [MongoDB][mongodb] that don't use tables
 
-![concept map: overview](./img/concept_map_overview.svg)
+{% include figure.md
+   file="./img/concept_map_overview.svg"
+   title="overview of major concepts"
+   alt="box and arrow concept map of major concepts related to databases"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Connecting to Database" %}
@@ -254,7 +258,11 @@ or look at [the documentation for SQLite's `format()` function][sqlite_format].
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Check Understanding" %}
 
-![concept map: selection](./img/concept_map_select.svg)
+{% include figure.md
+   file="./img/concept_map_select.svg"
+   title="selection"
+   alt="box and arrow diagram of concepts related to selection"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Calculating with Missing Values" %}
@@ -354,7 +362,11 @@ Write another query to find penguins whose sex is known but whose body mass is n
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Check Understanding" %}
 
-![concept map: null](./img/concept_map_null.svg)
+{% include figure.md
+   file="./img/concept_map_null.svg"
+   title="null"
+   alt="box and arrow diagram of concepts related to null values in SQL"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Aggregating" %}
@@ -469,7 +481,11 @@ Is it possible to do this using `where` instead of `filter`?
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Check Understanding" %}
 
-![concept map: aggregation](./img/concept_map_aggregate.svg)
+{% include figure.md
+   file="./img/concept_map_aggregate.svg"
+   title="aggregation"
+   alt="box and arrow diagram of concepts related to aggregation in SQL"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Creating In-memory Database" %}
@@ -585,7 +601,11 @@ Saving and restoring data in binary format:
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Check Understanding" %}
 
-![concept map: data definition and modification](./img/concept_map_datamod.svg)
+{% include figure.md
+   file="./img/concept_map_datamod.svg"
+   title="data definition and modification"
+   alt="box and arrow diagram of concepts relatd to defining and modifying data"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Combining Information" %}
@@ -671,7 +691,11 @@ using the SQL you have seen so far?
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Check Understanding" %}
 
-![concept map: join](./img/concept_map_join.svg)
+{% include figure.md
+   file="./img/concept_map_join.svg"
+   title="join"
+   alt="box and arrow diagram of concepts related to joining tables"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Negating Incorrectly" %}
@@ -969,9 +993,17 @@ so that it is true in both cases.
 -   <a href="#g:er_diagram">Entity-relationship diagram</a> (ER diagram) shows relationships between tables
 -   Like everything to do with databases, there are lots of variations
 
-![assay database table diagram](./img/assays_tables.svg)
+{% include figure.md
+   file="./img/assays_tables.svg"
+   title="assay database table diagram"
+   alt="table-level diagram of assay database showing primary and foreign key relationships"
+%}
 
-![assay ER diagram](./img/assays_er.svg)
+{% include figure.md
+   file="./img/assays_er.svg"
+   title="assay ER diagram"
+   alt="entity-relationship diagram showing logical structure of assay database"
+%}
 
 {% include double.md stem="assay_staff" suffix="sql out" %}
 
@@ -1264,7 +1296,11 @@ so that it is true in both cases.
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Check Understanding" %}
 
-![concept map: temporary tables](./img/concept_map_temp.svg)
+{% include figure.md
+   file="./img/concept_map_temp.svg"
+   title="temporary tables"
+   alt="box and arrow diagram showing different kinds of temporary 'tables' in SQL"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Hours Reminder" %}
@@ -1369,7 +1405,11 @@ so that it is true in both cases.
 {% include single.md file="src/lineage_setup.sql" %}
 {% include double.md stem="represent_graph" suffix="sql out" %}
 
-![lineage diagram](./img/lineage.svg)
+{% include figure.md
+   file="./img/lineage.svg"
+   title="lineage diagram"
+   alt="box and arrow diagram showing who is descended from whom in the lineage database"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Recursive Queries" %}
@@ -1390,7 +1430,11 @@ so that it is true in both cases.
 {% include double.md stem="contact_person" suffix="sql out" %}
 {% include double.md stem="contact_contacts" suffix="sql out" %}
 
-![contact diagram](./img/contact_tracing.svg)
+{% include figure.md
+   file="./img/contact_tracing.svg"
+   title="contact diagram"
+   alt="box and line diagram showing who has had contact with whom"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Bidirectional Contacts" %}
@@ -1419,7 +1463,11 @@ so that it is true in both cases.
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="aside" title="Check Understanding" %}
 
-![concept map: common table expressions](./img/concept_map_cte.svg)
+{% include figure.md
+   file="./img/concept_map_cte.svg"
+   title="common table expressions"
+   alt="box and arrow diagram showing concepts related to common table expressions in SQL"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Querying from Python" %}
@@ -1454,7 +1502,11 @@ so that it is true in both cases.
 
 -   From [XKCD][xkcd-tables]
 
-![XKCD Exploits of a Mom](./img/xkcd_327_exploits_of_a_mom.png)
+{% include figure.md
+   file="./img/xkcd_327_exploits_of_a_mom.png"
+   title="XKCD Exploits of a Mom"
+   alt="XKCD cartoon showing a mother scolding a school for not being more careful about SQL injection attacks"
+%}
 
 <!-- ---------------------------------------------------------------- -->
 {% include section_break.md class="topic" title="Script Execution" %}
