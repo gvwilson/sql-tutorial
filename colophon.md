@@ -21,5 +21,6 @@ which provides a lightweight ethical alternative to surveillance capitalism.
 The colors in this theme
 are lightened versions of those used in
 [classic Canadian postage stamps][stamps].
+Cthulhu logo taken from <a href="https://www.deviantart.com/lockox2/art/Cthulhu-279575365">DeviantArt</a>
 
 {% include links.md links=site.data.colophon %}

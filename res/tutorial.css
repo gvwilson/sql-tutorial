@@ -131,6 +131,7 @@ html {
 body {
     margin-left: var(--large-spacing);
     max-width: var(--page-width);
+    background-color: #FFFFF3;
 }
 
 /*
