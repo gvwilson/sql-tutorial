@@ -7,7 +7,7 @@ all_days as (
     from (
         select value from generate_series(
             (select 0),
-            (select count(*) - 1 from experiment)
+            ( select julianday(max(started)) - julianday(min(started)) from experiment )
         )
     )
 ),
