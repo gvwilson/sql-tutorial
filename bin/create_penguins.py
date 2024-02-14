@@ -32,13 +32,17 @@ create table little_penguins (
 );
 """
 
+
 def _float(x):
     return None if x == "" else float(x)
+
 
 def _text(x):
     return None if x == "" else x
 
+
 FIELDS = [_text, _text, _float, _float, _float, _float, _text]
+
 
 def main():
     """Main driver."""

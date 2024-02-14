@@ -7,7 +7,11 @@ import sys
 def main():
     """Main driver."""
     for src in sys.argv[1:]:
-        lines = [ln.replace(".read", "").strip() for ln in Path(src).read_text().split("\n") if ln.startswith(".read")]
+        lines = [
+            ln.replace(".read", "").strip()
+            for ln in Path(src).read_text().split("\n")
+            if ln.startswith(".read")
+        ]
         if not lines:
             continue
         src = src.replace("src/", "${OUT}/").replace(".sql", ".out")

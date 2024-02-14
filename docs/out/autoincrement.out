@@ -1,0 +1,6 @@
+| ident | name |
+|-------|------|
+| 1     | mik  |
+| 2     | po   |
+| 3     | tay  |
+Runtime error near line 12: UNIQUE constraint failed: person.ident (19)

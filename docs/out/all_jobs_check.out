@@ -1,0 +1,4 @@
+Runtime error near line 9: CHECK constraint failed: billable > 0.0 (19)
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |

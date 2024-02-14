@@ -3,21 +3,17 @@
 import argparse
 from pathlib import Path
 import re
-import sys
 import yaml
 
 GLOSS_REF = re.compile(r'<a\s+href="#g:(.+?)">')
 MAKE_INC = re.compile(r"\b(\w+?\.(sql|py))\b")
-SINGLE_INC = re.compile(r'\{%\s+include\s+single\.md\s+file=".+?/(.+?)"\s+%\}')
-DOUBLE_INC = re.compile(
-    r'\{%\s+include\s+double\.md\s+stem="(.+?)"\s+suffix="(.+?)"\s+%\}'
-)
+SINGLE_INC = re.compile(r'\[%\s+single\s+".+?/(.+?)"\s+%\]')
+DOUBLE_INC = re.compile(r'\[%\s+double\s+stem="(.+?)"\s+suffix="(.+?)"\s+%\]')
 
 
 def main():
     """Main driver."""
     options = parse_args()
-
     do_inclusions(options)
     do_glossary(options)
 

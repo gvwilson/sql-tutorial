@@ -1,0 +1,9 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<script src="https://kit.fontawesome.com/4eee35f757.js"></script>
+<link rel="shortcut icon" type="image/x-icon" href="@root/favicon.ico">
+<link rel="stylesheet" href="@root/{{site.rouge_style}}" type="text/css">
+<link rel="stylesheet" href="@root/tutorial.css" type="text/css">
+{% if site.plausible %}<script defer data-domain="{{site.plausible}}" src="https://plausible.io/js/script.js"></script>{% endif %}
+<title>{{ site.title }}{% if node | not_root %} &middot; {{ node.title }}{% endif %}</title>

@@ -1,0 +1,6 @@
+Runtime error near line 6: CHECK constraint failed: reported >= 0.0 (19)
+
+| person | hours |
+|--------|-------|
+| gene   | 0.0   |
+| august | 0.0   |

@@ -1,0 +1,2 @@
+SQLite exception: CHECK constraint failed: num > 0
+after execution [(10,)]

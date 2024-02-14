@@ -1,0 +1,4 @@
+QUERY PLAN
+`--SCAN plate USING COVERING INDEX sqlite_autoindex_plate_1
+QUERY PLAN
+`--SCAN plate USING COVERING INDEX plate_file

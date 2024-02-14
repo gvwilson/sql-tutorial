@@ -1,11 +1,13 @@
 adbc-driver-sqlite
+ark
 click
 faker
-jupyter
 jupysql
+jupyter
 pandas
 polars
 pyarrow
+pymdown-extensions
 ruff
 sqlfluff
 sqlmodel
