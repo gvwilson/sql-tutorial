@@ -1916,5 +1916,4 @@ I would also like to thank the following for spotting issues, making suggestions
 ### Links
 
 [% link_table %]
-
 [% section_end %]
