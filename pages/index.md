@@ -145,6 +145,8 @@
     -   PostgreSQL's special commands start with `\`
 -   Use `.help` for a complete list
 
+[% double stem="select_star" suffix="sql out" %]
+
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Specifying Columns" %]
 
