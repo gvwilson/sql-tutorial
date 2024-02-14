@@ -1,0 +1,13 @@
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+| clean     | 0.5      |
+
+| person |    job    |
+|--------|-----------|
+| mik    | calibrate |
+| mik    | clean     |
+| mik    | complain  |
+| po     | clean     |
+| po     | complain  |
+| tay    | complain  |

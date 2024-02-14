@@ -1,0 +1,5 @@
+| person |    job    |   name    | billable |
+|--------|-----------|-----------|----------|
+| mik    | calibrate | calibrate | 1.5      |
+| mik    | clean     | clean     | 0.5      |
+| po     | clean     | clean     | 0.5      |

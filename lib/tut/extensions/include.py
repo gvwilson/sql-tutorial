@@ -1,0 +1,71 @@
+"""Handle file inclusions."""
+
+from pathlib import Path
+import shortcodes
+import util
+
+
+COMMENT = {
+    "py": "#",
+    "sql": "--",
+}
+
+
+@shortcodes.register("double")
+def double(pargs, kwargs, node):
+    """Handle inclusion of two files."""
+    util.require(
+        (len(pargs) == 0) and set(kwargs.keys()).issubset({"stem", "suffix", "keep"}),
+        f"Bad 'double' shortcode in {node.path} with '{pargs}' and '{kwargs}'",
+    )
+    stem = kwargs["stem"]
+    keep = kwargs.get("keep", "keep")
+
+    suffixes = [s.strip() for s in kwargs["suffix"].split()]
+    util.require(
+        len(suffixes) == 2,
+        f"Bad 'double' shortcode in {node.path} with '{pargs}' and '{kwargs}'",
+    )
+
+    first = single([f"src/{stem}.{suffixes[0]}"], {"keep": keep}, node)
+    second = single([f"out/{stem}.{suffixes[1]}"], {}, node)
+    return f"{first}\n\n{second}"
+
+
+@shortcodes.register("single")
+def single(pargs, kwargs, node):
+    """Handle inclusion of a single file."""
+    util.require(
+        (len(pargs) == 1) and set(kwargs.keys()).issubset({"keep"}),
+        f"Bad 'single' shortcode in {node.path} with '{pargs}' and '{kwargs}'",
+    )
+    filename = Path(pargs[0])
+    suffix = filename.suffix.lstrip(".")
+    keep = kwargs.get("keep", "keep")
+    text = filename.read_text()
+
+    if suffix in COMMENT:
+        comment = COMMENT[suffix]
+        before = f"{comment} [{keep}]"
+        after = f"{comment} [/{keep}]"
+        before_in = before in text
+        after_in = after in text
+        if before_in and after_in:
+            text = text.split(before)[1].split(after)[0]
+        elif before_in or after_in:
+            util.fail(
+                f"Mis-match start/end keep with '{keep}' in {filename} in {node.path}"
+            )
+
+    lang = "plaintext" if suffix == "out" else suffix
+
+    lines = [
+        f'<p class="inclusion"><a href="{filename}">{filename}</a></p>',
+        f'<div class="language-{lang}" markdown="1">',
+        f"```{suffix}",
+        f"{text.strip()}",
+        "```",
+        "</div>",
+    ]
+    result = "\n".join(lines)
+    return result

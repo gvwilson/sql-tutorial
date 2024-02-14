@@ -1,0 +1,18 @@
+|       left_name       | left_ident |      right_name       | right_ident | new_ident |
+|-----------------------|------------|-----------------------|-------------|-----------|
+| Juana Baeza           | 1          | Micaela Laboy         | 4           | 1         |
+| Juana Baeza           | 1          | Verónica Altamirano   | 5           | 1         |
+| Agustín Rodríquez     | 2          | Ariadna Caraballo     | 3           | 2         |
+| Agustín Rodríquez     | 2          | Verónica Altamirano   | 5           | 2         |
+| Ariadna Caraballo     | 3          | Agustín Rodríquez     | 2           | 2         |
+| Micaela Laboy         | 4          | Juana Baeza           | 1           | 1         |
+| Verónica Altamirano   | 5          | Agustín Rodríquez     | 2           | 2         |
+| Verónica Altamirano   | 5          | Juana Baeza           | 1           | 1         |
+| Reina Rivero          | 6          | Pilar Alarcón         | 10          | 6         |
+| Pilar Alarcón         | 10         | Reina Rivero          | 6           | 6         |
+| Daniela Menéndez      | 11         | Cristal Soliz         | 13          | 11        |
+| Daniela Menéndez      | 11         | Marco Antonio Barrera | 12          | 11        |
+| Marco Antonio Barrera | 12         | Cristal Soliz         | 13          | 12        |
+| Marco Antonio Barrera | 12         | Daniela Menéndez      | 11          | 11        |
+| Cristal Soliz         | 13         | Daniela Menéndez      | 11          | 11        |
+| Cristal Soliz         | 13         | Marco Antonio Barrera | 12          | 12        |

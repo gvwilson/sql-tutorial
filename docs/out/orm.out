@@ -1,0 +1,4 @@
+building='Chesson' name='Genetics' ident='gen'
+building='Fashet Extension' name='Histology' ident='hist'
+building='Chesson' name='Molecular Biology' ident='mb'
+building='TGVH' name='Endocrinology' ident='end'

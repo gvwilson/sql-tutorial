@@ -1,8 +1,8 @@
 *~
 .DS_Store
 .ipynb_checkpoints
-.jekyll-cache
-_site
+.ruff_cache
+__pycache__
 *.bkp
 *.dtmp
 \#*

@@ -1,0 +1,10 @@
+| person | reported |
+|--------|----------|
+| gene   | 1.5      |
+| august | 0.5      |
+| gene   | 1.0      |
+
+| person | hours |
+|--------|-------|
+| gene   | 2.5   |
+| august | 0.5   |

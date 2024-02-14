@@ -41,9 +41,7 @@ def main():
         ]
         num_connections = random.randint(1, NUM_PER_GROUP - 1)
         pairs = random.sample(pairs, k=num_connections)
-        conn.executemany(
-            "insert into person values (null, ?);", [[x] for x in people]
-        )
+        conn.executemany("insert into person values (null, ?);", [[x] for x in people])
         conn.executemany("insert into contact values (?, ?);", pairs)
         conn.commit()
 

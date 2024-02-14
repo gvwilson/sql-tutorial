@@ -1,0 +1,10 @@
+QUERY PLAN
+|--CO-ROUTINE (subquery-3)
+|  |--CO-ROUTINE (subquery-4)
+|  |  |--CO-ROUTINE ym_num
+|  |  |  |--SCAN experiment
+|  |  |  `--USE TEMP B-TREE FOR GROUP BY
+|  |  |--SCAN ym_num
+|  |  `--USE TEMP B-TREE FOR ORDER BY
+|  `--SCAN (subquery-4)
+`--SCAN (subquery-3)

@@ -1,0 +1,10 @@
+| ident | length |                            first                             |
+|-------|--------|--------------------------------------------------------------|
+| 1     | 4      | {"machine":"Inphormex","person":["Gabrielle","Dub\u00e9"]}   |
+| 2     | 5      | {"machine":"Inphormex","person":["Marianne","Richer"]}       |
+| 3     | 2      | {"machine":"sterilizer","person":["Josette","Villeneuve"]}   |
+| 4     | 1      | {"machine":"sterilizer","person":["Maude","Goulet"]}         |
+| 5     | 2      | {"machine":"AutoPlate 9000","person":["Brigitte","Michaud"]} |
+| 6     | 1      | {"machine":"sterilizer","person":["Marianne","Richer"]}      |
+| 7     | 3      | {"machine":"WY401","person":["Maude","Goulet"]}              |
+| 8     | 1      | {"machine":"AutoPlate 9000"}                                 |
