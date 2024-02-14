@@ -144,6 +144,7 @@
 -   SQLite administrative commands start with `.` and *aren't* part of the SQL standard
     -   PostgreSQL's special commands start with `\`
 -   Use `.help` for a complete list
+-   Now the output format for the previous query is more readable
 
 [% double stem="select_star" suffix="sql out" %]
 
