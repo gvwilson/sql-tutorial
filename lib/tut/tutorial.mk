@@ -27,6 +27,11 @@ serve:
 ordered:
 	@python ${TEMPLATE}/bin/ordered.py < ${PAGES}/index.md
 
+## count: count items
+.PHONY: count
+count:
+	@python ${TEMPLATE}/bin/count.py < ${PAGES}/index.md
+
 ## style: check Python code style
 .PHONY: style
 style:

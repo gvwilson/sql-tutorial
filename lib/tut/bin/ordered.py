@@ -1,22 +1,25 @@
 """Get inclusion filepaths in order."""
 
-import re
+import shortcodes
 import sys
 
-pat = re.compile(r"\{%\s+include\s+(.+?)\s+%\}")
 
-for i, line in enumerate(sys.stdin):
-    if m := pat.match(line):
-        fields = m.group(1).split(" ", 2)
-        match fields[0]:
-            case "single.md":
-                print(fields[1].replace('file="', "").replace('"', ""))
-            case "double.md":
-                stem = fields[1].replace('stem="', "").replace('"', "")
-                suffixes = (
-                    fields[2].replace('suffix="', "").replace('"', "").split(" ", 1)
-                )
-                print(f"src/{stem}.{suffixes[0]}")
-                print(f"out/{stem}.{suffixes[1]}")
-            case _:
-                pass
+@shortcodes.register("single")
+def single(pargs, kwargs, context):
+    context.append(pargs[0])
+
+
+@shortcodes.register("double")
+def double(pargs, kwargs, context):
+    stem = kwargs["stem"]
+    suffix = kwargs["suffix"].split()
+    context.append(f"src/{stem}.{suffix[0]}")
+    context.append(f"out/{stem}.{suffix[1]}")
+
+
+parser = shortcodes.Parser(ignore_unknown=True)
+text = sys.stdin.read()
+seen = []
+parser.parse(text, context=seen)
+for filename in seen:
+    print(filename)
