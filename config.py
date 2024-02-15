@@ -17,8 +17,16 @@ rouge_style = "github.css"
 lang = "en"
 extension = "/"
 
+# Directories to copy verbatim.
+copydir = [
+    "db",
+    "out",
+    "src",
+]
+
 # Files to copy verbatim.
 copy = [
+    "*.db",
     "*.out",
     "*.py",
     "*.sh",
