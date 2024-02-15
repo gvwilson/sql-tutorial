@@ -85,5 +85,5 @@ def _read_info(filename):
     """Read YAML file from info directory."""
     filepath = Path(ark.site.home(), "info", filename)
     with open(filepath, "r") as reader:
-        content = yaml.safe_load(reader) or {}
+        content = yaml.safe_load(reader) or []
         return content
