@@ -62,7 +62,7 @@ All contributors will be acknowledged.
     which is in [Glosario][glosario] format.
 
 -   SVG diagrams are in `res/img/` and can be edited using [draw.io][draw-io].
-    Please use 12-point Helvetica for text,
+    Please use 14-point Helvetica for text,
     solid 1-point black lines,
     and unfilled objects.
 
