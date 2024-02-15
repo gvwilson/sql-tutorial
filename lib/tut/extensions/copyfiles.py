@@ -8,7 +8,7 @@ from shutil import copyfile
 @ark.events.register(ark.events.Event.INIT)
 def copy_files():
     """Copy files."""
-    for whence in ("src", "out"):
+    for whence in ark.site.config["copydir"]:
         src_dir = Path(ark.site.home(), whence)
         out_dir = Path(ark.site.out(), whence)
         for pat in ark.site.config.get("copy", []):
