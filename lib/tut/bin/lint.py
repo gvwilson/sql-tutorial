@@ -8,7 +8,7 @@ import yaml
 
 
 CROSSREF = re.compile(r"\]\(\#(.+?)\)", re.DOTALL)
-MAKE_INC = re.compile(r"\$\{(OUT|SRC)\}/(\w+?\.(sql|py))\b")
+MAKE_INC = re.compile(r"\$\{(OUT|SRC)\}/(\w+?\.(sql|out|py))\b")
 
 @shortcodes.register("double")
 def double(pargs, kwargs, context):
