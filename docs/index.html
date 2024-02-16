@@ -2787,7 +2787,7 @@ QUERY PLAN
 <span class="k">from</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">generate_series</span><span class="p">(</span>
 <span class="w">        </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span>
-<span class="w">        </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">experiment</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="n">julianday</span><span class="p">(</span><span class="k">max</span><span class="p">(</span><span class="n">started</span><span class="p">))</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">julianday</span><span class="p">(</span><span class="k">min</span><span class="p">(</span><span class="n">started</span><span class="p">))</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">experiment</span><span class="p">)</span>
 <span class="w">    </span><span class="p">)</span>
 <span class="p">)</span>
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
@@ -2811,6 +2811,10 @@ QUERY PLAN
 </ul>
 </li>
 <li><code>julianday</code> and <code>date</code> convert back and forth</li>
+<li><code>julianday</code> is specific to SQLite<ul>
+<li>Other databases have their own date handling functions</li>
+</ul>
+</li>
 </ul>
 <!-- ---------------------------------------------------------------- -->
 </section>

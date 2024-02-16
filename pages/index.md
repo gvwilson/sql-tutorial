@@ -1200,6 +1200,8 @@ Write a query that:
     or as Julian days or as Unix milliseconds or…
     -   Julian days is fractional number of days since November 24, 4714 BCE
 -   `julianday` and `date` convert back and forth
+-   `julianday` is specific to SQLite
+    -   Other databases have their own date handling functions
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Counting Experiments Started per Day Without Gaps" %]
