@@ -17,6 +17,13 @@
 
 # A
 
+- key: admin_command
+  en:
+    term: administration command
+    def: >
+      A command for managing a database that isn't part of the SQL standard.
+      Each [RDBMS](#rdbms) has its own idiosyncratic admin commands.
+
 - key: aggregation
   en:
     term: aggregation

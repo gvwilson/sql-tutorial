@@ -146,9 +146,12 @@
 
 [% double stem="admin_commands" suffix="sql out" %]
 
--   SQLite administrative commands start with `.` and *aren't* part of the SQL standard
+-   SQLite [%g admin_command "administrative commands" %]
+    start with `.` and *aren't* part of the SQL standard
     -   PostgreSQL's special commands start with `\`
+-   Each command must appear on a line of its own
 -   Use `.help` for a complete list
+-   `.mode markdown` and `.headers on` make the output more readable
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Specifying Columns" %]
