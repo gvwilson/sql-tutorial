@@ -6,6 +6,7 @@ with sized_penguins as (
             else 'abnormal'
         end as size
     from penguins
+    where body_mass_g is not null
 )
 
 select

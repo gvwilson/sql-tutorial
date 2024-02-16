@@ -974,6 +974,11 @@ To explore how row IDs behave:
 [% section_break class="exercise" %]
 
 [% exercise %]
+How does the result of the previous query change
+if the check for null body mass is removed?
+Why is the result without that check misleading?
+
+[% exercise %]
 What does each of the expressions shown below produce?
 Which ones do you think actually attempt to divide by zero?
 

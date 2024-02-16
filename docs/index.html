@@ -2203,6 +2203,7 @@ To explore how row IDs behave:</p>
 <span class="w">            </span><span class="s1">&#39;large&#39;</span>
 <span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">size</span>
 <span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">body_mass_g</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
 <span class="p">)</span>
 
 <span class="k">select</span>
@@ -2219,10 +2220,10 @@ To explore how row IDs behave:</p>
 <div class="highlight"><pre><span></span><code>|  species  | size  | num |
 |-----------|-------|-----|
 | Adelie    | small | 54  |
-| Adelie    | large | 98  |
+| Adelie    | large | 97  |
 | Chinstrap | small | 17  |
 | Chinstrap | large | 51  |
-| Gentoo    | large | 124 |
+| Gentoo    | large | 123 |
 </code></pre></div>
 </div>
 <ul>
@@ -2238,6 +2239,10 @@ To explore how row IDs behave:</p>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
 <p><strong>Exercise 32</strong>:
+How does the result of the previous query change
+if the check for null body mass is removed?
+Why is the result without that check misleading?</p>
+<p><strong>Exercise 33</strong>:
 What does each of the expressions shown below produce?
 Which ones do you think actually attempt to divide by zero?</p>
 <ol>
@@ -2265,6 +2270,7 @@ Which ones do you think actually attempt to divide by zero?</p>
 <span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;large&#39;</span>
 <span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">size</span>
 <span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">body_mass_g</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
 <span class="p">)</span>
 
 <span class="k">select</span>
@@ -2280,13 +2286,12 @@ Which ones do you think actually attempt to divide by zero?</p>
 <div class="language-plaintext">
 <div class="highlight"><pre><span></span><code>|  species  |  size  | num |
 |-----------|--------|-----|
-| Adelie    | large  | 1   |
 | Adelie    | small  | 54  |
 | Adelie    | medium | 97  |
 | Chinstrap | small  | 17  |
 | Chinstrap | medium | 51  |
 | Gentoo    | medium | 56  |
-| Gentoo    | large  | 68  |
+| Gentoo    | large  | 67  |
 </code></pre></div>
 </div>
 <ul>
@@ -2298,7 +2303,7 @@ Which ones do you think actually attempt to divide by zero?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 33</strong>:
+<p><strong>Exercise 34</strong>:
 Modify the query above so that
 the outputs are <code>"penguin is small"</code> and <code>"penguin is large"</code>
 by concatenating the string <code>"penguin is "</code> to the entire <code>case</code>
@@ -2319,6 +2324,7 @@ rather than a <a href="#g:statement">statement</a>.)</p>
 <span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;abnormal&#39;</span>
 <span class="w">        </span><span class="k">end</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">size</span>
 <span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">body_mass_g</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
 <span class="p">)</span>
 
 <span class="k">select</span>
@@ -2334,11 +2340,11 @@ rather than a <a href="#g:statement">statement</a>.)</p>
 <div class="language-plaintext">
 <div class="highlight"><pre><span></span><code>|  species  |   size   | num |
 |-----------|----------|-----|
-| Adelie    | abnormal | 55  |
+| Adelie    | abnormal | 54  |
 | Adelie    | normal   | 97  |
 | Chinstrap | abnormal | 17  |
 | Chinstrap | normal   | 51  |
-| Gentoo    | abnormal | 62  |
+| Gentoo    | abnormal | 61  |
 | Gentoo    | normal   | 62  |
 </code></pre></div>
 </div>
@@ -2350,7 +2356,7 @@ rather than a <a href="#g:statement">statement</a>.)</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 34</strong>:
+<p><strong>Exercise 35</strong>:
 The expression <code>val between 'A' and 'Z'</code> is true if <code>val</code> is <code>'M'</code> (upper case)
 but false if <code>val</code> is <code>'m'</code> (lower case).
 Rewrite the expression using <a href="https://www.sqlite.org/lang_corefunc.html">SQLite&rsquo;s built-in scalar functions</a>
@@ -2442,7 +2448,7 @@ so that it is true in both cases.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 35</strong>:
+<p><strong>Exercise 36</strong>:
 Draw a table diagram and an ER diagram to represent the following database:</p>
 <ul>
 <li><code>person</code> has <code>id</code> and <code>full_name</code></li>
@@ -2483,7 +2489,7 @@ Draw a table diagram and an ER diagram to represent the following database:</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 36</strong>:
+<p><strong>Exercise 37</strong>:
 Rewrite the pattern-matching query shown above using <code>glob</code>.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -2527,7 +2533,7 @@ Rewrite the pattern-matching query shown above using <code>glob</code>.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 37</strong>:
+<p><strong>Exercise 38</strong>:
 Write a query whose result includes two rows for each Adelie penguin
 in the <code>penguins</code> database.
 How can you check that your query is working correctly?</p>
@@ -2572,10 +2578,10 @@ How can you check that your query is working correctly?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 38</strong>:
+<p><strong>Exercise 39</strong>:
 Use <code>intersect</code> to find all Adelie penguins that weigh more than 4000 grams.
 How can you check that your query is working correctly?</p>
-<p><strong>Exercise 39</strong>:
+<p><strong>Exercise 40</strong>:
 Use <code>explain query plan</code> to compare the <code>intersect</code>-based query you just wrote
 with one that uses <code>where</code>.
 Which query looks like it will be more efficient?
@@ -2620,7 +2626,7 @@ Why do you believe this?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 40</strong>:
+<p><strong>Exercise 41</strong>:
 Use <code>exclude</code> to find all Gentoo penguins that <em>aren&rsquo;t</em> male.
 How can you check that your query is working correctly?</p>
 <!-- ---------------------------------------------------------------- -->
@@ -2666,7 +2672,7 @@ How can you check that your query is working correctly?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 41</strong>:
+<p><strong>Exercise 42</strong>:
 Write a query that:</p>
 <ul>
 <li>
@@ -2859,7 +2865,7 @@ QUERY PLAN
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 42</strong>:
+<p><strong>Exercise 43</strong>:
 What does the expression <code>date('now', 'start of month', '+1 month', '-1 day')</code> produce?
 (You may find <a href="https://www.sqlite.org/lang_datefunc.html">the documentation on SQLite&rsquo;s date and time functions</a> helpful.)</p>
 <!-- ---------------------------------------------------------------- -->
@@ -3063,7 +3069,7 @@ What does the expression <code>date('now', 'start of month', '+1 month', '-1 day
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 43</strong>:
+<p><strong>Exercise 44</strong>:
 Can you rewrite the previous query using <code>exclude</code>?
 If so, is your new query easier to understand?
 If the query cannot be rewritten, why not?</p>
@@ -3292,7 +3298,7 @@ If the query cannot be rewritten, why not?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 44</strong>:
+<p><strong>Exercise 45</strong>:
 Create a query that:</p>
 <ol>
 <li>
@@ -3354,7 +3360,7 @@ Create a query that:</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 45</strong>:
+<p><strong>Exercise 46</strong>:
 Modify the query shown above to select the value of <code>content</code>
 rather than its length.
 How intelligible is the output?
@@ -3457,7 +3463,7 @@ CREATE TABLE usage(
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 46</strong>:
+<p><strong>Exercise 47</strong>:
 Write a query that selects the year from the <code>"refurbished"</code> field
 of the JSON data associated with the Inphormex plate reader.</p>
 <!-- ---------------------------------------------------------------- -->
@@ -3531,7 +3537,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 47</strong>:
+<p><strong>Exercise 48</strong>:
 Write a query that counts how many times each person appears
 in the first log entry associated with any piece of equipment.</p>
 <!-- ---------------------------------------------------------------- -->
@@ -3589,7 +3595,7 @@ in the first log entry associated with any piece of equipment.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 48</strong>:
+<p><strong>Exercise 49</strong>:
 As part of cleaning up the lab log database,
 replace the machine names in the JSON records in <code>usage</code>
 with the corresopnding machine IDs from the <code>machine</code> table.</p>
@@ -3685,7 +3691,7 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 49</strong>:
+<p><strong>Exercise 50</strong>:
 What are the data types of the columns in the <code>penguins</code> table
 created by the CSV import shown above?
 How can you correct the ones that need correcting?</p>
@@ -3748,7 +3754,7 @@ How can you correct the ones that need correcting?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 50</strong>:
+<p><strong>Exercise 51</strong>:
 Create a view in the lab log database called <code>busy</code> with two columns:
 <code>machine_id</code> and <code>total_log_length</code>.
 The first column records the numeric ID of each machine;
@@ -3821,7 +3827,7 @@ the second shows the total number of log entries for that machine.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 51</strong>:
+<p><strong>Exercise 52</strong>:
 Rewrite the definition of the <code>penguins</code> table to add the following constraints:</p>
 <ol>
 <li>
@@ -4010,7 +4016,7 @@ after failed
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 52</strong>:
+<p><strong>Exercise 53</strong>:
 Using the assay database,
 write a query that adds or modifies people in the <code>staff</code> table as shown:</p>
 <table>
@@ -4163,7 +4169,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 53</strong>:
+<p><strong>Exercise 54</strong>:
 Using the penguins database:</p>
 <ol>
 <li>
@@ -4222,7 +4228,7 @@ by a single <code>insert</code> statement?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 54</strong>:
+<p><strong>Exercise 55</strong>:
 Write a query that uses a self join to find every person&rsquo;s grandchildren.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -4274,7 +4280,7 @@ Write a query that uses a self join to find every person&rsquo;s grandchildren.<
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 55</strong>:
+<p><strong>Exercise 56</strong>:
 Modify the recursive query shown above to use <code>union</code> instead of <code>union all</code>.
 Does this affect the result?
 Why or why not?</p>
@@ -4466,7 +4472,7 @@ Why or why not?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 56</strong>:
+<p><strong>Exercise 57</strong>:
 Modify the query above to use <code>union all</code> instead of <code>union</code> to trigger infinite recursion.
 How can you modify the query so that it stops at a certain depth
 so that you can trace its output?</p>
@@ -4594,7 +4600,7 @@ after deletion [(20,)]
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 57</strong>:
+<p><strong>Exercise 58</strong>:
 Write a Python script that takes island, species, sex, and other values as command-line arguments
 and inserts an entry into the penguins database.</p>
 <!-- ---------------------------------------------------------------- -->
@@ -4757,7 +4763,7 @@ after execution [(10,)]
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 58</strong>:
+<p><strong>Exercise 59</strong>:
 Write a Python adapter that truncates real values to two decimal places
 as they are being written to the database.</p>
 <!-- ---------------------------------------------------------------- -->
@@ -4869,7 +4875,7 @@ group by species;
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 59</strong>:
+<p><strong>Exercise 60</strong>:
 Write a command-line Python script that uses Pandas to re-create the penguins database.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -4913,7 +4919,7 @@ Write a command-line Python script that uses Pandas to re-create the penguins da
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 60</strong>:
+<p><strong>Exercise 61</strong>:
 Write a command-line Python script that uses Polars to re-create the penguins database.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -4953,7 +4959,7 @@ building=&#39;TGVH&#39; name=&#39;Endocrinology&#39; ident=&#39;end&#39;
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 61</strong>:
+<p><strong>Exercise 62</strong>:
 Write a command-line Python script that uses SQLModel to re-create the penguins database.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -5138,6 +5144,7 @@ Genetics: Nitya Lal
 <p>I would also like to thank the following for spotting issues, making suggestions, or submitting changes:</p>
 <ul><li>Phillip Cloud</li>
 <li>Conor Flynn</li>
+<li>Andy Goldberg</li>
 <li>Jay Graves</li>
 <li>Sam Hames</li>
 <li>Adam Hawkes</li>
@@ -5186,7 +5193,7 @@ Genetics: Nitya Lal
   <a href="https://github.com/gvwilson/sql-tutorial"><i class="fab fa-github" aria-hidden="true" title="GitHub repository"></i></a>
   <a href="license/"><i class="fab fa-creative-commons-by" aria-hidden="true" title="license"></i></a>
   &middot;
-  <time datetime="2024-02-15">Last built 2024-02-15</time>
+  <time datetime="2024-02-16">Last built 2024-02-16</time>
 </footer>
 
   </body>

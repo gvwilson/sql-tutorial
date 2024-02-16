@@ -7,6 +7,7 @@ with sized_penguins as (
             'large'
         ) as size
     from penguins
+    where body_mass_g is not null
 )
 
 select
