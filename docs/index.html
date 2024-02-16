@@ -185,6 +185,12 @@ Welcome, thrice welcome, to SQL.</p>
 </ul>
 </li>
 </ul>
+<blockquote>
+<p>To disconnect from an interactive database session,
+type Control-D or <code>.quit</code> on a line of its own.
+You may need to type a semi-colon <code>;</code> to close any unfinished query
+before SQLite will recognize your attempt to escape.</p>
+</blockquote>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
@@ -262,11 +268,15 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 </code></pre></div>
 </div>
 <ul>
-<li>SQLite administrative commands start with <code>.</code> and <em>aren&rsquo;t</em> part of the SQL standard<ul>
+<li><code>.mode markdown</code> and <code>.headers on</code> make the output more readable</li>
+<li>These SQLite <a href="#g:admin_command">administrative commands</a>
+    start with <code>.</code> and <em>aren&rsquo;t</em> part of the SQL standard<ul>
 <li>PostgreSQL&rsquo;s special commands start with <code>\</code></li>
 </ul>
 </li>
+<li>Each command must appear on a line of its own</li>
 <li>Use <code>.help</code> for a complete list</li>
+<li>And as mentioned earlier, use <code>.quit</code> to quit</li>
 </ul>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -5022,6 +5032,8 @@ Genetics: Nitya Lal
 <dt id="g:1_to_1">1-to-1 relation</dt><dd>A relationship between two tables in which each record from the first table matches exactly one record from the second and vice versa.</dd>
 
 <dt id="g:1_to_many">1-to-many relation</dt><dd>A relationship between two tables in which each record from the first table matches zero or more records from the second, but each record from the second table matches exactly one record from the first.</dd>
+
+<dt id="g:admin_command">administration command</dt><dd>A command for managing a database that isn&rsquo;t part of the SQL standard. Each <a href="#rdbms">RDBMS</a> has its own idiosyncratic admin commands.</dd>
 
 <dt id="g:aggregation">aggregation</dt><dd>Combining several values to produce one.</dd>
 

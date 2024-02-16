@@ -121,6 +121,11 @@
     -   `little_penguins` is a subset used in our first few queries
         to keep output readable
 
+> To disconnect from an interactive database session,
+> type Control-D or `.quit` on a line of its own.
+> You may need to type a semi-colon `;` to close any unfinished query
+> before SQLite will recognize your attempt to escape.
+
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Selecting Constant" %]
 
@@ -140,18 +145,19 @@
 -   Use `*` to mean "all columns"
 -   Use <code>from <em>tablename</em></code> to specify table
 -   Output format is not particularly readable
--   To disconnect from the database, type a semicolon to throw an error to get out of `...>` and then type `.quit`
+
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Administrative Commands" %]
 
 [% double stem="admin_commands" suffix="sql out" %]
 
--   SQLite [%g admin_command "administrative commands" %]
+-   `.mode markdown` and `.headers on` make the output more readable
+-   These SQLite [%g admin_command "administrative commands" %]
     start with `.` and *aren't* part of the SQL standard
     -   PostgreSQL's special commands start with `\`
 -   Each command must appear on a line of its own
 -   Use `.help` for a complete list
--   `.mode markdown` and `.headers on` make the output more readable
+-   And as mentioned earlier, use `.quit` to quit
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Specifying Columns" %]
