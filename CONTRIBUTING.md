@@ -61,7 +61,7 @@ All contributors will be acknowledged.
     the key must identify an entry in `info/glossary.yml`,
     which is in [Glosario][glosario] format.
 
--   SVG diagrams are in `res/img/` and can be edited using [draw.io][draw-io].
+-   SVG diagrams are in `res/img/` and can be edited using [draw.io][draw_io].
     Please use 14-point Helvetica for text,
     solid 1-point black lines,
     and unfilled objects.
@@ -124,7 +124,7 @@ All contributors will be acknowledged.
         -   `lib/tut/templates/`: the main `node.ibis` template and included files
 -   `misc/`: miscellaneous files
     -   `jupysql.ipynb`: Jupyter notebook used in examples
-    -   `penguins.csv`: [Palmer penguins][palmer-penguins] data
+    -   `penguins.csv`: [Palmer penguins][palmer_penguins] data
     -   `sql_keywords.txt`: all SQLite keywords
 -   `out/`: generated output files for examples
 -   `requirements.txt`: `pip` requirements file to build Python environment
@@ -189,13 +189,13 @@ Why hand-drawn figures rather than [Graphviz][graphviz] or [Mermaid][mermaid]?
 Why make this tutorial freely available?
 :   Because if we all give a little, we all get a lot.
 
-[draw-io]: https://www.drawio.com/
+[draw_io]: https://www.drawio.com/
 [jekyll]: https://jekyllrb.com/
 [ghp]: https://pages.github.com/
 [glosario]: https://glosario.carpentries.org/
 [graphviz]: https://graphviz.org/
 [mermaid]: https://mermaid.js.org/
-[palmer-penguins]: https://allisonhorst.github.io/palmerpenguins/
+[palmer_penguins]: https://allisonhorst.github.io/palmerpenguins/
 [pandas]: https://pandas.pydata.org/
 [polars]: https://pola.rs/
 [postgresql]: https://www.postgresql.org/

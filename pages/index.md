@@ -97,7 +97,8 @@
     -   SQLite stores each database in a single file
     -   [PostgreSQL][postgresql] spreads information across many files for higher performance
 -   DBMS can be a library embedded in other programs (SQLite) or a server (PostgreSQL)
--   A [%g rdbms "relational database management system" %] (RDBMS) stores data in tables and uses [SQL][sql] for queries
+-   A [%g rdbms "relational database management system" %] (RDBMS) stores data in [%g table "tables" %]
+    and uses [SQL][sql] for queries
     -   Unfortunately, every RDBMS has its own dialect of SQL
 -   There are also [%g nosql "NoSQL databases" %] like [MongoDB][mongodb] that don't use tables
 
@@ -112,9 +113,13 @@
 
 [% single "src/connect_penguins.sh" %]
 
--   Not actually a query: starts an interactive session
+-   Not actually a query: starts an interactive session with the database in `db/penguins.db`
 -   Alternative: provide a single query on the command line <code>sqlite3 <em>database</em> "<em>query</em>"</code>
 -   Or put query in file and run <code>sqlite3 <em>database</em> < <em>filename</em></code>
+-   Note: the `penguins` database contains two tables
+    -   `penguins` is all the [Palmer Penguins][palmer_penguins] data
+    -   `little_penguins` is a subset used in our first few queries
+        to keep output readable
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Selecting Constant" %]

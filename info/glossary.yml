@@ -393,6 +393,13 @@
 
 # T
 
+- key: table
+  en:
+    term: table
+    def: >
+      A collection of related data in a [database](#database)
+      stored in columns and rows.
+
 - key: table_valued_func
   en:
     term: table-valued function

@@ -6,7 +6,7 @@
 
 -   Contributions are very welcome:
     please see the [contributors' guide][contribute] for background
-    and [these issues][help-wanted] for items where assistance would be most appreciated.
+    and [these issues][help_wanted] for items where assistance would be most appreciated.
     Please also see our [license][license] for terms of use,
     and note that all contributors are required to abide by our [Code of Conduct][conduct].
 
@@ -32,7 +32,7 @@
 
 [conduct]: https://gvwilson.github.io/sql-tutorial/conduct/
 [contribute]: https://gvwilson.github.io/sql-tutorial/contributing/
-[help-wanted]: https://github.com/gvwilson/sql-tutorial/issues?q=is%3Aissue+is%3Aopen+label%3Ahelp-wanted
+[help_wanted]: https://github.com/gvwilson/sql-tutorial/issues?q=is%3Aissue+is%3Aopen+label%3Ahelp-wanted
 [license]: https://gvwilson.github.io/sql-tutorial/license/
 [release]: https://github.com/gvwilson/sql-tutorial/raw/main/sql-tutorial.zip
 [site]: https://gvwilson.github.io/sql-tutorial/

@@ -1,1 +1,1 @@
-sqlite3 data/lab_log.db
+sqlite3 db/lab_log.db

@@ -1,1 +1,1 @@
-sqlite3 data/penguins.db
+sqlite3 db/penguins.db

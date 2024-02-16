@@ -1,1 +1,1 @@
-%sql sqlite:///data/penguins.db
+%sql sqlite:///db/penguins.db

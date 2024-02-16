@@ -154,7 +154,8 @@ Welcome, thrice welcome, to SQL.</p>
 </ul>
 </li>
 <li>DBMS can be a library embedded in other programs (SQLite) or a server (PostgreSQL)</li>
-<li>A <a href="#g:rdbms">relational database management system</a> (RDBMS) stores data in tables and uses <a href="https://en.wikipedia.org/wiki/SQL">SQL</a> for queries<ul>
+<li>A <a href="#g:rdbms">relational database management system</a> (RDBMS) stores data in <a href="#g:table">tables</a>
+    and uses <a href="https://en.wikipedia.org/wiki/SQL">SQL</a> for queries<ul>
 <li>Unfortunately, every RDBMS has its own dialect of SQL</li>
 </ul>
 </li>
@@ -170,13 +171,19 @@ Welcome, thrice welcome, to SQL.</p>
 <h2 class="aside">Connecting to Database</h2>
 <p class="inclusion"><a href="src/connect_penguins.sh">src/connect_penguins.sh</a></p>
 <div class="language-sh">
-<div class="highlight"><pre><span></span><code>sqlite3<span class="w"> </span>data/penguins.db
+<div class="highlight"><pre><span></span><code>sqlite3<span class="w"> </span>db/penguins.db
 </code></pre></div>
 </div>
 <ul>
-<li>Not actually a query: starts an interactive session</li>
+<li>Not actually a query: starts an interactive session with the database in <code>db/penguins.db</code></li>
 <li>Alternative: provide a single query on the command line <code>sqlite3 <em>database</em> &ldquo;<em>query</em>&ldquo;</code></li>
 <li>Or put query in file and run <code>sqlite3 <em>database</em> &lt; <em>filename</em></code></li>
+<li>Note: the <code>penguins</code> database contains two tables<ul>
+<li><code>penguins</code> is all the <a href="https://allisonhorst.github.io/palmerpenguins/">Palmer Penguins</a> data</li>
+<li><code>little_penguins</code> is a subset used in our first few queries
+    to keep output readable</li>
+</ul>
+</li>
 </ul>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -3375,7 +3382,7 @@ Does using SQLite&rsquo;s <code>hex()</code> function make it any more readable?
 <h2 class="aside">Yet Another Database</h2>
 <p class="inclusion"><a href="src/lab_log_db.sh">src/lab_log_db.sh</a></p>
 <div class="language-sh">
-<div class="highlight"><pre><span></span><code>sqlite3<span class="w"> </span>data/lab_log.db
+<div class="highlight"><pre><span></span><code>sqlite3<span class="w"> </span>db/lab_log.db
 </code></pre></div>
 </div>
 <p class="inclusion"><a href="src/lab_log_schema.sql">src/lab_log_schema.sql</a></p>
@@ -4792,7 +4799,7 @@ as they are being written to the database.</p>
 </ul>
 <p class="inclusion"><a href="src/jupyter_connect.text">src/jupyter_connect.text</a></p>
 <div class="language-text">
-<div class="highlight"><pre><span></span><code>%sql sqlite:///data/penguins.db
+<div class="highlight"><pre><span></span><code>%sql sqlite:///db/penguins.db
 </code></pre></div>
 </div>
 <p class="inclusion"><a href="out/jupyter_connect.out">out/jupyter_connect.out</a></p>
@@ -5118,6 +5125,8 @@ Genetics: Nitya Lal
 
 <dt id="g:subquery">subquery</dt><dd>A query used within another query.</dd>
 
+<dt id="g:table">table</dt><dd>A collection of related data in a <a href="#database">database</a> stored in columns and rows.</dd>
+
 <dt id="g:table_valued_func">table-valued function</dt><dd>A function that returns multiple values rather than a single value.</dd>
 
 <dt id="g:temporary_table">temporary table</dt><dd>A table that is explicitly constructed in memory outside any particular query.</dd>
@@ -5147,6 +5156,7 @@ Genetics: Nitya Lal
 </ul>
 <p>I would also like to thank the following for spotting issues, making suggestions, or submitting changes:</p>
 <ul><li>Phillip Cloud</li>
+<li>Zoe Daniels</li>
 <li>Conor Flynn</li>
 <li>Andy Goldberg</li>
 <li>Jay Graves</li>
@@ -5170,6 +5180,7 @@ Genetics: Nitya Lal
 <li>Ark static site generator: <a href="https://www.dmulholl.com/docs/ark/main/">https://www.dmulholl.com/docs/ark/main/</a></li>
 <li>Fossil version control system (built on top of SQLite): <a href="https://fossil-scm.org/">https://fossil-scm.org/</a></li>
 <li>MongoDB (a NoSQL database): <a href="https://www.mongodb.com/">https://www.mongodb.com/</a></li>
+<li>Palmer Penguins dataset: <a href="https://allisonhorst.github.io/palmerpenguins/">https://allisonhorst.github.io/palmerpenguins/</a></li>
 <li>Pandas dataframe library for Python: <a href="https://pandas.pydata.org/">https://pandas.pydata.org/</a></li>
 <li>Polars dataframe library for Python: <a href="https://pola.rs/">https://pola.rs/</a></li>
 <li>PostgreSQL relational database manager: <a href="https://www.postgresql.org/">https://www.postgresql.org/</a></li>
