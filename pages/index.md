@@ -140,7 +140,7 @@
 -   Use `*` to mean "all columns"
 -   Use <code>from <em>tablename</em></code> to specify table
 -   Output format is not particularly readable
-
+-   To disconnect from the database, type a semicolon to throw an error to get out of `...>` and then type `.quit`
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Administrative Commands" %]
 
@@ -1931,5 +1931,4 @@ I would also like to thank the following for spotting issues, making suggestions
 ### Links
 
 [% link_table %]
-
 [% section_end %]
