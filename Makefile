@@ -68,17 +68,6 @@ release:
 depend.mk:
 	@python bin/make_depend.py ${SQL_FILES} > $@
 
-## lint: check project state
-.PHONY: lint
-lint:
-	@python bin/lint.py \
-	--glossary info/glossary.yml \
-	--makefile Makefile \
-	--output ${OUT} \
-	--page ${PAGE} \
-	--source ${SRC} \
-	--unused ${UNUSED}
-
 ## lint_sql: check SQL files
 .PHONY: lint_sql
 lint_sql:

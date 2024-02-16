@@ -15,12 +15,27 @@ commands:
 .PHONY: build
 build:
 	@ark build
-	@python ${TEMPLATE}/bin/copyfiles.py ${DOCS} "$$(python config.py copydir)" "$$(python config.py copyext)"
+	@python ${TEMPLATE}/bin/copyfiles.py \
+	${DOCS} \
+	"$$(python config.py copydir)" \
+	"$$(python config.py copyext)"
 
 ## serve: rebuild and serve website
 .PHONY: serve
 serve:
 	@ark serve
+
+## lint: check project state
+.PHONY: lint
+lint:
+	@python ${TEMPLATE}/bin/lint.py \
+	--glossary info/glossary.yml \
+	--lang $$(python config.py lang) \
+	--makefile Makefile \
+	--output ${OUT} \
+	--page ${PAGES}/index.md \
+	--source ${SRC} \
+	--unused ${UNUSED}
 
 ## ordered: get all inclusions in order
 .PHONY: ordered

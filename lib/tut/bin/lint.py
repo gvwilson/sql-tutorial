@@ -3,35 +3,63 @@
 import argparse
 from pathlib import Path
 import re
+import shortcodes
 import yaml
 
-GLOSS_REF = re.compile(r'<a\s+href="#g:(.+?)">')
-MAKE_INC = re.compile(r"\b(\w+?\.(sql|py))\b")
-SINGLE_INC = re.compile(r'\[%\s+single\s+".+?/(.+?)"\s+%\]')
-DOUBLE_INC = re.compile(r'\[%\s+double\s+stem="(.+?)"\s+suffix="(.+?)"\s+%\]')
+
+CROSSREF = re.compile(r"\]\(\#(.+?)\)", re.DOTALL)
+MAKE_INC = re.compile(r"\$\{(OUT|SRC)\}/(\w+?\.(sql|py))\b")
+
+@shortcodes.register("double")
+def double(pargs, kwargs, context):
+    stem = kwargs["stem"]
+    suffix = kwargs["suffix"].split()
+    context["inclusion"].add(f"{context['src']}/{stem}.{suffix[0]}")
+    context["inclusion"].add(f"{context['out']}/{stem}.{suffix[1]}")
+
+
+@shortcodes.register("single")
+def single(pargs, kwargs, context):
+    context["inclusion"].add(pargs[0])
+
+
+@shortcodes.register("g")
+def glossref(pargs, kwargs, context):
+    context["glossref"].add(str(Path(pargs[0]).name))
 
 
 def main():
     """Main driver."""
     options = parse_args()
-    do_inclusions(options)
-    do_glossary(options)
+    parser = shortcodes.Parser(ignore_unknown=True)
+    context = {
+        "glossref": set(),
+        "inclusion": set(),
+        "out": options.output,
+        "src": options.source,
+    }
+    parser.parse(Path(options.page).read_text(), context)
+    do_inclusions(options, context["inclusion"])
+    do_glossary(options, context["glossref"])
 
 
-def do_glossary(options):
+def do_glossary(options, used):
     """Handle glossary checks."""
-    used = {ref for ref in GLOSS_REF.findall(Path(options.page).read_text())}
     with open(options.glossary, "r") as reader:
-        known = {entry["key"] for entry in yaml.load(reader, Loader=yaml.FullLoader)}
+        glossary = yaml.load(reader, Loader=yaml.FullLoader)
+        known = set()
+        for entry in glossary:
+            known.add(entry["key"])
+            for m in CROSSREF.findall(entry[options.lang]["def"]):
+                used.add(m)
     report("unknown glossary keys", used - known)
     report("unused glossary keys", known - used)
 
 
-def do_inclusions(options):
+def do_inclusions(options, page_inc):
     """Handle inclusion checking."""
 
     make_inc = find_make_inc(options.makefile, options.unused)
-    page_inc = find_page_inc(options.page)
     actual = find_actual(options.source, options.output)
 
     report("in Make but do not exist", make_inc - actual)
@@ -44,14 +72,14 @@ def find_actual(src, out):
     """Find actual source files."""
     names = set()
     for dirname in (src, out):
-        names |= {f.name for f in Path(dirname).glob("*.*")}
+        names |= {str(Path(dirname, f.name)) for f in Path(dirname).glob("*.*")}
     names = {n for n in names if not n.endswith("~")}
     return names
 
 
 def find_make_inc(makefile, unused):
     """Find mentions in Makefile."""
-    make_inc = {m[0] for m in MAKE_INC.findall(Path(makefile).read_text())}
+    make_inc = {f"{m[0].lower()}/{m[1]}" for m in MAKE_INC.findall(Path(makefile).read_text())}
     return make_inc - set(unused)
 
 
@@ -71,6 +99,9 @@ def parse_args():
     parser.add_argument("--glossary", type=str, required=True, help="path to glossary")
     parser.add_argument("--makefile", type=str, required=True, help="path to Makefile")
     parser.add_argument(
+        "--lang", type=str, required=True, help="language"
+    )
+    parser.add_argument(
         "--output", type=str, required=True, help="path to output directory"
     )
     parser.add_argument(
@@ -80,7 +111,7 @@ def parse_args():
         "--source", type=str, required=True, help="path to source directory"
     )
     parser.add_argument(
-        "--unused", type=str, nargs="+", help="source files not used directly"
+        "--unused", type=str, nargs="*", help="source files not used directly"
     )
     return parser.parse_args()
 
@@ -88,7 +119,9 @@ def parse_args():
 def report(title, values):
     """Report values if any."""
     if values:
-        print(f"{title}: {', '.join(sorted(values))}")
+        print(title)
+        for v in sorted(values):
+            print(f"- {v}")
 
 
 if __name__ == "__main__":

@@ -91,15 +91,15 @@
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Background Concepts" %]
 
--   A <a href="#g:database">database</a> is a collection of data that can be searched and retrieved
--   A <a href="#g:dbms">database management system</a> (DBMS) is a program that manages a particular kind of database
+-   A [%g database "database" %] is a collection of data that can be searched and retrieved
+-   A [%g dbms "database management system" %] (DBMS) is a program that manages a particular kind of database
 -   Each DBMS stores data in its own way
     -   SQLite stores each database in a single file
     -   [PostgreSQL][postgresql] spreads information across many files for higher performance
 -   DBMS can be a library embedded in other programs (SQLite) or a server (PostgreSQL)
--   A <a href="#g:rdbms">relational database management system</a> (RDBMS) stores data in tables and uses [SQL][sql] for queries
+-   A [%g rdbms "relational database management system" %] (RDBMS) stores data in tables and uses [SQL][sql] for queries
     -   Unfortunately, every RDBMS has its own dialect of SQL
--   There are also <a href="#g:nosql">NoSQL databases</a> like [MongoDB][mongodb] that don't use tables
+-   There are also [%g nosql "NoSQL databases" %] like [MongoDB][mongodb] that don't use tables
 
 [% figure
    file="img/concept_map_overview.svg"
@@ -131,7 +131,7 @@
 
 [% double stem="select_star" suffix="sql out" %]
 
--   An actual <a href="#g:query">query</a>
+-   An actual [%g query "query" %]
 -   Use `*` to mean "all columns"
 -   Use <code>from <em>tablename</em></code> to specify table
 -   Output format is not particularly readable
@@ -219,7 +219,7 @@ and compare the result to what you got in part 1.
 
 [% double stem="filter" suffix="sql out" %]
 
--   <code>where <em>condition</em></code> <a href="#g:filter">filters</a> the rows produced by selection
+-   <code>where <em>condition</em></code> [%g filter "filters" %] the rows produced by selection
 -   Condition is evaluated independently for each row
 -   Only rows that pass the test appear in results
 -   Use single quotes for `'text data'` and double quotes for `"weird column names"`
@@ -252,9 +252,9 @@ This shows that the columns displayed and those used in filtering are independen
 Use the `not` operator to select penguins that are *not* Gentoos.
 
 [% exercise %]
-SQL's `or` is an <a href="#g:inclusive_or">inclusive or</a>:
+SQL's `or` is an [%g inclusive_or "inclusive or" %]:
 it succeeds if either *or both* conditions are true.
-SQL does not provide a specific operator for <a href="#g:exclusive_or">exclusive or</a>,
+SQL does not provide a specific operator for [%g exclusive_or "exclusive or" %],
 which is true if either *but not both* conditions are true,
 but the same effect can be achieved using `and`, `or`, and `not`.
 Write a query to select penguins that are female *or* on Torgersen Island *but not both*.
@@ -304,7 +304,7 @@ or look at [the documentation for SQLite's `format()` function][sqlite_format].
 
 [% double stem="show_missing_values" suffix="sql out" %]
 
--   SQL uses a special value <a href="#g:null"><code>null</code></a> to representing missing data
+-   SQL uses a special value [%g null "<code>null</code>" %] to representing missing data
     -   Not 0 or empty string, but "I don't know"
 -   Flipper length and body weight not known for one of the first five penguins
 -   "I don't know" divided by 10 or 1000 is "I don't know"
@@ -345,7 +345,7 @@ When might it be misleading?
 -   If we don't know the left and right values, we don't know if they're equal or not
 -   So the result is `null`
 -   Get the same answer for `null != null`
--   <a href="#g:ternary_logic">Ternary logic</a>
+-   [%g ternary_logic "Ternary logic" %]
 
 <table>
   <tr>
@@ -408,8 +408,8 @@ Write another query to find penguins whose sex is known but whose body mass is n
 
 [% double stem="simple_sum" suffix="sql out" %]
 
--   <a href="#g:aggregation">Aggregation</a> combines many values to produce one
--   `sum` is an <a href="#g:aggregation_func">aggregation function</a>
+-   [%g aggregation "Aggregation" %] combines many values to produce one
+-   `sum` is an [%g aggregation_func "aggregation function" %]
 -   Combines corresponding values from multiple rows
 
 <!-- ---------------------------------------------------------------- -->
@@ -447,7 +447,7 @@ How many different body masses are in the penguins dataset?
 
 [% double stem="simple_group" suffix="sql out" %]
 
--   Put rows in <a href="#g:group">groups</a> based on distinct combinations of values in columns specified with `group by`
+-   Put rows in [%g group "groups" %] based on distinct combinations of values in columns specified with `group by`
 -   Then perform aggregation separately for each group
 -   But which is which?
 
@@ -527,7 +527,7 @@ Is it possible to do this using `where` instead of `filter`?
 
 [% single "src/in_memory_db.sh" %]
 
--   "Connect" to an <a href="#g:in_memory_db">in-memory database</a>
+-   "Connect" to an [%g in_memory_db "in-memory database" %]
     -   Changes aren't saved to disk
     -   Very useful for testing (discussed later)
 
@@ -601,7 +601,7 @@ What happens if you try to delete rows that don't exist
 
 [% double stem="backing_up" suffix="sql out" %]
 
--   We will explore another strategy based on <a href="#g:tombstone">tombstones</a> below
+-   We will explore another strategy based on [%g tombstone "tombstones" %] below
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="exercise" %]
@@ -647,8 +647,8 @@ Saving and restoring data in binary format:
 
 [% double stem="cross_join" suffix="sql out" %]
 
--   A <a href="#g:join">join</a> combines information from two tables
--   <a href="#g:cross_join">cross join</a> constructs their cross product
+-   A [%g join "join" %] combines information from two tables
+-   [%g cross_join "cross join" %] constructs their cross product
     -   All combinations of rows from each
 -   Result isn't particularly useful: `job` and `name` values don't match
     -   I.e., the combined data has records whose parts have nothing to do with each other
@@ -660,7 +660,7 @@ Saving and restoring data in binary format:
 
 -   Use <code><em>table</em>.<em>column</em></code> notation to specify columns
     -   A column can have the same name as a table
--   Use <code>on <em>condition</em></code> to specify <a href="#g:join_condition">join condition</a>
+-   Use <code>on <em>condition</em></code> to specify [%g join_condition "join condition" %]
 -   Since `complain` doesn't appear in `job.name`, none of those rows are kept
 
 <!-- ---------------------------------------------------------------- -->
@@ -686,7 +686,7 @@ and more or less likely to cause errors?
 
 [% double stem="left_join" suffix="sql out" %]
 
--   A <a href="#g:left_outer_join">left outer join</a> keeps all rows from the left table
+-   A [%g left_outer_join "left outer join" %] keeps all rows from the left table
 -   Fills missing values from right table with null
 
 <!-- ---------------------------------------------------------------- -->
@@ -706,8 +706,8 @@ and more or less likely to cause errors?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Full Outer Join" %]
 
--   <a href="#g:full_outer_join">Full outer join</a> is the union of
-    left outer join and <a href="#g:right_outer_join">right outer join</a>
+-   [%g full_outer_join "Full outer join" %] is the union of
+    left outer join and [%g right_outer_join "right outer join" %]
 -   Almost the same as cross join, but consider:
 
 [% double stem="full_outer_join" suffix="sql out" %]
@@ -756,14 +756,14 @@ using the SQL you have seen so far?
 
 [% double stem="subquery_set" suffix="sql out" %]
 
--   Use a <a href="#g:subquery">subquery</a> to select the people who *do* calibrate
+-   Use a [%g subquery "subquery" %] to select the people who *do* calibrate
 -   Then select all the people who *aren't* in that set
 -   Initially feels odd, but subqueries are useful in other ways
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Defining a Primary Key" %]
 
--   Can use any field (or combination of fields) in a table as a <a href="#g:primary_key">primary key</a>
+-   Can use any field (or combination of fields) in a table as a [%g primary_key "primary key" %]
     as long as value(s) unique for each record
 -   Uniquely identifies a particular record in a particular table
 
@@ -782,7 +782,7 @@ What about the `work` and `job` tables?
 
 [% double stem="autoincrement" suffix="sql out" %]
 
--   Database <a href="#g:autoincrement">autoincrements</a> `ident` each time a new record is added
+-   Database [%g autoincrement "autoincrements" %] `ident` each time a new record is added
 -   Common to use that field as the primary key
     -   Unique for each record
 -   If Mik changes their name again,
@@ -817,19 +817,19 @@ the same sequence numbers are generated again?
 -   Then use `update` to modify existing records
     -   Can modify any number of records at once
     -   So be careful about `where` clause
--   An example of <a href="#g:data_migration">data migration</a>
+-   An example of [%g data_migration "data migration" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="M-to-N Relationships" %]
 
 -   Relationships between entities are usually characterized as:
-    -   <a href="#g:1_to_1">1-to-1</a>:
+    -   [%g 1_to_1 "1-to-1" %]:
         fields in the same record
-    -   <a href="#g:1_to_many">1-to-many</a>:
-        the many have a <a href="#g:foreign_key">foreign key</a> referring to the one's primary key
-    -   <a href="#g:many_to_many">many-to-many</a>:
+    -   [%g 1_to_many "1-to-many" %]:
+        the many have a [%g foreign_key "foreign key" %] referring to the one's primary key
+    -   [%g many_to_many "many-to-many" %]:
         don't know how many keys to add to records ("maximum" never is)
--   Nearly-universal solution is a <a href="#g:join_table">join table</a>
+-   Nearly-universal solution is a [%g join_table "join table" %]
     -   Each record is a pair of foreign keys
     -   I.e., each record is the fact that records A and B are related
 
@@ -912,7 +912,7 @@ that weigh the same as the lightest penguin of the same sex and species.
 
 [% double stem="common_table_expressions" suffix="sql out" %]
 
--   Use <a href="#g:cte">common table expression</a> (CTE) to make queries clearer
+-   Use [%g cte "common table expression" %] (CTE) to make queries clearer
     -   Nested subqueries quickly become difficult to understand
 -   Database decides how to optimize
 
@@ -922,7 +922,7 @@ that weigh the same as the lightest penguin of the same sex and species.
 [% double stem="explain_query_plan" suffix="sql out" %]
 
 -   SQLite plans to scan every row of the table
--   It will build a temporary <a href="#g:b_tree">B-tree data structure</a> to group rows
+-   It will build a temporary [%g b_tree "B-tree data structure" %] to group rows
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="exercise" %]
@@ -968,7 +968,7 @@ To explore how row IDs behave:
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
 -   May feel odd to think of `if`/`else` as a function,
-    but common in <a href="#g:vectorization">vectorized</a> calculations
+    but common in [%g vectorization "vectorized" %] calculations
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="exercise" %]
@@ -1002,8 +1002,8 @@ Modify the query above so that
 the outputs are `"penguin is small"` and `"penguin is large"`
 by concatenating the string `"penguin is "` to the entire `case`
 rather than to the individual `when` branches.
-(This exercise shows that `case`/`when` is an <a href="#g:expression">expression</a>
-rather than a <a href="#g:statement">statement</a>.)
+(This exercise shows that `case`/`when` is an [%g expression "expression" %]
+rather than a [%g statement "statement" %].)
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Checking a Range" %]
@@ -1037,7 +1037,7 @@ so that it is true in both cases.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Yet Another Database" %]
 
--   <a href="#g:er_diagram">Entity-relationship diagram</a> (ER diagram) shows relationships between tables
+-   [%g er_diagram "Entity-relationship diagram" %] (ER diagram) shows relationships between tables
 -   Like everything to do with databases, there are lots of variations
 
 [% figure
@@ -1166,7 +1166,7 @@ Write a query that:
 
 [% double stem="create_use_index" suffix="sql out" %]
 
--   An <a href="#g:index">index</a> is an auxiliary data structure that enables faster access to records
+-   An [%g index "index" %] is an auxiliary data structure that enables faster access to records
     -   Spend storage space to buy speed
 -   Don't have to mention it explicitly in queries
     -   Database manager will use it automatically
@@ -1177,7 +1177,7 @@ Write a query that:
 
 [% double stem="generate_sequence" suffix="sql out" %]
 
--   A (non-standard) <a href="#g:table_valued_func">table-valued function</a>
+-   A (non-standard) [%g table_valued_func "table-valued function" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Generating Sequences Based on Data" %]
@@ -1214,7 +1214,7 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 [% double stem="self_join" suffix="sql out" %]
 
 -   Join a table to itself
-    -   Use `as` to create <a href="#g:alias">aliases</a> for copies of tables to distinguish them
+    -   Use `as` to create [%g alias "aliases" %] for copies of tables to distinguish them
     -   Nothing special about the names `left` and `right`
 -   Get all <math>n<sup>2</sup></math> pairs, including person with themself
 
@@ -1239,7 +1239,7 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 
 -   Endocrinology is missing from the list
 -   `select 1` could equally be `select true` or any other value
--   A <a href="#g:correlated_subquery">correlated subquery</a> depends on a value from the outer query
+-   A [%g correlated_subquery "correlated subquery" %] depends on a value from the outer query
     -   Equivalent to nested loop
 
 <!-- ---------------------------------------------------------------- -->
@@ -1270,7 +1270,7 @@ If the query cannot be rewritten, why not?
 
 -   Use `strftime` to extract year and month
     -   Clumsy, but date/time handling is not SQLite's strong point
--   Use <a href="#g:window_func">window functions</a> `lead` and `lag` to shift values
+-   Use [%g window_func "window functions" %] `lead` and `lag` to shift values
     -   Unavailable values at the top or bottom are null
 
 <!-- ---------------------------------------------------------------- -->
@@ -1322,7 +1322,7 @@ Create a query that:
 
 [% double stem="blob" suffix="sql out" %]
 
--   A <a href="#g:blob">blob</a> is a binary large object
+-   A [%g blob "blob" %] is a binary large object
     -   Bytes in, bytes out…
 -   If you think that's odd, check out [Fossil][fossil]
 
@@ -1346,7 +1346,7 @@ Does using SQLite's `hex()` function make it any more readable?
 
 [% double stem="json_in_table" suffix="sql out" %]
 
--   Store heterogeneous data as <a href="#g:json">JSON</a>-formatted text
+-   Store heterogeneous data as [%g json "JSON" %]-formatted text
     (with double-quoted strings)
     -   Database parses the text each time it is queried,
         so performance can be an issue
@@ -1362,7 +1362,7 @@ Does using SQLite's `hex()` function make it any more readable?
 -   Single arrow `->` returns JSON representation of result
 -   Double arrow `->>` returns SQL text, integer, real, or null
 -   Left side is column
--   Right side is <a href="#g:path_expression">path expression</a>
+-   Right side is [%g path_expression "path expression" %]
     -   Start with `$` (meaning "root")
     -   Fields separated by `.`
 
@@ -1432,13 +1432,13 @@ with the corresopnding machine IDs from the `machine` table.
 [% single "src/make_active.sql" %]
 [% double stem="active_penguins" suffix="sql out" %]
 
--   Use a <a href="#g:tombstone">tombstone</a> to mark (in)active records
+-   Use a [%g tombstone "tombstone" %] to mark (in)active records
 -   Every query must now include it
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Importing CSV Data" %]
 
--   SQLite and most other database managers have tools for importing and exporting <a href="#g:csv">CSV</a>
+-   SQLite and most other database managers have tools for importing and exporting [%g csv "CSV" %]
 -   In SQLite:
     -   Define table
     -   Import data
@@ -1460,12 +1460,12 @@ How can you correct the ones that need correcting?
 
 [% double stem="views" suffix="sql out" %]
 
--   A <a href="#g:view">view</a> is a saved query that other queries can invoke
+-   A [%g view "view" %] is a saved query that other queries can invoke
 -   View is re-run each time it's used
 -   Like a CTE, but:
     -   Can be shared between queries
     -   Views came first
--   Some databases offer <a href="#g:materialized_view">materialized views</a>
+-   Some databases offer [%g materialized_view "materialized views" %]
     -   Update-on-demand temporary tables
 
 <!-- ---------------------------------------------------------------- -->
@@ -1515,10 +1515,10 @@ Rewrite the definition of the `penguins` table to add the following constraints:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="ACID" %]
 
--   <a href="#g:atomic">Atomic</a>: change cannot be broken down into smaller ones (i.e., all or nothing)
--   <a href="#g:consistent">Consistent</a>: database goes from one consistent state to another
--   <a href="#g:isolated">Isolated</a>: looks like changes happened one after another
--   <a href="#g:durable">Durable</a>: if change takes place, it's still there after a restart
+-   [%g atomic "Atomic" %]: change cannot be broken down into smaller ones (i.e., all or nothing)
+-   [%g consistent "Consistent" %]: database goes from one consistent state to another
+-   [%g isolated "Isolated" %]: looks like changes happened one after another
+-   [%g durable "Durable" %]: if change takes place, it's still there after a restart
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Transactions" %]
@@ -1554,7 +1554,7 @@ Rewrite the definition of the `penguins` table to add the following constraints:
 
 [% double stem="upsert" suffix="sql out" %]
 
--   <a href="#g:upsert">upsert</a> stands for "update or insert"
+-   [%g upsert "upsert" %] stands for "update or insert"
     -   Create if record doesn't exist
     -   Update if it does
 -   Not standard SQL but widely implemented
@@ -1576,14 +1576,14 @@ write a query that adds or modifies people in the `staff` table as shown:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Normalization" %]
 
--   First <a href="#g:normal_form">normal form</a> (1NF):
+-   First [%g normal_form "normal form" %] (1NF):
     every field of every record contains one indivisible value.
 
 -   Second normal form (2NF) and third normal form (3NF):
     every value in a record that isn't a key depends solely on the key,
     not on other values.
 
--   <a href="#g:denormalization">Denormalization</a>: explicitly store values that could be calculated on the fly
+-   [%g denormalization "Denormalization" %]: explicitly store values that could be calculated on the fly
     -   To simplify queries and/or make processing faster
 
 <!-- ---------------------------------------------------------------- -->
@@ -1591,7 +1591,7 @@ write a query that adds or modifies people in the `staff` table as shown:
 
 [% single "src/trigger_setup.sql" %]
 
--   A <a href="#g:trigger">trigger</a> automatically runs before or after a specified operation
+-   A [%g trigger "trigger" %] automatically runs before or after a specified operation
 -   Can have side effects (e.g., update some other table)
 -   And/or implement checks (e.g., make sure other records exist)
 -   Add processing overhead…
@@ -1646,9 +1646,9 @@ Write a query that uses a self join to find every person's grandchildren.
 
 [% double stem="recursive_lineage" suffix="sql out" %]
 
--   Use a <a href="#g:recursive_cte">recursive CTE</a> to create a temporary table (`descendent`)
--   <a href="#g:base_case">Base case</a> seeds this table
--   <a href="#g:recursive_case">Recursive case</a> relies on value(s) already in that table and external table(s)
+-   Use a [%g recursive_cte "recursive CTE" %] to create a temporary table (`descendent`)
+-   [%g base_case "Base case" %] seeds this table
+-   [%g recursive_case "Recursive case" %] relies on value(s) already in that table and external table(s)
 -   `union all` to combine rows
     -   Can use `union` but that has lower performance (must check uniqueness each time)
 -   Stops when the recursive case yields an empty row set (nothing new to add)
@@ -1679,7 +1679,7 @@ Why or why not?
 
 [% double stem="bidirectional" suffix="sql out" %]
 
--   Create a <a href="#g:temporary_table">temporary table</a> rather than using a long chain of CTEs
+-   Create a [%g temporary_table "temporary table" %] rather than using a long chain of CTEs
     -   Only lasts as long as the session (not saved to disk)
 -   Duplicate information rather than writing more complicated query
 
@@ -1696,7 +1696,7 @@ Why or why not?
 
 [% double stem="recursive_labeling" suffix="sql out" %]
 
--   Use `union` instead of `union all` to prevent <a href="#g:infinite_recursion">infinite recursion</a>
+-   Use `union` instead of `union all` to prevent [%g infinite_recursion "infinite recursion" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="exercise" %]
@@ -1722,7 +1722,7 @@ so that you can trace its output?
 
 -   `sqlite3` is part of Python's standard library
 -   Create a connection to a database file
--   Get a <a href="#g:cursor">cursor</a> by executing a query
+-   Get a [%g cursor "cursor" %] by executing a query
     -   More common to create cursor and use that to run queries
 -   Fetch all rows at once as list of tuples
 
@@ -1861,7 +1861,7 @@ Write a command-line Python script that uses Pandas to re-create the penguins da
 [% single "src/install_polars.sh" %]
 [% double stem="select_polars" suffix="py out" %]
 
--   The <a href="#g:uri">Uniform Resource Identifier</a> (URI) specifies the database
+-   The [%g uri "Uniform Resource Identifier" %] (URI) specifies the database
 -   The query is the query
 -   Use the ADBC engine instead of the default ConnectorX with [Polars][polars]
 
@@ -1876,7 +1876,7 @@ Write a command-line Python script that uses Polars to re-create the penguins da
 
 [% double stem="orm" suffix="py out" %]
 
--   An <a href="#g:orm">object-relational mapper</a> (ORM) translates table columns to object properties and vice versa
+-   An [%g orm "object-relational mapper" %] (ORM) translates table columns to object properties and vice versa
 -   [SQLModel][sqlmodel] relies on Python type hints
 
 <!-- ---------------------------------------------------------------- -->
