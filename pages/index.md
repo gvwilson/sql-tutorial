@@ -1307,7 +1307,10 @@ If the query cannot be rewritten, why not?
 [% double stem="window_functions" suffix="sql out" %]
 
 -   `sum() over` does a running total
--   `cume_dist` is fraction *of rows seen so far*
+-   `cume_dist()` is fraction *of rows seen so far*
+-   So `num_done` column is number of experiments done…
+-   …`completed_progress` is the fraction of experiments done…
+-   …and `linear_progress` is the fraction of time passed
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Explaining Another Query Plan" %]
