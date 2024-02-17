@@ -1,40 +1,26 @@
-> Upon first encountering SQL after two decades of Fortran, C, Java, and Python,
-> I thought I had stumbled into hell.
-> I quickly realized that was optimistic:
-> after all,
-> hell has rules.
->
-> I have since realized that SQL does too,
-> and that they are no more confusing or contradictory than those of most other programming languages.
-> They only appear so because it draws on a tradition unfamiliar to those of us raised with derivatives of C.
-> To quote <a href="https://terrypratchett.com/">the other bard</a>,
-> it is not mad, just differently sane.
->
-> Welcome, then, to a world in which the strange will become familiar, and the familiar, strange.
-> Welcome, thrice welcome, to SQL.
-
-<div class="row cthulhu">
-  <div class="col-6 center">
-    <img src="@root/cthulhu-300x253.jpg" alt="stylized Cthulhu"/>
+<div class="row">
+  <div class="col-4 center">
+    <img src="@root/advent_04_215-resized.png" alt="cover art by Danielle Navarro" width="80%"/>
   </div>
-  <div class="col-6">
+  <div class="col-8">
     <p>
-      <a href="[% config 'repo' %]/issues/"><strong>The Querynomicon Needs Your Help</strong></a>
+      Upon first encountering SQL after two decades of Fortran, C, Java, and Python,
+      I thought I had stumbled into hell.
+      I quickly realized that was optimistic:
+      after all,
+      hell has rules.
     </p>
-    <ol>
-      <li>
-        <p><em>More exercises</em> to help learners practice.</p>
-      </li>
-      <li>
-        <p><em>Sample solutions</em> so that they can check their work.</p>
-      </li>
-      <li>
-        <p><em>CSS show/hide for solutions</em> because He Who Lies Dreaming said, "No JavaScript."</p>
-      </li>
-      <li>
-        <p><em>Ideas for <a href="https://github.com/gvwilson/sys-tutorial/issues/1">the next tutorial</a></em> because why stop learning now?</p>
-      </li>
-    </ol>
+    <p>
+      I have since realized that SQL does too,
+      and that they are no more confusing or contradictory than those of most other programming languages.
+      They only appear so because it draws on a tradition unfamiliar to those of us raised with derivatives of C.
+      To quote <a href="https://terrypratchett.com/">Terry Pratchett</a>,
+      it is not mad, just differently sane.
+    </p>
+    <p>
+      Welcome, then, to a world in which the strange will become familiar, and the familiar, strange.
+      Welcome, thrice welcome, to SQL.
+    </p>
   </div>
 </div>
 
