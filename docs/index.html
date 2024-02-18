@@ -19,7 +19,11 @@
       <a class="navlink" href="#">Home</a>
     </div>
     <div class="col-10 right">
-      <a href="https://github.com/gvwilson/sql-tutorial">repo</a>
+      
+      <a class="navlink" href="python/">Python</a>
+      
+      |
+      <a class="navlink" href="https://github.com/gvwilson/sql-tutorial">repo</a>
       <a href="https://github.com/gvwilson/sql-tutorial/raw/main/sql-tutorial.zip">download</a>
       <a class="navlink" href="license/">license</a>
       <a class="navlink" href="conduct/">conduct</a>
@@ -148,9 +152,9 @@
 </li>
 <li>There are also <a href="#g:nosql">NoSQL databases</a> like <a href="https://www.mongodb.com/">MongoDB</a> that don&rsquo;t use tables</li>
 </ul>
-<figure id="figure_1">
+<figure id="figure_2">
 <img src="img/concept_map_overview.svg" alt="box and arrow concept map of major concepts related to databases"/>
-<figcaption>Figure 1: overview of major concepts</figcaption>
+<figcaption>Figure 2: overview of major concepts</figcaption>
 </figure>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -181,7 +185,7 @@ before SQLite will recognize your attempt to escape.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">1: Selecting Constant</h2>
+<h2 class="topic">14: Selecting Constant</h2>
 <p class="inclusion"><a href="src/select_1.sql">src/select_1.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
@@ -201,7 +205,7 @@ before SQLite will recognize your attempt to escape.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">2: Selecting All Values from Table</h2>
+<h2 class="topic">15: Selecting All Values from Table</h2>
 <p class="inclusion"><a href="src/select_star.sql">src/select_star.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">little_penguins</span><span class="p">;</span>
@@ -268,7 +272,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">3: Specifying Columns</h2>
+<h2 class="topic">16: Specifying Columns</h2>
 <p class="inclusion"><a href="src/specify_columns.sql">src/specify_columns.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -305,7 +309,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">4: Sorting</h2>
+<h2 class="topic">17: Sorting</h2>
 <p class="inclusion"><a href="src/sort.sql">src/sort.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -343,13 +347,13 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 1</strong>:
+<p><strong>Exercise 6</strong>:
 Write a SQL query to select the sex and body mass columns from the <code>little_penguins</code> in that order,
 sorted such that the largest body mass appears first.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">5: Limiting Output</h2>
+<h2 class="topic">18: Limiting Output</h2>
 <ul>
 <li>Full dataset has 344 rows</li>
 </ul>
@@ -387,7 +391,7 @@ sorted such that the largest body mass appears first.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">6: Paging Output</h2>
+<h2 class="topic">19: Paging Output</h2>
 <p class="inclusion"><a href="src/page.sql">src/page.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -423,7 +427,7 @@ sorted such that the largest body mass appears first.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">7: Removing Duplicates</h2>
+<h2 class="topic">20: Removing Duplicates</h2>
 <p class="inclusion"><a href="src/distinct.sql">src/distinct.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
@@ -467,18 +471,18 @@ sorted such that the largest body mass appears first.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 2</strong>:
+<p><strong>Exercise 7</strong>:
 Write a SQL query to select the islands and species
 from rows 50 to 60 inclusive of the <code>penguins</code> table.
 Your result should have 11 rows.</p>
-<p><strong>Exercise 3</strong>:
+<p><strong>Exercise 8</strong>:
 Modify your query to select distinct combinations of island and species
 from the same rows
 and compare the result to what you got in part 1.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">8: Filtering Results</h2>
+<h2 class="topic">21: Filtering Results</h2>
 <p class="inclusion"><a href="src/filter.sql">src/filter.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
@@ -513,15 +517,15 @@ and compare the result to what you got in part 1.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 4</strong>:
+<p><strong>Exercise 9</strong>:
 Write a query to select the body masses from <code>penguins</code> that are less than 3000.0 grams.</p>
-<p><strong>Exercise 5</strong>:
+<p><strong>Exercise 10</strong>:
 Write another query to select the species and sex of penguins that weight less than 3000.0 grams.
 This shows that the columns displayed and those used in filtering are independent of each other.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">9: Filtering with More Complex Conditions</h2>
+<h2 class="topic">22: Filtering with More Complex Conditions</h2>
 <p class="inclusion"><a href="src/filter_and.sql">src/filter_and.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
@@ -552,9 +556,9 @@ This shows that the columns displayed and those used in filtering are independen
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 6</strong>:
+<p><strong>Exercise 11</strong>:
 Use the <code>not</code> operator to select penguins that are <em>not</em> Gentoos.</p>
-<p><strong>Exercise 7</strong>:
+<p><strong>Exercise 12</strong>:
 SQL&rsquo;s <code>or</code> is an <a href="#g:inclusive_or">inclusive or</a>:
 it succeeds if either <em>or both</em> conditions are true.
 SQL does not provide a specific operator for <a href="#g:exclusive_or">exclusive or</a>,
@@ -564,7 +568,7 @@ Write a query to select penguins that are female <em>or</em> on Torgersen Island
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">10: Doing Calculations</h2>
+<h2 class="topic">23: Doing Calculations</h2>
 <p class="inclusion"><a href="src/calculations.sql">src/calculations.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -593,7 +597,7 @@ Write a query to select penguins that are female <em>or</em> on Torgersen Island
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">11: Renaming Columns</h2>
+<h2 class="topic">24: Renaming Columns</h2>
 <p class="inclusion"><a href="src/rename_columns.sql">src/rename_columns.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -622,7 +626,7 @@ Write a query to select penguins that are female <em>or</em> on Torgersen Island
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 8</strong>:
+<p><strong>Exercise 13</strong>:
 Write a single query that calculates and returns:</p>
 <ol>
 <li>A column called <code>what_where</code> that has the species and island of each penguin
@@ -635,14 +639,14 @@ or look at <a href="https://sqlite.org/printf.html">the documentation for SQLite
 </section>
 <section class="aside">
 <h2 class="aside">Check Understanding</h2>
-<figure id="figure_2">
+<figure id="figure_3">
 <img src="img/concept_map_select.svg" alt="box and arrow diagram of concepts related to selection"/>
-<figcaption>Figure 2: selection</figcaption>
+<figcaption>Figure 3: selection</figcaption>
 </figure>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">12: Calculating with Missing Values</h2>
+<h2 class="topic">25: Calculating with Missing Values</h2>
 <p class="inclusion"><a href="src/show_missing_values.sql">src/show_missing_values.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -676,7 +680,7 @@ or look at <a href="https://sqlite.org/printf.html">the documentation for SQLite
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 9</strong>:
+<p><strong>Exercise 14</strong>:
 Use SQLite&rsquo;s <code>.nullvalue</code> command
 to change the printed representation of null to the string <code>null</code>
 and then re-run the previous query.
@@ -685,7 +689,7 @@ When might it be misleading?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">13: Null Equality</h2>
+<h2 class="topic">26: Null Equality</h2>
 <ul>
 <li>Repeated from earlier (so it doesn&rsquo;t count against our query limit)</li>
 </ul>
@@ -734,7 +738,7 @@ When might it be misleading?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">14: Null Inequality</h2>
+<h2 class="topic">27: Null Inequality</h2>
 <ul>
 <li>But if we ask for penguins that <em>aren&rsquo;t</em> female it drops out as well</li>
 </ul>
@@ -759,7 +763,7 @@ When might it be misleading?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">15: Ternary Logic</h2>
+<h2 class="topic">28: Ternary Logic</h2>
 <p class="inclusion"><a href="src/ternary_logic.sql">src/ternary_logic.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
@@ -810,7 +814,7 @@ When might it be misleading?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">16: Handling Null Safely</h2>
+<h2 class="topic">29: Handling Null Safely</h2>
 <p class="inclusion"><a href="src/safe_null_equality.sql">src/safe_null_equality.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -846,22 +850,22 @@ When might it be misleading?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 10</strong>:
+<p><strong>Exercise 15</strong>:
 Write a query to find penguins whose body mass is known but whose sex is not.</p>
-<p><strong>Exercise 11</strong>:
+<p><strong>Exercise 16</strong>:
 Write another query to find penguins whose sex is known but whose body mass is not.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="aside">
 <h2 class="aside">Check Understanding</h2>
-<figure id="figure_3">
+<figure id="figure_4">
 <img src="img/concept_map_null.svg" alt="box and arrow diagram of concepts related to null values in SQL"/>
-<figcaption>Figure 3: null</figcaption>
+<figcaption>Figure 4: null</figcaption>
 </figure>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">17: Aggregating</h2>
+<h2 class="topic">30: Aggregating</h2>
 <p class="inclusion"><a href="src/simple_sum.sql">src/simple_sum.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_mass</span>
@@ -883,7 +887,7 @@ Write another query to find penguins whose sex is known but whose body mass is n
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">18: Common Aggregation Functions</h2>
+<h2 class="topic">31: Common Aggregation Functions</h2>
 <p class="inclusion"><a href="src/common_aggregations.sql">src/common_aggregations.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -909,12 +913,12 @@ Write another query to find penguins whose sex is known but whose body mass is n
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 12</strong>:
+<p><strong>Exercise 17</strong>:
 What is the average body mass of penguins that weight more than 3000.0 grams?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">19: Counting</h2>
+<h2 class="topic">32: Counting</h2>
 <p class="inclusion"><a href="src/count_behavior.sql">src/count_behavior.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -940,12 +944,12 @@ What is the average body mass of penguins that weight more than 3000.0 grams?</p
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 13</strong>:
+<p><strong>Exercise 18</strong>:
 How many different body masses are in the penguins dataset?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">20: Grouping</h2>
+<h2 class="topic">33: Grouping</h2>
 <p class="inclusion"><a href="src/simple_group.sql">src/simple_group.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
@@ -970,7 +974,7 @@ How many different body masses are in the penguins dataset?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">21: Behavior of Unaggregated Columns</h2>
+<h2 class="topic">34: Behavior of Unaggregated Columns</h2>
 <p class="inclusion"><a href="src/unaggregated_columns.sql">src/unaggregated_columns.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -995,7 +999,7 @@ How many different body masses are in the penguins dataset?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">22: Arbitrary Choice in Aggregation</h2>
+<h2 class="topic">35: Arbitrary Choice in Aggregation</h2>
 <p class="inclusion"><a href="src/arbitrary_in_aggregation.sql">src/arbitrary_in_aggregation.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -1031,16 +1035,16 @@ How many different body masses are in the penguins dataset?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 14</strong>:
+<p><strong>Exercise 19</strong>:
 Explain why the output of the previous query
 has a blank line before the rows for female and male penguins.</p>
-<p><strong>Exercise 15</strong>:
+<p><strong>Exercise 20</strong>:
 Write a query that shows each distinct body mass in the penguin dataset
 and the number of penguins that weigh that much.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">23: Filtering Aggregated Values</h2>
+<h2 class="topic">36: Filtering Aggregated Values</h2>
 <p class="inclusion"><a href="src/filter_aggregation.sql">src/filter_aggregation.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -1065,7 +1069,7 @@ and the number of penguins that weigh that much.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">24: Readable Output</h2>
+<h2 class="topic">37: Readable Output</h2>
 <p class="inclusion"><a href="src/readable_aggregation.sql">src/readable_aggregation.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -1090,7 +1094,7 @@ and the number of penguins that weigh that much.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">25: Filtering Aggregate Inputs</h2>
+<h2 class="topic">38: Filtering Aggregate Inputs</h2>
 <p class="inclusion"><a href="src/filter_aggregate_inputs.sql">src/filter_aggregate_inputs.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -1119,7 +1123,7 @@ and the number of penguins that weigh that much.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 16</strong>:
+<p><strong>Exercise 21</strong>:
 Write a query that uses <code>filter</code> to calculate the average body masses
 of heavy penguins (those over 4500 grams)
 and light penguins (those under 3500 grams)
@@ -1129,9 +1133,9 @@ Is it possible to do this using <code>where</code> instead of <code>filter</code
 </section>
 <section class="aside">
 <h2 class="aside">Check Understanding</h2>
-<figure id="figure_4">
+<figure id="figure_5">
 <img src="img/concept_map_aggregate.svg" alt="box and arrow diagram of concepts related to aggregation in SQL"/>
-<figcaption>Figure 4: aggregation</figcaption>
+<figcaption>Figure 5: aggregation</figcaption>
 </figure>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -1152,7 +1156,7 @@ Is it possible to do this using <code>where</code> instead of <code>filter</code
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">26: Creating Tables</h2>
+<h2 class="topic">39: Creating Tables</h2>
 <p class="inclusion"><a href="src/create_work_job.sql">src/create_work_job.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
@@ -1181,7 +1185,7 @@ Is it possible to do this using <code>where</code> instead of <code>filter</code
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">27: Inserting Data</h2>
+<h2 class="topic">40: Inserting Data</h2>
 <p class="inclusion"><a href="src/populate_work_job.sql">src/populate_work_job.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
@@ -1230,19 +1234,19 @@ Is it possible to do this using <code>where</code> instead of <code>filter</code
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 17</strong>:
+<p><strong>Exercise 22</strong>:
 Using an in-memory database,
 define a table called <code>notes</code> with two text columns <code>author</code> and <code>note</code>
 and then add three or four rows.
 Use a query to check that the notes have been stored
 and that you can (for example) select by author name.</p>
-<p><strong>Exercise 18</strong>:
+<p><strong>Exercise 23</strong>:
 What happens if you try to insert too many or too few values into <code>notes</code>?
 What happens if you insert a number instead of a string into the <code>note</code> field?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">28: Updating Rows</h2>
+<h2 class="topic">41: Updating Rows</h2>
 <p class="inclusion"><a href="src/update_work_job.sql">src/update_work_job.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="k">work</span>
@@ -1271,7 +1275,7 @@ What happens if you insert a number instead of a string into the <code>note</cod
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">29: Deleting Rows</h2>
+<h2 class="topic">42: Deleting Rows</h2>
 <p class="inclusion"><a href="src/delete_rows.sql">src/delete_rows.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">work</span>
@@ -1298,13 +1302,13 @@ What happens if you insert a number instead of a string into the <code>note</cod
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 19</strong>:
+<p><strong>Exercise 24</strong>:
 What happens if you try to delete rows that don&rsquo;t exist
 (e.g., all entries in <code>work</code> that refer to <code>juna</code>)?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">30: Backing Up</h2>
+<h2 class="topic">43: Backing Up</h2>
 <p class="inclusion"><a href="src/backing_up.sql">src/backing_up.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">backup</span><span class="w"> </span><span class="p">(</span>
@@ -1339,7 +1343,7 @@ What happens if you try to delete rows that don&rsquo;t exist
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 20</strong>:
+<p><strong>Exercise 25</strong>:
 Saving and restoring data as text:</p>
 <ol>
 <li>
@@ -1356,7 +1360,7 @@ Saving and restoring data as text:</p>
     is everything as you expected?</p>
 </li>
 </ol>
-<p><strong>Exercise 21</strong>:
+<p><strong>Exercise 26</strong>:
 Saving and restoring data in binary format:</p>
 <ol>
 <li>
@@ -1376,14 +1380,14 @@ Saving and restoring data in binary format:</p>
 </section>
 <section class="aside">
 <h2 class="aside">Check Understanding</h2>
-<figure id="figure_5">
+<figure id="figure_6">
 <img src="img/concept_map_datamod.svg" alt="box and arrow diagram of concepts relatd to defining and modifying data"/>
-<figcaption>Figure 5: data definition and modification</figcaption>
+<figcaption>Figure 6: data definition and modification</figcaption>
 </figure>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">31: Combining Information</h2>
+<h2 class="topic">44: Combining Information</h2>
 <p class="inclusion"><a href="src/cross_join.sql">src/cross_join.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
@@ -1422,7 +1426,7 @@ Saving and restoring data in binary format:</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">32: Inner Join</h2>
+<h2 class="topic">45: Inner Join</h2>
 <p class="inclusion"><a href="src/inner_join.sql">src/inner_join.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
@@ -1451,14 +1455,14 @@ Saving and restoring data in binary format:</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 22</strong>:
+<p><strong>Exercise 27</strong>:
 Re-run the query shown above using <code>where job = name</code> instead of the full <code>table.name</code> notation.
 Is the shortened form easier or harder to read
 and more or less likely to cause errors?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">33: Aggregating Joined Data</h2>
+<h2 class="topic">46: Aggregating Joined Data</h2>
 <p class="inclusion"><a href="src/aggregate_join.sql">src/aggregate_join.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -1488,7 +1492,7 @@ and more or less likely to cause errors?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">34: Left Join</h2>
+<h2 class="topic">47: Left Join</h2>
 <p class="inclusion"><a href="src/left_join.sql">src/left_join.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
@@ -1515,7 +1519,7 @@ and more or less likely to cause errors?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">35: Aggregating Left Joins</h2>
+<h2 class="topic">48: Aggregating Left Joins</h2>
 <p class="inclusion"><a href="src/aggregate_left_join.sql">src/aggregate_left_join.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -1541,7 +1545,7 @@ and more or less likely to cause errors?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">36: Coalescing Values</h2>
+<h2 class="topic">49: Coalescing Values</h2>
 <p class="inclusion"><a href="src/coalesce.sql">src/coalesce.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -1602,7 +1606,7 @@ and more or less likely to cause errors?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 23</strong>:
+<p><strong>Exercise 28</strong>:
 Find the least time each person spent on any job.
 Your output should show that <code>mik</code> and <code>po</code> each spent 0.5 hours on some job.
 Can you find a way to show the name of the job as well
@@ -1611,14 +1615,14 @@ using the SQL you have seen so far?</p>
 </section>
 <section class="aside">
 <h2 class="aside">Check Understanding</h2>
-<figure id="figure_6">
+<figure id="figure_7">
 <img src="img/concept_map_join.svg" alt="box and arrow diagram of concepts related to joining tables"/>
-<figcaption>Figure 6: join</figcaption>
+<figcaption>Figure 7: join</figcaption>
 </figure>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">37: Negating Incorrectly</h2>
+<h2 class="topic">50: Negating Incorrectly</h2>
 <ul>
 <li>Who doesn&rsquo;t calibrate?</li>
 </ul>
@@ -1647,7 +1651,7 @@ using the SQL you have seen so far?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">38: Set Membership</h2>
+<h2 class="topic">51: Set Membership</h2>
 <p class="inclusion"><a href="src/set_membership.sql">src/set_membership.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
@@ -1669,7 +1673,7 @@ using the SQL you have seen so far?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">39: Subqueries</h2>
+<h2 class="topic">52: Subqueries</h2>
 <p class="inclusion"><a href="src/subquery_set.sql">src/subquery_set.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">person</span>
@@ -1737,14 +1741,14 @@ Runtime error near line 17: UNIQUE constraint failed: lab_equipment.size, lab_eq
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 24</strong>:
+<p><strong>Exercise 29</strong>:
 Does the <code>penguins</code> table have a primary key?
 If so, what is it?
 What about the <code>work</code> and <code>job</code> tables?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">40: Autoincrementing and Primary Keys</h2>
+<h2 class="topic">53: Autoincrementing and Primary Keys</h2>
 <p class="inclusion"><a href="src/autoincrement.sql">src/autoincrement.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="p">(</span>
@@ -1805,7 +1809,7 @@ Runtime error near line 12: UNIQUE constraint failed: person.ident (19)
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 25</strong>:
+<p><strong>Exercise 30</strong>:
 Are you able to modify the values stored in <code>sqlite_sequence</code>?
 In particular,
 are you able to reset the values so that
@@ -1813,7 +1817,7 @@ the same sequence numbers are generated again?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">41: Altering Tables</h2>
+<h2 class="topic">54: Altering Tables</h2>
 <p class="inclusion"><a href="src/alter_tables.sql">src/alter_tables.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span>
@@ -1874,7 +1878,7 @@ the same sequence numbers are generated again?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">42: Creating New Tables from Old</h2>
+<h2 class="topic">55: Creating New Tables from Old</h2>
 <p class="inclusion"><a href="src/insert_select.sql">src/insert_select.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">new_work</span><span class="w"> </span><span class="p">(</span>
@@ -1910,7 +1914,7 @@ the same sequence numbers are generated again?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">43: Removing Tables</h2>
+<h2 class="topic">56: Removing Tables</h2>
 <p class="inclusion"><a href="src/drop_table.sql">src/drop_table.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">work</span><span class="p">;</span>
@@ -1948,7 +1952,7 @@ CREATE TABLE IF NOT EXISTS &quot;work&quot; (
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 26</strong>:
+<p><strong>Exercise 31</strong>:
 Reorganize the penguins database:</p>
 <ol>
 <li>
@@ -1963,7 +1967,7 @@ Reorganize the penguins database:</p>
 <p>Why is organizing data like this a bad idea?</p>
 </li>
 </ol>
-<p><strong>Exercise 27</strong>:
+<p><strong>Exercise 32</strong>:
 Tools like <a href="https://sqitch.org/">Sqitch</a> can manage changes to database schemas and data
 so that they can be saved in version control
 and rolled back if they are unsuccessful.
@@ -1972,7 +1976,7 @@ Note: this exercise may take an hour or more.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">44: Comparing Individual Values to Aggregates</h2>
+<h2 class="topic">57: Comparing Individual Values to Aggregates</h2>
 <ul>
 <li>Go back to the original penguins database</li>
 </ul>
@@ -2012,13 +2016,13 @@ Note: this exercise may take an hour or more.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 28</strong>:
+<p><strong>Exercise 33</strong>:
 Use a subquery to find the number of penguins
 that weigh the same as the lightest penguin.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">45: Comparing Individual Values to Aggregates Within Groups</h2>
+<h2 class="topic">58: Comparing Individual Values to Aggregates Within Groups</h2>
 <p class="inclusion"><a href="src/compare_within_groups.sql">src/compare_within_groups.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -2057,13 +2061,13 @@ that weigh the same as the lightest penguin.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 29</strong>:
+<p><strong>Exercise 34</strong>:
 Use a subquery to find the number of penguins
 that weigh the same as the lightest penguin of the same sex and species.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">46: Common Table Expressions</h2>
+<h2 class="topic">59: Common Table Expressions</h2>
 <p class="inclusion"><a href="src/common_table_expressions.sql">src/common_table_expressions.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">grouped</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -2130,14 +2134,14 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 30</strong>:
+<p><strong>Exercise 35</strong>:
 Use a CTE to find
 the number of penguins
 that weigh the same as the lightest penguin of the same sex and species.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">47: Enumerating Rows</h2>
+<h2 class="topic">60: Enumerating Rows</h2>
 <ul>
 <li>Every table has a special column called <code>rowid</code></li>
 </ul>
@@ -2176,7 +2180,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 31</strong>:
+<p><strong>Exercise 36</strong>:
 To explore how row IDs behave:</p>
 <ol>
 <li>
@@ -2195,7 +2199,7 @@ To explore how row IDs behave:</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">48: Conditionals</h2>
+<h2 class="topic">61: Conditionals</h2>
 <p class="inclusion"><a href="src/if_else.sql">src/if_else.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">sized_penguins</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -2242,11 +2246,11 @@ To explore how row IDs behave:</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 32</strong>:
+<p><strong>Exercise 37</strong>:
 How does the result of the previous query change
 if the check for null body mass is removed?
 Why is the result without that check misleading?</p>
-<p><strong>Exercise 33</strong>:
+<p><strong>Exercise 38</strong>:
 What does each of the expressions shown below produce?
 Which ones do you think actually attempt to divide by zero?</p>
 <ol>
@@ -2258,7 +2262,7 @@ Which ones do you think actually attempt to divide by zero?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">49: Selecting a Case</h2>
+<h2 class="topic">62: Selecting a Case</h2>
 <ul>
 <li>What if we want small, medium, and large?</li>
 <li>Can nest <code>iif</code>, but quickly becomes unreadable</li>
@@ -2307,7 +2311,7 @@ Which ones do you think actually attempt to divide by zero?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 34</strong>:
+<p><strong>Exercise 39</strong>:
 Modify the query above so that
 the outputs are <code>"penguin is small"</code> and <code>"penguin is large"</code>
 by concatenating the string <code>"penguin is "</code> to the entire <code>case</code>
@@ -2317,7 +2321,7 @@ rather than a <a href="#g:statement">statement</a>.)</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">50: Checking a Range</h2>
+<h2 class="topic">63: Checking a Range</h2>
 <p class="inclusion"><a href="src/check_range.sql">src/check_range.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">sized_penguins</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -2360,7 +2364,7 @@ rather than a <a href="#g:statement">statement</a>.)</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 35</strong>:
+<p><strong>Exercise 40</strong>:
 The expression <code>val between 'A' and 'Z'</code> is true if <code>val</code> is <code>'M'</code> (upper case)
 but false if <code>val</code> is <code>'m'</code> (lower case).
 Rewrite the expression using <a href="https://www.sqlite.org/lang_corefunc.html">SQLite&rsquo;s built-in scalar functions</a>
@@ -2419,13 +2423,13 @@ so that it is true in both cases.</p>
 <li><a href="#g:er_diagram">Entity-relationship diagram</a> (ER diagram) shows relationships between tables</li>
 <li>Like everything to do with databases, there are lots of variations</li>
 </ul>
-<figure id="figure_7">
-<img src="img/assays_tables.svg" alt="table-level diagram of assay database showing primary and foreign key relationships"/>
-<figcaption>Figure 7: assay database table diagram</figcaption>
-</figure>
 <figure id="figure_8">
+<img src="img/assays_tables.svg" alt="table-level diagram of assay database showing primary and foreign key relationships"/>
+<figcaption>Figure 8: assay database table diagram</figcaption>
+</figure>
+<figure id="figure_9">
 <img src="img/assays_er.svg" alt="entity-relationship diagram showing logical structure of assay database"/>
-<figcaption>Figure 8: assay ER diagram</figcaption>
+<figcaption>Figure 9: assay ER diagram</figcaption>
 </figure>
 <p class="inclusion"><a href="src/assay_staff.sql">src/assay_staff.sql</a></p>
 <div class="language-sql">
@@ -2452,7 +2456,7 @@ so that it is true in both cases.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 36</strong>:
+<p><strong>Exercise 41</strong>:
 Draw a table diagram and an ER diagram to represent the following database:</p>
 <ul>
 <li><code>person</code> has <code>id</code> and <code>full_name</code></li>
@@ -2464,7 +2468,7 @@ Draw a table diagram and an ER diagram to represent the following database:</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">51: Pattern Matching</h2>
+<h2 class="topic">64: Pattern Matching</h2>
 <p class="inclusion"><a href="src/like_glob.sql">src/like_glob.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -2493,12 +2497,12 @@ Draw a table diagram and an ER diagram to represent the following database:</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 37</strong>:
+<p><strong>Exercise 42</strong>:
 Rewrite the pattern-matching query shown above using <code>glob</code>.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">52: Selecting First and Last Rows</h2>
+<h2 class="topic">65: Selecting First and Last Rows</h2>
 <p class="inclusion"><a href="src/union_all.sql">src/union_all.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="p">(</span>
@@ -2537,14 +2541,14 @@ Rewrite the pattern-matching query shown above using <code>glob</code>.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 38</strong>:
+<p><strong>Exercise 43</strong>:
 Write a query whose result includes two rows for each Adelie penguin
 in the <code>penguins</code> database.
 How can you check that your query is working correctly?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">53: Intersection</h2>
+<h2 class="topic">66: Intersection</h2>
 <p class="inclusion"><a href="src/intersect.sql">src/intersect.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -2582,10 +2586,10 @@ How can you check that your query is working correctly?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 39</strong>:
+<p><strong>Exercise 44</strong>:
 Use <code>intersect</code> to find all Adelie penguins that weigh more than 4000 grams.
 How can you check that your query is working correctly?</p>
-<p><strong>Exercise 40</strong>:
+<p><strong>Exercise 45</strong>:
 Use <code>explain query plan</code> to compare the <code>intersect</code>-based query you just wrote
 with one that uses <code>where</code>.
 Which query looks like it will be more efficient?
@@ -2593,7 +2597,7 @@ Why do you believe this?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">54: Exclusion</h2>
+<h2 class="topic">67: Exclusion</h2>
 <p class="inclusion"><a href="src/except.sql">src/except.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -2630,13 +2634,13 @@ Why do you believe this?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 41</strong>:
+<p><strong>Exercise 46</strong>:
 Use <code>exclude</code> to find all Gentoo penguins that <em>aren&rsquo;t</em> male.
 How can you check that your query is working correctly?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">55: Random Numbers and Why Not</h2>
+<h2 class="topic">68: Random Numbers and Why Not</h2>
 <p class="inclusion"><a href="src/random_numbers.sql">src/random_numbers.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">decorated</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -2676,7 +2680,7 @@ How can you check that your query is working correctly?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 42</strong>:
+<p><strong>Exercise 47</strong>:
 Write a query that:</p>
 <ul>
 <li>
@@ -2693,7 +2697,7 @@ Write a query that:</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">56: Creating an Index</h2>
+<h2 class="topic">69: Creating an Index</h2>
 <p class="inclusion"><a href="src/create_use_index.sql">src/create_use_index.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">explain</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">plan</span>
@@ -2731,7 +2735,7 @@ QUERY PLAN
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">57: Generating Sequences</h2>
+<h2 class="topic">70: Generating Sequences</h2>
 <p class="inclusion"><a href="src/generate_sequence.sql">src/generate_sequence.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
@@ -2754,7 +2758,7 @@ QUERY PLAN
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">58: Generating Sequences Based on Data</h2>
+<h2 class="topic">71: Generating Sequences Based on Data</h2>
 <p class="inclusion"><a href="src/data_range_sequence.sql">src/data_range_sequence.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="p">(</span>
@@ -2784,7 +2788,7 @@ QUERY PLAN
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">59: Generating Sequences of Dates</h2>
+<h2 class="topic">72: Generating Sequences of Dates</h2>
 <p class="inclusion"><a href="src/date_sequence.sql">src/date_sequence.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="nb">date</span><span class="p">((</span><span class="k">select</span><span class="w"> </span><span class="n">julianday</span><span class="p">(</span><span class="k">min</span><span class="p">(</span><span class="n">started</span><span class="p">))</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">experiment</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">some_day</span>
@@ -2823,7 +2827,7 @@ QUERY PLAN
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">60: Counting Experiments Started per Day Without Gaps</h2>
+<h2 class="topic">73: Counting Experiments Started per Day Without Gaps</h2>
 <p class="inclusion"><a href="src/experiments_per_day.sql">src/experiments_per_day.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span>
@@ -2873,13 +2877,13 @@ QUERY PLAN
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 43</strong>:
+<p><strong>Exercise 48</strong>:
 What does the expression <code>date('now', 'start of month', '+1 month', '-1 day')</code> produce?
 (You may find <a href="https://www.sqlite.org/lang_datefunc.html">the documentation on SQLite&rsquo;s date and time functions</a> helpful.)</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">61: Self Join</h2>
+<h2 class="topic">74: Self Join</h2>
 <p class="inclusion"><a href="src/self_join.sql">src/self_join.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -2923,7 +2927,7 @@ What does the expression <code>date('now', 'start of month', '+1 month', '-1 day
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">62: Generating Unique Pairs</h2>
+<h2 class="topic">75: Generating Unique Pairs</h2>
 <p class="inclusion"><a href="src/unique_pairs.sql">src/unique_pairs.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -2963,7 +2967,7 @@ What does the expression <code>date('now', 'start of month', '+1 month', '-1 day
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">63: Filtering Pairs</h2>
+<h2 class="topic">76: Filtering Pairs</h2>
 <p class="inclusion"><a href="src/filter_pairs.sql">src/filter_pairs.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span>
@@ -3014,7 +3018,7 @@ What does the expression <code>date('now', 'start of month', '+1 month', '-1 day
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">64: Existence and Correlated Subqueries</h2>
+<h2 class="topic">77: Existence and Correlated Subqueries</h2>
 <p class="inclusion"><a href="src/correlated_subquery.sql">src/correlated_subquery.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -3050,7 +3054,7 @@ What does the expression <code>date('now', 'start of month', '+1 month', '-1 day
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">65: Nonexistence</h2>
+<h2 class="topic">78: Nonexistence</h2>
 <p class="inclusion"><a href="src/nonexistence.sql">src/nonexistence.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -3077,7 +3081,7 @@ What does the expression <code>date('now', 'start of month', '+1 month', '-1 day
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 44</strong>:
+<p><strong>Exercise 49</strong>:
 Can you rewrite the previous query using <code>exclude</code>?
 If so, is your new query easier to understand?
 If the query cannot be rewritten, why not?</p>
@@ -3111,7 +3115,7 @@ If the query cannot be rewritten, why not?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">66: Lead and Lag</h2>
+<h2 class="topic">79: Lead and Lag</h2>
 <p class="inclusion"><a href="src/lead_lag.sql">src/lead_lag.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">ym_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -3172,7 +3176,7 @@ If the query cannot be rewritten, why not?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">67: Windowing Functions</h2>
+<h2 class="topic">80: Windowing Functions</h2>
 <p class="inclusion"><a href="src/window_functions.sql">src/window_functions.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">ym_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -3262,7 +3266,7 @@ If the query cannot be rewritten, why not?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">68: Partitioned Windows</h2>
+<h2 class="topic">81: Partitioned Windows</h2>
 <p class="inclusion"><a href="src/partition_window.sql">src/partition_window.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">y_m_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -3310,7 +3314,7 @@ If the query cannot be rewritten, why not?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 45</strong>:
+<p><strong>Exercise 50</strong>:
 Create a query that:</p>
 <ol>
 <li>
@@ -3329,7 +3333,7 @@ Create a query that:</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">69: Blobs</h2>
+<h2 class="topic">82: Blobs</h2>
 <p class="inclusion"><a href="src/blob.sql">src/blob.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">images</span><span class="w"> </span><span class="p">(</span>
@@ -3372,7 +3376,7 @@ Create a query that:</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 46</strong>:
+<p><strong>Exercise 51</strong>:
 Modify the query shown above to select the value of <code>content</code>
 rather than its length.
 How intelligible is the output?
@@ -3412,7 +3416,7 @@ CREATE TABLE usage(
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">70: Storing JSON</h2>
+<h2 class="topic">83: Storing JSON</h2>
 <p class="inclusion"><a href="src/json_in_table.sql">src/json_in_table.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
@@ -3443,7 +3447,7 @@ CREATE TABLE usage(
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">71: Select Fields from JSON</h2>
+<h2 class="topic">84: Select Fields from JSON</h2>
 <p class="inclusion"><a href="src/json_field.sql">src/json_field.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -3475,13 +3479,13 @@ CREATE TABLE usage(
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 47</strong>:
+<p><strong>Exercise 52</strong>:
 Write a query that selects the year from the <code>"refurbished"</code> field
 of the JSON data associated with the Inphormex plate reader.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">72: JSON Array Access</h2>
+<h2 class="topic">85: JSON Array Access</h2>
 <p class="inclusion"><a href="src/json_array.sql">src/json_array.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -3514,7 +3518,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">73: Unpacking JSON Arrays</h2>
+<h2 class="topic">86: Unpacking JSON Arrays</h2>
 <p class="inclusion"><a href="src/json_unpack.sql">src/json_unpack.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -3549,13 +3553,13 @@ of the JSON data associated with the Inphormex plate reader.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 48</strong>:
+<p><strong>Exercise 53</strong>:
 Write a query that counts how many times each person appears
 in the first log entry associated with any piece of equipment.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">74: Selecting the Last Element of an  Array</h2>
+<h2 class="topic">87: Selecting the Last Element of an  Array</h2>
 <p class="inclusion"><a href="src/json_array_last.sql">src/json_array_last.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -3579,7 +3583,7 @@ in the first log entry associated with any piece of equipment.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">75: Modifying JSON</h2>
+<h2 class="topic">88: Modifying JSON</h2>
 <p class="inclusion"><a href="src/json_modify.sql">src/json_modify.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -3607,7 +3611,7 @@ in the first log entry associated with any piece of equipment.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 49</strong>:
+<p><strong>Exercise 54</strong>:
 As part of cleaning up the lab log database,
 replace the machine names in the JSON records in <code>usage</code>
 with the corresopnding machine IDs from the <code>machine</code> table.</p>
@@ -3639,7 +3643,7 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">76: Tombstones</h2>
+<h2 class="topic">89: Tombstones</h2>
 <p class="inclusion"><a href="src/make_active.sql">src/make_active.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">penguins</span>
@@ -3703,14 +3707,14 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 50</strong>:
+<p><strong>Exercise 55</strong>:
 What are the data types of the columns in the <code>penguins</code> table
 created by the CSV import shown above?
 How can you correct the ones that need correcting?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">77: Views</h2>
+<h2 class="topic">90: Views</h2>
 <p class="inclusion"><a href="src/views.sql">src/views.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span>
@@ -3766,7 +3770,7 @@ How can you correct the ones that need correcting?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 51</strong>:
+<p><strong>Exercise 56</strong>:
 Create a view in the lab log database called <code>busy</code> with two columns:
 <code>machine_id</code> and <code>total_log_length</code>.
 The first column records the numeric ID of each machine;
@@ -3775,9 +3779,9 @@ the second shows the total number of log entries for that machine.</p>
 </section>
 <section class="aside">
 <h2 class="aside">Check Understanding</h2>
-<figure id="figure_9">
+<figure id="figure_10">
 <img src="img/concept_map_temp.svg" alt="box and arrow diagram showing different kinds of temporary 'tables' in SQL"/>
-<figcaption>Figure 9: temporary tables</figcaption>
+<figcaption>Figure 10: temporary tables</figcaption>
 </figure>
 <!-- ---------------------------------------------------------------- -->
 </section>
@@ -3806,7 +3810,7 @@ the second shows the total number of log entries for that machine.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">78: Adding Checks</h2>
+<h2 class="topic">91: Adding Checks</h2>
 <p class="inclusion"><a href="src/all_jobs_check.sql">src/all_jobs_check.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
@@ -3839,7 +3843,7 @@ the second shows the total number of log entries for that machine.</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 52</strong>:
+<p><strong>Exercise 57</strong>:
 Rewrite the definition of the <code>penguins</code> table to add the following constraints:</p>
 <ol>
 <li>
@@ -3863,7 +3867,7 @@ Rewrite the definition of the <code>penguins</code> table to add the following c
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">79: Transactions</h2>
+<h2 class="topic">92: Transactions</h2>
 <p class="inclusion"><a href="src/transaction.sql">src/transaction.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
@@ -3904,7 +3908,7 @@ Rewrite the definition of the <code>penguins</code> table to add the following c
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">80: Rollback in Constraints</h2>
+<h2 class="topic">93: Rollback in Constraints</h2>
 <p class="inclusion"><a href="src/rollback_constraint.sql">src/rollback_constraint.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
@@ -3937,7 +3941,7 @@ Rewrite the definition of the <code>penguins</code> table to add the following c
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">81: Rollback in Statements</h2>
+<h2 class="topic">94: Rollback in Statements</h2>
 <p class="inclusion"><a href="src/rollback_statement.sql">src/rollback_statement.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
@@ -3970,7 +3974,7 @@ Rewrite the definition of the <code>penguins</code> table to add the following c
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">82: Upsert</h2>
+<h2 class="topic">95: Upsert</h2>
 <p class="inclusion"><a href="src/upsert.sql">src/upsert.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="p">(</span>
@@ -4028,7 +4032,7 @@ after failed
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 53</strong>:
+<p><strong>Exercise 58</strong>:
 Using the assay database,
 write a query that adds or modifies people in the <code>staff</code> table as shown:</p>
 <table>
@@ -4085,7 +4089,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">83: Creating Triggers</h2>
+<h2 class="topic">96: Creating Triggers</h2>
 <p class="inclusion"><a href="src/trigger_setup.sql">src/trigger_setup.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="c1">-- Track hours of lab work.</span>
@@ -4133,7 +4137,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">84: Trigger Not Firing</h2>
+<h2 class="topic">97: Trigger Not Firing</h2>
 <p class="inclusion"><a href="src/trigger_successful.sql">src/trigger_successful.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
@@ -4159,7 +4163,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">85: Trigger Firing</h2>
+<h2 class="topic">98: Trigger Firing</h2>
 <p class="inclusion"><a href="src/trigger_firing.sql">src/trigger_firing.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
@@ -4181,7 +4185,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 54</strong>:
+<p><strong>Exercise 59</strong>:
 Using the penguins database:</p>
 <ol>
 <li>
@@ -4232,20 +4236,20 @@ by a single <code>insert</code> statement?</p>
 | Lourdes  | Santiago |
 </code></pre></div>
 </div>
-<figure id="figure_10">
+<figure id="figure_11">
 <img src="img/lineage.svg" alt="box and arrow diagram showing who is descended from whom in the lineage database"/>
-<figcaption>Figure 10: lineage diagram</figcaption>
+<figcaption>Figure 11: lineage diagram</figcaption>
 </figure>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 55</strong>:
+<p><strong>Exercise 60</strong>:
 Write a query that uses a self join to find every person&rsquo;s grandchildren.</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">86: Recursive Queries</h2>
+<h2 class="topic">99: Recursive Queries</h2>
 <p class="inclusion"><a href="src/recursive_lineage.sql">src/recursive_lineage.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">descendent</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -4292,7 +4296,7 @@ Write a query that uses a self join to find every person&rsquo;s grandchildren.<
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 56</strong>:
+<p><strong>Exercise 61</strong>:
 Modify the recursive query shown above to use <code>union</code> instead of <code>union all</code>.
 Does this affect the result?
 Why or why not?</p>
@@ -4345,14 +4349,14 @@ Why or why not?</p>
 | Daniela Menéndez  | Marco Antonio Barrera |
 </code></pre></div>
 </div>
-<figure id="figure_11">
+<figure id="figure_12">
 <img src="img/contact_tracing.svg" alt="box and line diagram showing who has had contact with whom"/>
-<figcaption>Figure 11: contact diagram</figcaption>
+<figcaption>Figure 12: contact diagram</figcaption>
 </figure>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">87: Bidirectional Contacts</h2>
+<h2 class="topic">100: Bidirectional Contacts</h2>
 <p class="inclusion"><a href="src/bidirectional.sql">src/bidirectional.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="p">(</span>
@@ -4389,7 +4393,7 @@ Why or why not?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">88: Updating Group Identifiers</h2>
+<h2 class="topic">101: Updating Group Identifiers</h2>
 <p class="inclusion"><a href="src/update_group_ids.sql">src/update_group_ids.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
@@ -4432,7 +4436,7 @@ Why or why not?</p>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="topic">
-<h2 class="topic">89: Recursive Labeling</h2>
+<h2 class="topic">102: Recursive Labeling</h2>
 <p class="inclusion"><a href="src/recursive_labeling.sql">src/recursive_labeling.sql</a></p>
 <div class="language-sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">labeled</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -4484,7 +4488,7 @@ Why or why not?</p>
 </section>
 <section class="exercise">
 <h2 class="exercise">Practice</h2>
-<p><strong>Exercise 57</strong>:
+<p><strong>Exercise 62</strong>:
 Modify the query above to use <code>union all</code> instead of <code>union</code> to trigger infinite recursion.
 How can you modify the query so that it stops at a certain depth
 so that you can trace its output?</p>
@@ -4492,528 +4496,10 @@ so that you can trace its output?</p>
 </section>
 <section class="aside">
 <h2 class="aside">Check Understanding</h2>
-<figure id="figure_12">
-<img src="img/concept_map_cte.svg" alt="box and arrow diagram showing concepts related to common table expressions in SQL"/>
-<figcaption>Figure 12: common table expressions</figcaption>
-</figure>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">90: Querying from Python</h2>
-<p class="inclusion"><a href="src/basic_python_query.py">src/basic_python_query.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
-
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;db/penguins.db&quot;</span><span class="p">)</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select count(*) from penguins;&quot;</span><span class="p">)</span>
-<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/basic_python_query.out">out/basic_python_query.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>[(344,)]
-</code></pre></div>
-</div>
-<ul>
-<li><code>sqlite3</code> is part of Python&rsquo;s standard library</li>
-<li>Create a connection to a database file</li>
-<li>Get a <a href="#g:cursor">cursor</a> by executing a query<ul>
-<li>More common to create cursor and use that to run queries</li>
-</ul>
-</li>
-<li>Fetch all rows at once as list of tuples</li>
-</ul>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">91: Incremental Fetch</h2>
-<p class="inclusion"><a href="src/incremental_fetch.py">src/incremental_fetch.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
-
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;db/penguins.db&quot;</span><span class="p">)</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select species, island from penguins limit 5;&quot;</span><span class="p">)</span>
-<span class="k">while</span> <span class="n">row</span> <span class="o">:=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/incremental_fetch.out">out/incremental_fetch.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>(&#39;Adelie&#39;, &#39;Torgersen&#39;)
-(&#39;Adelie&#39;, &#39;Torgersen&#39;)
-(&#39;Adelie&#39;, &#39;Torgersen&#39;)
-(&#39;Adelie&#39;, &#39;Torgersen&#39;)
-(&#39;Adelie&#39;, &#39;Torgersen&#39;)
-</code></pre></div>
-</div>
-<ul>
-<li><code>cursor.fetchone</code> returns <code>None</code> when no more data</li>
-<li>There is also <code>fetchmany(N)</code> to fetch (up to) a certain number of rows</li>
-</ul>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">92: Insert, Delete, and All That</h2>
-<p class="inclusion"><a href="src/insert_delete.py">src/insert_delete.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
-
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">)</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;create table example(num integer);&quot;</span><span class="p">)</span>
-
-<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;insert into example values (10), (20);&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;after insertion&quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
-
-<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;delete from example where num &lt; 15;&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;after deletion&quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/insert_delete.out">out/insert_delete.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>after insertion [(10,), (20,)]
-after deletion [(20,)]
-</code></pre></div>
-</div>
-<ul>
-<li>Each <code>execute</code> is its own transaction</li>
-</ul>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">93: Interpolating Values</h2>
-<p class="inclusion"><a href="src/interpolate.py">src/interpolate.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
-
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">)</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;create table example(num integer);&quot;</span><span class="p">)</span>
-
-<span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="s2">&quot;insert into example values (?);&quot;</span><span class="p">,</span> <span class="p">[(</span><span class="mi">10</span><span class="p">,),</span> <span class="p">(</span><span class="mi">20</span><span class="p">,)])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;after insertion&quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/interpolate.out">out/interpolate.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>after insertion [(10,), (20,)]
-</code></pre></div>
-</div>
-<ul>
-<li>From <a href="https://xkcd.com/327/">XKCD</a></li>
-</ul>
 <figure id="figure_13">
-<img src="img/xkcd_327_exploits_of_a_mom.png" alt="XKCD cartoon showing a mother scolding a school for not being more careful about SQL injection attacks"/>
-<figcaption>Figure 13: XKCD Exploits of a Mom</figcaption>
+<img src="img/concept_map_cte.svg" alt="box and arrow diagram showing concepts related to common table expressions in SQL"/>
+<figcaption>Figure 13: common table expressions</figcaption>
 </figure>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="exercise">
-<h2 class="exercise">Practice</h2>
-<p><strong>Exercise 58</strong>:
-Write a Python script that takes island, species, sex, and other values as command-line arguments
-and inserts an entry into the penguins database.</p>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">94: Script Execution</h2>
-<p class="inclusion"><a href="src/script_execution.py">src/script_execution.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
-
-<span class="n">SETUP</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">drop table if exists example;</span>
-<span class="s2">create table example(num integer);</span>
-<span class="s2">insert into example values (10), (20);</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">)</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="n">cursor</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="n">SETUP</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;after insertion&quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/script_execution.out">out/script_execution.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>after insertion [(10,), (20,)]
-</code></pre></div>
-</div>
-<ul>
-<li>But what if something goes wrong?</li>
-</ul>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">95: SQLite Exceptions in Python</h2>
-<p class="inclusion"><a href="src/exceptions.py">src/exceptions.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
-
-<span class="n">SETUP</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">create table example(num integer check(num &gt; 0));</span>
-<span class="s2">insert into example values (10);</span>
-<span class="s2">insert into example values (-1);</span>
-<span class="s2">insert into example values (20);</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">)</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">cursor</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="n">SETUP</span><span class="p">)</span>
-<span class="k">except</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SQLite exception: </span><span class="si">{</span><span class="n">exc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;after execution&quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/exceptions.out">out/exceptions.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>SQLite exception: CHECK constraint failed: num &gt; 0
-after execution [(10,)]
-</code></pre></div>
-</div>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">96: Python in SQLite</h2>
-<p class="inclusion"><a href="src/embedded_python.py">src/embedded_python.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
-
-<span class="n">SETUP</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">create table example(num integer);</span>
-<span class="s2">insert into example values (-10), (10), (20), (30);</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-
-<span class="k">def</span> <span class="nf">clip</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">0</span>
-    <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">20</span>
-    <span class="k">return</span> <span class="n">value</span>
-
-
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">)</span>
-<span class="n">connection</span><span class="o">.</span><span class="n">create_function</span><span class="p">(</span><span class="s2">&quot;clip&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">clip</span><span class="p">)</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="n">cursor</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="n">SETUP</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select num, clip(num) from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/embedded_python.out">out/embedded_python.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>(-10, 0)
-(10, 10)
-(20, 20)
-(30, 20)
-</code></pre></div>
-</div>
-<ul>
-<li>SQLite calls back into Python to execute the function</li>
-<li>Other databases can run Python (and other languages) in the database server process</li>
-<li>Be careful</li>
-</ul>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">97: Handling Dates and Times</h2>
-<p class="inclusion"><a href="src/dates_times.py">src/dates_times.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
-<span class="kn">import</span> <span class="nn">sqlite3</span>
-
-
-<span class="c1"># Convert date to ISO-formatted string when writing to database</span>
-<span class="k">def</span> <span class="nf">_adapt_date_iso</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">val</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
-
-
-<span class="n">sqlite3</span><span class="o">.</span><span class="n">register_adapter</span><span class="p">(</span><span class="n">date</span><span class="p">,</span> <span class="n">_adapt_date_iso</span><span class="p">)</span>
-
-
-<span class="c1"># Convert ISO-formatted string to date when reading from database</span>
-<span class="k">def</span> <span class="nf">_convert_date</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
-
-
-<span class="n">sqlite3</span><span class="o">.</span><span class="n">register_converter</span><span class="p">(</span><span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">_convert_date</span><span class="p">)</span>
-
-<span class="n">SETUP</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">create table events(</span>
-<span class="s2">    happened date not null,</span>
-<span class="s2">    description text not null</span>
-<span class="s2">);</span>
-<span class="s2">&quot;&quot;&quot;</span>
-
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">,</span> <span class="n">detect_types</span><span class="o">=</span><span class="n">sqlite3</span><span class="o">.</span><span class="n">PARSE_DECLTYPES</span><span class="p">)</span>
-<span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">SETUP</span><span class="p">)</span>
-
-<span class="n">cursor</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span>
-    <span class="s2">&quot;insert into events values (?, ?);&quot;</span><span class="p">,</span>
-    <span class="p">[(</span><span class="n">date</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="s2">&quot;started tutorial&quot;</span><span class="p">),</span> <span class="p">(</span><span class="n">date</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">29</span><span class="p">),</span> <span class="s2">&quot;finished tutorial&quot;</span><span class="p">)],</span>
-<span class="p">)</span>
-
-<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from events;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/dates_times.out">out/dates_times.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>(datetime.date(2024, 1, 10), &#39;started tutorial&#39;)
-(datetime.date(2024, 1, 29), &#39;finished tutorial&#39;)
-</code></pre></div>
-</div>
-<ul>
-<li><code>sqlite3.PARSE_DECLTYPES</code> tells <code>sqlite3</code> library to use converts based on declared column types</li>
-<li>Adapt on the way in, convert on the way out</li>
-</ul>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="exercise">
-<h2 class="exercise">Practice</h2>
-<p><strong>Exercise 59</strong>:
-Write a Python adapter that truncates real values to two decimal places
-as they are being written to the database.</p>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">98: SQL in Jupyter Notebooks</h2>
-<p class="inclusion"><a href="src/install_jupysql.sh">src/install_jupysql.sh</a></p>
-<div class="language-sh">
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>jupysql
-</code></pre></div>
-</div>
-<ul>
-<li>And then inside the notebook:</li>
-</ul>
-<p class="inclusion"><a href="src/load_ext.text">src/load_ext.text</a></p>
-<div class="language-text">
-<div class="highlight"><pre><span></span><code>%load_ext sql
-</code></pre></div>
-</div>
-<ul>
-<li>Loads extension</li>
-</ul>
-<p class="inclusion"><a href="src/jupyter_connect.text">src/jupyter_connect.text</a></p>
-<div class="language-text">
-<div class="highlight"><pre><span></span><code>%sql sqlite:///db/penguins.db
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/jupyter_connect.out">out/jupyter_connect.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>Connecting to &#39;sqlite:///data/penguins.db&#39;
-</code></pre></div>
-</div>
-<ul>
-<li>Connects to database<ul>
-<li><code>sqlite://</code> with two slashes is the protocol</li>
-<li><code>/data/penguins.db</code> (one leading slash) is a local path</li>
-</ul>
-</li>
-<li>Single percent sign <code>%sql</code> introduces one-line command</li>
-<li>Use double percent sign <code>%%sql</code> to indicate that the rest of the cell is SQL</li>
-</ul>
-<p class="inclusion"><a href="src/jupyter_select.text">src/jupyter_select.text</a></p>
-<div class="language-text">
-<div class="highlight"><pre><span></span><code>%%sql
-select species, count(*) as num
-from penguins
-group by species;
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/jupyter_select.out">out/jupyter_select.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>Running query in &#39;sqlite:///data/penguins.db&#39;
-</code></pre></div>
-</div>
-<table>
-<thead>
-    <tr>
-      <th>species</th>
-      <th>num</th>
-    </tr>
-  </thead>
-<tbody>
-    <tr>
-      <td>Adelie</td>
-      <td>152</td>
-    </tr>
-    <tr>
-      <td>Chinstrap</td>
-      <td>68</td>
-    </tr>
-    <tr>
-      <td>Gentoo</td>
-      <td>124</td>
-    </tr>
-  </tbody>
-</table>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">99: Pandas and SQL</h2>
-<p class="inclusion"><a href="src/install_pandas.sh">src/install_pandas.sh</a></p>
-<div class="language-sh">
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pandas
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="src/select_pandas.py">src/select_pandas.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">sqlite3</span>
-
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;db/penguins.db&quot;</span><span class="p">)</span>
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;select species, count(*) as num from penguins group by species;&quot;</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">connection</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/select_pandas.out">out/select_pandas.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>species  num
-0     Adelie  152
-1  Chinstrap   68
-2     Gentoo  124
-</code></pre></div>
-</div>
-<ul>
-<li>Be careful about datatype conversion when using <a href="https://pandas.pydata.org/">Pandas</a></li>
-</ul>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="exercise">
-<h2 class="exercise">Practice</h2>
-<p><strong>Exercise 60</strong>:
-Write a command-line Python script that uses Pandas to re-create the penguins database.</p>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">100: Polars and SQL</h2>
-<p class="inclusion"><a href="src/install_polars.sh">src/install_polars.sh</a></p>
-<div class="language-sh">
-<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>polars<span class="w"> </span>pyarrow<span class="w"> </span>adbc-driver-sqlite
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="src/select_polars.py">src/select_polars.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">polars</span> <span class="k">as</span> <span class="nn">pl</span>
-
-<span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;select species, count(*) as num from penguins group by species;&quot;</span>
-<span class="n">uri</span> <span class="o">=</span> <span class="s2">&quot;sqlite:///db/penguins.db&quot;</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">read_database_uri</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s2">&quot;adbc&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/select_polars.out">out/select_polars.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>shape: (3, 2)
-┌───────────┬─────┐
-│ species   ┆ num │
-│ ---       ┆ --- │
-│ str       ┆ i64 │
-╞═══════════╪═════╡
-│ Adelie    ┆ 152 │
-│ Chinstrap ┆ 68  │
-│ Gentoo    ┆ 124 │
-└───────────┴─────┘
-</code></pre></div>
-</div>
-<ul>
-<li>The <a href="#g:uri">Uniform Resource Identifier</a> (URI) specifies the database</li>
-<li>The query is the query</li>
-<li>Use the ADBC engine instead of the default ConnectorX with <a href="https://pola.rs/">Polars</a></li>
-</ul>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="exercise">
-<h2 class="exercise">Practice</h2>
-<p><strong>Exercise 61</strong>:
-Write a command-line Python script that uses Polars to re-create the penguins database.</p>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">101: Object-Relational Mappers</h2>
-<p class="inclusion"><a href="src/orm.py">src/orm.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sqlmodel</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">Session</span><span class="p">,</span> <span class="n">SQLModel</span><span class="p">,</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">select</span>
-
-
-<span class="k">class</span> <span class="nc">Department</span><span class="p">(</span><span class="n">SQLModel</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="n">ident</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">building</span><span class="p">:</span> <span class="nb">str</span>
-
-
-<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;sqlite:///db/assays.db&quot;</span><span class="p">)</span>
-<span class="k">with</span> <span class="n">Session</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-    <span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">Department</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
-        <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/orm.out">out/orm.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>building=&#39;Chesson&#39; name=&#39;Genetics&#39; ident=&#39;gen&#39;
-building=&#39;Fashet Extension&#39; name=&#39;Histology&#39; ident=&#39;hist&#39;
-building=&#39;Chesson&#39; name=&#39;Molecular Biology&#39; ident=&#39;mb&#39;
-building=&#39;TGVH&#39; name=&#39;Endocrinology&#39; ident=&#39;end&#39;
-</code></pre></div>
-</div>
-<ul>
-<li>An <a href="#g:orm">object-relational mapper</a> (ORM) translates table columns to object properties and vice versa</li>
-<li><a href="https://sqlmodel.tiangolo.com/">SQLModel</a> relies on Python type hints</li>
-</ul>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="exercise">
-<h2 class="exercise">Practice</h2>
-<p><strong>Exercise 62</strong>:
-Write a command-line Python script that uses SQLModel to re-create the penguins database.</p>
-<!-- ---------------------------------------------------------------- -->
-</section>
-<section class="topic">
-<h2 class="topic">102: Relations with ORMs</h2>
-<p class="inclusion"><a href="src/orm_relation.py">src/orm_relation.py</a></p>
-<div class="language-py">
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Staff</span><span class="p">(</span><span class="n">SQLModel</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-    <span class="n">ident</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">personal</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">family</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">dept</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">foreign_key</span><span class="o">=</span><span class="s2">&quot;department.ident&quot;</span><span class="p">)</span>
-    <span class="n">age</span><span class="p">:</span> <span class="nb">int</span>
-
-
-<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s2">&quot;sqlite:///db/assays.db&quot;</span><span class="p">)</span>
-<span class="n">SQLModel</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">create_all</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span>
-<span class="k">with</span> <span class="n">Session</span><span class="p">(</span><span class="n">engine</span><span class="p">)</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-    <span class="n">statement</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">Department</span><span class="p">,</span> <span class="n">Staff</span><span class="p">)</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Staff</span><span class="o">.</span><span class="n">dept</span> <span class="o">==</span> <span class="n">Department</span><span class="o">.</span><span class="n">ident</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">dept</span><span class="p">,</span> <span class="n">staff</span> <span class="ow">in</span> <span class="n">session</span><span class="o">.</span><span class="n">exec</span><span class="p">(</span><span class="n">statement</span><span class="p">):</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dept</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">staff</span><span class="o">.</span><span class="n">personal</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">staff</span><span class="o">.</span><span class="n">family</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<p class="inclusion"><a href="out/orm_relation.out">out/orm_relation.out</a></p>
-<div class="language-plaintext">
-<div class="highlight"><pre><span></span><code>Histology: Divit Dhaliwal
-Molecular Biology: Indrans Sridhar
-Molecular Biology: Pranay Khanna
-Histology: Vedika Rout
-Genetics: Abram Chokshi
-Histology: Romil Kapoor
-Molecular Biology: Ishaan Ramaswamy
-Genetics: Nitya Lal
-</code></pre></div>
-</div>
-<ul>
-<li>Make foreign keys explicit in class definitions</li>
-<li>SQLModel automatically does the join<ul>
-<li>The two staff with no department aren&rsquo;t included in the result</li>
-</ul>
-</li>
-</ul>
 <!-- ---------------------------------------------------------------- -->
 </section>
 <section class="aside">
@@ -5212,7 +4698,7 @@ Genetics: Nitya Lal
   <a href="https://github.com/gvwilson/sql-tutorial"><i class="fab fa-github" aria-hidden="true" title="GitHub repository"></i></a>
   <a href="license/"><i class="fab fa-creative-commons-by" aria-hidden="true" title="license"></i></a>
   &middot;
-  <time datetime="2024-02-17">Last built 2024-02-17</time>
+  <time datetime="2024-02-18">Last built 2024-02-18</time>
 </footer>
 
   </body>

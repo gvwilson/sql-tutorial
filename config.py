@@ -13,26 +13,12 @@ author = {
 theme = "tut"
 src_dir = "pages"
 out_dir = "docs"
+pages = [
+    {"slug": "python", "title": "Python"}
+]
 rouge_style = "github.css"
 lang = "en"
 extension = "/"
-
-# Directories to copy verbatim.
-copydir = [
-    "db",
-    "out",
-    "src",
-]
-
-# Files to copy verbatim.
-copyext = [
-    ".db",
-    ".out",
-    ".py",
-    ".sh",
-    ".sql",
-    ".text",
-]
 
 # Enable various Markdown extensions.
 markdown_settings = {
