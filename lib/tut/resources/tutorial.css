@@ -75,7 +75,7 @@
 .col-12 { flex-basis: 100%; }
 
 /*
- * Generic positioning
+ * Generic positioning and style
  */
 
 .left {
@@ -88,6 +88,14 @@
 
 .center {
     text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
 }
 
 /*

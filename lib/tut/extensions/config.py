@@ -12,8 +12,10 @@ def config(pargs, kwargs, node):
         (len(pargs) == 1) and (not kwargs),
         f"Bad 'config' shortcode in {node.path} with '{pargs}' and '{kwargs}'",
     )
-    util.require(
-        pargs[0] in ark.site.config,
-        f"Unknown configuration key '{pargs[0]}' in 'config' shortcode in {node.path}",
-    )
-    return ark.site.config[pargs[0]]
+    current = ark.site.config
+    for key in pargs[0].split("."):
+        try:
+            current = current[key]
+        except KeyError as exc:
+            util.fail(f"Bad config key '{pargs[0]}': no component '{key}'")
+    return current

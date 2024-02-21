@@ -21,23 +21,25 @@
       Welcome, then, to a world in which the strange will become familiar, and the familiar, strange.
       Welcome, thrice welcome, to SQL.
     </p>
+    <p class="italic">
+      "[% config "title" %]" is a <a href="[% config "author.site" %]">Third Bit</a> production.
+    </p>
   </div>
 </div>
 
 <!-- ---------------------------------------------------------------- -->
 [% section_start class="aside" title="What This Is" %]
 
--   notes and working examples that instructors can use to perform a lesson
-    -   do *not* expect novices with no prior SQL experience to be able to learn from them
--   musical analogy
-    -   this is the chord changes and melody
-    -   we expect instructors to create an arrangement and/or improvise while delivering
-    -   see [*Teaching Tech Together*][t3] for background
--   please see [the license](./license/) for terms of use,
+-   Notes and working examples that instructors can use to perform a lesson
+    -   Do *not* expect novices with no prior SQL experience to be able to learn from them
+-   Musical analogy
+    -   This is the chord changes and melody
+    -   We expect instructors to create an arrangement and/or improvise while delivering
+    -   See [*Teaching Tech Together*][t3] for background
+-   Please see [the license](./license/) for terms of use,
     the [Code of Conduct](./conduct/) for community standards,
-    and [these guidelines](./contributing/) for notes on contributing
--   about the author:
-    [Greg Wilson][wilson-greg] is a programmer, author, and educator based in Toronto
+    and [these guidelines](./contributing/) for contributing
+-   [Greg Wilson][wilson-greg] is a programmer, author, and educator based in Toronto
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Scope" %]
