@@ -549,8 +549,7 @@ Is it possible to do this using `where` instead of `filter`?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Inserting Data" %]
 
-[% single "src/populate_work_job.sql" %]
-[% single "out/insert_values.out" %]
+[% multi "src/populate_work_job.sql" "out/insert_values.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Following Along" %]
@@ -578,8 +577,7 @@ What happens if you insert a number instead of a string into the `note` field?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Updating Rows" %]
 
-[% single "src/update_work_job.sql" %]
-[% single "out/update_rows.out" %]
+[% multi "src/update_work_job.sql" "out/update_rows.out" %]
 
 -   (Almost) always specify row(s) to update using `where`
     -   Otherwise update all rows in table, which is usually not wanted

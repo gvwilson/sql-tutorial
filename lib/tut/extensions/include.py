@@ -32,6 +32,16 @@ def double(pargs, kwargs, node):
     return f"{first}\n\n{second}"
 
 
+@shortcodes.register("multi")
+def multi(pargs, kwargs, node):
+    """Handle inclusion of multiple files."""
+    util.require(
+        (len(pargs) > 0) and (not kwargs),
+        f"Bad 'multi' shortcode in {node.path} with '{pargs}' and '{kwargs}'",
+    )
+    return "\n".join([single([filename], {}, node) for filename in pargs])
+
+
 @shortcodes.register("single")
 def single(pargs, kwargs, node):
     """Handle inclusion of a single file."""
