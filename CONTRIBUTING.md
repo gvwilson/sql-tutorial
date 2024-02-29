@@ -36,20 +36,15 @@ All contributors will be acknowledged.
 -   Use `[% section_break class="CLASS" title="TITLE" %]`
     to end the previous section and start a new one.
 
--   Use `[% double stem="file" suffix="sql out" %]`
-    to include `src/file.sql` and `out/file.out`.
-    Any two suffixes can be provided, such as `"py out"`,
-    but the first file will always be looked for in the `src` directory
-    and the second in `out`.
-
 -   Use `[% single "dir/file.ext" %]`
-    in `index.md` to include an arbitrary text file *without* automatically including output.
-    (Note that `single` requires a directory name such as `src` or `out` but `double` does not.)
-
--   By default, file inclusion strips out everything between `-- [keep]` and `-- [/keep]`
+    in `index.md` to include an arbitrary text file.
+    By default, file inclusion strips out everything between `-- [keep]` and `-- [/keep]`
     for SQL files and `# [keep]` and `# [/keep]` for Python files.
     The start and end tags can be customized by passing `keep="label"`
-    to the `single` or `double` inclusion tags.
+    to the `single` inclusion tags.
+
+-   Use `[% multi "dir_1/file_1.ext" "dir_2/file_2.ext" … %]`
+    to include multiple files.
 
 -   Use `[% exercise %]` to introduce a numbered exercise.
     Do not leave a blank link between the inclusion and the text of the exercise.

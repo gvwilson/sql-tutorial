@@ -11,27 +11,6 @@ COMMENT = {
 }
 
 
-@shortcodes.register("double")
-def double(pargs, kwargs, node):
-    """Handle inclusion of two files."""
-    util.require(
-        (len(pargs) == 0) and set(kwargs.keys()).issubset({"stem", "suffix", "keep"}),
-        f"Bad 'double' shortcode in {node.path} with '{pargs}' and '{kwargs}'",
-    )
-    stem = kwargs["stem"]
-    keep = kwargs.get("keep", "keep")
-
-    suffixes = [s.strip() for s in kwargs["suffix"].split()]
-    util.require(
-        len(suffixes) == 2,
-        f"Bad 'double' shortcode in {node.path} with '{pargs}' and '{kwargs}'",
-    )
-
-    first = single([f"src/{stem}.{suffixes[0]}"], {"keep": keep}, node)
-    second = single([f"out/{stem}.{suffixes[1]}"], {}, node)
-    return f"{first}\n\n{second}"
-
-
 @shortcodes.register("multi")
 def multi(pargs, kwargs, node):
     """Handle inclusion of multiple files."""

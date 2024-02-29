@@ -83,22 +83,16 @@ All contributors will be acknowledged.</p>
     to end the previous section and start a new one.</p>
 </li>
 <li>
-<p>Use <code>[% double stem="file" suffix="sql out" %]</code>
-    to include <code>src/file.sql</code> and <code>out/file.out</code>.
-    Any two suffixes can be provided, such as <code>"py out"</code>,
-    but the first file will always be looked for in the <code>src</code> directory
-    and the second in <code>out</code>.</p>
-</li>
-<li>
 <p>Use <code>[% single "dir/file.ext" %]</code>
-    in <code>index.md</code> to include an arbitrary text file <em>without</em> automatically including output.
-    (Note that <code>single</code> requires a directory name such as <code>src</code> or <code>out</code> but <code>double</code> does not.)</p>
-</li>
-<li>
-<p>By default, file inclusion strips out everything between <code>-- [keep]</code> and <code>-- [/keep]</code>
+    in <code>index.md</code> to include an arbitrary text file.
+    By default, file inclusion strips out everything between <code>-- [keep]</code> and <code>-- [/keep]</code>
     for SQL files and <code># [keep]</code> and <code># [/keep]</code> for Python files.
     The start and end tags can be customized by passing <code>keep="label"</code>
-    to the <code>single</code> or <code>double</code> inclusion tags.</p>
+    to the <code>single</code> inclusion tags.</p>
+</li>
+<li>
+<p>Use <code>[% multi "dir_1/file_1.ext" "dir_2/file_2.ext" … %]</code>
+    to include multiple files.</p>
 </li>
 <li>
 <p>Use <code>[% exercise %]</code> to introduce a numbered exercise.
@@ -277,7 +271,7 @@ just to get the benefits of version control.</dd>
   <a href="https://github.com/gvwilson/sql-tutorial"><i class="fab fa-github" aria-hidden="true" title="GitHub repository"></i></a>
   <a href="../license/"><i class="fab fa-creative-commons-by" aria-hidden="true" title="license"></i></a>
   &middot;
-  <time datetime="2024-02-21">Last built 2024-02-21</time>
+  <time datetime="2024-02-29">Last built 2024-02-29</time>
 </footer>
 
   </body>

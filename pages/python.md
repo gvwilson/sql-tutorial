@@ -5,7 +5,7 @@ title: Python
 <!-- ---------------------------------------------------------------- -->
 [% section_start class="topic" title="Querying from Python" %]
 
-[% double stem="basic_python_query" suffix="py out" %]
+[% multi "src/basic_python_query.py" "out/basic_python_query.out" %]
 
 -   `sqlite3` is part of Python's standard library
 -   Create a connection to a database file
@@ -16,7 +16,7 @@ title: Python
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Incremental Fetch" %]
 
-[% double stem="incremental_fetch" suffix="py out" %]
+[% multi "src/incremental_fetch.py" "out/incremental_fetch.out" %]
 
 -   `cursor.fetchone` returns `None` when no more data
 -   There is also `fetchmany(N)` to fetch (up to) a certain number of rows
@@ -24,14 +24,14 @@ title: Python
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Insert, Delete, and All That" %]
 
-[% double stem="insert_delete" suffix="py out" %]
+[% multi "src/insert_delete.py" "out/insert_delete.out" %]
 
 -   Each `execute` is its own transaction
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Interpolating Values" %]
 
-[% double stem="interpolate" suffix="py out" %]
+[% multi "src/interpolate.py" "out/interpolate.out" %]
 
 -   From [XKCD][xkcd-tables]
 
@@ -51,19 +51,19 @@ and inserts an entry into the penguins database.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Script Execution" %]
 
-[% double stem="script_execution" suffix="py out" %]
+[% multi "src/script_execution.py" "out/script_execution.out" %]
 
 -   But what if something goes wrong?
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="SQLite Exceptions in Python" %]
 
-[% double stem="exceptions" suffix="py out" %]
+[% multi "src/exceptions.py" "out/exceptions.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Python in SQLite" %]
 
-[% double stem="embedded_python" suffix="py out" %]
+[% multi "src/embedded_python.py" "out/embedded_python.out" %]
 
 -   SQLite calls back into Python to execute the function
 -   Other databases can run Python (and other languages) in the database server process
@@ -72,7 +72,7 @@ and inserts an entry into the penguins database.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Handling Dates and Times" %]
 
-[% double stem="dates_times" suffix="py out" %]
+[% multi "src/dates_times.py" "out/dates_times.out" %]
 
 -   `sqlite3.PARSE_DECLTYPES` tells `sqlite3` library to use converts based on declared column types
 -   Adapt on the way in, convert on the way out
@@ -95,7 +95,7 @@ as they are being written to the database.
 
 -   Loads extension
 
-[% double stem="jupyter_connect" suffix="text out" %]
+[% multi "src/jupyter_connect.text" "out/jupyter_connect.out" %]
 
 -   Connects to database
     -   `sqlite://` with two slashes is the protocol
@@ -103,7 +103,7 @@ as they are being written to the database.
 -   Single percent sign `%sql` introduces one-line command
 -   Use double percent sign `%%sql` to indicate that the rest of the cell is SQL
 
-[% double stem="jupyter_select" suffix="text out" %]
+[% multi "src/jupyter_select.text" "out/jupyter_select.out" %]
 
 <table>
   <thead>
@@ -132,7 +132,7 @@ as they are being written to the database.
 [% section_break class="topic" title="Pandas and SQL" %]
 
 [% single "src/install_pandas.sh" %]
-[% double stem="select_pandas" suffix="py out" %]
+[% multi "src/select_pandas.py" "out/select_pandas.out" %]
 
 -   Be careful about datatype conversion when using [Pandas][pandas]
 
@@ -146,7 +146,7 @@ Write a command-line Python script that uses Pandas to re-create the penguins da
 [% section_break class="topic" title="Polars and SQL" %]
 
 [% single "src/install_polars.sh" %]
-[% double stem="select_polars" suffix="py out" %]
+[% multi "src/select_polars.py" "out/select_polars.out" %]
 
 -   The [%g uri "Uniform Resource Identifier" %] (URI) specifies the database
 -   The query is the query
@@ -161,7 +161,7 @@ Write a command-line Python script that uses Polars to re-create the penguins da
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Object-Relational Mappers" %]
 
-[% double stem="orm" suffix="py out" %]
+[% multi "src/orm.py" "out/orm.out" %]
 
 -   An [%g orm "object-relational mapper" %] (ORM) translates table columns to object properties and vice versa
 -   [SQLModel][sqlmodel] relies on Python type hints
@@ -175,7 +175,7 @@ Write a command-line Python script that uses SQLModel to re-create the penguins 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Relations with ORMs" %]
 
-[% double stem="orm_relation" suffix="py out" %]
+[% multi "src/orm_relation.py" "out/orm_relation.out" %]
 
 -   Make foreign keys explicit in class definitions
 -   SQLModel automatically does the join

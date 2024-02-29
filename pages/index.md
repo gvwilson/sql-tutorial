@@ -117,7 +117,7 @@
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Selecting Constant" %]
 
-[% double stem="select_1" suffix="sql out" %]
+[% multi "src/select_1.sql" "out/select_1.out" %]
 
 -   `select` is a keyword
 -   Normally used to select data from table…
@@ -127,7 +127,7 @@
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Selecting All Values from Table" %]
 
-[% double stem="select_star" suffix="sql out" %]
+[% multi "src/select_star.sql" "out/select_star.out" %]
 
 -   An actual [%g query "query" %]
 -   Use `*` to mean "all columns"
@@ -137,7 +137,7 @@
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Administrative Commands" %]
 
-[% double stem="admin_commands" suffix="sql out" %]
+[% multi "src/admin_commands.sql" "out/admin_commands.out" %]
 
 -   `.mode markdown` and `.headers on` make the output more readable
 -   These SQLite [%g admin_command "administrative commands" %]
@@ -150,7 +150,7 @@
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Specifying Columns" %]
 
-[% double stem="specify_columns" suffix="sql out" %]
+[% multi "src/specify_columns.sql" "out/specify_columns.out" %]
 
 -   Specify column names separated by commas
     -   In any order
@@ -160,7 +160,7 @@
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Sorting" %]
 
-[% double stem="sort" suffix="sql out" %]
+[% multi "src/sort.sql" "out/sort.out" %]
 
 -   `order by` must follow `from` (which must follow `select`)
 -   `asc` is ascending, `desc` is descending
@@ -178,7 +178,7 @@ sorted such that the largest body mass appears first.
 
 -   Full dataset has 344 rows
 
-[% double stem="limit" suffix="sql out" %]
+[% multi "src/limit.sql" "out/limit.out" %]
 
 -   Comments start with `--` and run to the end of the line
 -   <code>limit <em>N</em></code> specifies maximum number of rows returned by query
@@ -186,7 +186,7 @@ sorted such that the largest body mass appears first.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Paging Output" %]
 
-[% double stem="page" suffix="sql out" %]
+[% multi "src/page.sql" "out/page.out" %]
 
 -   <code>offset <em>N</em></code> must follow `limit`
 -   Specifies number of rows to skip from the start of the selection
@@ -195,7 +195,7 @@ sorted such that the largest body mass appears first.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Removing Duplicates" %]
 
-[% double stem="distinct" suffix="sql out" %]
+[% multi "src/distinct.sql" "out/distinct.out" %]
 
 -   `distinct` keyword must appear right after `select`
     -   SQL was supposed to read like English
@@ -219,7 +219,7 @@ and compare the result to what you got in part 1.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Filtering Results" %]
 
-[% double stem="filter" suffix="sql out" %]
+[% multi "src/filter.sql" "out/filter.out" %]
 
 -   <code>where <em>condition</em></code> [%g filter "filters" %] the rows produced by selection
 -   Condition is evaluated independently for each row
@@ -240,7 +240,7 @@ This shows that the columns displayed and those used in filtering are independen
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Filtering with More Complex Conditions" %]
 
-[% double stem="filter_and" suffix="sql out" %]
+[% multi "src/filter_and.sql" "out/filter_and.out" %]
 
 -   `and`: both sub-conditions must be true
 -   `or`: either or both part must be true
@@ -264,7 +264,7 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Doing Calculations" %]
 
-[% double stem="calculations" suffix="sql out" %]
+[% multi "src/calculations.sql" "out/calculations.out" %]
 
 -   Can do the usual kinds of arithmetic on individual values
     -   Calculation done for each row independently
@@ -273,7 +273,7 @@ Write a query to select penguins that are female *or* on Torgersen Island *but n
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Renaming Columns" %]
 
-[% double stem="rename_columns" suffix="sql out" %]
+[% multi "src/rename_columns.sql" "out/rename_columns.out" %]
 
 -   Use <code><em>expression</em> as <em>name</em></code> to rename
 -   Give result of calculation a meaningful name
@@ -304,7 +304,7 @@ or look at [the documentation for SQLite's `format()` function][sqlite_format].
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Calculating with Missing Values" %]
 
-[% double stem="show_missing_values" suffix="sql out" %]
+[% multi "src/show_missing_values.sql" "out/show_missing_values.out" %]
 
 -   SQL uses a special value [%g null "<code>null</code>" %] to representing missing data
     -   Not 0 or empty string, but "I don't know"
@@ -326,23 +326,23 @@ When might it be misleading?
 
 -   Repeated from earlier (so it doesn't count against our query limit)
 
-[% double stem="filter" suffix="sql out" %]
+[% multi "src/filter.sql" "out/filter.out" %]
 
 -   If we ask for female penguins the row with the missing sex drops out
 
-[% double stem="null_equality" suffix="sql out" %]
+[% multi "src/null_equality.sql" "out/null_equality.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Null Inequality" %]
 
 -   But if we ask for penguins that *aren't* female it drops out as well
 
-[% double stem="null_inequality" suffix="sql out" %]
+[% multi "src/null_inequality.sql" "out/null_inequality.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Ternary Logic" %]
 
-[% double stem="ternary_logic" suffix="sql out" %]
+[% multi "src/ternary_logic.sql" "out/ternary_logic.out" %]
 
 -   If we don't know the left and right values, we don't know if they're equal or not
 -   So the result is `null`
@@ -382,7 +382,7 @@ When might it be misleading?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Handling Null Safely" %]
 
-[% double stem="safe_null_equality" suffix="sql out" %]
+[% multi "src/safe_null_equality.sql" "out/safe_null_equality.out" %]
 
 -   Use `is null` and `is not null` to handle null safely
 -   Other parts of SQL handle nulls specially
@@ -408,7 +408,7 @@ Write another query to find penguins whose sex is known but whose body mass is n
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Aggregating" %]
 
-[% double stem="simple_sum" suffix="sql out" %]
+[% multi "src/simple_sum.sql" "out/simple_sum.out" %]
 
 -   [%g aggregation "Aggregation" %] combines many values to produce one
 -   `sum` is an [%g aggregation_func "aggregation function" %]
@@ -417,7 +417,7 @@ Write another query to find penguins whose sex is known but whose body mass is n
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Common Aggregation Functions" %]
 
-[% double stem="common_aggregations" suffix="sql out" %]
+[% multi "src/common_aggregations.sql" "out/common_aggregations.out" %]
 
 -   This actually shouldn't work:
     can't calculate maximum or average if any values are null
@@ -432,7 +432,7 @@ What is the average body mass of penguins that weight more than 3000.0 grams?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Counting" %]
 
-[% double stem="count_behavior" suffix="sql out" %]
+[% multi "src/count_behavior.sql" "out/count_behavior.out" %]
 
 -   `count(*)` counts rows
 -   <code>count(<em>column</em>)</code> counts non-null entries in column
@@ -447,7 +447,7 @@ How many different body masses are in the penguins dataset?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Grouping" %]
 
-[% double stem="simple_group" suffix="sql out" %]
+[% multi "src/simple_group.sql" "out/simple_group.out" %]
 
 -   Put rows in [%g group "groups" %] based on distinct combinations of values in columns specified with `group by`
 -   Then perform aggregation separately for each group
@@ -456,14 +456,14 @@ How many different body masses are in the penguins dataset?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Behavior of Unaggregated Columns" %]
 
-[% double stem="unaggregated_columns" suffix="sql out" %]
+[% multi "src/unaggregated_columns.sql" "out/unaggregated_columns.out" %]
 
 -   All rows in each group have the same value for `sex`, so no need to aggregate
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Arbitrary Choice in Aggregation" %]
 
-[% double stem="arbitrary_in_aggregation" suffix="sql out" %]
+[% multi "src/arbitrary_in_aggregation.sql" "out/arbitrary_in_aggregation.out" %]
 
 -   If we don't specify how to aggregate a column,
     SQLite chooses *any arbitrary value* from the group
@@ -487,21 +487,21 @@ and the number of penguins that weigh that much.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Filtering Aggregated Values" %]
 
-[% double stem="filter_aggregation" suffix="sql out" %]
+[% multi "src/filter_aggregation.sql" "out/filter_aggregation.out" %]
 
 -   Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Readable Output" %]
 
-[% double stem="readable_aggregation" suffix="sql out" %]
+[% multi "src/readable_aggregation.sql" "out/readable_aggregation.out" %]
 
 -   Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Filtering Aggregate Inputs" %]
 
-[% double stem="filter_aggregate_inputs" suffix="sql out" %]
+[% multi "src/filter_aggregate_inputs.sql" "out/filter_aggregate_inputs.out" %]
 
 -   <code>filter (where <em>condition</em>)</code> applies to *inputs*
 
@@ -585,7 +585,7 @@ What happens if you insert a number instead of a string into the `note` field?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Deleting Rows" %]
 
-[% double stem="delete_rows" suffix="sql out" %]
+[% multi "src/delete_rows.sql" "out/delete_rows.out" %]
 
 -   Again, (almost) always specify row(s) to delete using `where`
 
@@ -599,7 +599,7 @@ What happens if you try to delete rows that don't exist
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Backing Up" %]
 
-[% double stem="backing_up" suffix="sql out" %]
+[% multi "src/backing_up.sql" "out/backing_up.out" %]
 
 -   We will explore another strategy based on [%g tombstone "tombstones" %] below
 
@@ -645,7 +645,7 @@ Saving and restoring data in binary format:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Combining Information" %]
 
-[% double stem="cross_join" suffix="sql out" %]
+[% multi "src/cross_join.sql" "out/cross_join.out" %]
 
 -   A [%g join "join" %] combines information from two tables
 -   [%g cross_join "cross join" %] constructs their cross product
@@ -656,7 +656,7 @@ Saving and restoring data in binary format:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Inner Join" %]
 
-[% double stem="inner_join" suffix="sql out" %]
+[% multi "src/inner_join.sql" "out/inner_join.out" %]
 
 -   Use <code><em>table</em>.<em>column</em></code> notation to specify columns
     -   A column can have the same name as a table
@@ -674,7 +674,7 @@ and more or less likely to cause errors?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Aggregating Joined Data" %]
 
-[% double stem="aggregate_join" suffix="sql out" %]
+[% multi "src/aggregate_join.sql" "out/aggregate_join.out" %]
 
 -   Combines ideas we've seen before
 -   But Tay is missing from the table
@@ -684,7 +684,7 @@ and more or less likely to cause errors?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Left Join" %]
 
-[% double stem="left_join" suffix="sql out" %]
+[% multi "src/left_join.sql" "out/left_join.out" %]
 
 -   A [%g left_outer_join "left outer join" %] keeps all rows from the left table
 -   Fills missing values from right table with null
@@ -692,14 +692,14 @@ and more or less likely to cause errors?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Aggregating Left Joins" %]
 
-[% double stem="aggregate_left_join" suffix="sql out" %]
+[% multi "src/aggregate_left_join.sql" "out/aggregate_left_join.out" %]
 
 -   That's better, but we'd like to see 0 rather than a blank
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Coalescing Values" %]
 
-[% double stem="coalesce" suffix="sql out" %]
+[% multi "src/coalesce.sql" "out/coalesce.out" %]
 
 -   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
 
@@ -710,7 +710,7 @@ and more or less likely to cause errors?
     left outer join and [%g right_outer_join "right outer join" %]
 -   Almost the same as cross join, but consider:
 
-[% double stem="full_outer_join" suffix="sql out" %]
+[% multi "src/full_outer_join.sql" "out/full_outer_join.out" %]
 
 -   A cross join would produce empty result
 
@@ -737,7 +737,7 @@ using the SQL you have seen so far?
 
 -   Who doesn't calibrate?
 
-[% double stem="negate_incorrectly" suffix="sql out" %]
+[% multi "src/negate_incorrectly.sql" "out/negate_incorrectly.out" %]
 
 -   But Mik *does* calibrate
 -   Problem is that there's an entry for Mik cleaning
@@ -747,14 +747,14 @@ using the SQL you have seen so far?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Set Membership" %]
 
-[% double stem="set_membership" suffix="sql out" %]
+[% multi "src/set_membership.sql" "out/set_membership.out" %]
 
 -   <code>in <em>values</em></code> and <code>not in <em>values</em></code> do exactly what you expect
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Subqueries" %]
 
-[% double stem="subquery_set" suffix="sql out" %]
+[% multi "src/subquery_set.sql" "out/subquery_set.out" %]
 
 -   Use a [%g subquery "subquery" %] to select the people who *do* calibrate
 -   Then select all the people who *aren't* in that set
@@ -767,7 +767,7 @@ using the SQL you have seen so far?
     as long as value(s) unique for each record
 -   Uniquely identifies a particular record in a particular table
 
-[% double stem="primary_key" suffix="sql out" %]
+[% multi "src/primary_key.sql" "out/primary_key.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="exercise" %]
@@ -780,7 +780,7 @@ What about the `work` and `job` tables?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Autoincrementing and Primary Keys" %]
 
-[% double stem="autoincrement" suffix="sql out" %]
+[% multi "src/autoincrement.sql" "out/autoincrement.out" %]
 
 -   Database [%g autoincrement "autoincrements" %] `ident` each time a new record is added
 -   Common to use that field as the primary key
@@ -792,7 +792,7 @@ What about the `work` and `job` tables?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Internal Tables" %]
 
-[% double stem="sequence_table" suffix="sql out" %]
+[% multi "src/sequence_table.sql" "out/sequence_table.out" %]
 
 -   Sequence numbers are *not* reset when rows are deleted
     -   In part so that they can be used as primary keys
@@ -809,7 +809,7 @@ the same sequence numbers are generated again?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Altering Tables" %]
 
-[% double stem="alter_tables" suffix="sql out" %]
+[% multi "src/alter_tables.sql" "out/alter_tables.out" %]
 
 -   Add a column after the fact
 -   Since it can't be null, we have to provide a default value
@@ -836,7 +836,7 @@ the same sequence numbers are generated again?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Creating New Tables from Old" %]
 
-[% double stem="insert_select" suffix="sql out" %]
+[% multi "src/insert_select.sql" "out/insert_select.out" %]
 
 -   `new_work` is our join table
 -   Each column refers to a record in some other table
@@ -844,7 +844,7 @@ the same sequence numbers are generated again?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Removing Tables" %]
 
-[% double stem="drop_table" suffix="sql out" %]
+[% multi "src/drop_table.sql" "out/drop_table.out" %]
 
 -   Remove the old table and rename the new one to take its place
     -   Note `if exists`
@@ -876,7 +876,7 @@ Note: this exercise may take an hour or more.
 
 -   Go back to the original penguins database
 
-[% double stem="compare_individual_aggregate" suffix="sql out" %]
+[% multi "src/compare_individual_aggregate.sql" "out/compare_individual_aggregate.out" %]
 
 -   Get average body mass in subquery
 -   Compare each row against that
@@ -894,7 +894,7 @@ that weigh the same as the lightest penguin.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Comparing Individual Values to Aggregates Within Groups" %]
 
-[% double stem="compare_within_groups" suffix="sql out" %]
+[% multi "src/compare_within_groups.sql" "out/compare_within_groups.out" %]
 
 -   Subquery runs first to create temporary table `averaged` with average mass per species
 -   Join that with `penguins`
@@ -910,7 +910,7 @@ that weigh the same as the lightest penguin of the same sex and species.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Common Table Expressions" %]
 
-[% double stem="common_table_expressions" suffix="sql out" %]
+[% multi "src/common_table_expressions.sql" "out/common_table_expressions.out" %]
 
 -   Use [%g cte "common table expression" %] (CTE) to make queries clearer
     -   Nested subqueries quickly become difficult to understand
@@ -919,7 +919,7 @@ that weigh the same as the lightest penguin of the same sex and species.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Explaining Query Plans" %]
 
-[% double stem="explain_query_plan" suffix="sql out" %]
+[% multi "src/explain_query_plan.sql" "out/explain_query_plan.out" %]
 
 -   SQLite plans to scan every row of the table
 -   It will build a temporary [%g b_tree "B-tree data structure" %] to group rows
@@ -937,7 +937,7 @@ that weigh the same as the lightest penguin of the same sex and species.
 
 -   Every table has a special column called `rowid`
 
-[% double stem="rowid" suffix="sql out" %]
+[% multi "src/rowid.sql" "out/rowid.out" %]
 
 -   `rowid` is persistent within a session
     -   I.e., if we delete the first 5 rows we now have row IDs 6…N
@@ -963,7 +963,7 @@ To explore how row IDs behave:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Conditionals" %]
 
-[% double stem="if_else" suffix="sql out" %]
+[% multi "src/if_else.sql" "out/if_else.out" %]
 
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
@@ -993,7 +993,7 @@ Which ones do you think actually attempt to divide by zero?
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
 
-[% double stem="case_when" suffix="sql out" %]
+[% multi "src/case_when.sql" "out/case_when.out" %]
 
 -   Evaluate `when` options in order and take first
 -   Result of `case` is null if no condition is true
@@ -1013,7 +1013,7 @@ rather than a [%g statement "statement" %].)
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Checking a Range" %]
 
-[% double stem="check_range" suffix="sql out" %]
+[% multi "src/check_range.sql" "out/check_range.out" %]
 
 -   `between` can make queries easier to read
 -   But be careful of the `and` in the middle
@@ -1057,7 +1057,7 @@ so that it is true in both cases.
    alt="entity-relationship diagram showing logical structure of assay database"
 %]
 
-[% double stem="assay_staff" suffix="sql out" %]
+[% multi "src/assay_staff.sql" "out/assay_staff.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="exercise" %]
@@ -1074,7 +1074,7 @@ Draw a table diagram and an ER diagram to represent the following database:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Pattern Matching" %]
 
-[% double stem="like_glob" suffix="sql out" %]
+[% multi "src/like_glob.sql" "out/like_glob.out" %]
 
 -   `like` is the original SQL pattern matcher
     -   `%` matches zero or more characters at the start or end of a string
@@ -1090,7 +1090,7 @@ Rewrite the pattern-matching query shown above using `glob`.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Selecting First and Last Rows" %]
 
-[% double stem="union_all" suffix="sql out" %]
+[% multi "src/union_all.sql" "out/union_all.out" %]
 
 -   `union all` combines records
     -   Keeps duplicates: `union` on its own only keeps unique records
@@ -1108,7 +1108,7 @@ How can you check that your query is working correctly?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Intersection" %]
 
-[% double stem="intersect" suffix="sql out" %]
+[% multi "src/intersect.sql" "out/intersect.out" %]
 
 -   Rows involved must have the same structure
 -   Intersection usually used when pulling values from different sources
@@ -1130,7 +1130,7 @@ Why do you believe this?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Exclusion" %]
 
-[% double stem="except" suffix="sql out" %]
+[% multi "src/except.sql" "out/except.out" %]
 
 -   Again, tables must have same structure
     -   And this would be clearer with `where`
@@ -1146,7 +1146,7 @@ How can you check that your query is working correctly?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Random Numbers and Why Not" %]
 
-[% double stem="random_numbers" suffix="sql out" %]
+[% multi "src/random_numbers.sql" "out/random_numbers.out" %]
 
 -   There is no way to seed SQLite's random number generator
 -   Which means there is no way to reproduce its pseudo-random sequences
@@ -1169,7 +1169,7 @@ Write a query that:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Creating an Index" %]
 
-[% double stem="create_use_index" suffix="sql out" %]
+[% multi "src/create_use_index.sql" "out/create_use_index.out" %]
 
 -   An [%g index "index" %] is an auxiliary data structure that enables faster access to records
     -   Spend storage space to buy speed
@@ -1180,21 +1180,21 @@ Write a query that:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Generating Sequences" %]
 
-[% double stem="generate_sequence" suffix="sql out" %]
+[% multi "src/generate_sequence.sql" "out/generate_sequence.out" %]
 
 -   A (non-standard) [%g table_valued_func "table-valued function" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Generating Sequences Based on Data" %]
 
-[% double stem="data_range_sequence" suffix="sql out" %]
+[% multi "src/data_range_sequence.sql" "out/data_range_sequence.out" %]
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Generating Sequences of Dates" %]
 
-[% double stem="date_sequence" suffix="sql out" %]
+[% multi "src/date_sequence.sql" "out/date_sequence.out" %]
 
 -   SQLite represents dates as YYYY-MM-DD strings
     or as Julian days or as Unix milliseconds or…
@@ -1206,7 +1206,7 @@ Write a query that:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Counting Experiments Started per Day Without Gaps" %]
 
-[% double stem="experiments_per_day" suffix="sql out" %]
+[% multi "src/experiments_per_day.sql" "out/experiments_per_day.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="exercise" %]
@@ -1218,7 +1218,7 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Self Join" %]
 
-[% double stem="self_join" suffix="sql out" %]
+[% multi "src/self_join.sql" "out/self_join.out" %]
 
 -   Join a table to itself
     -   Use `as` to create [%g alias "aliases" %] for copies of tables to distinguish them
@@ -1228,7 +1228,7 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Generating Unique Pairs" %]
 
-[% double stem="unique_pairs" suffix="sql out" %]
+[% multi "src/unique_pairs.sql" "out/unique_pairs.out" %]
 
 -   `left.ident < right.ident` ensures distinct pairs without duplicates
     -   Query uses `left.ident <= 4 and right.ident <= 4` to shorten output
@@ -1237,12 +1237,12 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Filtering Pairs" %]
 
-[% double stem="filter_pairs" suffix="sql out" %]
+[% multi "src/filter_pairs.sql" "out/filter_pairs.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Existence and Correlated Subqueries" %]
 
-[% double stem="correlated_subquery" suffix="sql out" %]
+[% multi "src/correlated_subquery.sql" "out/correlated_subquery.out" %]
 
 -   Endocrinology is missing from the list
 -   `select 1` could equally be `select true` or any other value
@@ -1252,7 +1252,7 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Nonexistence" %]
 
-[% double stem="nonexistence" suffix="sql out" %]
+[% multi "src/nonexistence.sql" "out/nonexistence.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="exercise" %]
@@ -1265,7 +1265,7 @@ If the query cannot be rewritten, why not?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Avoiding Correlated Subqueries" %]
 
-[% double stem="avoid_correlated_subqueries" suffix="sql out" %]
+[% multi "src/avoid_correlated_subqueries.sql" "out/avoid_correlated_subqueries.out" %]
 
 -   The join might or might not be faster than the correlated subquery
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
@@ -1273,7 +1273,7 @@ If the query cannot be rewritten, why not?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Lead and Lag" %]
 
-[% double stem="lead_lag" suffix="sql out" %]
+[% multi "src/lead_lag.sql" "out/lead_lag.out" %]
 
 -   Use `strftime` to extract year and month
     -   Clumsy, but date/time handling is not SQLite's strong point
@@ -1290,7 +1290,7 @@ If the query cannot be rewritten, why not?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Windowing Functions" %]
 
-[% double stem="window_functions" suffix="sql out" %]
+[% multi "src/window_functions.sql" "out/window_functions.out" %]
 
 -   `sum() over` does a running total
 -   `cume_dist()` is fraction *of rows seen so far*
@@ -1301,14 +1301,14 @@ If the query cannot be rewritten, why not?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Explaining Another Query Plan" %]
 
-[% double stem="explain_window_function" suffix="sql out" %]
+[% multi "src/explain_window_function.sql" "out/explain_window_function.out" %]
 
 -   Becomes useful…eventually
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Partitioned Windows" %]
 
-[% double stem="partition_window" suffix="sql out" %]
+[% multi "src/partition_window.sql" "out/partition_window.out" %]
 
 -   `partition by` creates groups
 -   So this counts experiments started since the beginning of each year
@@ -1330,7 +1330,7 @@ Create a query that:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Blobs" %]
 
-[% double stem="blob" suffix="sql out" %]
+[% multi "src/blob.sql" "out/blob.out" %]
 
 -   A [%g blob "blob" %] is a binary large object
     -   Bytes in, bytes out…
@@ -1349,12 +1349,12 @@ Does using SQLite's `hex()` function make it any more readable?
 [% section_break class="aside" title="Yet Another Database" %]
 
 [% single "src/lab_log_db.sh" %]
-[% double stem="lab_log_schema" suffix="sql out" %]
+[% multi "src/lab_log_schema.sql" "out/lab_log_schema.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Storing JSON" %]
 
-[% double stem="json_in_table" suffix="sql out" %]
+[% multi "src/json_in_table.sql" "out/json_in_table.out" %]
 
 -   Store heterogeneous data as [%g json "JSON" %]-formatted text
     (with double-quoted strings)
@@ -1367,7 +1367,7 @@ Does using SQLite's `hex()` function make it any more readable?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Select Fields from JSON" %]
 
-[% double stem="json_field" suffix="sql out" %]
+[% multi "src/json_field.sql" "out/json_field.out" %]
 
 -   Single arrow `->` returns JSON representation of result
 -   Double arrow `->>` returns SQL text, integer, real, or null
@@ -1386,7 +1386,7 @@ of the JSON data associated with the Inphormex plate reader.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="JSON Array Access" %]
 
-[% double stem="json_array" suffix="sql out" %]
+[% multi "src/json_array.sql" "out/json_array.out" %]
 
 -   SQLite and other database managers have many [JSON manipulation functions][sqlite_json]
 -   `json_array_length` gives number of elements in selected array
@@ -1396,7 +1396,7 @@ of the JSON data associated with the Inphormex plate reader.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Unpacking JSON Arrays" %]
 
-[% double stem="json_unpack" suffix="sql out" %]
+[% multi "src/json_unpack.sql" "out/json_unpack.out" %]
 
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
@@ -1411,12 +1411,12 @@ in the first log entry associated with any piece of equipment.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Selecting the Last Element of an  Array" %]
 
-[% double stem="json_array_last" suffix="sql out" %]
+[% multi "src/json_array_last.sql" "out/json_array_last.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Modifying JSON" %]
 
-[% double stem="json_modify" suffix="sql out" %]
+[% multi "src/json_modify.sql" "out/json_modify.out" %]
 
 -   Updates the in-memory copy of the JSON, *not* the database record
 -   Please use `json_quote` rather than trying to format JSON with string operations
@@ -1432,7 +1432,7 @@ with the corresopnding machine IDs from the `machine` table.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Refreshing the Penguins Database" %]
 
-[% double stem="count_penguins" suffix="sql out" %]
+[% multi "src/count_penguins.sql" "out/count_penguins.out" %]
 
 -   We will restore full database after each example
 
@@ -1440,7 +1440,7 @@ with the corresopnding machine IDs from the `machine` table.
 [% section_break class="topic" title="Tombstones" %]
 
 [% single "src/make_active.sql" %]
-[% double stem="active_penguins" suffix="sql out" %]
+[% multi "src/active_penguins.sql" "out/active_penguins.out" %]
 
 -   Use a [%g tombstone "tombstone" %] to mark (in)active records
 -   Every query must now include it
@@ -1468,7 +1468,7 @@ How can you correct the ones that need correcting?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Views" %]
 
-[% double stem="views" suffix="sql out" %]
+[% multi "src/views.sql" "out/views.out" %]
 
 -   A [%g view "view" %] is a saved query that other queries can invoke
 -   View is re-run each time it's used
@@ -1499,12 +1499,12 @@ the second shows the total number of log entries for that machine.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Hours Reminder" %]
 
-[% double stem="all_jobs" suffix="sql out" %]
+[% multi "src/all_jobs.sql" "out/all_jobs.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Adding Checks" %]
 
-[% double stem="all_jobs_check" suffix="sql out" %]
+[% multi "src/all_jobs_check.sql" "out/all_jobs_check.out" %]
 
 -   `check` adds constraint to table
     -   Must produce a Boolean result
@@ -1533,7 +1533,7 @@ Rewrite the definition of the `penguins` table to add the following constraints:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Transactions" %]
 
-[% double stem="transaction" suffix="sql out" %]
+[% multi "src/transaction.sql" "out/transaction.out" %]
 
 -   Statements outside transaction execute and are committed immediately
 -   Statement(s) inside transaction don't take effect until:
@@ -1546,7 +1546,7 @@ Rewrite the definition of the `penguins` table to add the following constraints:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Rollback in Constraints" %]
 
-[% double stem="rollback_constraint" suffix="sql out" %]
+[% multi "src/rollback_constraint.sql" "out/rollback_constraint.out" %]
 
 -   All of second `insert` rolled back as soon as error occurred
 -   But first `insert` took effect
@@ -1554,7 +1554,7 @@ Rewrite the definition of the `penguins` table to add the following constraints:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Rollback in Statements" %]
 
-[% double stem="rollback_statement" suffix="sql out" %]
+[% multi "src/rollback_statement.sql" "out/rollback_statement.out" %]
 
 -   Constraint is in table definition
 -   Action is in statement
@@ -1562,7 +1562,7 @@ Rewrite the definition of the `penguins` table to add the following constraints:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Upsert" %]
 
-[% double stem="upsert" suffix="sql out" %]
+[% multi "src/upsert.sql" "out/upsert.out" %]
 
 -   [%g upsert "upsert" %] stands for "update or insert"
     -   Create if record doesn't exist
@@ -1612,12 +1612,12 @@ write a query that adds or modifies people in the `staff` table as shown:
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Trigger Not Firing" %]
 
-[% double stem="trigger_successful" suffix="sql out" %]
+[% multi "src/trigger_successful.sql" "out/trigger_successful.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Trigger Firing" %]
 
-[% double stem="trigger_firing" suffix="sql out" %]
+[% multi "src/trigger_firing.sql" "out/trigger_firing.out" %]
 
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="exercise" %]
@@ -1637,7 +1637,7 @@ by a single `insert` statement?
 [% section_break class="aside" title="Represent Graphs" %]
 
 [% single "src/lineage_setup.sql" %]
-[% double stem="represent_graph" suffix="sql out" %]
+[% multi "src/represent_graph.sql" "out/represent_graph.out" %]
 
 [% figure
    file="img/lineage.svg"
@@ -1654,7 +1654,7 @@ Write a query that uses a self join to find every person's grandchildren.
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Recursive Queries" %]
 
-[% double stem="recursive_lineage" suffix="sql out" %]
+[% multi "src/recursive_lineage.sql" "out/recursive_lineage.out" %]
 
 -   Use a [%g recursive_cte "recursive CTE" %] to create a temporary table (`descendent`)
 -   [%g base_case "Base case" %] seeds this table
@@ -1675,8 +1675,8 @@ Why or why not?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="aside" title="Contact Tracing Database" %]
 
-[% double stem="contact_person" suffix="sql out" %]
-[% double stem="contact_contacts" suffix="sql out" %]
+[% multi "src/contact_person.sql" "out/contact_person.out" %]
+[% multi "src/contact_contacts.sql" "out/contact_contacts.out" %]
 
 [% figure
    file="img/contact_tracing.svg"
@@ -1687,7 +1687,7 @@ Why or why not?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Bidirectional Contacts" %]
 
-[% double stem="bidirectional" suffix="sql out" %]
+[% multi "src/bidirectional.sql" "out/bidirectional.out" %]
 
 -   Create a [%g temporary_table "temporary table" %] rather than using a long chain of CTEs
     -   Only lasts as long as the session (not saved to disk)
@@ -1696,7 +1696,7 @@ Why or why not?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Updating Group Identifiers" %]
 
-[% double stem="update_group_ids" suffix="sql out" %]
+[% multi "src/update_group_ids.sql" "out/update_group_ids.out" %]
 
 -   `new_ident` is minimum of own identifier and identifiers one step away
 -   Doesn't keep people with no contacts
@@ -1704,7 +1704,7 @@ Why or why not?
 <!-- ---------------------------------------------------------------- -->
 [% section_break class="topic" title="Recursive Labeling" %]
 
-[% double stem="recursive_labeling" suffix="sql out" %]
+[% multi "src/recursive_labeling.sql" "out/recursive_labeling.out" %]
 
 -   Use `union` instead of `union all` to prevent [%g infinite_recursion "infinite recursion" %]
 
