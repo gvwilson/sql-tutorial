@@ -14,7 +14,7 @@ def link_table(pargs, kwargs, node):
     filename = kwargs["file"]
     title = kwargs["title"]
     alt = kwargs["alt"]
-    figure_id = util.figure()
+    figure_id = util.figure(node.slug)
     lines = [
         f'<figure id="figure_{figure_id}">',
         f'<img src="{filename}" alt="{alt}"/>',

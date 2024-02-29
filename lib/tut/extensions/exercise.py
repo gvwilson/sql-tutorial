@@ -11,4 +11,4 @@ def exercise(pargs, kwargs, node):
         (not pargs) and (not kwargs),
         f"Bad 'exercise' shortcode in {node.path} with '{pargs}' and '{kwargs}'",
     )
-    return f"<strong>Exercise {util.exercise()}</strong>:"
+    return f"<strong>Exercise {util.exercise(node.slug)}</strong>:"

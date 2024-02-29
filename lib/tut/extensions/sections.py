@@ -26,7 +26,7 @@ def section_start(pargs, kwargs, node):
         f"Bad section_start shortcode in {node.path} with '{pargs}' and '{kwargs}'",
     )
     cls = kwargs.get("class", "")
-    num = f"{util.section()}: " if cls == "topic" else ""
+    num = f"{util.section(node.slug)}: " if cls == "topic" else ""
     title = "Practice" if cls == "exercise" else kwargs["title"]
     cls = f' class="{cls}"' if cls else ""
     return f'<section markdown="1"{cls}>\n<h2 markdown="1"{cls}>{num}{title}</h2>'

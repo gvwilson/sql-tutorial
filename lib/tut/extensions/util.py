@@ -7,9 +7,9 @@ import sys
 import yaml
 
 
-def exercise():
+def exercise(slug):
     """Get the next exercise number."""
-    return _next_num("_exercise_num")
+    return _next_num("_exercise_num", slug)
 
 
 def fail(msg):
@@ -18,9 +18,9 @@ def fail(msg):
     raise AssertionError(msg)
 
 
-def figure():
+def figure(slug):
     """Get the next figure number."""
-    return _next_num("_figure_num")
+    return _next_num("_figure_num", slug)
 
 
 def glossary():
@@ -61,9 +61,9 @@ def require(cond, msg):
         fail(msg)
 
 
-def section():
+def section(slug):
     """Get the next section number."""
-    return _next_num("_section_num")
+    return _next_num("_section_num", slug)
 
 
 def thanks():
@@ -73,12 +73,14 @@ def thanks():
     return ark.site.config["_thanks"]
 
 
-def _next_num(label):
+def _next_num(label, slug):
     """Create and return next number in sequence."""
     if label not in ark.site.config:
-        ark.site.config[label] = 0
-    ark.site.config[label] += 1
-    return ark.site.config[label]
+        ark.site.config[label] = {}
+    if slug not in ark.site.config[label]:
+        ark.site.config[label][slug] = 0
+    ark.site.config[label][slug] += 1
+    return ark.site.config[label][slug]
 
 
 def _read_info(filename):
