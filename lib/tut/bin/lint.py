@@ -10,12 +10,11 @@ import yaml
 CROSSREF = re.compile(r"\]\(\#(.+?)\)", re.DOTALL)
 MAKE_INC = re.compile(r"\$\{(OUT|SRC)\}/(\w+?\.(sql|out|py))\b")
 
-@shortcodes.register("double")
-def double(pargs, kwargs, context):
-    stem = kwargs["stem"]
-    suffix = kwargs["suffix"].split()
-    context["inclusion"].add(f"{context['src']}/{stem}.{suffix[0]}")
-    context["inclusion"].add(f"{context['out']}/{stem}.{suffix[1]}")
+
+@shortcodes.register("multi")
+def multi(pargs, kwargs, context):
+    for filename in pargs:
+        single([filename], {}, context)
 
 
 @shortcodes.register("single")
@@ -38,7 +37,8 @@ def main():
         "out": options.output,
         "src": options.source,
     }
-    parser.parse(Path(options.page).read_text(), context)
+    for p in options.pages:
+        parser.parse(Path(p).read_text(), context)
     do_inclusions(options, context["inclusion"])
     do_glossary(options, context["glossref"])
 
@@ -60,7 +60,7 @@ def do_inclusions(options, page_inc):
     """Handle inclusion checking."""
 
     make_inc = find_make_inc(options.makefile, options.unused)
-    actual = find_actual(options.source, options.output)
+    actual = find_actual(options.source, options.output) | set(options.others)
 
     report("in Make but do not exist", make_inc - actual)
     report("in page but do not exist", page_inc - actual)
@@ -83,16 +83,6 @@ def find_make_inc(makefile, unused):
     return make_inc - set(unused)
 
 
-def find_page_inc(filename):
-    """Find filenames in page."""
-    text = Path(filename).read_text()
-    result = {m for m in SINGLE_INC.findall(text)}
-    for m in DOUBLE_INC.findall(text):
-        for suffix in m[1].split():
-            result.add(f"{m[0]}.{suffix}")
-    return result
-
-
 def parse_args():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser()
@@ -102,10 +92,13 @@ def parse_args():
         "--lang", type=str, required=True, help="language"
     )
     parser.add_argument(
+        "--others", nargs="*", help="other included files"
+    )
+    parser.add_argument(
         "--output", type=str, required=True, help="path to output directory"
     )
     parser.add_argument(
-        "--page", type=str, required=True, help="path to tutorial source page"
+        "--pages", nargs="+", help="paths to tutorial source pages"
     )
     parser.add_argument(
         "--source", type=str, required=True, help="path to source directory"

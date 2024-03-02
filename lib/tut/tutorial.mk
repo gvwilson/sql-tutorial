@@ -30,9 +30,10 @@ lint:
 	--lang $$(python config.py lang) \
 	--makefile Makefile \
 	--output ${OUT} \
-	--page ${PAGES}/index.md \
+	--pages ${PAGES}/index.md ${LINT_OTHER_PAGES} \
 	--source ${SRC} \
-	--unused ${UNUSED}
+	--unused ${UNUSED} \
+	--others ${LINT_OTHER_FILES}
 
 ## ordered: get all inclusions in order
 .PHONY: ordered

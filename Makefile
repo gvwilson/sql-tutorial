@@ -30,6 +30,8 @@ OUT_FILES := \
     $(patsubst ${SRC}/%.py,${OUT}/%.out,${PY_FILES})
 
 UNUSED := $(notdir $(wildcard bin/*.sql) $(wildcard bin/*.py))
+LINT_OTHER_PAGES := ${PAGES}/python.md
+LINT_OTHER_FILES := 
 
 SQLFLUFF := python bin/tidy_sql.py | sqlfluff lint -
 
