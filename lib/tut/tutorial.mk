@@ -22,6 +22,11 @@ build:
 serve:
 	@ark serve
 
+## progress: count words
+.PHONY: progress
+progress:
+	@wc -w $$(find . -name \*.md -o -name \*.yml -o -name \*.text) | fgrep total
+
 ## lint: check project state
 .PHONY: lint
 lint:
