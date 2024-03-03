@@ -272,6 +272,11 @@ p.inclusion {
     margin-bottom: -1rem;
 }
 
+span.todo {
+    text-align: center;
+    background-color: var(--stamp-red-light);
+}
+
 a[href*="#g:"] {
     font-style: italic;
     font-weight: bold;
