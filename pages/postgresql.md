@@ -7,7 +7,7 @@ A **local** (non-client-server) database is designed to run on a single computer
 # Setting up PostgreSQL on MacOS
 We present two options to easily setup PostgreSQL on MacOS; the first one offers a very quick and simple setup, while the second one offers more flexibility and control over the configurations. Both will work fine for this tutorial.
 
-## Option 1 (Postgres.app)
+###### Option 1 (Postgres.app)
 1. Download the latest version of Postgress.app from [here](https://postgresapp.com/downloads.html)
 2. Open the downloaded `.dmg` file
 3. Drag `Postgres.app` to the Applications folder
@@ -20,7 +20,7 @@ We present two options to easily setup PostgreSQL on MacOS; the first one offers
     4. Run `source ~/.zshrc`
     5. Verify installation by running `psql`
 
-## Option 2 (Direct installer)
+###### Option 2 (Direct installer)
 1. Download the latest version of PostgreSQL for macOS from [here](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 2. Double-click the downloaded file to run the installer
     1. Click "Continue"
