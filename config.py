@@ -40,10 +40,6 @@ if __name__ == "__main__":
     elif len(sys.argv) != 2:
         print(USAGE, file=sys.stderr)
         status = 1
-    elif sys.argv[1] == "copydir":
-        print(" ".join(copydir))
-    elif sys.argv[1] == "copyext":
-        print(" ".join(copyext))
     elif sys.argv[1] == "lang":
         print(lang)
     else:

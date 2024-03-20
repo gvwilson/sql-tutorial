@@ -16,6 +16,6 @@ def config(pargs, kwargs, node):
     for key in pargs[0].split("."):
         try:
             current = current[key]
-        except KeyError as exc:
+        except KeyError:
             util.fail(f"Bad config key '{pargs[0]}': no component '{key}'")
     return current

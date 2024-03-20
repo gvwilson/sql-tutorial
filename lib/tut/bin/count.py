@@ -15,7 +15,7 @@ def section_break(pargs, kwargs, context):
 
 
 @shortcodes.register("section_end")
-def section_break(pargs, kwargs, context):
+def section_end(pargs, kwargs, context):
     pass
 
 
