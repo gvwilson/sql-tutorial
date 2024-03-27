@@ -43,7 +43,7 @@ We present two options to easily setup PostgreSQL on MacOS; the first one offers
 Now that everything is set up, let's run some simple queries. There are two equivalent ways to run queries. The first one is from the PgAdmin user interface, and is only available if you followed "Option 1" in setup. The second way is from the terminal, and is available regardless of the setup option you followed.
 
 ###### From PgAdmin
-1. Open PgAdmin, following the steps 3-6 of [installation](######"Option 1 Direct installer").
+1. Open PgAdmin, following the steps 3-6 of [installation](#option-1-direct-installer).
 
 2. Right click "Databases" -> "Create" -> "Database" -> write "penguins" in the "Database" field -> "Save
 
@@ -57,15 +57,34 @@ Now that everything is set up, let's run some simple queries. There are two equi
 
 5. Right click `penguins` -> "Query tool"
 
-6. Run the query `SELECT * FROM penguins LIMIT 10;` to see the first entries of the `penguins` table
+6. Run the query 
+```sql
+SELECT * FROM penguins LIMIT 10;
+```
+ to see the first entries of the `penguins` table
 
-7. Let's see how many penguins we have: `SELECT COUNT(*) from penguins;`
+7. Let's see how many penguins we have: 
+```sql
+SELECT COUNT(*) from penguins;
+```
 
-8. Let's see how many species we have: `SELECT DISTINCT(species) FROM penguins;`
+8. Let's see how many species we have: 
+```sql
+SELECT DISTINCT(species) FROM penguins;
+```
 
-9. Let's see how many male/female penguins we have: `SELECT sex, COUNT(*) FROM penguins GROUP BY sex;`
+9. Let's see how many male/female penguins we have: 
+```sql
+SELECT sex, COUNT(*) FROM penguins GROUP BY sex;
+```
 
 NOTE: in how much depth should I go in explaining simple queries? Should I link back to the sqlite tutorial instead?
 
 
 ###### From terminal
+To start running queries from terminal, let's start by initializing a PostgreSQL client. In your terminal, run
+```sh
+psql -d penguins 
+```
+
+Run the queries 6-9 from the previous section.
