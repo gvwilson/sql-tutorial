@@ -174,7 +174,7 @@ We can verify that the `UPDATE` privileges are revoked by running a simple updat
 UPDATE penguins SET island = 'Atlantis' WHERE sex = 'MALE' AND island = 'Antarctica';
 ```
 
-which yeilds:
+which yields:
 ```sh
 ERROR: permission denied for table penguins 
 ```
