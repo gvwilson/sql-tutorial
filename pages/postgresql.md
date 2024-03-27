@@ -45,7 +45,7 @@ Now that everything is set up, let's run some simple queries. There are two equi
 ###### From PgAdmin
 1. Open PgAdmin, following the steps 3-6 of [installation](#option-1-direct-installer).
 
-2. Right click "Databases" -> "Create" -> "Database" -> write "penguins" in the "Database" field -> "Save
+2. Right click "Databases" -> "Create" -> "Database" -> write "penguins" in the "Database" field -> "Save"
 
 3. Right click to the "penguins" database from the menu in the left
     a. Click "Query tool"
@@ -88,3 +88,93 @@ psql -d penguins
 ```
 
 Run the queries 6-9 from the previous section.
+
+# Privileges & Roles
+PostgreSQL is commonly used for applications with a large user base. For this reason, it has a privilege managment system. For example, you may want the users of your application to be able to read the SQL records, but not update or delete them. Or, in an organization where many developers work on the same database, it may be desirable that some developer teams can only read existing or write new records, but not modify or delete existing records - maybe only the Database Administration (DBA) team can do that. Here, we will see how you can achieve the above.
+
+### Creating a role and granting privileges
+In PostgreSQL, a database **role** is similar to a user account, capable of owning database objects and being granted permissions to access and manipulate data. Roles can represent individual users, groups of users, or both, and can be assigned a variety of privileges and access rights within the database system.
+
+Again, we will do it both using PgAdmin UI and terminal 
+
+###### PgAdmin
+Let's create a new role:
+1. In the *Object Explorer* panel, expand Servers -> PostgreSQL -> Right click Login/Group roles -> Create -> Login/Group role.
+2. Enter "penguin_reader_writer" in the *name* field.
+3. Go to the "Privileges" tab, and enable the "Can Login?" option.
+4. Click save.
+
+and grant `SELECT` and `UPDATE` privilages to that role on the "penguins" table:
+1. Right click the "penguins" table from *Object Explorer*.
+2. Go to "Properties" -> "Security" -> Click the "+" button on the top-right.
+3. Select "penguin_reader_writer" from the dropdown list.
+4. In the "Privileges" column, check the "SELECT" and "UPDATE" options.
+5. Click save
+
+
+###### Terminal
+Similarly from the terminal:
+```sql
+CREATE ROLE penguin_reader_writer WITH LOGIN PASSWORD 'reader_writer';
+```
+
+
+```sql
+GRANT SELECT, UPDATE ON penguins, little_penguins TO penguin_reader_writer;
+```
+
+###### Verify privileges
+Now let's connect as *penguin_reader_writer* to verify that this role can only select or update records:
+1. Right click "Servers" -> "Register" -> "Server" in the left panel.
+2. In the "name" field enter "Penguin Reader Writer"
+3. Go to the "Connection" tab:
+    a. In the "Host name/address" field enter "localhost"
+    b. In the "Maintenance database" field enter "penguins"
+    c. In the "Username" field enter "penguin_reader_writer"
+    d. In the "Password" field enter "reader_writer"
+4. Click "Save"
+5. Open PgAdmin, following the steps 3-6 of [installation](#option-1-direct-installer), but instead of "PostgreSQL", select the "Penguin Reader Writer"
+6. Run a simple select statement:
+```sql
+
+```
+It successfully returns 10 records from the table. 
+Now let's try an update statement:
+```sql
+UPDATE penguins SET island = 'Antarctica' WHERE sex = 'MALE' AND island = 'Torgersen';
+```
+It successfully updates 23 records.
+But if we try to delete some records with 
+```sql
+DELETE FROM penguins WHERE islant='Antarctica' AND sex='MALE';
+```
+
+We get:
+```sh
+ERROR: permission denied for table penguins 
+```
+which verifies that the "penguin_reader_writer" role does not have delete privileges.
+
+### Revoking privileges
+Imagine now that, due to changes in the penguins organization hierarchy, the "penguin_reader_writer" role must not have `UPDATE` privileges, only `SELECT` privilages. Let's see how we can revoke the `UPDATE` privileges:
+
+###### PgAdmin
+1. Right click on the "penguins" table in the *Object Explorer* panel.
+2. Go to "Properties" -> "Security" -> Click the "Privileges" column of the "penguin_reader_writer" row.
+3. Un-check the "Update" checkbox.
+4. Click "Save".
+
+###### Terminal
+```sql
+REVOKE UPDATE ON penguins, little_penguins TO penguin_reader_writer;
+```
+
+We can verify that the `UPDATE` privileges are revoked by running a simple update query:
+```sql
+UPDATE penguins SET island = 'Atlantis' WHERE sex = 'MALE' AND island = 'Antarctica';
+```
+
+which yeilds:
+```sh
+ERROR: permission denied for table penguins 
+```
