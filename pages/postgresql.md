@@ -1,5 +1,5 @@
 # Why PostgreSQL?
-This is a valid question, especially if you are already familiar with other databases like `sqlite`, that are simpler to setup, run locally, and do not follow the client-server model. The answer is that the [client-server model](#what-is-the-client-server-model-after-all) that `postgresql` follows offers robustness, scalability, and effectiveness in handling large volumes of data. Furthermore, it provides enhanced concurrency with features like multi-line transactions. These above are necessary for modern, complex, real-world applications, and non-client-server databases (like `sqlite`) cannot guarantee them.
+This is a valid question, especially if you are already familiar with other databases like `sqlite`, that are simpler to setup, run locally, and do not follow the [client-server model](#what-is-the-client-server-model-after-all) . The answer is that the client-server model that `postgresql` follows offers robustness, scalability, and effectiveness in handling large volumes of data. Furthermore, it provides enhanced concurrency with features like multi-line transactions. The above are necessary for modern, complex, real-world applications, and non-client-server databases (like `sqlite`) cannot guarantee them.
 
 # What is the client-server model after all?
 A **local** (non-client-server) database is designed to run on a single computer or device, storing data locally and accessed by applications on the same machine. This setup is ideal for standalone applications where simplicity and ease of deployment are priorities. On the other hand, a **client-server** database operates on a networked environment where the database server runs independently of client applications. Clients connect to the server over a network to query, update, and manage data. Of course, both the server and the client can live in the same machine, mainly for educational purposes, like in this tutorial.
@@ -38,3 +38,34 @@ We present two options to easily setup PostgreSQL on MacOS; the first one offers
     4. Run `source ~/.zshrc`
     5. Verify installation by running `psql`
 
+
+# Running queries
+Now that everything is set up, let's run some simple queries. There are two equivalent ways to run queries. The first one is from the PgAdmin user interface, and is only available if you followed "Option 1" in setup. The second way is from the terminal, and is available regardless of the setup option you followed.
+
+###### From PgAdmin
+1. Open PgAdmin, following the steps 3-6 of [installation](######"Option 1 Direct installer").
+
+2. Right click "Databases" -> "Create" -> "Database" -> write "penguins" in the "Database" field -> "Save
+
+3. Right click to the "penguins" database from the menu in the left
+    a. Click "Query tool"
+    b. Click "Open file" in the top left of the Query tool
+    c. Select the file `db/penguins.sql`
+    d. Click "Execute" or press "F5"
+
+4. Expand "penguins" -> "Schemas" -> "Tables". You should see two tables: `little_penguins` and `penguins`.
+
+5. Right click `penguins` -> "Query tool"
+
+6. Run the query `SELECT * FROM penguins LIMIT 10;` to see the first entries of the `penguins` table
+
+7. Let's see how many penguins we have: `SELECT COUNT(*) from penguins;`
+
+8. Let's see how many species we have: `SELECT DISTINCT(species) FROM penguins;`
+
+9. Let's see how many male/female penguins we have: `SELECT sex, COUNT(*) FROM penguins GROUP BY sex;`
+
+NOTE: in how much depth should I go in explaining simple queries? Should I link back to the sqlite tutorial instead?
+
+
+###### From terminal
