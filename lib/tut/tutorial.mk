@@ -16,6 +16,7 @@ commands:
 build:
 	@ark build
 	@rm -rf ${DOCS}/${SRC} ${DOCS}/${OUT} && cp -r ${SRC} ${OUT} ${DOCS}
+	@touch ${DOCS}/.nojekyll
 
 ## serve: rebuild and serve website
 .PHONY: serve
