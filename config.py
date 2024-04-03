@@ -15,7 +15,8 @@ theme = "tut"
 src_dir = "pages"
 out_dir = "docs"
 pages = [
-    {"slug": "python", "title": "Python"}
+    {"slug": "python", "title": "Python"},
+    {"slug": "postgresql", "title": "PostgreSQL"},
 ]
 rouge_style = "github.css"
 lang = "en"
