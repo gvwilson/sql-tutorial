@@ -4532,6 +4532,8 @@ so that you can trace its output?</p>
 
 <dt id="g:blob">Binary Large Object (blob)</dt><dd>Bytes that are handled as-is rather than being interpreted as numbers, text, or other data types.</dd>
 
+<dt id="g:client_server_db">client-server database</dt><dd>A database that is managed by its own server process that clients interact with through network connections. The term is used in contrast to <a href="#local_db">local database</a>.</dd>
+
 <dt id="g:csv">comma-separated values (CSV)</dt><dd>A text format for tabular data that uses commas to separate columns.</dd>
 
 <dt id="g:cte">common table expression (CTE)</dt><dd>A temporary table created at the start of a query, usually to simplify writing the query.</dd>
@@ -4588,6 +4590,8 @@ so that you can trace its output?</p>
 
 <dt id="g:left_outer_join">left outer join</dt><dd>A join that is guaranteed to keep all rows from the first (left) table. Columns from the right table are filled with actual values if available or with null otherwise.</dd>
 
+<dt id="g:local_db">local database</dt><dd>A database that is stored on the same computer as the application using it and accessed directly through function calls. The term is used in contrast to <a href="#client_server_db">client-server database</a>.</dd>
+
 <dt id="g:many_to_many">many-to-many relation</dt><dd>A relationship between two tables in which each record from the first table may match zero or more records from the second and vice versa.</dd>
 
 <dt id="g:materialized_view">materialized view</dt><dd>A view that is stored on disk and updated on demand.</dd>
@@ -4604,6 +4608,8 @@ so that you can trace its output?</p>
 
 <dt id="g:primary_key">primary key</dt><dd>A value or values in a database table that uniquely identifies each record in that table.</dd>
 
+<dt id="g:privilege">privilege</dt><dd>The ability to take an action such as querying a table or deleting records.</dd>
+
 <dt id="g:query">query</dt><dd>A command to perform some operation in a database (typically data retrieval).</dd>
 
 <dt id="g:recursive_case">recursive case</dt><dd>The second or subsequent step in self-referential accumulation of data.</dd>
@@ -4613,6 +4619,8 @@ so that you can trace its output?</p>
 <dt id="g:rdbms">relational database management system (RDBMS)</dt><dd>A database management system that stores data in tables with columns and rows.</dd>
 
 <dt id="g:right_outer_join">right outer join</dt><dd>A join that is guaranteed to keep all rows from the second (right) table. Columns from the left table are filled with actual values if available or with null otherwise. SQLite does not implement right outer join since its behavior can be reproduced by swapping the order of the tables and using a left outer join.</dd>
+
+<dt id="g:role">role</dt><dd>A collection of <a href="#privilege">privileges</a> in a database or other system that defines the set of operations a class of users can perform.</dd>
 
 <dt id="g:statement">statement</dt><dd>A part of a program that doesn&rsquo;t produce a value.</dd>
 

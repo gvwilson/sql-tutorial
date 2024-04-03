@@ -79,6 +79,14 @@
 
 # C
 
+- key: client_server_db
+  en:
+    term: client-server database
+    def: >
+      A database that is managed by its own server process
+      that clients interact with through network connections.
+      The term is used in contrast to [local database](#local_db).
+
 - key: cross_join
   en:
     term: cross join
@@ -284,6 +292,14 @@
       Columns from the right table are filled with actual values if available
       or with null otherwise.
 
+- key: local_db
+  en:
+    term: local database
+    def: >
+      A database that is stored on the same computer as the application using it
+      and accessed directly through function calls.
+      The term is used in contrast to [client-server database](#client_server_db).
+
 # M
 
 - key: many_to_many
@@ -343,6 +359,12 @@
     def: >
       A value or values in a database table that uniquely identifies each record in that table.
 
+- key: privilege
+  en:
+    term: privilege
+    def: >
+      The ability to take an action such as querying a table or deleting records.
+
 # Q
 
 - key: query
@@ -383,6 +405,13 @@
       SQLite does not implement right outer join
       since its behavior can be reproduced by swapping the order of the tables
       and using a left outer join.
+
+- key: role
+  en:
+    term: role
+    def: >
+      A collection of [privileges](#privilege) in a database or other system
+      that defines the set of operations a class of users can perform.
 
 # S
 
