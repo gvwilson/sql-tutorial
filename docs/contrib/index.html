@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; Contributing</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    
+      <h1>Contributing</h1>
+    
+  </div>
+  <div class="col-1"></div>
+</div>
+
+      
+<div class="row notex">
+  <div class="col-1 left">
+    <a href="../conduct/">&lArr;</a>
+  </div>
+  <div class="col-10"></div>
+  <div class="col-1 right">
+    <a href="../bib/">&rArr;</a>
+  </div>
+</div>
+
+
+      
+      
+      <p>Contributions are very welcome.
+Please file issues or submit pull requests in our GitHub repository.
+All contributors will be acknowledged.</p>
+<h2>In Brief</h2>
+<ul>
+<li>
+<p>Use <code>pip install -r requirements.txt</code>
+    to install the packages required by the helper tools and Python examples.
+    You may wish to create a new virtual environment before doing so.
+    All code has been tested with Python 3.12.1.</p>
+</li>
+<li>
+<p>The tutorial lives in <code>src/*/index.md</code>,
+    which is translated into a static GitHub Pages website using <a href="https://www.dmulholl.com/docs/ark/main/">Ark</a>.</p>
+</li>
+<li>
+<p>The source files for examples are in their section directories
+    along with captured output in <code>.out</code> files.</p>
+</li>
+<li>
+<p><code>Makefile</code> contains the commands used to re-run each example.
+    If you add a new example,
+    please add a corresponding rule in <code>Makefile</code>.</p>
+<ul>
+<li><code>make depend.mk</code> rebuilds the list of extra dependencies.
+    Please do not update <code>depend.mk</code> by hand.</li>
+</ul>
+</li>
+<li>
+<p>Use a level-2 heading for each sub-topic.
+    Use <code>{: .aside}</code> for an aside
+    or <code>{: .exercise}</code> for exercise.</p>
+</li>
+<li>
+<p>Use <code>[%inc "file.ext" %]</code> to include a text file.
+    If <code>mark=label</code> is present,
+    only code between comments <code>[label]</code> and <code>[/label]</code> is kept.</p>
+</li>
+<li>
+<p>Use <code>[% figure slug="some_slug" img="filename.ext" caption="text" alt="text" %]</code>
+    to include a figure.</p>
+</li>
+<li>
+<p>Use <code>[% g key "text" %]</code> to link to glossary entries.
+    The text is inserted and highlighted;
+    the key must identify an entry in <code>info/glossary.yml</code>,
+    which is in <a href="https://glosario.carpentries.org/">Glosario</a> format.</p>
+</li>
+<li>
+<p>Please create SVG diagrams using <a href="https://www.drawio.com/">draw.io</a>.
+    Please use 14-point Helvetica for text,
+    solid 1-point black lines,
+    and unfilled objects.</p>
+</li>
+<li>
+<p>All external links are written using <code>[box][notation]</code> inline
+    and defined in <code>info/links.yml</code>.</p>
+</li>
+</ul>
+<h2>Logical Structure</h2>
+<ul>
+<li>
+<p>Introduction</p>
+<ul>
+<li>A <em>learner persona</em> that characterizes the intended audience in concrete terms.</li>
+<li><em>Prerequisites</em> (which should be interpreted with reference to the learner persona).</li>
+<li><em>Learning objectives</em> that define the tutorial&rsquo;s scope.</li>
+<li><em>Setup instructions</em> that instructors and learners must go through in order to code along</li>
+</ul>
+</li>
+<li>
+<p><em>Topics</em> are numbered.
+    Each contains one code sample, its output, and notes for the instructor.
+    Learners are <em>not</em> expected to be able to understand topics without instructor elaboration.</p>
+</li>
+<li>
+<p><em>Asides</em> are not numbered,
+    and contain code-less explanatory material,
+    additional setup instructions,
+    <em>concept maps</em> summarizing recently-introduced ideas,
+    etc.</p>
+</li>
+<li>
+<p><em>Exercises</em> are numbered.
+    An exercise section may include any number of exercises.</p>
+</li>
+<li>
+<p>Topics of both kinds may contain <em>glossary references</em>
+    and/or <em>explanatory diagrams</em>.</p>
+</li>
+<li>
+<p>Appendices</p>
+<ul>
+<li>A <em>glossary</em> that defines terms called out in the topics.</li>
+<li><em>Acknowledgments</em> that point at inspirations and thank contributors.</li>
+</ul>
+</li>
+</ul>
+<h2>Tags for Issues and Pull Requests</h2>
+<ul>
+<li><code>contribute-addition</code>: a pull request that contains new material</li>
+<li><code>contribute-change</code>: a pull request that changes or fixes existing material</li>
+<li><code>discuss</code>: discussion of proposed change or fix</li>
+<li><code>governance</code>: meta-discussion of project direction, etc.</li>
+<li><code>help-wanted</code>: requires knowledge or skills the core maintainer lacks</li>
+<li><code>in-content</code>: issue or PR is related to lesson content</li>
+<li><code>in-infrastructure</code>: issue or PR is related to build tools, styling, etc.</li>
+<li><code>report-bug</code>: issue reporting an error</li>
+<li><code>request-addition</code>: issue asking for new content</li>
+<li><code>request-change</code>: issue asking for a change to existing content</li>
+</ul>
+<h2>FAQ</h2>
+<dl>
+<dt>Why SQL?</dt>
+<dd>Because if you dig down far enough,
+almost every data science project sits on top of a relational database.
+(<a href="https://blog.jonudell.net/">Jon Udell</a> once called <a href="https://www.postgresql.org/">PostgreSQL</a>
+&ldquo;an operating system for data science&rdquo;.)
+SQL&rsquo;s relational model has also been a powerful influence
+on dataframe libraries like <a href="https://www.tidyverse.org/">the tidyverse</a>,
+<a href="https://pandas.pydata.org/">Pandas</a>,
+and <a href="https://pola.rs/">Polars</a>;
+understanding the former therefore helps people understand the latter.</dd>
+<dt>Why Ark?</dt>
+<dd>The first version of this tutorial used <a href="https://jekyllrb.com/">Jekyll</a>
+because it is the default for <a href="https://pages.github.com/">GitHub Pages</a>
+and because its frustrating limitations would discourage contributors
+from messing around with the template instead of writing content.
+However,
+those limitations proved more frustrating than anticipated:
+in particular,
+very few data scientists speak Ruby,
+so previewing changes locally required them to install and use
+yet another language framework.</dd>
+<dt>Why Make?</dt>
+<dd>It runs everywhere,
+no other build tool is a clear successor,
+and,
+like Jekyll,
+it&rsquo;s uncomfortable enough to use that people won&rsquo;t be tempted to fiddle with it
+when they could be writing.</dd>
+<dt>Why hand-drawn figures rather than <a href="https://graphviz.org/">Graphviz</a> or <a href="https://mermaid.js.org/">Mermaid</a>?</dt>
+<dd>Because it&rsquo;s faster to Just Effing Draw than it is
+to try to tweak layout parameters for text-to-diagram systems.
+If you really want to make developers&rsquo; lives better,
+build a diff-and-merge tool for SVG:
+programmers shouldn&rsquo;t have to use punchard-compatible data formats in the 21st Century
+just to get the benefits of version control.</dd>
+<dt>Why make this tutorial freely available?</dt>
+<dd>Because if we all give a little, we all get a lot.</dd>
+</dl>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>

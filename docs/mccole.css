@@ -1,0 +1,243 @@
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap");
+
+/* Definitions */
+:root {
+    /* Colors */
+    --gray-faint: #F0F0F0;
+    --gray-light: #E8E8E8;
+    --gray-dark: #D8D8D8;
+    --color-warning: #800000;
+
+    /* Stamp colors */
+    --stamp-blue-dark: #1B2A83;
+    --stamp-blue-light: #BABDD8;
+    --stamp-brown-dark: #5F483C;
+    --stamp-brown-light: #CEC7C3;
+    --stamp-green-dark: #7F9971;
+    --stamp-green-light: #A7E0A3;
+    --stamp-orange-dark: #AD7353;
+    --stamp-orange-light: #E5D4CB;
+    --stamp-purple-dark: #7D6E87;
+    --stamp-purple-light: #D6D2DA;
+    --stamp-red-dark: #8B000F;
+    --stamp-red-light: #DAB3B7;
+
+    /* Page size */
+    --width-page: 60rem;
+
+    /* Borders */
+    --border-thin: 1px;
+    --border-medium: 2px;
+    --border-heavy: 5px;
+
+    /* Font sizings */
+    --size-body: large;
+    --size-code: 90%;
+    --size-subtitle: x-large;
+
+    /* Spacings */
+    --spacing-none: 0px;
+    --spacing-small: 0.25rem;
+    --spacing-medium: 0.5rem;
+    --spacing-large: 1rem;
+}
+
+/* Flex grid */
+.row {
+    display: flex;
+    flex-flow: row wrap;
+    width: 100%
+}
+.row > * {
+  flex: 1; /* allow children to grow when space available */
+}
+.col-1 { flex-basis: 8.33%; }
+.col-2 { flex-basis: 16.66%; }
+.col-3 { flex-basis: 25%; }
+.col-4 { flex-basis: 33.33%; }
+.col-5 { flex-basis: 41.66%; }
+.col-6 { flex-basis: 50%; }
+.col-7 { flex-basis: 58.33%; }
+.col-8 { flex-basis: 66.66%; }
+.col-9 { flex-basis: 75%; }
+.col-10 { flex-basis: 83.33%; }
+.col-11 { flex-basis: 91.66%; }
+.col-12 { flex-basis: 100%; }
+
+/* Generic positioning */
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+.center {
+    text-align: center;
+}
+
+/* Overall document body */
+body {
+    font-size: var(--size-body);
+    max-width: var(--width-page);
+}
+
+/* Code fragments */
+code {
+    font-family: "Source Code Pro", monospace;
+    font-size: var(--size-code);
+}
+
+/* Output fragments */
+div.language-out {
+    border-left: solid var(--border-heavy) var(--stamp-red-light);
+    border-top: solid var(--border-thin) var(--stamp-red-light);
+    border-bottom: solid var(--border-thin) var(--stamp-red-light);
+    padding-left: var(--border-heavy);
+}
+div.language-out pre {
+    margin-top: var(--border-heavy);
+    margin-bottom: var(--border-heavy);
+}
+
+/* Python fragments */
+div.language-py {
+    border-left: solid var(--border-heavy) var(--stamp-blue-light);
+    border-top: solid var(--border-thin) var(--stamp-blue-light);
+    border-bottom: solid var(--border-thin) var(--stamp-blue-light);
+    padding-left: var(--border-heavy);
+}
+div.language-py pre {
+    margin-top: var(--border-heavy);
+    margin-bottom: var(--border-heavy);
+}
+
+/* Shell fragments */
+div.language-sh {
+    border-left: solid var(--border-heavy) var(--stamp-green-light);
+    border-top: solid var(--border-thin) var(--stamp-green-light);
+    border-bottom: solid var(--border-thin) var(--stamp-green-light);
+    padding-left: var(--border-heavy);
+}
+div.language-sh pre {
+    margin-top: var(--border-heavy);
+    margin-bottom: var(--border-heavy);
+}
+
+/* SQL fragments */
+div.language-sql {
+    border-left: solid var(--border-heavy) var(--stamp-blue-light);
+    border-top: solid var(--border-thin) var(--stamp-blue-light);
+    border-bottom: solid var(--border-thin) var(--stamp-blue-light);
+    padding-left: var(--border-heavy);
+}
+div.language-sql pre {
+    margin-top: var(--border-heavy);
+    margin-bottom: var(--border-heavy);
+}
+
+/* Transcript fragments */
+div.language-text {
+    border-left: solid var(--border-heavy) var(--stamp-purple-light);
+    border-top: solid var(--border-thin) var(--stamp-purple-light);
+    border-bottom: solid var(--border-thin) var(--stamp-purple-light);
+    padding-left: var(--border-heavy);
+}
+div.language-text pre {
+    margin-top: var(--border-heavy);
+    margin-bottom: var(--border-heavy);
+}
+
+/* Bibliography key definitions */
+dl.bibliography dt {
+    font-weight: bold;
+}
+
+/* Glossary term definitions */
+dl.glossary dt {
+    font-weight: bold;
+}
+
+/* Figures */
+figure {
+    text-align: center;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+/* Page footer */
+footer {
+    border-top: solid var(--gray-light) var(--border-medium);
+    padding-top: var(--spacing-small);
+    text-align: center;
+}
+
+/* Level-1 heading */
+h1 {
+    text-align: center;
+    margin-top: var(--border-heavy);
+    margin-bottom: var(--border-heavy);
+}
+
+/* Entire page */
+html {
+    font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+/* Appendix list */
+ol.toc-appendices {
+    list-style-type: upper-latin;
+}
+
+/* Chapter list */
+ol.toc-chapters {
+    list-style-type: decimal;
+}
+
+/* Note to self */
+p.fixme {
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-warning);
+}
+
+/* Subtitle on home page */
+p.subtitle {
+    text-align: center;
+    font-size: var(--size-subtitle);
+    font-style: italic;
+    margin-top: var(--border-heavy);
+    margin-bottom: var(--border-heavy);
+}
+
+/* Caption on table */
+p.table-caption {
+    text-align: center;
+}
+
+/* Index entry */
+span.ix-entry {
+}
+
+/* Tables */
+table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Table cells */
+th, td {
+    padding-top: var(--border-medium);
+    padding-bottom: var(--border-medium);
+    padding-left: var(--spacing-medium);
+    padding-right: var(--spacing-medium);
+    vertical-align: top;
+    border: solid var(--border-thin) var(--gray-light);
+}
+
+/* Key points listing at chapter start. */
+ul.keypoints {
+    background-color: var(--gray-light);
+    border: var(--border-medium) var(--gray-dark) solid;
+}

@@ -1,0 +1,35 @@
+- key: "ark"
+  url: "https://www.dmulholl.com/docs/ark/main/"
+  title: "Ark static site generator"
+
+- key: "atkinson"
+  url: "https://brailleinstitute.org/freefont"
+  title: "Atkinson Hyperlegible font"
+
+- key: "draw_io"
+  url: "https://www.drawio.com/"
+  title: "draw.io"
+
+- key: "ghp"
+  url: "https://pages.github.com/"
+  title: "GitHub Pages"
+
+- key: "highlight_css"
+  url: "https://numist.github.io/highlight-css/"
+  title: "highlight-css"
+
+- key: navarro_danielle
+  url: "https://art.djnavarro.net/"
+  title: "Danielle Navarro"
+
+- key: "plausible"
+  url: "https://plausible.io/"
+  title: "Plausible"
+
+- key: "stamps"
+  url: "https://third-bit.com/colophon/"
+  title: "Classic Canadian postage stamps"
+
+- key: "wave"
+  url: "https://wave.webaim.org/"
+  title: "WebAIM WAVE"

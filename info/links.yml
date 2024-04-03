@@ -1,6 +1,6 @@
 # A
 
-- key: "albrecht-andi"
+- key: "albrecht_andi"
   url: "http://andialbrecht.de/"
   title: "Andi Albrecht"
 
@@ -30,7 +30,7 @@
 
 # F
 
-- key: "fontaine-dimitri"
+- key: "fontaine_dimitri"
   url: "https://tapoueh.org/"
   title: "Dimitri Fontaine"
 
@@ -170,7 +170,7 @@
   url: "https://wave.webaim.org/"
   title: "WebAIM WAVE"
 
-- key: wilson-greg
+- key: wilson_greg
   url: "https://third-bit.com/"
   title: "Greg Wilson"
 
@@ -179,22 +179,3 @@
 - key: "xkcd-tables"
   url: "https://xkcd.com/327/"
   title: "XKCD cartoon about SQL injection attacks"
-
-- key: "atkinson"
-  url: "https://brailleinstitute.org/freefont"
-- key: "draw-io"
-  url: "https://www.drawio.com/"
-- key: "ghp"
-  url: "https://pages.github.com/"
-- key: "highlight-css"
-  url: "https://numist.github.io/highlight-css/"
-- key: "jekyll"
-  url: "https://jekyllrb.com/"
-- key: "plausible"
-  url: "https://plausible.io/"
-- key: "rouge"
-  url: "https://rouge.jneen.net/"
-- key: "stamps"
-  url: "https://third-bit.com/colophon/"
-- key: "wave"
-  url: "https://wave.webaim.org/"

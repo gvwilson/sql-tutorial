@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; Modifying Data</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    
+      <h1>Modifying Data</h1>
+    
+  </div>
+  <div class="col-1"></div>
+</div>
+
+      
+<div class="row notex">
+  <div class="col-1 left">
+    <a href="../aggregate/">&lArr;</a>
+  </div>
+  <div class="col-10"></div>
+  <div class="col-1 right">
+    <a href="../join/">&rArr;</a>
+  </div>
+</div>
+
+
+      
+      <p class="terms">Terms defined: 
+<a class="gl-ref" href="../glossary/#gl:in_memory_db" markdown="1">in-memory database</a>, <a class="gl-ref" href="../glossary/#gl:tombstone" markdown="1">tombstone</a>
+</p>
+      <h2 class="aside">Creating In-memory Database</h2>
+<div class="language-sh" title="in_memory_db.sh">
+<div class="highlight"><pre><span></span><code>sqlite3<span class="w"> </span>:memory:
+</code></pre></div>
+</div>
+<ul>
+<li>&ldquo;Connect&rdquo; to an <a class="gl-ref" href="../glossary/#gl:in_memory_db" markdown="1">in-memory database</a><ul>
+<li>Changes aren&rsquo;t saved to disk</li>
+<li>Very useful for testing (discussed later)</li>
+</ul>
+</li>
+</ul>
+<h2>Creating Tables</h2>
+<div class="language-sql" title="create_work_job.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">job</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<ul>
+<li><code>create table <em>name</em></code> followed by parenthesized list of columns</li>
+<li>Each column is a name, a data type, and optional extra information<ul>
+<li>E.g., <code>not null</code> prevents nulls from being added</li>
+</ul>
+</li>
+<li><code>.schema</code> is <em>not</em> standard SQL</li>
+<li>SQLite has added a few things<ul>
+<li><code>create if not exists</code></li>
+<li>upper-case keywords (SQL is case insensitive)</li>
+</ul>
+</li>
+</ul>
+<h2>Inserting Data</h2>
+<div class="language-sql" title="populate_work_job.sql">
+<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;mik&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;calibrate&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;mik&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;clean&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;mik&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;complain&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;po&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;clean&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;po&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;complain&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;tay&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;complain&#39;</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="insert_values.out">
+<div class="highlight"><pre><span></span><code>|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+| clean     | 0.5      |
+
+| person |    job    |
+|--------|-----------|
+| mik    | calibrate |
+| mik    | clean     |
+| mik    | complain  |
+| po     | clean     |
+| po     | complain  |
+| tay    | complain  |
+</code></pre></div>
+</div>
+<h2 class="aside">Following Along</h2>
+<ul>
+<li>To re-create this database:<ul>
+<li><a href="https://github.com/gvwilson/sql-tutorial/raw/main/sql-tutorial.zip">Download the examples</a></li>
+<li>Unzip that file</li>
+<li><code>.read src/create_work_job.sql</code></li>
+<li><code>.read src/populate_work_job.sql</code></li>
+</ul>
+</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Using an in-memory database,
+define a table called <code>notes</code> with two text columns <code>author</code> and <code>note</code>
+and then add three or four rows.
+Use a query to check that the notes have been stored
+and that you can (for example) select by author name.</p>
+<p>What happens if you try to insert too many or too few values into <code>notes</code>?
+What happens if you insert a number instead of a string into the <code>note</code> field?</p>
+<h2>Updating Rows</h2>
+<div class="language-sql" title="update_work_job.sql">
+<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="k">work</span>
+<span class="k">set</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;tae&#39;</span>
+<span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;tay&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="update_rows.out">
+<div class="highlight"><pre><span></span><code>| person |    job    |
+|--------|-----------|
+| mik    | calibrate |
+| mik    | clean     |
+| mik    | complain  |
+| po     | clean     |
+| po     | complain  |
+| tae    | complain  |
+</code></pre></div>
+</div>
+<ul>
+<li>(Almost) always specify row(s) to update using <code>where</code><ul>
+<li>Otherwise update all rows in table, which is usually not wanted</li>
+</ul>
+</li>
+</ul>
+<h2>Deleting Rows</h2>
+<div class="language-sql" title="delete_rows.sql">
+<div class="highlight"><pre><span></span><code><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">work</span>
+<span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;tae&#39;</span><span class="p">;</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="delete_rows.out">
+<div class="highlight"><pre><span></span><code>| person |    job    |
+|--------|-----------|
+| mik    | calibrate |
+| mik    | clean     |
+| mik    | complain  |
+| po     | clean     |
+| po     | complain  |
+</code></pre></div>
+</div>
+<ul>
+<li>Again, (almost) always specify row(s) to delete using <code>where</code></li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>What happens if you try to delete rows that don&rsquo;t exist
+(e.g., all entries in <code>work</code> that refer to <code>juna</code>)?</p>
+<h2>Backing Up</h2>
+<div class="language-sql" title="backing_up.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">backup</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">job</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">backup</span>
+<span class="k">select</span>
+<span class="w">    </span><span class="n">person</span><span class="p">,</span>
+<span class="w">    </span><span class="n">job</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span>
+<span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;tae&#39;</span><span class="p">;</span>
+
+<span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">work</span>
+<span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;tae&#39;</span><span class="p">;</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">backup</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="backing_up.out">
+<div class="highlight"><pre><span></span><code>| person |   job    |
+|--------|----------|
+| tae    | complain |
+</code></pre></div>
+</div>
+<ul>
+<li>We will explore another strategy based on <a class="gl-ref" href="../glossary/#gl:tombstone" markdown="1">tombstones</a> below</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Saving and restoring data as text:</p>
+<ol>
+<li>
+<p>Re-create the <code>notes</code> table in an in-memory database
+    and then use SQLite&rsquo;s <code>.output</code> and <code>.dump</code> commands
+    to save the database to a file called <code>notes.sql</code>.
+    Inspect the contents of this file:
+    how has your data been stored?</p>
+</li>
+<li>
+<p>Start a fresh SQLite session
+    and load <code>notes.sql</code> using the <code>.read</code> command.
+    Inspect the database using <code>.schema</code> and <code>select *</code>:
+    is everything as you expected?</p>
+</li>
+</ol>
+<p>Saving and restoring data in binary format:</p>
+<ol>
+<li>
+<p>Re-create the <code>notes</code> table in an in-memory database once again
+    and use SQLite&rsquo;s <code>.backup</code> command to save it to a file called <code>notes.db</code>.
+    Inspect this file using <code>od -c notes.db</code> or a text editor that can handle binary data:
+    how has your data been stored?</p>
+</li>
+<li>
+<p>Start a fresh SQLite session
+    and load <code>notes.db</code> using the <code>.restore</code> command.
+    Inspect the database using <code>.schema</code> and <code>select *</code>:
+    is everything as you expected?</p>
+</li>
+</ol>
+<h2 class="aside">Check Understanding</h2>
+<figure id="datamod_concept_map">
+<img src="./datamod_concept_map.svg" alt="box and arrow diagram of concepts relatd to defining and modifying data"/>
+<figcaption>Figure&nbsp;5.1: data definition and modification</figcaption>
+</figure>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>

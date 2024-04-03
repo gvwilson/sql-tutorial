@@ -1,0 +1,7 @@
+| species |  sex   | island |
+|---------|--------|--------|
+| Adelie  | FEMALE | Biscoe |
+| Adelie  | MALE   | Biscoe |
+| Gentoo  | FEMALE | Biscoe |
+| Gentoo  | MALE   | Biscoe |
+| Gentoo  |        | Biscoe |

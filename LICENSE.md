@@ -1,9 +1,8 @@
 # License
 
-All of the written material is made available under the [Creative
-Commons - Attribution - NonCommercial][cc_by_nc] 4.0 International
-license (CC-BY-NC-4.0), while the software is made available under the
-[Hippocratic License][hippocratic_license].
+All of the written material is made available under the Creative
+Commons - Attribution - NonCommercial 4.0 International license (CC-BY-NC-4.0),
+while the software is made available under the Hippocratic License.
 
 ## Writing
 
@@ -120,7 +119,6 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 *The Hippocratic License is an [Ethical Source license][ethical_source].*
 
-[cc_by_nc]: https://creativecommons.org/licenses/by-nc/4.0/
 [ethical_source]: https://ethicalsource.dev
 [hippocratic_license]: https://firstdonoharm.dev/
 [udhr]: https://www.un.org/en/universal-declaration-human-rights/

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; SQL Tools</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    
+      <h1>SQL Tools</h1>
+    
+  </div>
+  <div class="col-1"></div>
+</div>
+
+      
+<div class="row notex">
+  <div class="col-1 left">
+    <a href="../join/">&lArr;</a>
+  </div>
+  <div class="col-10"></div>
+  <div class="col-1 right">
+    <a href="../moretools/">&rArr;</a>
+  </div>
+</div>
+
+
+      
+      <p class="terms">Terms defined: 
+<a class="gl-ref" href="../glossary/#gl:1_to_1" markdown="1">1-to-1 relation</a>, <a class="gl-ref" href="../glossary/#gl:1_to_many" markdown="1">1-to-many relation</a>, <a class="gl-ref" href="../glossary/#gl:autoincrement" markdown="1">autoincrement</a>, <a class="gl-ref" href="../glossary/#gl:data_migration" markdown="1">data migration</a>, <a class="gl-ref" href="../glossary/#gl:foreign_key" markdown="1">foreign key</a>, <a class="gl-ref" href="../glossary/#gl:join_table" markdown="1">join table</a>, <a class="gl-ref" href="../glossary/#gl:many_to_many" markdown="1">many-to-many relation</a>, <a class="gl-ref" href="../glossary/#gl:primary_key" markdown="1">primary key</a>, <a class="gl-ref" href="../glossary/#gl:subquery" markdown="1">subquery</a>
+</p>
+      <h2>Negating Incorrectly</h2>
+<ul>
+<li>Who doesn&rsquo;t calibrate?</li>
+</ul>
+<div class="language-sql" title="negate_incorrectly.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">person</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span>
+<span class="k">where</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;calibrate&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="negate_incorrectly.out">
+<div class="highlight"><pre><span></span><code>| person |
+|--------|
+| mik    |
+| po     |
+| tay    |
+</code></pre></div>
+</div>
+<ul>
+<li>But Mik <em>does</em> calibrate</li>
+<li>Problem is that there&rsquo;s an entry for Mik cleaning</li>
+<li>And since <code>'clean' != 'calibrate'</code>, that row is included in the results</li>
+<li>We need a different approach…</li>
+</ul>
+<h2>Set Membership</h2>
+<div class="language-sql" title="set_membership.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span>
+<span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;mik&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tay&#39;</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="set_membership.out">
+<div class="highlight"><pre><span></span><code>| person |   job    |
+|--------|----------|
+| po     | clean    |
+| po     | complain |
+</code></pre></div>
+</div>
+<ul>
+<li><code>in <em>values</em></code> and <code>not in <em>values</em></code> do exactly what you expect</li>
+</ul>
+<h2>Subqueries</h2>
+<div class="language-sql" title="subquery_set.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">person</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span>
+<span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">person</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="k">work</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;calibrate&#39;</span>
+<span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="subquery_set.out">
+<div class="highlight"><pre><span></span><code>| person |
+|--------|
+| po     |
+| tay    |
+</code></pre></div>
+</div>
+<ul>
+<li>Use a <a class="gl-ref" href="../glossary/#gl:subquery" markdown="1">subquery</a> to select the people who <em>do</em> calibrate</li>
+<li>Then select all the people who <em>aren&rsquo;t</em> in that set</li>
+<li>Initially feels odd, but subqueries are useful in other ways</li>
+</ul>
+<h2 class="aside">Defining a Primary Key</h2>
+<ul>
+<li>Can use any field (or combination of fields) in a table as a <a class="gl-ref" href="../glossary/#gl:primary_key" markdown="1">primary key</a>
+    as long as value(s) unique for each record</li>
+<li>Uniquely identifies a particular record in a particular table</li>
+</ul>
+<div class="language-sql" title="primary_key.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">lab_equipment</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">size</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">color</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">num</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="k">size</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">lab_equipment</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
+<span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;blue&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">lab_equipment</span><span class="p">;</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">lab_equipment</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="primary_key.out">
+<div class="highlight"><pre><span></span><code>| size | color | num |
+|------|-------|-----|
+| 1.5  | blue  | 2   |
+| 1.5  | green | 1   |
+| 2.5  | blue  | 1   |
+Runtime error near line 17: UNIQUE constraint failed: lab_equipment.size, lab_equipment.color (19)
+</code></pre></div>
+</div>
+<h2 class="exercise">Exercise</h2>
+<p>Does the <code>penguins</code> table have a primary key?
+If so, what is it?
+What about the <code>work</code> and <code>job</code> tables?</p>
+<h2>Autoincrementing and Primary Keys</h2>
+<div class="language-sql" title="autoincrement.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">ident</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">autoincrement</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mik&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;po&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="k">null</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tay&#39;</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">person</span><span class="p">;</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;prevented&#39;</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="autoincrement.out">
+<div class="highlight"><pre><span></span><code>| ident | name |
+|-------|------|
+| 1     | mik  |
+| 2     | po   |
+| 3     | tay  |
+Runtime error near line 12: UNIQUE constraint failed: person.ident (19)
+</code></pre></div>
+</div>
+<ul>
+<li>Database <a class="gl-ref" href="../glossary/#gl:autoincrement" markdown="1">autoincrements</a> <code>ident</code> each time a new record is added</li>
+<li>Common to use that field as the primary key<ul>
+<li>Unique for each record</li>
+</ul>
+</li>
+<li>If Mik changes their name again,
+    we only have to change one fact in the database</li>
+<li>Downside: manual queries are harder to read (who is person 17?)</li>
+</ul>
+<h2 class="aside">Internal Tables</h2>
+<div class="language-sql" title="sequence_table.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sqlite_sequence</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="sequence_table.out">
+<div class="highlight"><pre><span></span><code>|  name  | seq |
+|--------|-----|
+| person | 3   |
+</code></pre></div>
+</div>
+<ul>
+<li>Sequence numbers are <em>not</em> reset when rows are deleted<ul>
+<li>In part so that they can be used as primary keys</li>
+</ul>
+</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Are you able to modify the values stored in <code>sqlite_sequence</code>?
+In particular,
+are you able to reset the values so that
+the same sequence numbers are generated again?</p>
+<h2>Altering Tables</h2>
+<div class="language-sql" title="alter_tables.sql">
+<div class="highlight"><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span>
+<span class="k">add</span><span class="w"> </span><span class="n">ident</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">job</span>
+<span class="k">set</span><span class="w"> </span><span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="k">where</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;calibrate&#39;</span><span class="p">;</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">job</span>
+<span class="k">set</span><span class="w"> </span><span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="k">where</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;clean&#39;</span><span class="p">;</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="alter_tables.out">
+<div class="highlight"><pre><span></span><code>|   name    | billable | ident |
+|-----------|----------|-------|
+| calibrate | 1.5      | 1     |
+| clean     | 0.5      | 2     |
+</code></pre></div>
+</div>
+<ul>
+<li>Add a column after the fact</li>
+<li>Since it can&rsquo;t be null, we have to provide a default value<ul>
+<li>Really want to make it the primary key, but SQLite doesn&rsquo;t allow that after the fact</li>
+</ul>
+</li>
+<li>Then use <code>update</code> to modify existing records<ul>
+<li>Can modify any number of records at once</li>
+<li>So be careful about <code>where</code> clause</li>
+</ul>
+</li>
+<li>An example of <a class="gl-ref" href="../glossary/#gl:data_migration" markdown="1">data migration</a></li>
+</ul>
+<h2 class="aside">M-to-N Relationships</h2>
+<ul>
+<li>Relationships between entities are usually characterized as:<ul>
+<li><a class="gl-ref" href="../glossary/#gl:1_to_1" markdown="1">1-to-1</a>:
+    fields in the same record</li>
+<li><a class="gl-ref" href="../glossary/#gl:1_to_many" markdown="1">1-to-many</a>:
+    the many have a <a class="gl-ref" href="../glossary/#gl:foreign_key" markdown="1">foreign key</a> referring to the one&rsquo;s primary key</li>
+<li><a class="gl-ref" href="../glossary/#gl:many_to_many" markdown="1">many-to-many</a>:
+    don&rsquo;t know how many keys to add to records (&ldquo;maximum&rdquo; never is)</li>
+</ul>
+</li>
+<li>Nearly-universal solution is a <a class="gl-ref" href="../glossary/#gl:join_table" markdown="1">join table</a><ul>
+<li>Each record is a pair of foreign keys</li>
+<li>I.e., each record is the fact that records A and B are related</li>
+</ul>
+</li>
+</ul>
+<h2>Creating New Tables from Old</h2>
+<div class="language-sql" title="insert_select.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">new_work</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">person_id</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">job_id</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">foreign</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">person_id</span><span class="p">)</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="p">(</span><span class="n">ident</span><span class="p">),</span>
+<span class="w">    </span><span class="k">foreign</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">job_id</span><span class="p">)</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span><span class="n">ident</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">new_work</span>
+<span class="k">select</span>
+<span class="w">    </span><span class="n">person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">person_id</span><span class="p">,</span>
+<span class="w">    </span><span class="n">job</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">job_id</span>
+<span class="k">from</span>
+<span class="w">    </span><span class="p">(</span><span class="n">person</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">)</span>
+<span class="w">    </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">job</span><span class="p">;</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">new_work</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="insert_select.out">
+<div class="highlight"><pre><span></span><code>| person_id | job_id |
+|-----------|--------|
+| 1         | 1      |
+| 1         | 2      |
+| 2         | 2      |
+</code></pre></div>
+</div>
+<ul>
+<li><code>new_work</code> is our join table</li>
+<li>Each column refers to a record in some other table</li>
+</ul>
+<h2>Removing Tables</h2>
+<div class="language-sql" title="drop_table.sql">
+<div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">work</span><span class="p">;</span>
+<span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">new_work</span><span class="w"> </span><span class="k">rename</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">work</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="drop_table.out">
+<div class="highlight"><pre><span></span><code>CREATE TABLE job (
+    ident integer primary key autoincrement,
+    name text not null,
+    billable real not null
+);
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE person (
+    ident integer primary key autoincrement,
+    name text not null
+);
+CREATE TABLE IF NOT EXISTS &quot;work&quot; (
+    person_id integer not null,
+    job_id integer not null,
+    foreign key(person_id) references person(ident),
+    foreign key(job_id) references job(ident)
+);
+</code></pre></div>
+</div>
+<ul>
+<li>Remove the old table and rename the new one to take its place<ul>
+<li>Note <code>if exists</code></li>
+</ul>
+</li>
+<li>Please back up your data first</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<ol>
+<li>
+<p>Reorganize the penguins database:</p>
+<ol>
+<li>Make a copy of the <code>penguins.db</code> file
+    so that your changes won&rsquo;t affect the original.</li>
+<li>Write a SQL script that reorganizes the data into three tables:
+    one for each island.</li>
+<li>Why is organizing data like this a bad idea?</li>
+</ol>
+</li>
+<li>
+<p>Tools like <a href="https://sqitch.org/">Sqitch</a> can manage changes to database schemas and data
+    so that they can be saved in version control
+    and rolled back if they are unsuccessful.
+    Translate the changes made by the scripts above into Sqitch.
+    Note: this exercise may take an hour or more.</p>
+</li>
+</ol>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>

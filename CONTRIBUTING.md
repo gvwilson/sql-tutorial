@@ -11,10 +11,11 @@ All contributors will be acknowledged.
     You may wish to create a new virtual environment before doing so.
     All code has been tested with Python 3.12.1.
 
--   The tutorial lives in `pages/index.md`,
+-   The tutorial lives in `src/*/index.md`,
     which is translated into a static GitHub Pages website using [Ark][ark].
 
--   The source files for examples are in `src/` and the output they generate is in `out/`.
+-   The source files for examples are in their section directories
+    along with captured output in `.out` files.
 
 -   `Makefile` contains the commands used to re-run each example.
     If you add a new example,
@@ -22,48 +23,29 @@ All contributors will be acknowledged.
     -   `make depend.mk` rebuilds the list of extra dependencies.
         Please do not update `depend.mk` by hand.
 
--   Use `[% section_start class="CLASS" title="TITLE" %]`
-    at the start of the first section.
-    The class can be `topic` for a numbered topic,
-    `aside` for an unnumbered aside,
-    or `exercise` for practice exercises.
-    Topics and asides must have titled;
-    exercise section do not (the name is filled in automatically).
+-   Use a level-2 heading for each sub-topic.
+    Use `{: .aside}` for an aside
+    or `{: .exercise}` for exercise.
 
--   Use `[% section_end %]`
-    at the end of the final section.
+-   Use `[%inc "file.ext" %]` to include a text file.
+    If `mark=label` is present,
+    only code between comments `[label]` and `[/label]` is kept.
 
--   Use `[% section_break class="CLASS" title="TITLE" %]`
-    to end the previous section and start a new one.
-
--   Use `[% single "dir/file.ext" %]`
-    in `index.md` to include an arbitrary text file.
-    By default, file inclusion strips out everything between `-- [keep]` and `-- [/keep]`
-    for SQL files and `# [keep]` and `# [/keep]` for Python files.
-    The start and end tags can be customized by passing `keep="label"`
-    to the `single` inclusion tags.
-
--   Use `[% multi "dir_1/file_1.ext" "dir_2/file_2.ext" … %]`
-    to include multiple files.
-
--   Use `[% exercise %]` to introduce a numbered exercise.
-    Do not leave a blank link between the inclusion and the text of the exercise.
-
--   Use `[% figure file="path" title="text" alt="text" %]` to include a numbered figure.
+-   Use `[% figure slug="some_slug" img="filename.ext" caption="text" alt="text" %]`
+    to include a figure.
 
 -   Use `[% g key "text" %]` to link to glossary entries.
     The text is inserted and highlighted;
     the key must identify an entry in `info/glossary.yml`,
     which is in [Glosario][glosario] format.
 
--   SVG diagrams are in `res/img/` and can be edited using [draw.io][draw_io].
+-   Please create SVG diagrams using [draw.io][draw_io].
     Please use 14-point Helvetica for text,
     solid 1-point black lines,
     and unfilled objects.
 
 -   All external links are written using `[box][notation]` inline
-    and defined in `info/tutorial.yml`.
-    The shortcode `[% link_table %]` at the end of `index.md` fills in these links.
+    and defined in `info/links.yml`.
 
 ## Logical Structure
 
@@ -92,40 +74,6 @@ All contributors will be acknowledged.
 -   Appendices
     -   A *glossary* that defines terms called out in the topics.
     -   *Acknowledgments* that point at inspirations and thank contributors.
-
-## Physical Structure
-
--   `CODE_OF_CONDUCT.md`: source for Code of Conduct
-    -   `pages/conduct.md`: auxiliary file to translate CoC into HTML
--   `CONTRIBUTING.md`: this guide
-    -   `pages/contributing.md`: auxiliary file to translate this guide into HTML
--   `LICENSE.md`: licenses for code and prose
-    -   `pages/license.md`: auxiliary file to translate licenses into HTML
--   `Makefile`: commands for rebuilding examples
-    -   Run `make` with no arguments to see available targets
--   `README.md`: home page
--   `config.py`: Ark configuration file
--   `info/`: auxiliary data files used to build website
-    -   `info/glossary.yml`: glossary terms
-    -   `info/links.yml`: link definitions
-    -   `info/thanks.yml`: names of people to include in acknowledgments
--   `bin/`: helper programs (e.g., for generating databases)
--   `db/`: databases used in examples
--   `docs/`: generated website
--   `lib/`: Ark theme directory
-    -   `lib/tut/`: tutorial theme
-        -   `lib/tut/extensions/`: custom shortcodes
-        -   `lib/tut/resources/`: static files
-        -   `lib/tut/templates/`: the main `node.ibis` template and included files
--   `misc/`: miscellaneous files
-    -   `jupysql.ipynb`: Jupyter notebook used in examples
-    -   `penguins.csv`: [Palmer penguins][palmer_penguins] data
-    -   `sql_keywords.txt`: all SQLite keywords
--   `out/`: generated output files for examples
--   `requirements.txt`: `pip` requirements file to build Python environment
--   `res/`: static resources
-    -   `res/img/`: SVG diagrams
--   `src/`: source files for examples
 
 ## Tags for Issues and Pull Requests
 

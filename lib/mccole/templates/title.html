@@ -1,0 +1,12 @@
+<div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    {% if node.title %}
+      <h1>{{ node.title }}</h1>
+    {% else %}
+      <h1>{{ site.title }}</h1>
+      {% if site.subtitle %}<p class="subtitle">{{ site.subtitle }}</p>{% endif %}
+    {% endif %}
+  </div>
+  <div class="col-1"></div>
+</div>

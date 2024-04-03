@@ -2,24 +2,63 @@
 title = "The Querynomicon"
 subtitle = "An Introduction to SQL for Weary Data Scientists"
 repo = "https://github.com/gvwilson/sql-tutorial"
-release = "https://github.com/gvwilson/sql-tutorial/raw/main/sql-tutorial.zip"
 plausible = "gvwilson.github.io/sql-tutorial"
+site = f"https://{plausible}/"
+release = "https://github.com/gvwilson/sql-tutorial/raw/main/sql-tutorial.zip"
 author = {
     "name": "Greg Wilson",
     "email": "gvwilson@third-bit.com",
     "site": "https://third-bit.com/",
 }
+lang = "en"
+
+chapters = [
+    "intro",
+    "select",
+    "missing",
+    "aggregate",
+    "datamod",
+    "join",
+    "toolbox",
+    "moretools",
+    "oddsends",
+    "composite",
+    "action",
+    "recursive",
+    "python",
+    "psql",
+    "finale",
+]
+
+appendices = [
+    "license",
+    "conduct",
+    "contrib",
+    "bib",
+    "glossary",
+    "author",
+    "colophon",
+    "contents",
+]
+
+# Files to copy
+copy = [
+    "*.out",
+    "*.png",
+    "*.py",
+    "*.sh",
+    "*.sql",
+    "*.svg",
+]
+
+# Directories to skip
+exclude = [
+]
 
 # Theme information.
-theme = "tut"
-src_dir = "pages"
+theme = "mccole"
+src_dir = "src"
 out_dir = "docs"
-pages = [
-    {"slug": "python", "title": "Python"},
-    {"slug": "postgresql", "title": "PostgreSQL"},
-]
-rouge_style = "github.css"
-lang = "en"
 extension = "/"
 
 # Enable various Markdown extensions.
@@ -32,8 +71,10 @@ markdown_settings = {
 }
 
 
+# Display values for LaTeX generation.
 if __name__ == "__main__":
     import sys
+
     USAGE = "usage: config.py [copydir | copyext | lang]"
     status = 0
     if len(sys.argv) == 1:

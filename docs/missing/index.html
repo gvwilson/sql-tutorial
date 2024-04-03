@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; Missing Values</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    
+      <h1>Missing Values</h1>
+    
+  </div>
+  <div class="col-1"></div>
+</div>
+
+      
+<div class="row notex">
+  <div class="col-1 left">
+    <a href="../select/">&lArr;</a>
+  </div>
+  <div class="col-10"></div>
+  <div class="col-1 right">
+    <a href="../aggregate/">&rArr;</a>
+  </div>
+</div>
+
+
+      
+      <p class="terms">Terms defined: 
+<a class="gl-ref" href="../glossary/#gl:null" markdown="1">null</a>, <a class="gl-ref" href="../glossary/#gl:ternary_logic" markdown="1">ternary logic</a>
+</p>
+      <h2>Calculating with Missing Values</h2>
+<div class="language-sql" title="show_missing_values.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">flipper_length_mm</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">flipper_cm</span><span class="p">,</span>
+<span class="w">    </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">weight_kg</span><span class="p">,</span>
+<span class="w">    </span><span class="n">island</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">where_found</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="show_missing_values.out">
+<div class="highlight"><pre><span></span><code>| flipper_cm | weight_kg | where_found |
+|------------|-----------|-------------|
+| 18.1       | 3.75      | Torgersen   |
+| 18.6       | 3.8       | Torgersen   |
+| 19.5       | 3.25      | Torgersen   |
+|            |           | Torgersen   |
+| 19.3       | 3.45      | Torgersen   |
+</code></pre></div>
+</div>
+<ul>
+<li>SQL uses a special value <a class="gl-ref" href="../glossary/#gl:null" markdown="1"><code>null</code></a> to representing missing data<ul>
+<li>Not 0 or empty string, but &ldquo;I don&rsquo;t know&rdquo;</li>
+</ul>
+</li>
+<li>Flipper length and body weight not known for one of the first five penguins</li>
+<li>&ldquo;I don&rsquo;t know&rdquo; divided by 10 or 1000 is &ldquo;I don&rsquo;t know&rdquo;</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Use SQLite&rsquo;s <code>.nullvalue</code> command
+to change the printed representation of null to the string <code>null</code>
+and then re-run the previous query.
+When will displaying null as <code>null</code> be easier to understand?
+When might it be misleading?</p>
+<h2>Null Equality</h2>
+<ul>
+<li>Repeated from earlier (so it doesn&rsquo;t count against our query limit)</li>
+</ul>
+<div class="language-sql" title="filter.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
+<span class="w">    </span><span class="n">species</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sex</span><span class="p">,</span>
+<span class="w">    </span><span class="n">island</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="filter.out">
+<div class="highlight"><pre><span></span><code>| species |  sex   | island |
+|---------|--------|--------|
+| Adelie  | FEMALE | Biscoe |
+| Adelie  | MALE   | Biscoe |
+| Gentoo  | FEMALE | Biscoe |
+| Gentoo  | MALE   | Biscoe |
+| Gentoo  |        | Biscoe |
+</code></pre></div>
+</div>
+<ul>
+<li>If we ask for female penguins the row with the missing sex drops out</li>
+</ul>
+<div class="language-sql" title="null_equality.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
+<span class="w">    </span><span class="n">species</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sex</span><span class="p">,</span>
+<span class="w">    </span><span class="n">island</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;FEMALE&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="null_equality.out">
+<div class="highlight"><pre><span></span><code>| species |  sex   | island |
+|---------|--------|--------|
+| Adelie  | FEMALE | Biscoe |
+| Gentoo  | FEMALE | Biscoe |
+</code></pre></div>
+</div>
+<h2>Null Inequality</h2>
+<ul>
+<li>But if we ask for penguins that <em>aren&rsquo;t</em> female it drops out as well</li>
+</ul>
+<div class="language-sql" title="null_inequality.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
+<span class="w">    </span><span class="n">species</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sex</span><span class="p">,</span>
+<span class="w">    </span><span class="n">island</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;FEMALE&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="null_inequality.out">
+<div class="highlight"><pre><span></span><code>| species | sex  | island |
+|---------|------|--------|
+| Adelie  | MALE | Biscoe |
+| Gentoo  | MALE | Biscoe |
+</code></pre></div>
+</div>
+<h2>Ternary Logic</h2>
+<div class="language-sql" title="ternary_logic.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="ternary_logic.out">
+<div class="highlight"><pre><span></span><code>| null = null |
+|-------------|
+|             |
+</code></pre></div>
+</div>
+<ul>
+<li>If we don&rsquo;t know the left and right values, we don&rsquo;t know if they&rsquo;re equal or not</li>
+<li>So the result is <code>null</code></li>
+<li>Get the same answer for <code>null != null</code></li>
+<li><a class="gl-ref" href="../glossary/#gl:ternary_logic" markdown="1">Ternary logic</a></li>
+</ul>
+<table>
+  <tr>
+    <th colspan="4">equality</th>
+  </tr>
+  <tr>
+    <th></th>
+    <th>X</th>
+    <th>Y</th>
+    <th>null</th>
+  </tr>
+  <tr>
+    <th>X</th>
+    <td>true</td>
+    <td>false</td>
+    <td>null</td>
+  </tr>
+  <tr>
+    <th>Y</th>
+    <td>false</td>
+    <td>true</td>
+    <td>null</td>
+  </tr>
+  <tr>
+    <th>null</th>
+    <td>null</td>
+    <td>null</td>
+    <td>null</td>
+  </tr>
+</table>
+
+<h2>Handling Null Safely</h2>
+<div class="language-sql" title="safe_null_equality.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">species</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sex</span><span class="p">,</span>
+<span class="w">    </span><span class="n">island</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">where</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="safe_null_equality.out">
+<div class="highlight"><pre><span></span><code>| species | sex |  island   |
+|---------|-----|-----------|
+| Adelie  |     | Torgersen |
+| Adelie  |     | Torgersen |
+| Adelie  |     | Torgersen |
+| Adelie  |     | Torgersen |
+| Adelie  |     | Torgersen |
+| Adelie  |     | Dream     |
+| Gentoo  |     | Biscoe    |
+| Gentoo  |     | Biscoe    |
+| Gentoo  |     | Biscoe    |
+| Gentoo  |     | Biscoe    |
+| Gentoo  |     | Biscoe    |
+</code></pre></div>
+</div>
+<ul>
+<li>Use <code>is null</code> and <code>is not null</code> to handle null safely</li>
+<li>Other parts of SQL handle nulls specially</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<ol>
+<li>
+<p>Write a query to find penguins whose body mass is known but whose sex is not.</p>
+</li>
+<li>
+<p>Write another query to find penguins whose sex is known but whose body mass is not.</p>
+</li>
+</ol>
+<h2 class="aside">Check Understanding</h2>
+<figure id="missing_concept_map">
+<img src="./missing_concept_map.svg" alt="box and arrow diagram of concepts related to null values in SQL"/>
+<figcaption>Figure&nbsp;3.1: missing values</figcaption>
+</figure>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>

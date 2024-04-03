@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; PostgreSQL</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    
+      <h1>PostgreSQL</h1>
+    
+  </div>
+  <div class="col-1"></div>
+</div>
+
+      
+<div class="row notex">
+  <div class="col-1 left">
+    <a href="../python/">&lArr;</a>
+  </div>
+  <div class="col-10"></div>
+  <div class="col-1 right">
+    <a href="../finale/">&rArr;</a>
+  </div>
+</div>
+
+
+      
+      <p class="terms">Terms defined: 
+<a class="gl-ref" href="../glossary/#gl:client_server_db" markdown="1">client-server database</a>, <a class="gl-ref" href="../glossary/#gl:local_db" markdown="1">local database</a>, <a class="gl-ref" href="../glossary/#gl:privilege" markdown="1">privilege</a>, <a class="gl-ref" href="../glossary/#gl:role" markdown="1">role</a>
+</p>
+      <p><em>Contributed by <a href="https://kitsiosk.github.io/">Konstantinos Kitsios</a>.</em></p>
+<h2>Why PostgreSQL?</h2>
+<ul>
+<li>This is a valid question, especially if you are already familiar with other databases like SQLite
+    that are simpler to set up,
+    run locally,
+    and do not follow the <a href="#what-is-the-client-server-model-after-all">client-server model</a>.</li>
+<li>The answer is that the client-server model that PostgreSQL follows offers robustness,
+    scalability,
+    and effectiveness in handling large volumes of data.</li>
+<li>Furthermore, it provides enhanced concurrency with features like multi-line transactions.
+    The above are necessary for modern, complex, real-world applications,
+    and non-client-server databases like SQLite cannot guarantee them.</li>
+</ul>
+<h2>The Client-Server Model</h2>
+<ul>
+<li>A <a class="gl-ref" href="../glossary/#gl:local_db" markdown="1">local (non-client-server) database</a>
+    is designed to run on a single computer or device,
+    storing data locally and accessed by applications on the same machine.</li>
+<li>This setup is ideal for standalone applications where simplicity and ease of deployment are priorities.</li>
+<li>On the other hand, a <a class="gl-ref" href="../glossary/#gl:client_server_db" markdown="1">client-server database</a>
+    operates on a networked environment where the database server runs independently of client applications.</li>
+<li>Clients connect to the server over a network to query, update, and manage data.<ul>
+<li>Of course the server and the client can live on the same machine.</li>
+<li>Mainly done for educational purposes (like this tutorial).</li>
+</ul>
+</li>
+</ul>
+<h2>Setup on MacOS: Direct Installer</h2>
+<ol>
+<li>Download the <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">latest version of PostgreSQL for macOS</a>.</li>
+<li>Double-click the downloaded file to run the installer<ol>
+<li>Click &ldquo;Next&rdquo;.
+    You might see a warning message because it was downloaded from the internet.
+    If so, click &ldquo;Open&rdquo; to continue.</li>
+<li>Leave the default installation folder and click &ldquo;Next&rdquo;.</li>
+<li>Leave the default components and click &ldquo;Next&rdquo;.</li>
+<li>Leave the default location (the database files will be stored there). </li>
+<li>You will be prompted to create a password; make sure to remember it. Click &ldquo;Next&rdquo;.</li>
+<li>Leave the default options (port and locale) and click &ldquo;Next&rdquo;.</li>
+<li>Click &ldquo;Next&rdquo;; if requested, provide your Mac OS password (the one you use for unlocking your laptop).</li>
+<li>Click &ldquo;Finish&rdquo;.</li>
+</ol>
+</li>
+<li>Open PgAdmin from the Applications folder.</li>
+<li>In the top-left corner of PgAdmin, expand the &ldquo;Servers&rdquo; option by clicking on it.</li>
+<li>Click &ldquo;PostgreSQL&rdquo;; if prompted, use the password you created in step 2.4.</li>
+<li>You are now connected to PostgreSQL.</li>
+</ol>
+<h2>Setup on MacOS: With Options</h2>
+<ol>
+<li>Download <a href="https://postgresapp.com/downloads.html">the latest version of Postgress.app</a>.</li>
+<li>Open the downloaded <code>.dmg</code> file.</li>
+<li>Drag <code>Postgres</code> to the Applications folder.</li>
+<li>Open the Applications folder, then open <code>Postgres</code>.
+    The first time you open the app,
+    you might see a warning message because it was downloaded from the internet.
+    If so, click &ldquo;Open&rdquo; to continue.</li>
+<li>Once the app is open, click &ldquo;Initialize&rdquo; to start your PostgreSQL session.</li>
+<li>You can see the existing databases (they have been created by default).
+    Double click one and the terminal for running queries to that database will open</li>
+<li>You are now connected to PostgreSQL.</li>
+</ol>
+<h2 class="aside">Setup on MacOS: Command-Line Tools</h2>
+<ol>
+<li>Open a terminal window.</li>
+<li>Run <code>open ~/.zshrc</code> (or <code>~/.bashrc</code> depending on your shell).</li>
+<li>Add the following line to the bottom of the file:
+    <br>
+    <code>export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin</code></li>
+<li>Run <code>source ~/.zshrc</code>.</li>
+<li>Verify installation by running <code>psql</code>.</li>
+</ol>
+<h2>Running Queries Using PgAdmin</h2>
+<ul>
+<li>
+<p>Open PgAdmin.</p>
+</li>
+<li>
+<p>Right click &ldquo;Databases&rdquo; -&gt; &ldquo;Create&rdquo; -&gt; &ldquo;Database&rdquo;.
+    Write &ldquo;penguins&rdquo; in the &ldquo;Database&rdquo; field and then click &ldquo;Save&rdquo;.</p>
+</li>
+<li>
+<p>Right click to the &ldquo;penguins&rdquo; database from the menu in the left:
+    a. Click &ldquo;Query tool&rdquo;.
+    b. Click &ldquo;Open file&rdquo; in the top left of the Query tool.
+    c. Select the file <code>db/penguins.sql</code>.
+    d. Click &ldquo;Execute&rdquo;.</p>
+</li>
+<li>
+<p>Expand &ldquo;penguins&rdquo; -&gt; &ldquo;Schemas&rdquo; -&gt; &ldquo;Tables&rdquo;.
+    You should see two tables: <code>little_penguins</code> and <code>penguins</code>.</p>
+</li>
+<li>
+<p>Right click <code>penguins</code> -&gt; &ldquo;Query tool&rdquo;.</p>
+</li>
+<li>
+<p>Run the query to see the first entries of the <code>penguins</code> table.</p>
+</li>
+</ul>
+<div class="language-sql" title="select_penguins.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<ul>
+<li>Count penguins:</li>
+</ul>
+<div class="language-sql" title="count_penguins.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h2>Running Queries in the Terminal</h2>
+<ul>
+<li>Run the command-line PostgreSQL client and tell it what database to use:</li>
+</ul>
+<div class="language-sh" title="run_psql_penguins.sh">
+<div class="highlight"><pre><span></span><code>psql<span class="w"> </span>-d<span class="w"> </span>penguins
+</code></pre></div>
+</div>
+<ul>
+<li>Run the queries from the previous section</li>
+</ul>
+<h2>Privileges and Roles</h2>
+<ul>
+<li>PostgreSQL is commonly used for applications with a large user base.</li>
+<li>For this reason, it has a <a class="gl-ref" href="../glossary/#gl:privilege" markdown="1">privilege managment system</a>
+    to control who has what kind of access to what data.<ul>
+<li>You may want the users of your application to be able to read the SQL records,
+    but not update or delete them.</li>
+<li>Or in an organization where many developers work on the same database,
+    it may be desirable that some developer teams can only read existing or write new records,
+but not modify or delete existing records.</li>
+</ul>
+</li>
+</ul>
+<h2>Creating a Role and Granting Privileges</h2>
+<ul>
+<li>
+<p>A database <a class="gl-ref" href="../glossary/#gl:role" markdown="1">role</a> is similar to a user account</p>
+<ul>
+<li>Can own database objects</li>
+<li>Can be granted permissions to access and manipulate data</li>
+</ul>
+</li>
+<li>
+<p>Roles can represent individual users, groups of users, or both.</p>
+</li>
+<li>
+<p>Can be assigned a variety of privileges and access rights within the database</p>
+</li>
+<li>
+<p>Create role in PgAdmin:</p>
+<ol>
+<li>In the Object Explorer panel,
+    expand Servers -&gt; PostgreSQL -&gt; Right click Login/Group roles -&gt; Create -&gt; Login/Group role.</li>
+<li>Enter &ldquo;penguin_reader_writer&rdquo; in the &ldquo;name&rdquo; field.</li>
+<li>Go to the &ldquo;Privileges&rdquo; tab, and enable the &ldquo;Can Login?&rdquo; option.</li>
+<li>Click &ldquo;Save&rdquo;.</li>
+</ol>
+</li>
+<li>
+<p>Grant permissions in PgAdmin:</p>
+<ol>
+<li>Right click the &ldquo;penguins&rdquo; table from Object Explorer.</li>
+<li>Go to &ldquo;Properties&rdquo; -&gt; &ldquo;Security&rdquo; -&gt; Click the &ldquo;+&rdquo; button on the top-right.</li>
+<li>Select &ldquo;penguin_reader_writer&rdquo; from the dropdown list.</li>
+<li>In the &ldquo;Privileges&rdquo; column, check the &ldquo;SELECT&rdquo; and &ldquo;UPDATE&rdquo; options.</li>
+<li>Click &ldquo;Save&rdquo;.</li>
+</ol>
+</li>
+<li>
+<p>Create role in the terminal:</p>
+</li>
+</ul>
+<div class="language-sql" title="create_reader_writer.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">role</span><span class="w"> </span><span class="n">penguin_reader_writer</span>
+<span class="k">with</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="s1">&#39;reader_writer&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<ul>
+<li>Grant permissions in the terminal:</li>
+</ul>
+<div class="language-sql" title="grant_select_update.sql">
+<div class="highlight"><pre><span></span><code><span class="k">grant</span><span class="w"> </span><span class="k">select</span><span class="p">,</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">penguins</span><span class="p">,</span><span class="w"> </span><span class="n">little_penguins</span>
+<span class="k">to</span><span class="w"> </span><span class="n">penguin_reader_writer</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h2>Verifying Privileges in PgAdmin</h2>
+<ul>
+<li>
+<p>Connect as <code>penguin_reader_writer</code> to verify that this role can only select or update records:</p>
+<ol>
+<li>Right click &ldquo;Servers&rdquo; -&gt; &ldquo;Register&rdquo; -&gt; &ldquo;Server&rdquo; in the left panel.</li>
+<li>In the &ldquo;name&rdquo; field enter &ldquo;Penguin Reader Writer&rdquo;.</li>
+<li>Go to the &ldquo;Connection&rdquo; tab:
+    a.  In the &ldquo;Host name/address&rdquo; field enter &ldquo;localhost&rdquo;.
+    b.  In the &ldquo;Maintenance database&rdquo; field enter &ldquo;penguins&rdquo;.
+    c.  In the &ldquo;Username&rdquo; field enter &ldquo;penguin_reader_writer&rdquo;.
+    d.  In the &ldquo;Password&rdquo; field enter &ldquo;reader_writer&rdquo;.</li>
+<li>Click &ldquo;Save&rdquo;.</li>
+</ol>
+</li>
+<li>
+<p>Close and reopen PgAdmin,
+    but instead of &ldquo;PostgreSQL&rdquo;, select the &ldquo;Penguin Reader Writer&rdquo; as the user ID.</p>
+</li>
+<li>Run a simple query that <em>reads</em> data:</li>
+</ul>
+<div class="language-sql" title="select_penguins.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<ul>
+<li>
+<p>It successfully returns 10 records from the table.</p>
+</li>
+<li>
+<p>Now try to <em>change</em> data:</p>
+</li>
+</ul>
+<div class="language-sql" title="update_penguins.sql">
+<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">set</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Antarctica&#39;</span>
+<span class="k">where</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;MALE&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Torgersen&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<ul>
+<li>
+<p>That works too (updates 23 records).</p>
+</li>
+<li>
+<p>But now try to <em>delete</em> data:</p>
+</li>
+</ul>
+<div class="language-sql" title="delete_penguins.sql">
+<div class="highlight"><pre><span></span><code><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="o">=</span><span class="s1">&#39;Antarctica&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="o">=</span><span class="s1">&#39;MALE&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="delete_penguins.out">
+<div class="highlight"><pre><span></span><code>ERROR: permission denied for table penguins
+</code></pre></div>
+</div>
+<ul>
+<li>Because the <code>penguin_reader_writer</code> role does not have <code>DELETE</code> privileges</li>
+</ul>
+<h2>Revoking Privileges</h2>
+<ul>
+<li>Tighten up access so that <code>penguin_reader_writer</code> does not have <code>UPDATE</code> privileges (only <code>SELECT</code>)</li>
+<li>In PgAdmin:<ol>
+<li>Right click on the &ldquo;penguins&rdquo; table in the Object Explorer panel.</li>
+<li>Go to &ldquo;Properties&rdquo; -&gt; &ldquo;Security&rdquo; -&gt; Click the &ldquo;Privileges&rdquo; column of the <code>penguin_reader_writer</code> row.</li>
+<li>Un-check the &ldquo;Update&rdquo; checkbox.</li>
+<li>Click &ldquo;Save&rdquo;.</li>
+</ol>
+</li>
+<li>In the terminal:</li>
+</ul>
+<div class="language-sql" title="revoke_update.sql">
+<div class="highlight"><pre><span></span><code><span class="k">revoke</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">penguins</span><span class="p">,</span><span class="w"> </span><span class="n">little_penguins</span>
+<span class="k">to</span><span class="w"> </span><span class="n">penguin_reader_writer</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<ul>
+<li>To verify:</li>
+</ul>
+<div class="language-sql" title="update_penguins_again.sql">
+<div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">set</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Atlantis&#39;</span>
+<span class="k">where</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;MALE&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Antarctica&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="update_penguins_again.out">
+<div class="highlight"><pre><span></span><code>ERROR: permission denied for table penguins
+</code></pre></div>
+</div>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>

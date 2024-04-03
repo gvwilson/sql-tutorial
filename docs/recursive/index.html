@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; Recursive Queries</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    
+      <h1>Recursive Queries</h1>
+    
+  </div>
+  <div class="col-1"></div>
+</div>
+
+      
+<div class="row notex">
+  <div class="col-1 left">
+    <a href="../action/">&lArr;</a>
+  </div>
+  <div class="col-10"></div>
+  <div class="col-1 right">
+    <a href="../python/">&rArr;</a>
+  </div>
+</div>
+
+
+      
+      <p class="terms">Terms defined: 
+<a class="gl-ref" href="../glossary/#gl:base_case" markdown="1">base case</a>, <a class="gl-ref" href="../glossary/#gl:infinite_recursion" markdown="1">infinite recursion</a>, <a class="gl-ref" href="../glossary/#gl:recursive_case" markdown="1">recursive case</a>, <a class="gl-ref" href="../glossary/#gl:recursive_cte" markdown="1">recursive CTE</a>, <a class="gl-ref" href="../glossary/#gl:temporary_table" markdown="1">temporary table</a>
+</p>
+      <h2 class="aside">Representing Graphs</h2>
+<div class="language-sql" title="lineage_setup.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">lineage</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">parent</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">child</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">lineage</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;Arturo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Clemente&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Darío&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Clemente&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Clemente&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Homero&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Clemente&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Ivonne&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Ivonne&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Lourdes&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Soledad&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Lourdes&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Lourdes&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Santiago&#39;</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-sql" title="represent_graph.sql">
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">lineage_setup</span><span class="p">.</span><span class="k">sql</span>
+<span class="c1">-- [keep]</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">lineage</span><span class="p">;</span>
+<span class="c1">-- [/keep]</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="represent_graph.out">
+<div class="highlight"><pre><span></span><code>|  parent  |  child   |
+|----------|----------|
+| Arturo   | Clemente |
+| Darío    | Clemente |
+| Clemente | Homero   |
+| Clemente | Ivonne   |
+| Ivonne   | Lourdes  |
+| Soledad  | Lourdes  |
+| Lourdes  | Santiago |
+</code></pre></div>
+</div>
+<figure id="recursive_lineage">
+<img src="./recursive_lineage.svg" alt="box and arrow diagram showing who is descended from whom in the lineage database"/>
+<figcaption>Figure&nbsp;12.1: lineage diagram</figcaption>
+</figure>
+
+<h2 class="exercise">Exercise</h2>
+<p>Write a query that uses a self join to find every person&rsquo;s grandchildren.</p>
+<h2>Recursive Queries</h2>
+<div class="language-sql" title="recursive_lineage.sql">
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">lineage_setup</span><span class="p">.</span><span class="k">sql</span>
+
+<span class="c1">-- [keep]</span>
+<span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">descendent</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">select</span>
+<span class="w">        </span><span class="s1">&#39;Clemente&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">generations</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
+<span class="w">    </span><span class="k">select</span>
+<span class="w">        </span><span class="n">lineage</span><span class="p">.</span><span class="n">child</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
+<span class="w">        </span><span class="n">descendent</span><span class="p">.</span><span class="n">generations</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">generations</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">descendent</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">lineage</span>
+<span class="w">        </span><span class="k">on</span><span class="w"> </span><span class="n">descendent</span><span class="p">.</span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lineage</span><span class="p">.</span><span class="n">parent</span>
+<span class="p">)</span>
+
+<span class="k">select</span>
+<span class="w">    </span><span class="n">person</span><span class="p">,</span>
+<span class="w">    </span><span class="n">generations</span>
+<span class="k">from</span><span class="w"> </span><span class="n">descendent</span><span class="p">;</span>
+<span class="c1">-- [/keep]</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="recursive_lineage.out">
+<div class="highlight"><pre><span></span><code>|  person  | generations |
+|----------|-------------|
+| Clemente | 0           |
+| Homero   | 1           |
+| Ivonne   | 1           |
+| Lourdes  | 2           |
+| Santiago | 3           |
+</code></pre></div>
+</div>
+<ul>
+<li>Use a <a class="gl-ref" href="../glossary/#gl:recursive_cte" markdown="1">recursive CTE</a> to create a temporary table (<code>descendent</code>)</li>
+<li><a class="gl-ref" href="../glossary/#gl:base_case" markdown="1">Base case</a> seeds this table</li>
+<li><a class="gl-ref" href="../glossary/#gl:recursive_case" markdown="1">Recursive case</a> relies on value(s) already in that table and external table(s)</li>
+<li><code>union all</code> to combine rows<ul>
+<li>Can use <code>union</code> but that has lower performance (must check uniqueness each time)</li>
+</ul>
+</li>
+<li>Stops when the recursive case yields an empty row set (nothing new to add)</li>
+<li>Then select the desired values from the CTE</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Modify the recursive query shown above to use <code>union</code> instead of <code>union all</code>.
+Does this affect the result?
+Why or why not?</p>
+<h2 class="aside">Contact Tracing Database</h2>
+<div class="language-sql" title="contact_person.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">person</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="contact_person.out">
+<div class="highlight"><pre><span></span><code>| ident |         name          |
+|-------|-----------------------|
+| 1     | Juana Baeza           |
+| 2     | Agustín Rodríquez     |
+| 3     | Ariadna Caraballo     |
+| 4     | Micaela Laboy         |
+| 5     | Verónica Altamirano   |
+| 6     | Reina Rivero          |
+| 7     | Elias Merino          |
+| 8     | Minerva Guerrero      |
+| 9     | Mauro Balderas        |
+| 10    | Pilar Alarcón         |
+| 11    | Daniela Menéndez      |
+| 12    | Marco Antonio Barrera |
+| 13    | Cristal Soliz         |
+| 14    | Bernardo Narváez      |
+| 15    | Óscar Barrios         |
+</code></pre></div>
+</div>
+<div class="language-sql" title="contact_contacts.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="contact_contacts.out">
+<div class="highlight"><pre><span></span><code>|       left        |         right         |
+|-------------------|-----------------------|
+| Agustín Rodríquez | Ariadna Caraballo     |
+| Agustín Rodríquez | Verónica Altamirano   |
+| Juana Baeza       | Verónica Altamirano   |
+| Juana Baeza       | Micaela Laboy         |
+| Pilar Alarcón     | Reina Rivero          |
+| Cristal Soliz     | Marco Antonio Barrera |
+| Cristal Soliz     | Daniela Menéndez      |
+| Daniela Menéndez  | Marco Antonio Barrera |
+</code></pre></div>
+</div>
+<figure id="recursive_contacts">
+<img src="./recursive_contacts.svg" alt="box and line diagram showing who has had contact with whom"/>
+<figcaption>Figure&nbsp;12.2: contact diagram</figcaption>
+</figure>
+
+<h2>Bidirectional Contacts</h2>
+<div class="language-sql" title="bidirectional.sql">
+<div class="highlight"><pre><span></span><code><span class="c1">-- [keep]</span>
+<span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">left</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">    </span><span class="k">right</span><span class="w"> </span><span class="nb">text</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">bi_contact</span>
+<span class="k">select</span>
+<span class="w">    </span><span class="k">left</span><span class="p">,</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">right</span><span class="p">,</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
+<span class="p">;</span>
+<span class="c1">-- [/keep]</span>
+
+<span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">original_count</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span><span class="p">;</span>
+<span class="p">.</span><span class="n">print</span>
+<span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num_contact</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="bidirectional.out">
+<div class="highlight"><pre><span></span><code>| original_count |
+|----------------|
+| 8              |
+
+| num_contact |
+|-------------|
+| 16          |
+</code></pre></div>
+</div>
+<ul>
+<li>Create a <a class="gl-ref" href="../glossary/#gl:temporary_table" markdown="1">temporary table</a> rather than using a long chain of CTEs<ul>
+<li>Only lasts as long as the session (not saved to disk)</li>
+</ul>
+</li>
+<li>Duplicate information rather than writing more complicated query</li>
+</ul>
+<h2>Updating Group Identifiers</h2>
+<div class="language-sql" title="update_group_ids.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">left</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">    </span><span class="k">right</span><span class="w"> </span><span class="nb">text</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">bi_contact</span>
+<span class="k">select</span>
+<span class="w">    </span><span class="k">left</span><span class="p">,</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">right</span><span class="p">,</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
+<span class="p">;</span>
+
+<span class="c1">-- [keep]</span>
+<span class="k">select</span>
+<span class="w">    </span><span class="k">left</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">left_name</span><span class="p">,</span>
+<span class="w">    </span><span class="k">left</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">left_ident</span><span class="p">,</span>
+<span class="w">    </span><span class="k">right</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">right_name</span><span class="p">,</span>
+<span class="w">    </span><span class="k">right</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">right_ident</span><span class="p">,</span>
+<span class="w">    </span><span class="k">min</span><span class="p">(</span><span class="k">left</span><span class="p">.</span><span class="n">ident</span><span class="p">,</span><span class="w"> </span><span class="k">right</span><span class="p">.</span><span class="n">ident</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">new_ident</span>
+<span class="k">from</span>
+<span class="w">    </span><span class="p">(</span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">left</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">left</span><span class="p">)</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">right</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+<span class="c1">-- [/keep]</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="update_group_ids.out">
+<div class="highlight"><pre><span></span><code>|       left_name       | left_ident |      right_name       | right_ident | new_ident |
+|-----------------------|------------|-----------------------|-------------|-----------|
+| Juana Baeza           | 1          | Micaela Laboy         | 4           | 1         |
+| Juana Baeza           | 1          | Verónica Altamirano   | 5           | 1         |
+| Agustín Rodríquez     | 2          | Ariadna Caraballo     | 3           | 2         |
+| Agustín Rodríquez     | 2          | Verónica Altamirano   | 5           | 2         |
+| Ariadna Caraballo     | 3          | Agustín Rodríquez     | 2           | 2         |
+| Micaela Laboy         | 4          | Juana Baeza           | 1           | 1         |
+| Verónica Altamirano   | 5          | Agustín Rodríquez     | 2           | 2         |
+| Verónica Altamirano   | 5          | Juana Baeza           | 1           | 1         |
+| Reina Rivero          | 6          | Pilar Alarcón         | 10          | 6         |
+| Pilar Alarcón         | 10         | Reina Rivero          | 6           | 6         |
+| Daniela Menéndez      | 11         | Cristal Soliz         | 13          | 11        |
+| Daniela Menéndez      | 11         | Marco Antonio Barrera | 12          | 11        |
+| Marco Antonio Barrera | 12         | Cristal Soliz         | 13          | 12        |
+| Marco Antonio Barrera | 12         | Daniela Menéndez      | 11          | 11        |
+| Cristal Soliz         | 13         | Daniela Menéndez      | 11          | 11        |
+| Cristal Soliz         | 13         | Marco Antonio Barrera | 12          | 12        |
+</code></pre></div>
+</div>
+<ul>
+<li><code>new_ident</code> is minimum of own identifier and identifiers one step away</li>
+<li>Doesn&rsquo;t keep people with no contacts</li>
+</ul>
+<h2>Recursive Labeling</h2>
+<div class="language-sql" title="recursive_labeling.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">left</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">    </span><span class="k">right</span><span class="w"> </span><span class="nb">text</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">bi_contact</span>
+<span class="k">select</span>
+<span class="w">    </span><span class="k">left</span><span class="p">,</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">right</span><span class="p">,</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
+<span class="p">;</span>
+
+<span class="c1">-- [keep]</span>
+<span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">labeled</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">select</span>
+<span class="w">        </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
+<span class="w">        </span><span class="n">person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">label</span>
+<span class="w">    </span><span class="k">from</span>
+<span class="w">        </span><span class="n">person</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="c1">-- not &#39;union all&#39;</span>
+<span class="w">    </span><span class="k">select</span>
+<span class="w">        </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
+<span class="w">        </span><span class="n">labeled</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">label</span>
+<span class="w">    </span><span class="k">from</span>
+<span class="w">        </span><span class="p">(</span><span class="n">person</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">left</span><span class="p">)</span>
+<span class="w">        </span><span class="k">join</span><span class="w"> </span><span class="n">labeled</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">labeled</span><span class="p">.</span><span class="n">name</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">labeled</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">ident</span>
+<span class="p">)</span>
+<span class="k">select</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">min</span><span class="p">(</span><span class="n">label</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">group_id</span>
+<span class="k">from</span><span class="w"> </span><span class="n">labeled</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+<span class="c1">-- [/keep]</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="recursive_labeling.out">
+<div class="highlight"><pre><span></span><code>|         name          | group_id |
+|-----------------------|----------|
+| Agustín Rodríquez     | 1        |
+| Ariadna Caraballo     | 1        |
+| Juana Baeza           | 1        |
+| Micaela Laboy         | 1        |
+| Verónica Altamirano   | 1        |
+| Pilar Alarcón         | 6        |
+| Reina Rivero          | 6        |
+| Elias Merino          | 7        |
+| Minerva Guerrero      | 8        |
+| Mauro Balderas        | 9        |
+| Cristal Soliz         | 11       |
+| Daniela Menéndez      | 11       |
+| Marco Antonio Barrera | 11       |
+| Bernardo Narváez      | 14       |
+| Óscar Barrios         | 15       |
+</code></pre></div>
+</div>
+<ul>
+<li>Use <code>union</code> instead of <code>union all</code> to prevent <a class="gl-ref" href="../glossary/#gl:infinite_recursion" markdown="1">infinite recursion</a></li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Modify the query above to use <code>union all</code> instead of <code>union</code> to trigger infinite recursion.
+How can you modify the query so that it stops at a certain depth
+so that you can trace its output?</p>
+<h2 class="aside">Check Understanding</h2>
+<figure id="recursive_concept_map">
+<img src="./recursive_concept_map.svg" alt="box and arrow diagram showing concepts related to common table expressions in SQL"/>
+<figcaption>Figure&nbsp;12.3: common table expressions</figcaption>
+</figure>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>

@@ -1,4 +1,4 @@
-include lib/tut/tutorial.mk
+include lib/mccole/mccole.mk
 include depend.mk
 
 SQLITE := sqlite3

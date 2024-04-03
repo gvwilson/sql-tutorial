@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; Constraints and Triggers</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    
+      <h1>Constraints and Triggers</h1>
+    
+  </div>
+  <div class="col-1"></div>
+</div>
+
+      
+<div class="row notex">
+  <div class="col-1 left">
+    <a href="../composite/">&lArr;</a>
+  </div>
+  <div class="col-10"></div>
+  <div class="col-1 right">
+    <a href="../recursive/">&rArr;</a>
+  </div>
+</div>
+
+
+      
+      <p class="terms">Terms defined: 
+<a class="gl-ref" href="../glossary/#gl:atomic" markdown="1">atomic</a>, <a class="gl-ref" href="../glossary/#gl:consistent" markdown="1">consistent</a>, <a class="gl-ref" href="../glossary/#gl:denormalization" markdown="1">denormalization</a>, <a class="gl-ref" href="../glossary/#gl:durable" markdown="1">durable</a>, <a class="gl-ref" href="../glossary/#gl:isolated" markdown="1">isolated</a>, <a class="gl-ref" href="../glossary/#gl:normal_form" markdown="1">normal form</a>, <a class="gl-ref" href="../glossary/#gl:trigger" markdown="1">trigger</a>, <a class="gl-ref" href="../glossary/#gl:upsert" markdown="1">upsert</a>
+</p>
+      <h2 class="aside">Hours Reminder</h2>
+<div class="language-sql" title="all_jobs.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="all_jobs.out">
+<div class="highlight"><pre><span></span><code>|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+| clean     | 0.5      |
+</code></pre></div>
+</div>
+<h2>Adding Checks</h2>
+<div class="language-sql" title="all_jobs_check.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">billable</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="all_jobs_check.out">
+<div class="highlight"><pre><span></span><code>Runtime error near line 9: CHECK constraint failed: billable &gt; 0.0 (19)
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+</code></pre></div>
+</div>
+<ul>
+<li><code>check</code> adds constraint to table<ul>
+<li>Must produce a Boolean result</li>
+<li>Run each time values added or modified</li>
+</ul>
+</li>
+<li>But changes made before the error have taken effect</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Rewrite the definition of the <code>penguins</code> table to add the following constraints:</p>
+<ol>
+<li>
+<p><code>body_mass_g</code> must be null or non-negative.</p>
+</li>
+<li>
+<p><code>island</code> must be one of <code>"Biscoe"</code>, <code>"Dream"</code>, or <code>"Torgersen"</code>.
+    (Hint: the <code>in</code> operator will be useful here.)</p>
+</li>
+</ol>
+<h2 class="aside">ACID</h2>
+<ul>
+<li><a class="gl-ref" href="../glossary/#gl:atomic" markdown="1">Atomic</a>: change cannot be broken down into smaller ones (i.e., all or nothing)</li>
+<li><a class="gl-ref" href="../glossary/#gl:consistent" markdown="1">Consistent</a>: database goes from one consistent state to another</li>
+<li><a class="gl-ref" href="../glossary/#gl:isolated" markdown="1">Isolated</a>: looks like changes happened one after another</li>
+<li><a class="gl-ref" href="../glossary/#gl:durable" markdown="1">Durable</a>: if change takes place, it&rsquo;s still there after a restart</li>
+</ul>
+<h2>Transactions</h2>
+<div class="language-sql" title="transaction.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">billable</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="k">begin</span><span class="w"> </span><span class="k">transaction</span><span class="p">;</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">rollback</span><span class="p">;</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="transaction.out">
+<div class="highlight"><pre><span></span><code>|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+</code></pre></div>
+</div>
+<ul>
+<li>Statements outside transaction execute and are committed immediately</li>
+<li>Statement(s) inside transaction don&rsquo;t take effect until:<ul>
+<li><code>end transaction</code> (success)</li>
+<li><code>rollback</code> (undo)</li>
+</ul>
+</li>
+<li>Can have any number of statements inside a transaction</li>
+<li>But <em>cannot</em> nest transactions in SQLite<ul>
+<li>Other databases support this</li>
+</ul>
+</li>
+</ul>
+<h2>Rollback in Constraints</h2>
+<div class="language-sql" title="rollback_constraint.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">billable</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="k">rollback</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="rollback_constraint.out">
+<div class="highlight"><pre><span></span><code>Runtime error near line 11: CHECK constraint failed: billable &gt; 0.0 (19)
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+</code></pre></div>
+</div>
+<ul>
+<li>All of second <code>insert</code> rolled back as soon as error occurred</li>
+<li>But first <code>insert</code> took effect</li>
+</ul>
+<h2>Rollback in Statements</h2>
+<div class="language-sql" title="rollback_statement.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">billable</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">rollback</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">rollback</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="rollback_statement.out">
+<div class="highlight"><pre><span></span><code>Runtime error near line 11: CHECK constraint failed: billable &gt; 0.0 (19)
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+</code></pre></div>
+</div>
+<ul>
+<li>Constraint is in table definition</li>
+<li>Action is in statement</li>
+</ul>
+<h2>Upsert</h2>
+<div class="language-sql" title="upsert.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span><span class="p">,</span>
+<span class="w">    </span><span class="n">num</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;zia&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">.</span><span class="n">print</span><span class="w"> </span><span class="s1">&#39;after first&#39;</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">jobs_done</span><span class="p">;</span>
+<span class="p">.</span><span class="n">print</span>
+
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;zia&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">.</span><span class="n">print</span><span class="w"> </span><span class="s1">&#39;after failed&#39;</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">jobs_done</span><span class="p">;</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;zia&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="k">on</span><span class="w"> </span><span class="n">conflict</span><span class="p">(</span><span class="n">person</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">.</span><span class="n">print</span><span class="w"> </span><span class="s1">&#39;\nafter upsert&#39;</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">jobs_done</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="upsert.out">
+<div class="highlight"><pre><span></span><code>after first
+| person | num |
+|--------|-----|
+| zia    | 1   |
+
+Runtime error near line 15: UNIQUE constraint failed: jobs_done.person (19)
+after failed
+| person | num |
+|--------|-----|
+| zia    | 1   |
+\nafter upsert
+| person | num |
+|--------|-----|
+| zia    | 2   |
+</code></pre></div>
+</div>
+<ul>
+<li><a class="gl-ref" href="../glossary/#gl:upsert" markdown="1">upsert</a> stands for &ldquo;update or insert&rdquo;<ul>
+<li>Create if record doesn&rsquo;t exist</li>
+<li>Update if it does</li>
+</ul>
+</li>
+<li>Not standard SQL but widely implemented</li>
+<li>Example also shows use of SQLite <code>.print</code> command</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Using the assay database,
+write a query that adds or modifies people in the <code>staff</code> table as shown:</p>
+<table>
+<thead>
+<tr>
+<th>personal</th>
+<th>family</th>
+<th>dept</th>
+<th>age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pranay</td>
+<td>Khanna</td>
+<td>mb</td>
+<td>41</td>
+</tr>
+<tr>
+<td>Riaan</td>
+<td>Dua</td>
+<td>gen</td>
+<td>23</td>
+</tr>
+<tr>
+<td>Parth</td>
+<td>Johel</td>
+<td>gen</td>
+<td>27</td>
+</tr>
+</tbody>
+</table>
+<h2 class="aside">Normalization</h2>
+<ul>
+<li>
+<p>First <a class="gl-ref" href="../glossary/#gl:normal_form" markdown="1">normal form</a> (1NF):
+    every field of every record contains one indivisible value.</p>
+</li>
+<li>
+<p>Second normal form (2NF) and third normal form (3NF):
+    every value in a record that isn&rsquo;t a key depends solely on the key,
+    not on other values.</p>
+</li>
+<li>
+<p><a class="gl-ref" href="../glossary/#gl:denormalization" markdown="1">Denormalization</a>: explicitly store values that could be calculated on the fly</p>
+<ul>
+<li>To simplify queries and/or make processing faster</li>
+</ul>
+</li>
+</ul>
+<h2>Creating Triggers</h2>
+<div class="language-sql" title="trigger_setup.sql">
+<div class="highlight"><pre><span></span><code><span class="c1">-- Track hours of lab work.</span>
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reported</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">reported</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">-- Explicitly store per-person total rather than using sum().</span>
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">hours</span><span class="w"> </span><span class="nb">real</span>
+<span class="p">);</span>
+
+<span class="c1">-- Initialize totals.</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;august&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c1">-- Define a trigger.</span>
+<span class="k">create</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">total_trigger</span>
+<span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">job</span>
+<span class="k">begin</span>
+<span class="w">    </span><span class="c1">-- Check that the person exists.</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">case</span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">.</span><span class="n">person</span><span class="p">)</span>
+<span class="w">        </span><span class="k">then</span><span class="w"> </span><span class="n">raise</span><span class="p">(</span><span class="k">rollback</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Unknown person &#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">-- Update their total hours (or fail if non-negative constraint violated).</span>
+<span class="w">    </span><span class="k">update</span><span class="w"> </span><span class="n">total</span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">hours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hours</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">new</span><span class="p">.</span><span class="n">reported</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">total</span><span class="p">.</span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">.</span><span class="n">person</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<ul>
+<li>A <a class="gl-ref" href="../glossary/#gl:trigger" markdown="1">trigger</a> automatically runs before or after a specified operation</li>
+<li>Can have side effects (e.g., update some other table)</li>
+<li>And/or implement checks (e.g., make sure other records exist)</li>
+<li>Add processing overhead…</li>
+<li>…but data is either cheap or correct, never both</li>
+<li>Inside trigger, refer to old and new versions of record
+    as <code>old.<em>column</em></code> and <code>new.<em>column</em></code></li>
+</ul>
+<h2>Trigger Not Firing</h2>
+<div class="language-sql" title="trigger_successful.sql">
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">trigger_setup</span><span class="p">.</span><span class="k">sql</span>
+
+<span class="c1">-- [keep]</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;august&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="c1">-- [/keep]</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+<span class="p">.</span><span class="n">print</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="trigger_successful.out">
+<div class="highlight"><pre><span></span><code>| person | reported |
+|--------|----------|
+| gene   | 1.5      |
+| august | 0.5      |
+| gene   | 1.0      |
+
+| person | hours |
+|--------|-------|
+| gene   | 2.5   |
+| august | 0.5   |
+</code></pre></div>
+</div>
+<h2>Trigger Firing</h2>
+<div class="language-sql" title="trigger_firing.sql">
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">trigger_setup</span><span class="p">.</span><span class="k">sql</span>
+
+<span class="c1">-- [keep]</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;august&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="c1">-- [/keep]</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+<span class="p">.</span><span class="n">print</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="trigger_firing.out">
+<div class="highlight"><pre><span></span><code>Runtime error near line 6: CHECK constraint failed: reported &gt;= 0.0 (19)
+
+| person | hours |
+|--------|-------|
+| gene   | 0.0   |
+| august | 0.0   |
+</code></pre></div>
+</div>
+<h2 class="exercise">Exercise</h2>
+<p>Using the penguins database:</p>
+<ol>
+<li>
+<p>create a table called <code>species</code> with columns <code>name</code> and <code>count</code>; and</p>
+</li>
+<li>
+<p>define a trigger that increments the count associated with each species
+    each time a new penguin is added to the <code>penguins</code> table.</p>
+</li>
+</ol>
+<p>Does your solution behave correctly when several penguins are added
+by a single <code>insert</code> statement?</p>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>

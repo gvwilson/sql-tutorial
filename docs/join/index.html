@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; Joins</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    
+      <h1>Joins</h1>
+    
+  </div>
+  <div class="col-1"></div>
+</div>
+
+      
+<div class="row notex">
+  <div class="col-1 left">
+    <a href="../datamod/">&lArr;</a>
+  </div>
+  <div class="col-10"></div>
+  <div class="col-1 right">
+    <a href="../toolbox/">&rArr;</a>
+  </div>
+</div>
+
+
+      
+      <p class="terms">Terms defined: 
+<a class="gl-ref" href="../glossary/#gl:cross_join" markdown="1">cross join</a>, <a class="gl-ref" href="../glossary/#gl:full_outer_join" markdown="1">full outer join</a>, <a class="gl-ref" href="../glossary/#gl:join" markdown="1">join</a>, <a class="gl-ref" href="../glossary/#gl:join_condition" markdown="1">join condition</a>, <a class="gl-ref" href="../glossary/#gl:left_outer_join" markdown="1">left outer join</a>, <a class="gl-ref" href="../glossary/#gl:right_outer_join" markdown="1">right outer join</a>
+</p>
+      <h2>Combining Information</h2>
+<div class="language-sql" title="cross_join.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">cross</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="cross_join.out">
+<div class="highlight"><pre><span></span><code>| person |    job    |   name    | billable |
+|--------|-----------|-----------|----------|
+| mik    | calibrate | calibrate | 1.5      |
+| mik    | calibrate | clean     | 0.5      |
+| mik    | clean     | calibrate | 1.5      |
+| mik    | clean     | clean     | 0.5      |
+| mik    | complain  | calibrate | 1.5      |
+| mik    | complain  | clean     | 0.5      |
+| po     | clean     | calibrate | 1.5      |
+| po     | clean     | clean     | 0.5      |
+| po     | complain  | calibrate | 1.5      |
+| po     | complain  | clean     | 0.5      |
+| tay    | complain  | calibrate | 1.5      |
+| tay    | complain  | clean     | 0.5      |
+</code></pre></div>
+</div>
+<ul>
+<li>A <a class="gl-ref" href="../glossary/#gl:join" markdown="1">join</a> combines information from two tables</li>
+<li><a class="gl-ref" href="../glossary/#gl:cross_join" markdown="1">cross join</a> constructs their cross product<ul>
+<li>All combinations of rows from each</li>
+</ul>
+</li>
+<li>Result isn&rsquo;t particularly useful: <code>job</code> and <code>name</code> values don&rsquo;t match<ul>
+<li>I.e., the combined data has records whose parts have nothing to do with each other</li>
+</ul>
+</li>
+</ul>
+<h2>Inner Join</h2>
+<div class="language-sql" title="inner_join.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span>
+<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="inner_join.out">
+<div class="highlight"><pre><span></span><code>| person |    job    |   name    | billable |
+|--------|-----------|-----------|----------|
+| mik    | calibrate | calibrate | 1.5      |
+| mik    | clean     | clean     | 0.5      |
+| po     | clean     | clean     | 0.5      |
+</code></pre></div>
+</div>
+<ul>
+<li>Use <code><em>table</em>.<em>column</em></code> notation to specify columns<ul>
+<li>A column can have the same name as a table</li>
+</ul>
+</li>
+<li>Use <code>on <em>condition</em></code> to specify <a class="gl-ref" href="../glossary/#gl:join_condition" markdown="1">join condition</a></li>
+<li>Since <code>complain</code> doesn&rsquo;t appear in <code>job.name</code>, none of those rows are kept</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Re-run the query shown above using <code>where job = name</code> instead of the full <code>table.name</code> notation.
+Is the shortened form easier or harder to read
+and more or less likely to cause errors?</p>
+<h2>Aggregating Joined Data</h2>
+<div class="language-sql" title="aggregate_join.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">,</span>
+<span class="w">    </span><span class="k">sum</span><span class="p">(</span><span class="n">job</span><span class="p">.</span><span class="n">billable</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pay</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span>
+<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">name</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="aggregate_join.out">
+<div class="highlight"><pre><span></span><code>| person | pay |
+|--------|-----|
+| mik    | 2.0 |
+| po     | 0.5 |
+</code></pre></div>
+</div>
+<ul>
+<li>Combines ideas we&rsquo;ve seen before</li>
+<li>But Tay is missing from the table<ul>
+<li>No records in the <code>job</code> table with <code>tay</code> as name</li>
+<li>So no records to be grouped and summed</li>
+</ul>
+</li>
+</ul>
+<h2>Left Join</h2>
+<div class="language-sql" title="left_join.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span>
+<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="left_join.out">
+<div class="highlight"><pre><span></span><code>| person |    job    |   name    | billable |
+|--------|-----------|-----------|----------|
+| mik    | calibrate | calibrate | 1.5      |
+| mik    | clean     | clean     | 0.5      |
+| mik    | complain  |           |          |
+| po     | clean     | clean     | 0.5      |
+| po     | complain  |           |          |
+| tay    | complain  |           |          |
+</code></pre></div>
+</div>
+<ul>
+<li>A <a class="gl-ref" href="../glossary/#gl:left_outer_join" markdown="1">left outer join</a> keeps all rows from the left table</li>
+<li>Fills missing values from right table with null</li>
+</ul>
+<h2>Aggregating Left Joins</h2>
+<div class="language-sql" title="aggregate_left_join.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">,</span>
+<span class="w">    </span><span class="k">sum</span><span class="p">(</span><span class="n">job</span><span class="p">.</span><span class="n">billable</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pay</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span>
+<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">name</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="aggregate_left_join.out">
+<div class="highlight"><pre><span></span><code>| person | pay |
+|--------|-----|
+| mik    | 2.0 |
+| po     | 0.5 |
+| tay    |     |
+</code></pre></div>
+</div>
+<ul>
+<li>That&rsquo;s better, but we&rsquo;d like to see 0 rather than a blank</li>
+</ul>
+<h2>Coalescing Values</h2>
+<div class="language-sql" title="coalesce.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">,</span>
+<span class="w">    </span><span class="k">coalesce</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">job</span><span class="p">.</span><span class="n">billable</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pay</span>
+<span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span>
+<span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">name</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="coalesce.out">
+<div class="highlight"><pre><span></span><code>| person | pay |
+|--------|-----|
+| mik    | 2.0 |
+| po     | 0.5 |
+| tay    | 0.0 |
+</code></pre></div>
+</div>
+<ul>
+<li><code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value</li>
+</ul>
+<h2 class="aside">Full Outer Join</h2>
+<ul>
+<li><a class="gl-ref" href="../glossary/#gl:full_outer_join" markdown="1">Full outer join</a> is the union of
+    left outer join and <a class="gl-ref" href="../glossary/#gl:right_outer_join" markdown="1">right outer join</a></li>
+<li>Almost the same as cross join, but consider:</li>
+</ul>
+<div class="language-sql" title="full_outer_join.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;light&#39;</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;heavy&#39;</span><span class="p">);</span>
+
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">weight</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">w</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="k">full</span><span class="w"> </span><span class="k">outer</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="full_outer_join.out">
+<div class="highlight"><pre><span></span><code>|   s   | w |
+|-------|---|
+| light |   |
+| heavy |   |
+</code></pre></div>
+</div>
+<ul>
+<li>A cross join would produce empty result</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Find the least time each person spent on any job.
+Your output should show that <code>mik</code> and <code>po</code> each spent 0.5 hours on some job.
+Can you find a way to show the name of the job as well
+using the SQL you have seen so far?</p>
+<h2 class="aside">Check Understanding</h2>
+<figure id="join_concept_map">
+<img src="./join_concept_map.svg" alt="box and arrow diagram of concepts related to joining tables"/>
+<figcaption>Figure&nbsp;6.1: join</figcaption>
+</figure>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include "head.html" %}
+  </head>
+  <body>
+    <main>
+      {% include "title.html" %}
+      {% include "prevnext.html" %}
+      {{ node | keypoints }}
+      {{ node | termdefs }}
+      {{ node.html }}
+    </main>
+    {% include "foot.html" %}
+  </body>
+</html>

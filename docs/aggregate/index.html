@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; Aggregating</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-1"></div>
+  <div class="col-10 center">
+    
+      <h1>Aggregating</h1>
+    
+  </div>
+  <div class="col-1"></div>
+</div>
+
+      
+<div class="row notex">
+  <div class="col-1 left">
+    <a href="../missing/">&lArr;</a>
+  </div>
+  <div class="col-10"></div>
+  <div class="col-1 right">
+    <a href="../datamod/">&rArr;</a>
+  </div>
+</div>
+
+
+      
+      <p class="terms">Terms defined: 
+<a class="gl-ref" href="../glossary/#gl:aggregation" markdown="1">aggregation</a>, <a class="gl-ref" href="../glossary/#gl:aggregation_func" markdown="1">aggregation function</a>, <a class="gl-ref" href="../glossary/#gl:group" markdown="1">group</a>
+</p>
+      <h2>Aggregating</h2>
+<div class="language-sql" title="simple_sum.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_mass</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="simple_sum.out">
+<div class="highlight"><pre><span></span><code>| total_mass |
+|------------|
+| 1437000.0  |
+</code></pre></div>
+</div>
+<ul>
+<li><a class="gl-ref" href="../glossary/#gl:aggregation" markdown="1">Aggregation</a> combines many values to produce one</li>
+<li><code>sum</code> is an <a class="gl-ref" href="../glossary/#gl:aggregation_func" markdown="1">aggregation function</a></li>
+<li>Combines corresponding values from multiple rows</li>
+</ul>
+<h2>Common Aggregation Functions</h2>
+<div class="language-sql" title="common_aggregations.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="k">max</span><span class="p">(</span><span class="n">bill_length_mm</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">longest_bill</span><span class="p">,</span>
+<span class="w">    </span><span class="k">min</span><span class="p">(</span><span class="n">flipper_length_mm</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">shortest_flipper</span><span class="p">,</span>
+<span class="w">    </span><span class="k">avg</span><span class="p">(</span><span class="n">bill_length_mm</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="k">avg</span><span class="p">(</span><span class="n">bill_depth_mm</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">weird_ratio</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="common_aggregations.out">
+<div class="highlight"><pre><span></span><code>| longest_bill | shortest_flipper |   weird_ratio    |
+|--------------|------------------|------------------|
+| 59.6         | 172.0            | 2.56087082530644 |
+</code></pre></div>
+</div>
+<ul>
+<li>This actually shouldn&rsquo;t work:
+    can&rsquo;t calculate maximum or average if any values are null</li>
+<li>SQL does the useful thing instead of the right one</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>What is the average body mass of penguins that weight more than 3000.0 grams?</p>
+<h2>Counting</h2>
+<div class="language-sql" title="count_behavior.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">count_star</span><span class="p">,</span>
+<span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="n">sex</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">count_specific</span><span class="p">,</span>
+<span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="k">distinct</span><span class="w"> </span><span class="n">sex</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">count_distinct</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="count_behavior.out">
+<div class="highlight"><pre><span></span><code>| count_star | count_specific | count_distinct |
+|------------|----------------|----------------|
+| 344        | 333            | 2              |
+</code></pre></div>
+</div>
+<ul>
+<li><code>count(*)</code> counts rows</li>
+<li><code>count(<em>column</em>)</code> counts non-null entries in column</li>
+<li><code>count(distinct <em>column</em>)</code> counts distinct non-null entries</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>How many different body masses are in the penguins dataset?</p>
+<h2>Grouping</h2>
+<div class="language-sql" title="simple_group.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="simple_group.out">
+<div class="highlight"><pre><span></span><code>|  average_mass_g  |
+|------------------|
+| 4005.55555555556 |
+| 3862.27272727273 |
+| 4545.68452380952 |
+</code></pre></div>
+</div>
+<ul>
+<li>Put rows in <a class="gl-ref" href="../glossary/#gl:group" markdown="1">groups</a> based on distinct combinations of values in columns specified with <code>group by</code></li>
+<li>Then perform aggregation separately for each group</li>
+<li>But which is which?</li>
+</ul>
+<h2>Behavior of Unaggregated Columns</h2>
+<div class="language-sql" title="unaggregated_columns.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">sex</span><span class="p">,</span>
+<span class="w">    </span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="unaggregated_columns.out">
+<div class="highlight"><pre><span></span><code>|  sex   |  average_mass_g  |
+|--------|------------------|
+|        | 4005.55555555556 |
+| FEMALE | 3862.27272727273 |
+| MALE   | 4545.68452380952 |
+</code></pre></div>
+</div>
+<ul>
+<li>All rows in each group have the same value for <code>sex</code>, so no need to aggregate</li>
+</ul>
+<h2>Arbitrary Choice in Aggregation</h2>
+<div class="language-sql" title="arbitrary_in_aggregation.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">sex</span><span class="p">,</span>
+<span class="w">    </span><span class="n">body_mass_g</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="arbitrary_in_aggregation.out">
+<div class="highlight"><pre><span></span><code>|  sex   | body_mass_g |
+|--------|-------------|
+|        |             |
+| FEMALE | 3800.0      |
+| MALE   | 3750.0      |
+</code></pre></div>
+</div>
+<ul>
+<li>If we don&rsquo;t specify how to aggregate a column,
+    SQLite chooses <em>any arbitrary value</em> from the group<ul>
+<li>All penguins in each group have the same sex because we grouped by that, so we get the right answer</li>
+<li>The body mass values are in the data but unpredictable</li>
+<li>A common mistake</li>
+</ul>
+</li>
+<li>Other database managers don&rsquo;t do this<ul>
+<li>E.g., PostgreSQL complains that column must be used in an aggregation function</li>
+</ul>
+</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Explain why the output of the previous query
+has a blank line before the rows for female and male penguins.</p>
+<p>Write a query that shows each distinct body mass in the penguin dataset
+and the number of penguins that weigh that much.</p>
+<h2>Filtering Aggregated Values</h2>
+<div class="language-sql" title="filter_aggregation.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">sex</span><span class="p">,</span>
+<span class="w">    </span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span>
+<span class="k">having</span><span class="w"> </span><span class="n">average_mass_g</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4000</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="filter_aggregation.out">
+<div class="highlight"><pre><span></span><code>| sex  |  average_mass_g  |
+|------|------------------|
+|      | 4005.55555555556 |
+| MALE | 4545.68452380952 |
+</code></pre></div>
+</div>
+<ul>
+<li>Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates</li>
+</ul>
+<h2>Readable Output</h2>
+<div class="language-sql" title="readable_aggregation.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">sex</span><span class="p">,</span>
+<span class="w">    </span><span class="n">round</span><span class="p">(</span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span>
+<span class="k">having</span><span class="w"> </span><span class="n">average_mass_g</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4000</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="readable_aggregation.out">
+<div class="highlight"><pre><span></span><code>| sex  | average_mass_g |
+|------|----------------|
+|      | 4005.6         |
+| MALE | 4545.7         |
+</code></pre></div>
+</div>
+<ul>
+<li>Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number</li>
+</ul>
+<h2>Filtering Aggregate Inputs</h2>
+<div class="language-sql" title="filter_aggregate_inputs.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">sex</span><span class="p">,</span>
+<span class="w">    </span><span class="n">round</span><span class="p">(</span>
+<span class="w">        </span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="p">(</span><span class="k">where</span><span class="w"> </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">4000</span><span class="p">.</span><span class="mi">0</span><span class="p">),</span>
+<span class="w">        </span><span class="mi">1</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="filter_aggregate_inputs.out">
+<div class="highlight"><pre><span></span><code>|  sex   | average_mass_g |
+|--------|----------------|
+|        | 3362.5         |
+| FEMALE | 3417.3         |
+| MALE   | 3729.6         |
+</code></pre></div>
+</div>
+<ul>
+<li><code>filter (where <em>condition</em>)</code> applies to <em>inputs</em></li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Write a query that uses <code>filter</code> to calculate the average body masses
+of heavy penguins (those over 4500 grams)
+and light penguins (those under 3500 grams)
+simultaneously.
+Is it possible to do this using <code>where</code> instead of <code>filter</code>?</p>
+<h2 class="aside">Check Understanding</h2>
+<figure id="aggregate_concept_map">
+<img src="./aggregate_concept_map.svg" alt="box and arrow diagram of concepts related to aggregation in SQL"/>
+<figcaption>Figure&nbsp;4.1: aggregation</figcaption>
+</figure>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>

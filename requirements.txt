@@ -1,5 +1,5 @@
+-r lib/mccole/requirements.txt
 adbc-driver-sqlite
-ark
 click
 faker
 jupysql
@@ -7,8 +7,6 @@ jupyter
 pandas
 polars
 pyarrow
-pymdown-extensions
-ruff
 sqlfluff
 sqlmodel
 sqlparse
