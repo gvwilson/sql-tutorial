@@ -2,6 +2,8 @@
 title: PostgreSQL
 ---
 
+*Contributed by [Konstantinos Kitsios][kitsios_konstantinos].*
+
 <!-- ---------------------------------------------------------------- -->
 [% section_start class="topic" title="Why PostgreSQL?" %]
 

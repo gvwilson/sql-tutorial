@@ -50,6 +50,12 @@
   url: "https://numist.github.io/highlight-css/"
   title: "highlight-css"
 
+# K
+
+- key: "kitsios_konstantinos"
+  url: "https://kitsiosk.github.io/"
+  title: "Konstantinos Kitsios"
+
 # M
 
 - key: "mongodb"
