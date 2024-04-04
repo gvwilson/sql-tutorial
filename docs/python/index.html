@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../tango.css" type="text/css">
 <link rel="stylesheet" href="../mccole.css" type="text/css">
 <title>The Querynomicon &middot; Python</title>
 <script>
@@ -54,7 +55,7 @@
 <a class="gl-ref" href="../glossary/#gl:cursor" markdown="1">cursor</a>, <a class="gl-ref" href="../glossary/#gl:orm" markdown="1">object-relational mapper</a>, <a class="gl-ref" href="../glossary/#gl:uri" markdown="1">Uniform Resource Identifier</a>
 </p>
       <h2>Querying from Python</h2>
-<div class="language-py" title="basic_python_query.py">
+<div class="language-py highlighter-rouge" title="basic_python_query.py">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
 
 <span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;db/penguins.db&quot;</span><span class="p">)</span>
@@ -63,7 +64,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="basic_python_query.out">
+<div class="language-out highlighter-rouge" title="basic_python_query.out">
 <div class="highlight"><pre><span></span><code>[(344,)]
 </code></pre></div>
 </div>
@@ -77,7 +78,7 @@
 <li>Fetch all rows at once as list of tuples</li>
 </ul>
 <h2>Incremental Fetch</h2>
-<div class="language-py" title="incremental_fetch.py">
+<div class="language-py highlighter-rouge" title="incremental_fetch.py">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
 
 <span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;db/penguins.db&quot;</span><span class="p">)</span>
@@ -87,7 +88,7 @@
     <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="incremental_fetch.out">
+<div class="language-out highlighter-rouge" title="incremental_fetch.out">
 <div class="highlight"><pre><span></span><code>(&#39;Adelie&#39;, &#39;Torgersen&#39;)
 (&#39;Adelie&#39;, &#39;Torgersen&#39;)
 (&#39;Adelie&#39;, &#39;Torgersen&#39;)
@@ -100,7 +101,7 @@
 <li>There is also <code>fetchmany(N)</code> to fetch (up to) a certain number of rows</li>
 </ul>
 <h2>Insert, Delete, and All That</h2>
-<div class="language-py" title="insert_delete.py">
+<div class="language-py highlighter-rouge" title="insert_delete.py">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
 
 <span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">)</span>
@@ -114,7 +115,7 @@
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;after deletion&quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="insert_delete.out">
+<div class="language-out highlighter-rouge" title="insert_delete.out">
 <div class="highlight"><pre><span></span><code>after insertion [(10,), (20,)]
 after deletion [(20,)]
 </code></pre></div>
@@ -123,7 +124,7 @@ after deletion [(20,)]
 <li>Each <code>execute</code> is its own transaction</li>
 </ul>
 <h2>Interpolating Values</h2>
-<div class="language-py" title="interpolate.py">
+<div class="language-py highlighter-rouge" title="interpolate.py">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
 
 <span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;:memory:&quot;</span><span class="p">)</span>
@@ -134,7 +135,7 @@ after deletion [(20,)]
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;after insertion&quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="interpolate.out">
+<div class="language-out highlighter-rouge" title="interpolate.out">
 <div class="highlight"><pre><span></span><code>after insertion [(10,), (20,)]
 </code></pre></div>
 </div>
@@ -150,7 +151,7 @@ after deletion [(20,)]
 <p>Write a Python script that takes island, species, sex, and other values as command-line arguments
 and inserts an entry into the penguins database.</p>
 <h2>Script Execution</h2>
-<div class="language-py" title="script_execution.py">
+<div class="language-py highlighter-rouge" title="script_execution.py">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
 
 <span class="n">SETUP</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
@@ -165,7 +166,7 @@ and inserts an entry into the penguins database.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;after insertion&quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="script_execution.out">
+<div class="language-out highlighter-rouge" title="script_execution.out">
 <div class="highlight"><pre><span></span><code>after insertion [(10,), (20,)]
 </code></pre></div>
 </div>
@@ -173,7 +174,7 @@ and inserts an entry into the penguins database.</p>
 <li>But what if something goes wrong?</li>
 </ul>
 <h2>SQLite Exceptions in Python</h2>
-<div class="language-py" title="exceptions.py">
+<div class="language-py highlighter-rouge" title="exceptions.py">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
 
 <span class="n">SETUP</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
@@ -192,13 +193,13 @@ and inserts an entry into the penguins database.</p>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;after execution&quot;</span><span class="p">,</span> <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;select * from example;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchall</span><span class="p">())</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="exceptions.out">
+<div class="language-out highlighter-rouge" title="exceptions.out">
 <div class="highlight"><pre><span></span><code>SQLite exception: CHECK constraint failed: num &gt; 0
 after execution [(10,)]
 </code></pre></div>
 </div>
 <h2>Python in SQLite</h2>
-<div class="language-py" title="embedded_python.py">
+<div class="language-py highlighter-rouge" title="embedded_python.py">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlite3</span>
 
 <span class="n">SETUP</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
@@ -223,7 +224,7 @@ after execution [(10,)]
     <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="embedded_python.out">
+<div class="language-out highlighter-rouge" title="embedded_python.out">
 <div class="highlight"><pre><span></span><code>(-10, 0)
 (10, 10)
 (20, 20)
@@ -236,7 +237,7 @@ after execution [(10,)]
 <li>Be careful</li>
 </ul>
 <h2>Handling Dates and Times</h2>
-<div class="language-py" title="dates_times.py">
+<div class="language-py highlighter-rouge" title="dates_times.py">
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 
@@ -276,7 +277,7 @@ after execution [(10,)]
     <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="dates_times.out">
+<div class="language-out highlighter-rouge" title="dates_times.out">
 <div class="highlight"><pre><span></span><code>(datetime.date(2024, 1, 10), &#39;started tutorial&#39;)
 (datetime.date(2024, 1, 29), &#39;finished tutorial&#39;)
 </code></pre></div>
@@ -289,25 +290,25 @@ after execution [(10,)]
 <p>Write a Python adapter that truncates real values to two decimal places
 as they are being written to the database.</p>
 <h2>SQL in Jupyter Notebooks</h2>
-<div class="language-sh" title="install_jupysql.sh">
+<div class="language-sh highlighter-rouge" title="install_jupysql.sh">
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>jupysql
 </code></pre></div>
 </div>
 <ul>
 <li>And then inside the notebook:</li>
 </ul>
-<div class="language-text" title="load_ext.text">
+<div class="language-text highlighter-rouge" title="load_ext.text">
 <div class="highlight"><pre><span></span><code>%load_ext sql
 </code></pre></div>
 </div>
 <ul>
 <li>Loads extension</li>
 </ul>
-<div class="language-text" title="jupyter_connect.text">
+<div class="language-text highlighter-rouge" title="jupyter_connect.text">
 <div class="highlight"><pre><span></span><code>%sql sqlite:///db/penguins.db
 </code></pre></div>
 </div>
-<div class="language-out" title="jupyter_connect.out">
+<div class="language-out highlighter-rouge" title="jupyter_connect.out">
 <div class="highlight"><pre><span></span><code>Connecting to &#39;sqlite:///data/penguins.db&#39;
 </code></pre></div>
 </div>
@@ -320,14 +321,14 @@ as they are being written to the database.</p>
 <li>Single percent sign <code>%sql</code> introduces one-line command</li>
 <li>Use double percent sign <code>%%sql</code> to indicate that the rest of the cell is SQL</li>
 </ul>
-<div class="language-text" title="jupyter_select.text">
+<div class="language-text highlighter-rouge" title="jupyter_select.text">
 <div class="highlight"><pre><span></span><code>%%sql
 select species, count(*) as num
 from penguins
 group by species;
 </code></pre></div>
 </div>
-<div class="language-out" title="jupyter_select.out">
+<div class="language-out highlighter-rouge" title="jupyter_select.out">
 <div class="highlight"><pre><span></span><code>Running query in &#39;sqlite:///data/penguins.db&#39;
 </code></pre></div>
 </div>
@@ -355,11 +356,11 @@ group by species;
 </table>
 
 <h2>Pandas and SQL</h2>
-<div class="language-sh" title="install_pandas.sh">
+<div class="language-sh highlighter-rouge" title="install_pandas.sh">
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>pandas
 </code></pre></div>
 </div>
-<div class="language-py" title="select_pandas.py">
+<div class="language-py highlighter-rouge" title="select_pandas.py">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 
@@ -369,7 +370,7 @@ group by species;
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="select_pandas.out">
+<div class="language-out highlighter-rouge" title="select_pandas.out">
 <div class="highlight"><pre><span></span><code>     species  num
 0     Adelie  152
 1  Chinstrap   68
@@ -382,11 +383,11 @@ group by species;
 <h2 class="exercise">Exercise</h2>
 <p>Write a command-line Python script that uses Pandas to re-create the penguins database.</p>
 <h2>Polars and SQL</h2>
-<div class="language-sh" title="install_polars.sh">
+<div class="language-sh highlighter-rouge" title="install_polars.sh">
 <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>polars<span class="w"> </span>pyarrow<span class="w"> </span>adbc-driver-sqlite
 </code></pre></div>
 </div>
-<div class="language-py" title="select_polars.py">
+<div class="language-py highlighter-rouge" title="select_polars.py">
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">polars</span> <span class="k">as</span> <span class="nn">pl</span>
 
 <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;select species, count(*) as num from penguins group by species;&quot;</span>
@@ -395,7 +396,7 @@ group by species;
 <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="select_polars.out">
+<div class="language-out highlighter-rouge" title="select_polars.out">
 <div class="highlight"><pre><span></span><code>shape: (3, 2)
 ┌───────────┬─────┐
 │ species   ┆ num │
@@ -416,7 +417,7 @@ group by species;
 <h2 class="exercise">Exercise</h2>
 <p>Write a command-line Python script that uses Polars to re-create the penguins database.</p>
 <h2>Object-Relational Mappers</h2>
-<div class="language-py" title="orm.py">
+<div class="language-py highlighter-rouge" title="orm.py">
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sqlmodel</span> <span class="kn">import</span> <span class="n">Field</span><span class="p">,</span> <span class="n">Session</span><span class="p">,</span> <span class="n">SQLModel</span><span class="p">,</span> <span class="n">create_engine</span><span class="p">,</span> <span class="n">select</span>
 
 
@@ -433,7 +434,7 @@ group by species;
         <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="orm.out">
+<div class="language-out highlighter-rouge" title="orm.out">
 <div class="highlight"><pre><span></span><code>building=&#39;Chesson&#39; name=&#39;Genetics&#39; ident=&#39;gen&#39;
 building=&#39;Fashet Extension&#39; name=&#39;Histology&#39; ident=&#39;hist&#39;
 building=&#39;Chesson&#39; name=&#39;Molecular Biology&#39; ident=&#39;mb&#39;
@@ -447,7 +448,7 @@ building=&#39;TGVH&#39; name=&#39;Endocrinology&#39; ident=&#39;end&#39;
 <h2 class="exericse">Exercise</h2>
 <p>Write a command-line Python script that uses SQLModel to re-create the penguins database.</p>
 <h2>Relations with ORMs</h2>
-<div class="language-py" title="orm_relation.py">
+<div class="language-py highlighter-rouge" title="orm_relation.py">
 <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Staff</span><span class="p">(</span><span class="n">SQLModel</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="n">ident</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">personal</span><span class="p">:</span> <span class="nb">str</span>
@@ -464,7 +465,7 @@ building=&#39;TGVH&#39; name=&#39;Endocrinology&#39; ident=&#39;end&#39;
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">dept</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">staff</span><span class="o">.</span><span class="n">personal</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">staff</span><span class="o">.</span><span class="n">family</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="orm_relation.out">
+<div class="language-out highlighter-rouge" title="orm_relation.out">
 <div class="highlight"><pre><span></span><code>Histology: Divit Dhaliwal
 Molecular Biology: Indrans Sridhar
 Molecular Biology: Pranay Khanna

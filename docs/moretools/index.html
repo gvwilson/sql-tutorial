@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../tango.css" type="text/css">
 <link rel="stylesheet" href="../mccole.css" type="text/css">
 <title>The Querynomicon &middot; More Tools</title>
 <script>
@@ -57,7 +58,7 @@
 <ul>
 <li>Go back to the original penguins database</li>
 </ul>
-<div class="language-sql" title="compare_individual_aggregate.sql">
+<div class="language-sql highlighter-rouge" title="compare_individual_aggregate.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">body_mass_g</span>
 <span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
 <span class="k">where</span>
@@ -68,7 +69,7 @@
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="compare_individual_aggregate.out">
+<div class="language-out highlighter-rouge" title="compare_individual_aggregate.out">
 <div class="highlight"><pre><span></span><code>| body_mass_g |
 |-------------|
 | 4675.0      |
@@ -91,7 +92,7 @@
 <p>Use a subquery to find the number of penguins
 that weigh the same as the lightest penguin.</p>
 <h2>Comparing Individual Values to Aggregates Within Groups</h2>
-<div class="language-sql" title="compare_within_groups.sql">
+<div class="language-sql highlighter-rouge" title="compare_within_groups.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">penguins</span><span class="p">.</span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">penguins</span><span class="p">.</span><span class="n">body_mass_g</span><span class="p">,</span>
@@ -108,7 +109,7 @@ that weigh the same as the lightest penguin.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="compare_within_groups.out">
+<div class="language-out highlighter-rouge" title="compare_within_groups.out">
 <div class="highlight"><pre><span></span><code>| species | body_mass_g | avg_mass_g |
 |---------|-------------|------------|
 | Adelie  | 3750.0      | 3700.7     |
@@ -127,7 +128,7 @@ that weigh the same as the lightest penguin.</p>
 <p>Use a subquery to find the number of penguins
 that weigh the same as the lightest penguin of the same sex and species.</p>
 <h2>Common Table Expressions</h2>
-<div class="language-sql" title="common_table_expressions.sql">
+<div class="language-sql highlighter-rouge" title="common_table_expressions.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">grouped</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">species</span><span class="p">,</span>
@@ -145,7 +146,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="common_table_expressions.out">
+<div class="language-out highlighter-rouge" title="common_table_expressions.out">
 <div class="highlight"><pre><span></span><code>| species | body_mass_g | avg_mass_g |
 |---------|-------------|------------|
 | Adelie  | 3750.0      | 3700.7     |
@@ -163,7 +164,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <li>Database decides how to optimize</li>
 </ul>
 <h2 class="aside">Explaining Query Plans</h2>
-<div class="language-sql" title="explain_query_plan.sql">
+<div class="language-sql highlighter-rouge" title="explain_query_plan.sql">
 <div class="highlight"><pre><span></span><code><span class="k">explain</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">plan</span>
 <span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
@@ -172,7 +173,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="explain_query_plan.out">
+<div class="language-out highlighter-rouge" title="explain_query_plan.out">
 <div class="highlight"><pre><span></span><code>QUERY PLAN
 |--SCAN penguins
 `--USE TEMP B-TREE FOR GROUP BY
@@ -190,7 +191,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <ul>
 <li>Every table has a special column called <code>rowid</code></li>
 </ul>
-<div class="language-sql" title="rowid.sql">
+<div class="language-sql highlighter-rouge" title="rowid.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">rowid</span><span class="p">,</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
@@ -199,7 +200,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="rowid.out">
+<div class="language-out highlighter-rouge" title="rowid.out">
 <div class="highlight"><pre><span></span><code>| rowid | species |  island   |
 |-------|---------|-----------|
 | 1     | Adelie  | Torgersen |
@@ -236,7 +237,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 </li>
 </ol>
 <h2>Conditionals</h2>
-<div class="language-sql" title="if_else.sql">
+<div class="language-sql highlighter-rouge" title="if_else.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">sized_penguins</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">species</span><span class="p">,</span>
@@ -258,7 +259,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="if_else.out">
+<div class="language-out highlighter-rouge" title="if_else.out">
 <div class="highlight"><pre><span></span><code>|  species  | size  | num |
 |-----------|-------|-----|
 | Adelie    | small | 54  |
@@ -293,7 +294,7 @@ Which ones do you think actually attempt to divide by zero?</p>
 <li>What if we want small, medium, and large?</li>
 <li>Can nest <code>iif</code>, but quickly becomes unreadable</li>
 </ul>
-<div class="language-sql" title="case_when.sql">
+<div class="language-sql highlighter-rouge" title="case_when.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">sized_penguins</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">species</span><span class="p">,</span>
@@ -315,7 +316,7 @@ Which ones do you think actually attempt to divide by zero?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="case_when.out">
+<div class="language-out highlighter-rouge" title="case_when.out">
 <div class="highlight"><pre><span></span><code>|  species  |  size  | num |
 |-----------|--------|-----|
 | Adelie    | small  | 54  |
@@ -339,7 +340,7 @@ rather than to the individual <code>when</code> branches.
 (This exercise shows that <code>case</code>/<code>when</code> is an <a class="gl-ref" href="../glossary/#gl:expression" markdown="1">expression</a>
 rather than a <a class="gl-ref" href="../glossary/#gl:statement" markdown="1">statement</a>.)</p>
 <h2>Checking a Range</h2>
-<div class="language-sql" title="check_range.sql">
+<div class="language-sql highlighter-rouge" title="check_range.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">sized_penguins</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">species</span><span class="p">,</span>
@@ -360,7 +361,7 @@ rather than a <a class="gl-ref" href="../glossary/#gl:statement" markdown="1">st
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="check_range.out">
+<div class="language-out highlighter-rouge" title="check_range.out">
 <div class="highlight"><pre><span></span><code>|  species  |   size   | num |
 |-----------|----------|-----|
 | Adelie    | abnormal | 54  |
@@ -441,11 +442,11 @@ so that it is true in both cases.</p>
 <figcaption>Figure&nbsp;8.2: assay ER diagram</figcaption>
 </figure>
 
-<div class="language-sql" title="assay_staff.sql">
+<div class="language-sql highlighter-rouge" title="assay_staff.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">staff</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="assay_staff.out">
+<div class="language-out highlighter-rouge" title="assay_staff.out">
 <div class="highlight"><pre><span></span><code>| ident | personal |  family   | dept | age |
 |-------|----------|-----------|------|-----|
 | 1     | Kartik   | Gupta     |      | 46  |
@@ -470,7 +471,7 @@ so that it is true in both cases.</p>
 <li><code>student</code> has <code>person_id</code>, <code>section_id</code>, and <code>status</code></li>
 </ul>
 <h2>Pattern Matching</h2>
-<div class="language-sql" title="like_glob.sql">
+<div class="language-sql highlighter-rouge" title="like_glob.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">personal</span><span class="p">,</span>
 <span class="w">    </span><span class="n">family</span>
@@ -478,7 +479,7 @@ so that it is true in both cases.</p>
 <span class="k">where</span><span class="w"> </span><span class="n">personal</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%ya%&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="like_glob.out">
+<div class="language-out highlighter-rouge" title="like_glob.out">
 <div class="highlight"><pre><span></span><code>| personal | family |
 |----------|--------|
 | Nitya    | Lal    |

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../tango.css" type="text/css">
 <link rel="stylesheet" href="../mccole.css" type="text/css">
 <title>The Querynomicon &middot; Constraints and Triggers</title>
 <script>
@@ -54,7 +55,7 @@
 <a class="gl-ref" href="../glossary/#gl:atomic" markdown="1">atomic</a>, <a class="gl-ref" href="../glossary/#gl:consistent" markdown="1">consistent</a>, <a class="gl-ref" href="../glossary/#gl:denormalization" markdown="1">denormalization</a>, <a class="gl-ref" href="../glossary/#gl:durable" markdown="1">durable</a>, <a class="gl-ref" href="../glossary/#gl:isolated" markdown="1">isolated</a>, <a class="gl-ref" href="../glossary/#gl:normal_form" markdown="1">normal form</a>, <a class="gl-ref" href="../glossary/#gl:trigger" markdown="1">trigger</a>, <a class="gl-ref" href="../glossary/#gl:upsert" markdown="1">upsert</a>
 </p>
       <h2 class="aside">Hours Reminder</h2>
-<div class="language-sql" title="all_jobs.sql">
+<div class="language-sql highlighter-rouge" title="all_jobs.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
@@ -65,7 +66,7 @@
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="all_jobs.out">
+<div class="language-out highlighter-rouge" title="all_jobs.out">
 <div class="highlight"><pre><span></span><code>|   name    | billable |
 |-----------|----------|
 | calibrate | 1.5      |
@@ -73,7 +74,7 @@
 </code></pre></div>
 </div>
 <h2>Adding Checks</h2>
-<div class="language-sql" title="all_jobs_check.sql">
+<div class="language-sql highlighter-rouge" title="all_jobs_check.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
@@ -84,7 +85,7 @@
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="all_jobs_check.out">
+<div class="language-out highlighter-rouge" title="all_jobs_check.out">
 <div class="highlight"><pre><span></span><code>Runtime error near line 9: CHECK constraint failed: billable &gt; 0.0 (19)
 |   name    | billable |
 |-----------|----------|
@@ -118,7 +119,7 @@
 <li><a class="gl-ref" href="../glossary/#gl:durable" markdown="1">Durable</a>: if change takes place, it&rsquo;s still there after a restart</li>
 </ul>
 <h2>Transactions</h2>
-<div class="language-sql" title="transaction.sql">
+<div class="language-sql highlighter-rouge" title="transaction.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
@@ -134,7 +135,7 @@
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="transaction.out">
+<div class="language-out highlighter-rouge" title="transaction.out">
 <div class="highlight"><pre><span></span><code>|   name    | billable |
 |-----------|----------|
 | calibrate | 1.5      |
@@ -154,7 +155,7 @@
 </li>
 </ul>
 <h2>Rollback in Constraints</h2>
-<div class="language-sql" title="rollback_constraint.sql">
+<div class="language-sql highlighter-rouge" title="rollback_constraint.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
@@ -170,7 +171,7 @@
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="rollback_constraint.out">
+<div class="language-out highlighter-rouge" title="rollback_constraint.out">
 <div class="highlight"><pre><span></span><code>Runtime error near line 11: CHECK constraint failed: billable &gt; 0.0 (19)
 |   name    | billable |
 |-----------|----------|
@@ -182,7 +183,7 @@
 <li>But first <code>insert</code> took effect</li>
 </ul>
 <h2>Rollback in Statements</h2>
-<div class="language-sql" title="rollback_statement.sql">
+<div class="language-sql highlighter-rouge" title="rollback_statement.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
@@ -198,7 +199,7 @@
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="rollback_statement.out">
+<div class="language-out highlighter-rouge" title="rollback_statement.out">
 <div class="highlight"><pre><span></span><code>Runtime error near line 11: CHECK constraint failed: billable &gt; 0.0 (19)
 |   name    | billable |
 |-----------|----------|
@@ -210,7 +211,7 @@
 <li>Action is in statement</li>
 </ul>
 <h2>Upsert</h2>
-<div class="language-sql" title="upsert.sql">
+<div class="language-sql highlighter-rouge" title="upsert.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span><span class="p">,</span>
 <span class="w">    </span><span class="n">num</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">0</span>
@@ -235,7 +236,7 @@
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">jobs_done</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="upsert.out">
+<div class="language-out highlighter-rouge" title="upsert.out">
 <div class="highlight"><pre><span></span><code>after first
 | person | num |
 |--------|-----|
@@ -313,7 +314,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
 </li>
 </ul>
 <h2>Creating Triggers</h2>
-<div class="language-sql" title="trigger_setup.sql">
+<div class="language-sql highlighter-rouge" title="trigger_setup.sql">
 <div class="highlight"><pre><span></span><code><span class="c1">-- Track hours of lab work.</span>
 <span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
@@ -357,7 +358,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
     as <code>old.<em>column</em></code> and <code>new.<em>column</em></code></li>
 </ul>
 <h2>Trigger Not Firing</h2>
-<div class="language-sql" title="trigger_successful.sql">
+<div class="language-sql highlighter-rouge" title="trigger_successful.sql">
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">trigger_setup</span><span class="p">.</span><span class="k">sql</span>
 
 <span class="c1">-- [keep]</span>
@@ -372,7 +373,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="trigger_successful.out">
+<div class="language-out highlighter-rouge" title="trigger_successful.out">
 <div class="highlight"><pre><span></span><code>| person | reported |
 |--------|----------|
 | gene   | 1.5      |
@@ -386,7 +387,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
 </code></pre></div>
 </div>
 <h2>Trigger Firing</h2>
-<div class="language-sql" title="trigger_firing.sql">
+<div class="language-sql highlighter-rouge" title="trigger_firing.sql">
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">trigger_setup</span><span class="p">.</span><span class="k">sql</span>
 
 <span class="c1">-- [keep]</span>
@@ -400,7 +401,7 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">total</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="trigger_firing.out">
+<div class="language-out highlighter-rouge" title="trigger_firing.out">
 <div class="highlight"><pre><span></span><code>Runtime error near line 6: CHECK constraint failed: reported &gt;= 0.0 (19)
 
 | person | hours |

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../tango.css" type="text/css">
 <link rel="stylesheet" href="../mccole.css" type="text/css">
 <title>The Querynomicon &middot; PostgreSQL</title>
 <script>
@@ -153,14 +154,14 @@
 <p>Run the query to see the first entries of the <code>penguins</code> table.</p>
 </li>
 </ul>
-<div class="language-sql" title="select_penguins.sql">
+<div class="language-sql highlighter-rouge" title="select_penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <ul>
 <li>Count penguins:</li>
 </ul>
-<div class="language-sql" title="count_penguins.sql">
+<div class="language-sql highlighter-rouge" title="count_penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
@@ -168,7 +169,7 @@
 <ul>
 <li>Run the command-line PostgreSQL client and tell it what database to use:</li>
 </ul>
-<div class="language-sh" title="run_psql_penguins.sh">
+<div class="language-sh highlighter-rouge" title="run_psql_penguins.sh">
 <div class="highlight"><pre><span></span><code>psql<span class="w"> </span>-d<span class="w"> </span>penguins
 </code></pre></div>
 </div>
@@ -227,7 +228,7 @@ but not modify or delete existing records.</li>
 <p>Create role in the terminal:</p>
 </li>
 </ul>
-<div class="language-sql" title="create_reader_writer.sql">
+<div class="language-sql highlighter-rouge" title="create_reader_writer.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">role</span><span class="w"> </span><span class="n">penguin_reader_writer</span>
 <span class="k">with</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="s1">&#39;reader_writer&#39;</span><span class="p">;</span>
 </code></pre></div>
@@ -235,7 +236,7 @@ but not modify or delete existing records.</li>
 <ul>
 <li>Grant permissions in the terminal:</li>
 </ul>
-<div class="language-sql" title="grant_select_update.sql">
+<div class="language-sql highlighter-rouge" title="grant_select_update.sql">
 <div class="highlight"><pre><span></span><code><span class="k">grant</span><span class="w"> </span><span class="k">select</span><span class="p">,</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">penguins</span><span class="p">,</span><span class="w"> </span><span class="n">little_penguins</span>
 <span class="k">to</span><span class="w"> </span><span class="n">penguin_reader_writer</span><span class="p">;</span>
 </code></pre></div>
@@ -261,7 +262,7 @@ but not modify or delete existing records.</li>
 </li>
 <li>Run a simple query that <em>reads</em> data:</li>
 </ul>
-<div class="language-sql" title="select_penguins.sql">
+<div class="language-sql highlighter-rouge" title="select_penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 </div>
@@ -273,7 +274,7 @@ but not modify or delete existing records.</li>
 <p>Now try to <em>change</em> data:</p>
 </li>
 </ul>
-<div class="language-sql" title="update_penguins.sql">
+<div class="language-sql highlighter-rouge" title="update_penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">penguins</span>
 <span class="k">set</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Antarctica&#39;</span>
 <span class="k">where</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;MALE&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Torgersen&#39;</span><span class="p">;</span>
@@ -287,12 +288,12 @@ but not modify or delete existing records.</li>
 <p>But now try to <em>delete</em> data:</p>
 </li>
 </ul>
-<div class="language-sql" title="delete_penguins.sql">
+<div class="language-sql highlighter-rouge" title="delete_penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="o">=</span><span class="s1">&#39;Antarctica&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="o">=</span><span class="s1">&#39;MALE&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="delete_penguins.out">
+<div class="language-out highlighter-rouge" title="delete_penguins.out">
 <div class="highlight"><pre><span></span><code>ERROR: permission denied for table penguins
 </code></pre></div>
 </div>
@@ -311,7 +312,7 @@ but not modify or delete existing records.</li>
 </li>
 <li>In the terminal:</li>
 </ul>
-<div class="language-sql" title="revoke_update.sql">
+<div class="language-sql highlighter-rouge" title="revoke_update.sql">
 <div class="highlight"><pre><span></span><code><span class="k">revoke</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">penguins</span><span class="p">,</span><span class="w"> </span><span class="n">little_penguins</span>
 <span class="k">to</span><span class="w"> </span><span class="n">penguin_reader_writer</span><span class="p">;</span>
 </code></pre></div>
@@ -319,13 +320,13 @@ but not modify or delete existing records.</li>
 <ul>
 <li>To verify:</li>
 </ul>
-<div class="language-sql" title="update_penguins_again.sql">
+<div class="language-sql highlighter-rouge" title="update_penguins_again.sql">
 <div class="highlight"><pre><span></span><code><span class="k">update</span><span class="w"> </span><span class="n">penguins</span>
 <span class="k">set</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Atlantis&#39;</span>
 <span class="k">where</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;MALE&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Antarctica&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="update_penguins_again.out">
+<div class="language-out highlighter-rouge" title="update_penguins_again.out">
 <div class="highlight"><pre><span></span><code>ERROR: permission denied for table penguins
 </code></pre></div>
 </div>

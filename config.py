@@ -11,6 +11,7 @@ author = {
     "site": "https://third-bit.com/",
 }
 lang = "en"
+highlight = "tango.css"
 
 chapters = [
     "intro",

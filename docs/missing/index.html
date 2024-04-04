@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../tango.css" type="text/css">
 <link rel="stylesheet" href="../mccole.css" type="text/css">
 <title>The Querynomicon &middot; Missing Values</title>
 <script>
@@ -54,7 +55,7 @@
 <a class="gl-ref" href="../glossary/#gl:null" markdown="1">null</a>, <a class="gl-ref" href="../glossary/#gl:ternary_logic" markdown="1">ternary logic</a>
 </p>
       <h2>Calculating with Missing Values</h2>
-<div class="language-sql" title="show_missing_values.sql">
+<div class="language-sql highlighter-rouge" title="show_missing_values.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">flipper_length_mm</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">flipper_cm</span><span class="p">,</span>
 <span class="w">    </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">weight_kg</span><span class="p">,</span>
@@ -63,7 +64,7 @@
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="show_missing_values.out">
+<div class="language-out highlighter-rouge" title="show_missing_values.out">
 <div class="highlight"><pre><span></span><code>| flipper_cm | weight_kg | where_found |
 |------------|-----------|-------------|
 | 18.1       | 3.75      | Torgersen   |
@@ -91,7 +92,7 @@ When might it be misleading?</p>
 <ul>
 <li>Repeated from earlier (so it doesn&rsquo;t count against our query limit)</li>
 </ul>
-<div class="language-sql" title="filter.sql">
+<div class="language-sql highlighter-rouge" title="filter.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -100,7 +101,7 @@ When might it be misleading?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="filter.out">
+<div class="language-out highlighter-rouge" title="filter.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   | island |
 |---------|--------|--------|
 | Adelie  | FEMALE | Biscoe |
@@ -113,7 +114,7 @@ When might it be misleading?</p>
 <ul>
 <li>If we ask for female penguins the row with the missing sex drops out</li>
 </ul>
-<div class="language-sql" title="null_equality.sql">
+<div class="language-sql highlighter-rouge" title="null_equality.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -122,7 +123,7 @@ When might it be misleading?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;FEMALE&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="null_equality.out">
+<div class="language-out highlighter-rouge" title="null_equality.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   | island |
 |---------|--------|--------|
 | Adelie  | FEMALE | Biscoe |
@@ -133,7 +134,7 @@ When might it be misleading?</p>
 <ul>
 <li>But if we ask for penguins that <em>aren&rsquo;t</em> female it drops out as well</li>
 </ul>
-<div class="language-sql" title="null_inequality.sql">
+<div class="language-sql highlighter-rouge" title="null_inequality.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -142,7 +143,7 @@ When might it be misleading?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;FEMALE&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="null_inequality.out">
+<div class="language-out highlighter-rouge" title="null_inequality.out">
 <div class="highlight"><pre><span></span><code>| species | sex  | island |
 |---------|------|--------|
 | Adelie  | MALE | Biscoe |
@@ -150,11 +151,11 @@ When might it be misleading?</p>
 </code></pre></div>
 </div>
 <h2>Ternary Logic</h2>
-<div class="language-sql" title="ternary_logic.sql">
+<div class="language-sql highlighter-rouge" title="ternary_logic.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="ternary_logic.out">
+<div class="language-out highlighter-rouge" title="ternary_logic.out">
 <div class="highlight"><pre><span></span><code>| null = null |
 |-------------|
 |             |
@@ -197,7 +198,7 @@ When might it be misleading?</p>
 </table>
 
 <h2>Handling Null Safely</h2>
-<div class="language-sql" title="safe_null_equality.sql">
+<div class="language-sql highlighter-rouge" title="safe_null_equality.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -206,7 +207,7 @@ When might it be misleading?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="safe_null_equality.out">
+<div class="language-out highlighter-rouge" title="safe_null_equality.out">
 <div class="highlight"><pre><span></span><code>| species | sex |  island   |
 |---------|-----|-----------|
 | Adelie  |     | Torgersen |
