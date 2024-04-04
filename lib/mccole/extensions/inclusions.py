@@ -46,9 +46,9 @@ def inclusion(pargs, kwargs, node):
         if not kwargs:
             body = _whole(path)
         elif "pattern" in kwargs:
-            body = _match(path, kwargs["pattern"], indent)
+            body = _match(node, path, kwargs["pattern"], indent)
         elif "mark" in kwargs:
-            body = _extract(path, kwargs["mark"], indent)
+            body = _extract(node, path, kwargs["mark"], indent)
         else:
             util.fail(f"Badly-formed inclusion for '{path}' in {node} with '{kwargs}'")
         body = f"```{kind}\n{body}\n```\n"
@@ -58,7 +58,7 @@ def inclusion(pargs, kwargs, node):
         util.fail(f"Unable to read inclusion '{path}' in {node}.")
 
 
-def _extract(filepath, mark, indent):
+def _extract(node, filepath, mark, indent):
     """Extract portion of file in comment markers."""
     if isinstance(filepath, str):
         filepath = Path(filepath)
@@ -74,12 +74,14 @@ def _extract(filepath, mark, indent):
             text = text.split(before)[1].split(after)[0]
         elif before_in or after_in:
             util.fail(
-                f"Mis-matched mark with '{mark}' in {filename} in {node.path}"
+                f"Mis-matched mark in {node.path}: '{mark}' in '{filepath}'"
             )
+        else:
+            util.warn(f"No mark in {node.slug}: '{mark}' in '{filepath}'")
     return text
 
 
-def _match(filepath, pattern, indent):
+def _match(node, filepath, pattern, indent):
     """Match a pattern against the contents of a file."""
     if isinstance(filepath, str):
         filepath = Path(filepath)
@@ -87,6 +89,7 @@ def _match(filepath, pattern, indent):
     matchers = _translate_pattern(pattern)
     node = _match_rec(doc, matchers)
     if not node:
+        util.warn(f"Failed to match inclusion pattern in {node.path}: '{filepath}' and '{pattern}'")
         return None
     result = unparse(node)
     if indent:

@@ -48,7 +48,7 @@ def ensure_links():
 
 def fail(msg):
     """Fail unilaterally."""
-    print(msg, file=sys.stderr)
+    warn(msg)
     raise AssertionError(msg)
 
 
@@ -96,3 +96,8 @@ def require_file(node, filename, kind):
     """Require that a file exists."""
     filepath = Path(Path(node.filepath).parent, filename)
     require(filepath.exists(), f"Missing {kind} file {filename} from {node.path}")
+
+
+def warn(msg):
+    """Print warning message."""
+    print(msg, file=sys.stderr)

@@ -2,7 +2,6 @@
 
 import ark
 import ibis
-import sys
 
 from glossary import glossary_ref
 import util
@@ -28,5 +27,5 @@ def _make_ref(node, glossary, lang, key):
     try:
         return glossary_ref([key, glossary[key][lang]["term"]], {}, node)
     except KeyError:
-        print(f"Unknown glossary key {key} in {node.slug}", file=sys.stderr)
+        util.warn(f"Unknown glossary key {key} in {node.slug}")
         return None
