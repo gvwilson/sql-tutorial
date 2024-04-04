@@ -39,13 +39,13 @@
       
 <nav class="row notex">
   <div class="col-1 left">
-    <a href="../join/" class="undecorated" title="previous page">&#x25C5;</a>
+    <a href="../join/" title="previous" class="undecorated">&#8678;</a>
   </div>
   <div class="col-10 center">
-    <a href="../" title="home" class="undecorated">&#x25EC;</a>
+    <a href="../" title="home" class="undecorated">&#9737;</a>
   </div>
   <div class="col-1 right">
-    <a href="../moretools/" class="undecorated" title="next page">&#x25BB;</a>
+    <a href="../moretools/" title="next" class="undecorated">&#8680;</a>
   </div>
 </nav>
 
@@ -58,13 +58,13 @@
 <ul>
 <li>Who doesn&rsquo;t calibrate?</li>
 </ul>
-<div class="language-sql highlighter-rouge" title="negate_incorrectly.sql">
+<div class="language-sql" title="negate_incorrectly.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">person</span>
 <span class="k">from</span><span class="w"> </span><span class="k">work</span>
 <span class="k">where</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;calibrate&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="negate_incorrectly.out">
+<div class="language-out" title="negate_incorrectly.out">
 <div class="highlight"><pre><span></span><code>| person |
 |--------|
 | mik    |
@@ -79,13 +79,13 @@
 <li>We need a different approach…</li>
 </ul>
 <h2>Set Membership</h2>
-<div class="language-sql highlighter-rouge" title="set_membership.sql">
+<div class="language-sql" title="set_membership.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
 <span class="k">from</span><span class="w"> </span><span class="k">work</span>
 <span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;mik&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tay&#39;</span><span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="set_membership.out">
+<div class="language-out" title="set_membership.out">
 <div class="highlight"><pre><span></span><code>| person |   job    |
 |--------|----------|
 | po     | clean    |
@@ -96,7 +96,7 @@
 <li><code>in <em>values</em></code> and <code>not in <em>values</em></code> do exactly what you expect</li>
 </ul>
 <h2>Subqueries</h2>
-<div class="language-sql highlighter-rouge" title="subquery_set.sql">
+<div class="language-sql" title="subquery_set.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">person</span>
 <span class="k">from</span><span class="w"> </span><span class="k">work</span>
 <span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span>
@@ -106,7 +106,7 @@
 <span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="subquery_set.out">
+<div class="language-out" title="subquery_set.out">
 <div class="highlight"><pre><span></span><code>| person |
 |--------|
 | po     |
@@ -124,7 +124,7 @@
     as long as value(s) unique for each record</li>
 <li>Uniquely identifies a particular record in a particular table</li>
 </ul>
-<div class="language-sql highlighter-rouge" title="primary_key.sql">
+<div class="language-sql" title="primary_key.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">lab_equipment</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">size</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">color</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
@@ -143,7 +143,7 @@
 <span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;green&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="primary_key.out">
+<div class="language-out" title="primary_key.out">
 <div class="highlight"><pre><span></span><code>| size | color | num |
 |------|-------|-----|
 | 1.5  | blue  | 2   |
@@ -157,7 +157,7 @@ Runtime error near line 17: UNIQUE constraint failed: lab_equipment.size, lab_eq
 If so, what is it?
 What about the <code>work</code> and <code>job</code> tables?</p>
 <h2>Autoincrementing and Primary Keys</h2>
-<div class="language-sql highlighter-rouge" title="autoincrement.sql">
+<div class="language-sql" title="autoincrement.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">ident</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="n">autoincrement</span><span class="p">,</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
@@ -170,7 +170,7 @@ What about the <code>work</code> and <code>job</code> tables?</p>
 <span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;prevented&#39;</span><span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="autoincrement.out">
+<div class="language-out" title="autoincrement.out">
 <div class="highlight"><pre><span></span><code>| ident | name |
 |-------|------|
 | 1     | mik  |
@@ -190,11 +190,11 @@ Runtime error near line 12: UNIQUE constraint failed: person.ident (19)
 <li>Downside: manual queries are harder to read (who is person 17?)</li>
 </ul>
 <h2 class="aside">Internal Tables</h2>
-<div class="language-sql highlighter-rouge" title="sequence_table.sql">
+<div class="language-sql" title="sequence_table.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sqlite_sequence</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="sequence_table.out">
+<div class="language-out" title="sequence_table.out">
 <div class="highlight"><pre><span></span><code>|  name  | seq |
 |--------|-----|
 | person | 3   |
@@ -212,7 +212,7 @@ In particular,
 are you able to reset the values so that
 the same sequence numbers are generated again?</p>
 <h2>Altering Tables</h2>
-<div class="language-sql highlighter-rouge" title="alter_tables.sql">
+<div class="language-sql" title="alter_tables.sql">
 <div class="highlight"><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span>
 <span class="k">add</span><span class="w"> </span><span class="n">ident</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
 
@@ -227,7 +227,7 @@ the same sequence numbers are generated again?</p>
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="alter_tables.out">
+<div class="language-out" title="alter_tables.out">
 <div class="highlight"><pre><span></span><code>|   name    | billable | ident |
 |-----------|----------|-------|
 | calibrate | 1.5      | 1     |
@@ -265,7 +265,7 @@ the same sequence numbers are generated again?</p>
 </li>
 </ul>
 <h2>Creating New Tables from Old</h2>
-<div class="language-sql highlighter-rouge" title="insert_select.sql">
+<div class="language-sql" title="insert_select.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">new_work</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">person_id</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">job_id</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
@@ -283,7 +283,7 @@ the same sequence numbers are generated again?</p>
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">new_work</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="insert_select.out">
+<div class="language-out" title="insert_select.out">
 <div class="highlight"><pre><span></span><code>| person_id | job_id |
 |-----------|--------|
 | 1         | 1      |
@@ -296,12 +296,12 @@ the same sequence numbers are generated again?</p>
 <li>Each column refers to a record in some other table</li>
 </ul>
 <h2>Removing Tables</h2>
-<div class="language-sql highlighter-rouge" title="drop_table.sql">
+<div class="language-sql" title="drop_table.sql">
 <div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">work</span><span class="p">;</span>
 <span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">new_work</span><span class="w"> </span><span class="k">rename</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">work</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="drop_table.out">
+<div class="language-out" title="drop_table.out">
 <div class="highlight"><pre><span></span><code>CREATE TABLE job (
     ident integer primary key autoincrement,
     name text not null,

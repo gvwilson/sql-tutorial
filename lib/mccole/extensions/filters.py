@@ -5,9 +5,6 @@ import ibis
 
 import util
 
-LEFT = "&#x25C5;"
-RIGHT = "&#x25BB;"
-
 
 @ibis.filters.register("is_chapter")
 def is_chapter(node):
@@ -31,7 +28,7 @@ def _nav_link(node, kind):
     """Generate previous/next page links."""
     if not node.slug:
         return ""
-    contents = ark.site.config["chapters"] + ark.site.config["appendices"]
+    contents = ark.site.config["_contents_"]
     try:
         where = contents.index(node.slug)
     except ValueError:
@@ -39,12 +36,10 @@ def _nav_link(node, kind):
     if kind == "prev":
         if where == 0:
             return ""
-        link = f"@root/{contents[where - 1]}/"
-        return f'<a href="{link}" class="undecorated" title="previous page">{LEFT}</a>'
+        return f"@root/{contents[where - 1]}/"
     elif kind == "next":
         if where == (len(contents) - 1):
             return ""
-        link = f"@root/{contents[where + 1]}/"
-        return f'<a href="{link}" class="undecorated" title="next page">{RIGHT}</a>'
+        return f"@root/{contents[where + 1]}/"
     else:
         util.fail(f"Unknown nav link type '{kind}' in {node.path}")

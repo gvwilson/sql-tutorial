@@ -39,13 +39,13 @@
       
 <nav class="row notex">
   <div class="col-1 left">
-    <a href="../moretools/" class="undecorated" title="previous page">&#x25C5;</a>
+    <a href="../moretools/" title="previous" class="undecorated">&#8678;</a>
   </div>
   <div class="col-10 center">
-    <a href="../" title="home" class="undecorated">&#x25EC;</a>
+    <a href="../" title="home" class="undecorated">&#9737;</a>
   </div>
   <div class="col-1 right">
-    <a href="../composite/" class="undecorated" title="next page">&#x25BB;</a>
+    <a href="../composite/" title="next" class="undecorated">&#8680;</a>
   </div>
 </nav>
 
@@ -55,7 +55,7 @@
 <a class="gl-ref" href="../glossary/#gl:alias" markdown="1">alias</a>, <a class="gl-ref" href="../glossary/#gl:correlated_subquery" markdown="1">correlated subquery</a>, <a class="gl-ref" href="../glossary/#gl:index" markdown="1">index</a>, <a class="gl-ref" href="../glossary/#gl:table_valued_func" markdown="1">table-valued function</a>, <a class="gl-ref" href="../glossary/#gl:window_func" markdown="1">window function</a>
 </p>
       <h2>Selecting First and Last Rows</h2>
-<div class="language-sql highlighter-rouge" title="union_all.sql">
+<div class="language-sql" title="union_all.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">experiment</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="k">asc</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span>
 <span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
@@ -64,7 +64,7 @@
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="k">asc</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="union_all.out">
+<div class="language-out" title="union_all.out">
 <div class="highlight"><pre><span></span><code>| ident |    kind     |  started   |   ended    |
 |-------|-------------|------------|------------|
 | 17    | trial       | 2023-01-29 | 2023-01-30 |
@@ -92,7 +92,7 @@
 in the <code>penguins</code> database.
 How can you check that your query is working correctly?</p>
 <h2>Intersection</h2>
-<div class="language-sql highlighter-rouge" title="intersect.sql">
+<div class="language-sql" title="intersect.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">personal</span><span class="p">,</span>
 <span class="w">    </span><span class="n">family</span><span class="p">,</span>
@@ -109,7 +109,7 @@ How can you check that your query is working correctly?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="intersect.out">
+<div class="language-out" title="intersect.out">
 <div class="highlight"><pre><span></span><code>| personal |  family   | dept | age |
 |----------|-----------|------|-----|
 | Indrans  | Sridhar   | mb   | 47  |
@@ -131,7 +131,7 @@ with one that uses <code>where</code>.
 Which query looks like it will be more efficient?
 Why do you believe this?</p>
 <h2>Exclusion</h2>
-<div class="language-sql highlighter-rouge" title="except.sql">
+<div class="language-sql" title="except.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">personal</span><span class="p">,</span>
 <span class="w">    </span><span class="n">family</span><span class="p">,</span>
@@ -148,7 +148,7 @@ Why do you believe this?</p>
 <span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="except.out">
+<div class="language-out" title="except.out">
 <div class="highlight"><pre><span></span><code>| personal | family | dept | age |
 |----------|--------|------|-----|
 | Pranay   | Khanna | mb   | 51  |
@@ -165,7 +165,7 @@ Why do you believe this?</p>
 <p>Use <code>exclude</code> to find all Gentoo penguins that <em>aren&rsquo;t</em> male.
 How can you check that your query is working correctly?</p>
 <h2>Random Numbers and Why Not</h2>
-<div class="language-sql highlighter-rouge" title="random_numbers.sql">
+<div class="language-sql" title="random_numbers.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">decorated</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">random</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">rand</span><span class="p">,</span>
 <span class="w">    </span><span class="n">personal</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span>
@@ -180,7 +180,7 @@ How can you check that your query is working correctly?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">selector</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="random_numbers.out">
+<div class="language-out" title="random_numbers.out">
 <div class="highlight"><pre><span></span><code>|         rand         | selector |      name      |
 |----------------------|----------|----------------|
 | 1175447513360584797  | 6        | Divit Dhaliwal |
@@ -213,7 +213,7 @@ How can you check that your query is working correctly?</p>
 </li>
 </ul>
 <h2>Creating an Index</h2>
-<div class="language-sql highlighter-rouge" title="create_use_index.sql">
+<div class="language-sql" title="create_use_index.sql">
 <div class="highlight"><pre><span></span><code><span class="k">explain</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">plan</span>
 <span class="k">select</span><span class="w"> </span><span class="n">filename</span>
 <span class="k">from</span><span class="w"> </span><span class="n">plate</span>
@@ -227,7 +227,7 @@ How can you check that your query is working correctly?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%07%&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="create_use_index.out">
+<div class="language-out" title="create_use_index.out">
 <div class="highlight"><pre><span></span><code>QUERY PLAN
 `--SCAN plate USING COVERING INDEX sqlite_autoindex_plate_1
 QUERY PLAN
@@ -246,11 +246,11 @@ QUERY PLAN
 <li>Unlike primary keys, SQLite supports defining indexes after the fact</li>
 </ul>
 <h2>Generating Sequences</h2>
-<div class="language-sql highlighter-rouge" title="generate_sequence.sql">
+<div class="language-sql" title="generate_sequence.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="generate_sequence.out">
+<div class="language-out" title="generate_sequence.out">
 <div class="highlight"><pre><span></span><code>| value |
 |-------|
 | 1     |
@@ -264,7 +264,7 @@ QUERY PLAN
 <li>A (non-standard) <a class="gl-ref" href="../glossary/#gl:table_valued_func" markdown="1">table-valued function</a></li>
 </ul>
 <h2>Generating Sequences Based on Data</h2>
-<div class="language-sql highlighter-rouge" title="data_range_sequence.sql">
+<div class="language-sql" title="data_range_sequence.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">num</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
 <span class="p">);</span>
@@ -275,7 +275,7 @@ QUERY PLAN
 <span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="data_range_sequence.out">
+<div class="language-out" title="data_range_sequence.out">
 <div class="highlight"><pre><span></span><code>| value |
 |-------|
 | 1     |
@@ -289,7 +289,7 @@ QUERY PLAN
 <li>Must have the parentheses around the <code>min</code> and <code>max</code> selections to keep SQLite happy</li>
 </ul>
 <h2>Generating Sequences of Dates</h2>
-<div class="language-sql highlighter-rouge" title="date_sequence.sql">
+<div class="language-sql" title="date_sequence.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="nb">date</span><span class="p">((</span><span class="k">select</span><span class="w"> </span><span class="n">julianday</span><span class="p">(</span><span class="k">min</span><span class="p">(</span><span class="n">started</span><span class="p">))</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">experiment</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">some_day</span>
 <span class="k">from</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">generate_series</span><span class="p">(</span>
@@ -300,7 +300,7 @@ QUERY PLAN
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="date_sequence.out">
+<div class="language-out" title="date_sequence.out">
 <div class="highlight"><pre><span></span><code>|  some_day  |
 |------------|
 | 2023-01-29 |
@@ -323,7 +323,7 @@ QUERY PLAN
 </li>
 </ul>
 <h2>Counting Experiments Started per Day Without Gaps</h2>
-<div class="language-sql highlighter-rouge" title="experiments_per_day.sql">
+<div class="language-sql" title="experiments_per_day.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span>
 <span class="c1">-- complete sequence of days with 0 as placeholder for number of experiments</span>
 <span class="n">all_days</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -356,7 +356,7 @@ QUERY PLAN
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="experiments_per_day.out">
+<div class="language-out" title="experiments_per_day.out">
 <div class="highlight"><pre><span></span><code>|    day     | num_exp |
 |------------|---------|
 | 2023-01-29 | 1       |
@@ -370,7 +370,7 @@ QUERY PLAN
 <p>What does the expression <code>date('now', 'start of month', '+1 month', '-1 day')</code> produce?
 (You may find <a href="https://www.sqlite.org/lang_datefunc.html">the documentation on SQLite&rsquo;s date and time functions</a> helpful.)</p>
 <h2>Self Join</h2>
-<div class="language-sql highlighter-rouge" title="self_join.sql">
+<div class="language-sql" title="self_join.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">ident</span><span class="p">,</span>
@@ -385,7 +385,7 @@ QUERY PLAN
 <span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="self_join.out">
+<div class="language-out" title="self_join.out">
 <div class="highlight"><pre><span></span><code>|     name     |       name       |
 |--------------|------------------|
 | Kartik Gupta | Kartik Gupta     |
@@ -409,7 +409,7 @@ QUERY PLAN
 <li>Get all <math>n<sup>2</sup></math> pairs, including person with themself</li>
 </ul>
 <h2>Generating Unique Pairs</h2>
-<div class="language-sql highlighter-rouge" title="unique_pairs.sql">
+<div class="language-sql" title="unique_pairs.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">ident</span><span class="p">,</span>
@@ -425,7 +425,7 @@ QUERY PLAN
 <span class="k">where</span><span class="w"> </span><span class="n">left_person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">right_person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="unique_pairs.out">
+<div class="language-out" title="unique_pairs.out">
 <div class="highlight"><pre><span></span><code>|      name       |      name       |
 |-----------------|-----------------|
 | Kartik Gupta    | Divit Dhaliwal  |
@@ -444,7 +444,7 @@ QUERY PLAN
 <li>Quick check: <math>n(n-1)/2</math> pairs</li>
 </ul>
 <h2>Filtering Pairs</h2>
-<div class="language-sql highlighter-rouge" title="filter_pairs.sql">
+<div class="language-sql" title="filter_pairs.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span>
 <span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
@@ -469,7 +469,7 @@ QUERY PLAN
 <span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="n">left_person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left_staff</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">right_person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right_staff</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="filter_pairs.out">
+<div class="language-out" title="filter_pairs.out">
 <div class="highlight"><pre><span></span><code>|    person_1     |     person_2     |
 |-----------------|------------------|
 | Kartik Gupta    | Vedika Rout      |
@@ -490,7 +490,7 @@ QUERY PLAN
 </code></pre></div>
 </div>
 <h2>Existence and Correlated Subqueries</h2>
-<div class="language-sql highlighter-rouge" title="correlated_subquery.sql">
+<div class="language-sql" title="correlated_subquery.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">name</span><span class="p">,</span>
 <span class="w">    </span><span class="n">building</span>
@@ -504,7 +504,7 @@ QUERY PLAN
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="correlated_subquery.out">
+<div class="language-out" title="correlated_subquery.out">
 <div class="highlight"><pre><span></span><code>|       name        |     building     |
 |-------------------|------------------|
 | Genetics          | Chesson          |
@@ -521,7 +521,7 @@ QUERY PLAN
 </li>
 </ul>
 <h2>Nonexistence</h2>
-<div class="language-sql highlighter-rouge" title="nonexistence.sql">
+<div class="language-sql" title="nonexistence.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">name</span><span class="p">,</span>
 <span class="w">    </span><span class="n">building</span>
@@ -535,7 +535,7 @@ QUERY PLAN
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="nonexistence.out">
+<div class="language-out" title="nonexistence.out">
 <div class="highlight"><pre><span></span><code>|     name      | building |
 |---------------|----------|
 | Endocrinology | TGVH     |
@@ -546,7 +546,7 @@ QUERY PLAN
 If so, is your new query easier to understand?
 If the query cannot be rewritten, why not?</p>
 <h2 class="aside">Avoiding Correlated Subqueries</h2>
-<div class="language-sql highlighter-rouge" title="avoid_correlated_subqueries.sql">
+<div class="language-sql" title="avoid_correlated_subqueries.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">department</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
 <span class="w">    </span><span class="n">department</span><span class="p">.</span><span class="n">building</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">building</span>
@@ -555,7 +555,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="avoid_correlated_subqueries.out">
+<div class="language-out" title="avoid_correlated_subqueries.out">
 <div class="highlight"><pre><span></span><code>|       name        |     building     |
 |-------------------|------------------|
 | Genetics          | Chesson          |
@@ -568,7 +568,7 @@ If the query cannot be rewritten, why not?</p>
 <li>Hard to find unstaffed departments without either <code>not exists</code> or <code>count</code> and a check for 0</li>
 </ul>
 <h2>Lead and Lag</h2>
-<div class="language-sql highlighter-rouge" title="lead_lag.sql">
+<div class="language-sql" title="lead_lag.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">ym_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">started</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ym</span><span class="p">,</span>
@@ -586,7 +586,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">ym</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="lead_lag.out">
+<div class="language-out" title="lead_lag.out">
 <div class="highlight"><pre><span></span><code>|   ym    | prev_num | num | next_num |
 |---------|----------|-----|----------|
 | 2023-01 |          | 2   | 5        |
@@ -621,7 +621,7 @@ If the query cannot be rewritten, why not?</p>
 <li>It feels very ad hoc, but so does the real world</li>
 </ul>
 <h2>Windowing Functions</h2>
-<div class="language-sql highlighter-rouge" title="window_functions.sql">
+<div class="language-sql" title="window_functions.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">ym_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">started</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ym</span><span class="p">,</span>
@@ -640,7 +640,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">ym</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="window_functions.out">
+<div class="language-out" title="window_functions.out">
 <div class="highlight"><pre><span></span><code>|   ym    | num | num_done | completed_progress |  linear_progress   |
 |---------|-----|----------|--------------------|--------------------|
 | 2023-01 | 2   | 2        | 0.04               | 0.0769230769230769 |
@@ -666,7 +666,7 @@ If the query cannot be rewritten, why not?</p>
 <li>…and <code>linear_progress</code> is the fraction of time passed</li>
 </ul>
 <h2 class="aside">Explaining Another Query Plan</h2>
-<div class="language-sql highlighter-rouge" title="explain_window_function.sql">
+<div class="language-sql" title="explain_window_function.sql">
 <div class="highlight"><pre><span></span><code><span class="k">explain</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">plan</span>
 <span class="k">with</span><span class="w"> </span><span class="n">ym_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
@@ -684,7 +684,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">ym</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="explain_window_function.out">
+<div class="language-out" title="explain_window_function.out">
 <div class="highlight"><pre><span></span><code>QUERY PLAN
 |--CO-ROUTINE (subquery-3)
 |  |--CO-ROUTINE (subquery-4)
@@ -701,7 +701,7 @@ If the query cannot be rewritten, why not?</p>
 <li>Becomes useful…eventually</li>
 </ul>
 <h2>Partitioned Windows</h2>
-<div class="language-sql highlighter-rouge" title="partition_window.sql">
+<div class="language-sql" title="partition_window.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">y_m_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">started</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">year</span><span class="p">,</span>
@@ -720,7 +720,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">year</span><span class="p">,</span><span class="w"> </span><span class="k">month</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="partition_window.out">
+<div class="language-out" title="partition_window.out">
 <div class="highlight"><pre><span></span><code>| year | month | num | num_done |
 |------|-------|-----|----------|
 | 2023 | 01    | 2   | 2        |

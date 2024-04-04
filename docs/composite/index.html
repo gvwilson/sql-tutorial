@@ -39,13 +39,13 @@
       
 <nav class="row notex">
   <div class="col-1 left">
-    <a href="../oddsends/" class="undecorated" title="previous page">&#x25C5;</a>
+    <a href="../oddsends/" title="previous" class="undecorated">&#8678;</a>
   </div>
   <div class="col-10 center">
-    <a href="../" title="home" class="undecorated">&#x25EC;</a>
+    <a href="../" title="home" class="undecorated">&#9737;</a>
   </div>
   <div class="col-1 right">
-    <a href="../action/" class="undecorated" title="next page">&#x25BB;</a>
+    <a href="../action/" title="next" class="undecorated">&#8680;</a>
   </div>
 </nav>
 
@@ -55,7 +55,7 @@
 <a class="gl-ref" href="../glossary/#gl:blob" markdown="1">Binary Large Object</a>, <a class="gl-ref" href="../glossary/#gl:csv" markdown="1">comma-separated values</a>, <a class="gl-ref" href="../glossary/#gl:json" markdown="1">JavaScript Object Notation</a>, <a class="gl-ref" href="../glossary/#gl:materialized_view" markdown="1">materialized view</a>, <a class="gl-ref" href="../glossary/#gl:path_expression" markdown="1">path expression</a>, <a class="gl-ref" href="../glossary/#gl:tombstone" markdown="1">tombstone</a>, <a class="gl-ref" href="../glossary/#gl:view" markdown="1">view</a>
 </p>
       <h2>Blobs</h2>
-<div class="language-sql highlighter-rouge" title="blob.sql">
+<div class="language-sql" title="blob.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">images</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">content</span><span class="w"> </span><span class="nb">blob</span>
@@ -74,7 +74,7 @@
 <span class="k">from</span><span class="w"> </span><span class="n">images</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="blob.out">
+<div class="language-out" title="blob.out">
 <div class="highlight"><pre><span></span><code>|    name     | length(content) |
 |-------------|-----------------|
 | biohazard   | 19629           |
@@ -97,15 +97,15 @@ rather than its length.
 How intelligible is the output?
 Does using SQLite&rsquo;s <code>hex()</code> function make it any more readable?</p>
 <h2 class="aside">Yet Another Database</h2>
-<div class="language-sh highlighter-rouge" title="lab_log_db.sh">
+<div class="language-sh" title="lab_log_db.sh">
 <div class="highlight"><pre><span></span><code>sqlite3<span class="w"> </span>db/lab_log.db
 </code></pre></div>
 </div>
-<div class="language-sql highlighter-rouge" title="lab_log_schema.sql">
+<div class="language-sql" title="lab_log_schema.sql">
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">schema</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="lab_log_schema.out">
+<div class="language-out" title="lab_log_schema.out">
 <div class="highlight"><pre><span></span><code>CREATE TABLE sqlite_sequence(name,seq);
 CREATE TABLE person(
        ident            integer primary key autoincrement,
@@ -123,11 +123,11 @@ CREATE TABLE usage(
 </code></pre></div>
 </div>
 <h2>Storing JSON</h2>
-<div class="language-sql highlighter-rouge" title="json_in_table.sql">
+<div class="language-sql" title="json_in_table.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="json_in_table.out">
+<div class="language-out" title="json_in_table.out">
 <div class="highlight"><pre><span></span><code>| ident |      name      |                         details                         |
 |-------|----------------|---------------------------------------------------------|
 | 1     | WY401          | {&quot;acquired&quot;: &quot;2023-05-01&quot;}                              |
@@ -149,14 +149,14 @@ CREATE TABLE usage(
 </li>
 </ul>
 <h2>Select Fields from JSON</h2>
-<div class="language-sql highlighter-rouge" title="json_field.sql">
+<div class="language-sql" title="json_field.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">details</span><span class="o">-&gt;</span><span class="s1">&#39;$.acquired&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">single_arrow</span><span class="p">,</span>
 <span class="w">    </span><span class="n">details</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;$.acquired&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">double_arrow</span>
 <span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="json_field.out">
+<div class="language-out" title="json_field.out">
 <div class="highlight"><pre><span></span><code>| single_arrow | double_arrow |
 |--------------|--------------|
 | &quot;2023-05-01&quot; | 2023-05-01   |
@@ -178,7 +178,7 @@ CREATE TABLE usage(
 <p>Write a query that selects the year from the <code>"refurbished"</code> field
 of the JSON data associated with the Inphormex plate reader.</p>
 <h2>JSON Array Access</h2>
-<div class="language-sql highlighter-rouge" title="json_array.sql">
+<div class="language-sql" title="json_array.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">ident</span><span class="p">,</span>
 <span class="w">    </span><span class="n">json_array_length</span><span class="p">(</span><span class="n">log</span><span class="o">-&gt;</span><span class="s1">&#39;$&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">length</span><span class="p">,</span>
@@ -186,7 +186,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 <span class="k">from</span><span class="w"> </span><span class="k">usage</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="json_array.out">
+<div class="language-out" title="json_array.out">
 <div class="highlight"><pre><span></span><code>| ident | length |                            first                             |
 |-------|--------|--------------------------------------------------------------|
 | 1     | 4      | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Gabrielle&quot;,&quot;Dub\u00e9&quot;]}   |
@@ -206,7 +206,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 <li>Characters outside 7-bit ASCII represented as Unicode escapes</li>
 </ul>
 <h2>Unpacking JSON Arrays</h2>
-<div class="language-sql highlighter-rouge" title="json_unpack.sql">
+<div class="language-sql" title="json_unpack.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">ident</span><span class="p">,</span>
 <span class="w">    </span><span class="n">json_each</span><span class="p">.</span><span class="k">key</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
@@ -215,7 +215,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="json_unpack.out">
+<div class="language-out" title="json_unpack.out">
 <div class="highlight"><pre><span></span><code>| ident | key |                            value                             |
 |-------|-----|--------------------------------------------------------------|
 | 1     | 0   | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Gabrielle&quot;,&quot;Dub\u00e9&quot;]}   |
@@ -238,7 +238,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 <p>Write a query that counts how many times each person appears
 in the first log entry associated with any piece of equipment.</p>
 <h2>Selecting the Last Element of an  Array</h2>
-<div class="language-sql highlighter-rouge" title="json_array_last.sql">
+<div class="language-sql" title="json_array_last.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">ident</span><span class="p">,</span>
 <span class="w">    </span><span class="n">log</span><span class="o">-&gt;</span><span class="s1">&#39;$[#-1].machine&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">final</span>
@@ -246,7 +246,7 @@ in the first log entry associated with any piece of equipment.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="json_array_last.out">
+<div class="language-out" title="json_array_last.out">
 <div class="highlight"><pre><span></span><code>| ident |    final     |
 |-------|--------------|
 | 1     | &quot;Inphormex&quot;  |
@@ -257,7 +257,7 @@ in the first log entry associated with any piece of equipment.</p>
 </code></pre></div>
 </div>
 <h2>Modifying JSON</h2>
-<div class="language-sql highlighter-rouge" title="json_modify.sql">
+<div class="language-sql" title="json_modify.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">ident</span><span class="p">,</span>
 <span class="w">    </span><span class="n">name</span><span class="p">,</span>
@@ -265,7 +265,7 @@ in the first log entry associated with any piece of equipment.</p>
 <span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="json_modify.out">
+<div class="language-out" title="json_modify.out">
 <div class="highlight"><pre><span></span><code>| ident |      name      |                           updated                            |
 |-------|----------------|--------------------------------------------------------------|
 | 1     | WY401          | {&quot;acquired&quot;:&quot;2023-05-01&quot;,&quot;sold&quot;:&quot;2024-01-25&quot;}                |
@@ -283,7 +283,7 @@ in the first log entry associated with any piece of equipment.</p>
 replace the machine names in the JSON records in <code>usage</code>
 with the corresopnding machine IDs from the <code>machine</code> table.</p>
 <h2 class="aside">Refreshing the Penguins Database</h2>
-<div class="language-sql highlighter-rouge" title="count_penguins.sql">
+<div class="language-sql" title="count_penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num</span>
@@ -291,7 +291,7 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="count_penguins.out">
+<div class="language-out" title="count_penguins.out">
 <div class="highlight"><pre><span></span><code>|  species  | num |
 |-----------|-----|
 | Adelie    | 152 |
@@ -303,7 +303,7 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 <li>We will restore full database after each example</li>
 </ul>
 <h2>Tombstones</h2>
-<div class="language-sql highlighter-rouge" title="make_active.sql">
+<div class="language-sql" title="make_active.sql">
 <div class="highlight"><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">penguins</span>
 <span class="k">add</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 
@@ -311,7 +311,7 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 <span class="k">set</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iif</span><span class="p">(</span><span class="n">species</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Adelie&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-sql highlighter-rouge" title="active_penguins.sql">
+<div class="language-sql" title="active_penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">make_active</span><span class="p">.</span><span class="k">sql</span>
 
 <span class="c1">-- [keep]</span>
@@ -324,7 +324,7 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 <span class="c1">-- [/keep]</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="active_penguins.out">
+<div class="language-out" title="active_penguins.out">
 <div class="highlight"><pre><span></span><code>|  species  | num |
 |-----------|-----|
 | Chinstrap | 68  |
@@ -346,7 +346,7 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 </ul>
 </li>
 </ul>
-<div class="language-sql highlighter-rouge" title="create_penguins.sql">
+<div class="language-sql" title="create_penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
 <span class="p">.</span><span class="k">mode</span><span class="w"> </span><span class="n">csv</span><span class="w"> </span><span class="n">penguins</span>
 <span class="p">.</span><span class="n">import</span><span class="w"> </span><span class="n">misc</span><span class="o">/</span><span class="n">penguins</span><span class="p">.</span><span class="n">csv</span><span class="w"> </span><span class="n">penguins</span>
@@ -364,7 +364,7 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 created by the CSV import shown above?
 How can you correct the ones that need correcting?</p>
 <h2>Views</h2>
-<div class="language-sql highlighter-rouge" title="views.sql">
+<div class="language-sql" title="views.sql">
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">make_active</span><span class="p">.</span><span class="k">sql</span>
 
 <span class="c1">-- [keep]</span>
@@ -397,7 +397,7 @@ How can you correct the ones that need correcting?</p>
 <span class="c1">-- [/keep]</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="views.out">
+<div class="language-out" title="views.out">
 <div class="highlight"><pre><span></span><code>|  species  | num |
 |-----------|-----|
 | Chinstrap | 68  |

@@ -13,6 +13,7 @@ import util
 def init_build():
     """Launch startup tasks in order."""
     _init_date()
+    _init_contents()
     _collect_metadata()
     _decorate_metadata()
     _collect_shortcodes()
@@ -158,6 +159,11 @@ def _copy_files():
             out_file = str(src_file).replace(src_dir, out_dir)
             Path(out_file).parent.mkdir(exist_ok=True, parents=True)
             copyfile(src_file, out_file)
+
+
+def _init_contents():
+    """Construct integrated list of chapters and appendices."""
+    ark.site.config["_contents_"] = ark.site.config["chapters"] + ark.site.config["appendices"]
 
 
 def _init_date():

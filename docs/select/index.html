@@ -39,13 +39,13 @@
       
 <nav class="row notex">
   <div class="col-1 left">
-    <a href="../intro/" class="undecorated" title="previous page">&#x25C5;</a>
+    <a href="../intro/" title="previous" class="undecorated">&#8678;</a>
   </div>
   <div class="col-10 center">
-    <a href="../" title="home" class="undecorated">&#x25EC;</a>
+    <a href="../" title="home" class="undecorated">&#9737;</a>
   </div>
   <div class="col-1 right">
-    <a href="../missing/" class="undecorated" title="next page">&#x25BB;</a>
+    <a href="../missing/" title="next" class="undecorated">&#8680;</a>
   </div>
 </nav>
 
@@ -55,11 +55,11 @@
 <a class="gl-ref" href="../glossary/#gl:admin_command" markdown="1">administration command</a>, <a class="gl-ref" href="../glossary/#gl:exclusive_or" markdown="1">exclusive or</a>, <a class="gl-ref" href="../glossary/#gl:filter" markdown="1">filter</a>, <a class="gl-ref" href="../glossary/#gl:inclusive_or" markdown="1">inclusive or</a>, <a class="gl-ref" href="../glossary/#gl:query" markdown="1">query</a>
 </p>
       <h2>Selecting Constant</h2>
-<div class="language-sql highlighter-rouge" title="select_1.sql">
+<div class="language-sql" title="select_1.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="select_1.out">
+<div class="language-out" title="select_1.out">
 <div class="highlight"><pre><span></span><code>1
 </code></pre></div>
 </div>
@@ -70,11 +70,11 @@
 <li>Semi-colon terminator is required</li>
 </ul>
 <h2>Selecting All Values from Table</h2>
-<div class="language-sql highlighter-rouge" title="select_star.sql">
+<div class="language-sql" title="select_star.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">little_penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="select_star.out">
+<div class="language-out" title="select_star.out">
 <div class="highlight"><pre><span></span><code>Gentoo|Biscoe|51.3|14.2|218.0|5300.0|MALE
 Adelie|Dream|35.7|18.0|202.0|3550.0|FEMALE
 Adelie|Torgersen|36.6|17.8|185.0|3700.0|FEMALE
@@ -94,13 +94,13 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <li>Output format is not particularly readable</li>
 </ul>
 <h2 class="aside">Administrative Commands</h2>
-<div class="language-sql highlighter-rouge" title="admin_commands.sql">
+<div class="language-sql" title="admin_commands.sql">
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="n">headers</span><span class="w"> </span><span class="k">on</span>
 <span class="p">.</span><span class="k">mode</span><span class="w"> </span><span class="n">markdown</span>
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">little_penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="admin_commands.out">
+<div class="language-out" title="admin_commands.out">
 <div class="highlight"><pre><span></span><code>|  species  |  island   | bill_length_mm | bill_depth_mm | flipper_length_mm | body_mass_g |  sex   |
 |-----------|-----------|----------------|---------------|-------------------|-------------|--------|
 | Gentoo    | Biscoe    | 51.3           | 14.2          | 218.0             | 5300.0      | MALE   |
@@ -127,7 +127,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <li>And as mentioned earlier, use <code>.quit</code> to quit</li>
 </ul>
 <h2>Specifying Columns</h2>
-<div class="language-sql highlighter-rouge" title="specify_columns.sql">
+<div class="language-sql" title="specify_columns.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">island</span><span class="p">,</span>
@@ -135,7 +135,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <span class="k">from</span><span class="w"> </span><span class="n">little_penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="specify_columns.out">
+<div class="language-out" title="specify_columns.out">
 <div class="highlight"><pre><span></span><code>|  species  |  island   |  sex   |
 |-----------|-----------|--------|
 | Gentoo    | Biscoe    | MALE   |
@@ -159,7 +159,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <li>Line breaks <strike>allowed</strike> encouraged for readability</li>
 </ul>
 <h2>Sorting</h2>
-<div class="language-sql highlighter-rouge" title="sort.sql">
+<div class="language-sql" title="sort.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -168,7 +168,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="k">asc</span><span class="p">,</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="sort.out">
+<div class="language-out" title="sort.out">
 <div class="highlight"><pre><span></span><code>|  species  |  sex   |  island   |
 |-----------|--------|-----------|
 | Gentoo    | MALE   | Biscoe    |
@@ -197,7 +197,7 @@ sorted such that the largest body mass appears first.</p>
 <ul>
 <li>Full dataset has 344 rows</li>
 </ul>
-<div class="language-sql highlighter-rouge" title="limit.sql">
+<div class="language-sql" title="limit.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -207,7 +207,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="limit.out">
+<div class="language-out" title="limit.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   |  island   |
 |---------|--------|-----------|
 | Adelie  |        | Dream     |
@@ -227,7 +227,7 @@ sorted such that the largest body mass appears first.</p>
 <li><code>limit <em>N</em></code> specifies maximum number of rows returned by query</li>
 </ul>
 <h2>Paging Output</h2>
-<div class="language-sql highlighter-rouge" title="page.sql">
+<div class="language-sql" title="page.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -237,7 +237,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">offset</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="page.out">
+<div class="language-out" title="page.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   |  island   |
 |---------|--------|-----------|
 | Adelie  |        | Torgersen |
@@ -258,7 +258,7 @@ sorted such that the largest body mass appears first.</p>
 <li>So this query skips the first 3 and shows the next 10</li>
 </ul>
 <h2>Removing Duplicates</h2>
-<div class="language-sql highlighter-rouge" title="distinct.sql">
+<div class="language-sql" title="distinct.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -266,7 +266,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="distinct.out">
+<div class="language-out" title="distinct.out">
 <div class="highlight"><pre><span></span><code>|  species  |  sex   |  island   |
 |-----------|--------|-----------|
 | Adelie    | MALE   | Torgersen |
@@ -309,7 +309,7 @@ sorted such that the largest body mass appears first.</p>
 </li>
 </ol>
 <h2>Filtering Results</h2>
-<div class="language-sql highlighter-rouge" title="filter.sql">
+<div class="language-sql" title="filter.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -318,7 +318,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="filter.out">
+<div class="language-out" title="filter.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   | island |
 |---------|--------|--------|
 | Adelie  | FEMALE | Biscoe |
@@ -348,7 +348,7 @@ sorted such that the largest body mass appears first.</p>
 </li>
 </ol>
 <h2>Filtering with More Complex Conditions</h2>
-<div class="language-sql highlighter-rouge" title="filter_and.sql">
+<div class="language-sql" title="filter_and.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -357,7 +357,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;MALE&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="filter_and.out">
+<div class="language-out" title="filter_and.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   | island |
 |---------|--------|--------|
 | Adelie  | FEMALE | Biscoe |
@@ -387,7 +387,7 @@ sorted such that the largest body mass appears first.</p>
 </li>
 </ol>
 <h2>Doing Calculations</h2>
-<div class="language-sql highlighter-rouge" title="calculations.sql">
+<div class="language-sql" title="calculations.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">flipper_length_mm</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span>
 <span class="w">    </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span>
@@ -395,7 +395,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="calculations.out">
+<div class="language-out" title="calculations.out">
 <div class="highlight"><pre><span></span><code>| flipper_length_mm / 10.0 | body_mass_g / 1000.0 |
 |--------------------------|----------------------|
 | 18.1                     | 3.75                 |
@@ -411,7 +411,7 @@ sorted such that the largest body mass appears first.</p>
 <li>Column name shows the calculation done</li>
 </ul>
 <h2>Renaming Columns</h2>
-<div class="language-sql highlighter-rouge" title="rename_columns.sql">
+<div class="language-sql" title="rename_columns.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">flipper_length_mm</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">flipper_cm</span><span class="p">,</span>
 <span class="w">    </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">weight_kg</span><span class="p">,</span>
@@ -420,7 +420,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out highlighter-rouge" title="rename_columns.out">
+<div class="language-out" title="rename_columns.out">
 <div class="highlight"><pre><span></span><code>| flipper_cm | weight_kg | where_found |
 |------------|-----------|-------------|
 | 18.1       | 3.75      | Torgersen   |

@@ -52,7 +52,7 @@ def inclusion(pargs, kwargs, node):
         else:
             util.fail(f"Badly-formed inclusion for '{path}' in {node} with '{kwargs}'")
         body = f"```{kind}\n{body}\n```\n"
-        cls = f'class="language-{kind} highlighter-rouge"'
+        cls = f'class="language-{kind}"'
         return f'<div {cls} title="{name}" markdown="1">\n{body}</div>'
     except OSError:
         util.fail(f"Unable to read inclusion '{path}' in {node}.")

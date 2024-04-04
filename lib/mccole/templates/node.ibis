@@ -6,7 +6,7 @@
   <body>
     <main>
       {% include "title.html" %}
-      {% include "prevnext.html" %}
+      {% include "nav.html" %}
       {{ node | keypoints }}
       {{ node | termdefs }}
       {{ node.html }}
