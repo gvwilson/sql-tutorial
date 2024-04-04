@@ -5,6 +5,9 @@ import ibis
 
 import util
 
+LEFT = "&#x25C5;"
+RIGHT = "&#x25BB;"
+
 
 @ibis.filters.register("is_chapter")
 def is_chapter(node):
@@ -36,10 +39,12 @@ def _nav_link(node, kind):
     if kind == "prev":
         if where == 0:
             return ""
-        return f'<a href="@root/{contents[where - 1]}/">&lArr;</a>'
+        link = f"@root/{contents[where - 1]}/"
+        return f'<a href="{link}" class="undecorated" title="previous page">{LEFT}</a>'
     elif kind == "next":
         if where == (len(contents) - 1):
             return ""
-        return f'<a href="@root/{contents[where + 1]}/">&rArr;</a>'
+        link = f"@root/{contents[where + 1]}/"
+        return f'<a href="{link}" class="undecorated" title="next page">{RIGHT}</a>'
     else:
         util.fail(f"Unknown nav link type '{kind}' in {node.path}")

@@ -1,11 +1,13 @@
 {% if node.title %}
-<div class="row notex">
+<nav class="row notex">
   <div class="col-1 left">
     {{node | nav_prev }}
   </div>
-  <div class="col-10"></div>
+  <div class="col-10 center">
+    <a href="@root/" title="home" class="undecorated">&#x25EC;</a>
+  </div>
   <div class="col-1 right">
     {{node | nav_next }}
   </div>
-</div>
+</nav>
 {% endif %}

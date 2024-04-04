@@ -1,9 +1,9 @@
 """Create HTML version of bibliography."""
 
 import argparse
-
 import pybtex.database
 import pybtex.plugin
+import sys
 
 
 # How to format bibliography.

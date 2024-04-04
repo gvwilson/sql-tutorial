@@ -38,6 +38,9 @@ appendices = [
     "glossary",
     "author",
     "colophon",
+]
+
+unused = [
     "contents",
 ]
 

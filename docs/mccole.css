@@ -77,6 +77,11 @@
     text-align: center;
 }
 
+/* Undecorated navigation link */
+a.undecorated {
+    text-decoration: none;
+}
+
 /* Overall document body */
 body {
     font-size: var(--size-body);
