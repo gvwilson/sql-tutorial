@@ -94,64 +94,54 @@ code {
     font-size: var(--size-code);
 }
 
-/* Output fragments */
-div.language-out {
-    border-left: solid var(--border-heavy) var(--stamp-red-light);
-    border-top: solid var(--border-thin) var(--stamp-red-light);
-    border-bottom: solid var(--border-thin) var(--stamp-red-light);
+/* Generic output */
+div[class*='language'] {
+    border-left: solid var(--border-heavy);
+    border-top: solid var(--border-thin);
+    border-bottom: solid var(--border-thin);
     padding-left: var(--border-heavy);
 }
-div.language-out pre {
+div.highlight {
+    background-color: transparent;
+}
+div[class*='language'] pre {
     margin-top: var(--border-heavy);
     margin-bottom: var(--border-heavy);
+}
+
+/* Output fragments */
+div.language-out {
+    border-left-color: var(--stamp-brown-light);
+    border-top-color: var(--stamp-brown-light);
+    border-bottom-color: var(--stamp-brown-light);
 }
 
 /* Python fragments */
 div.language-py {
-    border-left: solid var(--border-heavy) var(--stamp-blue-light);
-    border-top: solid var(--border-thin) var(--stamp-blue-light);
-    border-bottom: solid var(--border-thin) var(--stamp-blue-light);
-    padding-left: var(--border-heavy);
-}
-div.language-py pre {
-    margin-top: var(--border-heavy);
-    margin-bottom: var(--border-heavy);
+    border-left-color: var(--stamp-blue-light);
+    border-top-color: var(--stamp-blue-light);
+    border-bottom-color: var(--stamp-blue-light);
 }
 
 /* Shell fragments */
 div.language-sh {
-    border-left: solid var(--border-heavy) var(--stamp-green-light);
-    border-top: solid var(--border-thin) var(--stamp-green-light);
-    border-bottom: solid var(--border-thin) var(--stamp-green-light);
-    padding-left: var(--border-heavy);
-}
-div.language-sh pre {
-    margin-top: var(--border-heavy);
-    margin-bottom: var(--border-heavy);
+    border-left-color: var(--stamp-green-light);
+    border-top-color: var(--stamp-green-light);
+    border-bottom-color: var(--stamp-green-light);
 }
 
 /* SQL fragments */
 div.language-sql {
-    border-left: solid var(--border-heavy) var(--stamp-blue-light);
-    border-top: solid var(--border-thin) var(--stamp-blue-light);
-    border-bottom: solid var(--border-thin) var(--stamp-blue-light);
-    padding-left: var(--border-heavy);
-}
-div.language-sql pre {
-    margin-top: var(--border-heavy);
-    margin-bottom: var(--border-heavy);
+    border-left-color: var(--stamp-red-light);
+    border-top-color: var(--stamp-red-light);
+    border-bottom-color: var(--stamp-red-light);
 }
 
 /* Transcript fragments */
 div.language-text {
-    border-left: solid var(--border-heavy) var(--stamp-purple-light);
-    border-top: solid var(--border-thin) var(--stamp-purple-light);
-    border-bottom: solid var(--border-thin) var(--stamp-purple-light);
-    padding-left: var(--border-heavy);
-}
-div.language-text pre {
-    margin-top: var(--border-heavy);
-    margin-bottom: var(--border-heavy);
+    border-left-color: var(--stamp-purple-light);
+    border-top-color: var(--stamp-purple-light);
+    border-bottom-color: var(--stamp-purple-light);
 }
 
 /* Bibliography key definitions */
