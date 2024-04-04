@@ -49,4 +49,4 @@ def _as_markdown(entry, lang):
     term = util.markdownify(entry[lang]["term"])
     acronym = f" ({entry[lang]['acronym']})" if "acronym" in entry[lang] else ""
     defn = util.markdownify(entry[lang]["def"])
-    return f'<dt id="g:{key}">{term}{acronym}</dt><dd>{defn}</dd>'
+    return f'<dt id="{GL_PREFIX}{key}">{term}{acronym}</dt><dd>{defn}</dd>'
