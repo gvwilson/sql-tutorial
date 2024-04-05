@@ -43,6 +43,11 @@ build: ${TMP_BIB}
 serve:
 	ark watch
 
+## profile: profile compilation
+.PHONY: profile
+profile:
+	python ${THEME_BIN}/run_profile.py
+
 ## bib: rebuild HTML version of bibliography
 bib: ${TMP_BIB} ${THEME_BIN}/make_bibliography.py
 ${TMP_BIB}: ${INFO_BIB}
