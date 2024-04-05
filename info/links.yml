@@ -16,6 +16,12 @@
   url: "https://brailleinstitute.org/freefont"
   title: "Atkinson Hyperlegible font"
 
+# B
+
+- key: "bs4"
+  url: "https://pypi.org/project/beautifulsoup4/"
+  title: "Beautiful Soup"
+
 # C
 
 - key: "carpentries-shell"
@@ -50,6 +56,10 @@
   url: "https://numist.github.io/highlight-css/"
   title: "highlight-css"
 
+- key: "html5validator"
+  url: "https://pypi.org/project/html5validator/"
+  title: "html5validator"
+
 # K
 
 - key: "kitsios_konstantinos"
@@ -64,7 +74,7 @@
 
 # N
 
-- key: navarro-danielle
+- key: navarro_danielle
   url: "https://art.djnavarro.net/"
   title: "Danielle Navarro"
 
@@ -101,6 +111,16 @@
 - key: "postgresql_macos_latest"
   url: "https://www.enterprisedb.com/downloads/postgres-postgresql-downloads"
   title: "Latest version of PostgreSQL for MacOS"
+
+- key: "pybtex"
+  url: "https://pypi.org/project/pybtex/"
+  title: "pybtex"
+
+# R
+
+- key: "ruff"
+  url: "https://pypi.org/project/ruff/"
+  title: "ruff"
 
 # S
 

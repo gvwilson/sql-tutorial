@@ -110,7 +110,7 @@ with the corresopnding machine IDs from the `machine` table.
 [%inc active_penguins.sql %]
 [%inc active_penguins.out %]
 
--   Use a [%g tombstone "tombstone" %] to mark (in)active records
+-   Use a tombstone to mark (in)active records
 -   Every query must now include it
 
 ## Importing CSV Data {: .aside}

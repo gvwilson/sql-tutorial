@@ -128,7 +128,7 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 -   Join a table to itself
     -   Use `as` to create [%g alias "aliases" %] for copies of tables to distinguish them
     -   Nothing special about the names `left` and `right`
--   Get all <math>n<sup>2</sup></math> pairs, including person with themself
+-   Get all \\( n^2 \\) pairs, including person with themself
 
 ## Generating Unique Pairs
 
@@ -137,7 +137,7 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 
 -   `left.ident < right.ident` ensures distinct pairs without duplicates
     -   Query uses `left.ident <= 4 and right.ident <= 4` to shorten output
--   Quick check: <math>n(n-1)/2</math> pairs
+-   Quick check: \\( n(n-1)/2 \\) pairs
 
 ## Filtering Pairs
 

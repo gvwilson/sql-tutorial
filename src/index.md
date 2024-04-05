@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-4 center">
     <p>
-      <img src="@root/advent_04_215-resized.png" alt="cover art by Danielle Navarro" width="80%"/>
+      <img class="splash" src="@root/advent_04_215-resized.png" alt="cover art by Danielle Navarro"/>
     </p>
   </div>
   <div class="col-8">

@@ -20,4 +20,3 @@ def keep_dir(value, path):
 def keep_file(value, path):
     """Only process .md Markdown files."""
     return path.suffix == ".md"
-

@@ -44,7 +44,7 @@ tagline: "Getting values from tables."
 -   Specify column names separated by commas
     -   In any order
     -   Duplicates allowed
--   Line breaks <strike>allowed</strike> encouraged for readability
+-   Line breaks encouraged for readability
 
 ## Sorting
 

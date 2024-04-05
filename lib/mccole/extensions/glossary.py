@@ -1,7 +1,6 @@
 """Handle glossary references and glossary."""
 
 import ark
-from pathlib import Path
 import shortcodes
 
 import util

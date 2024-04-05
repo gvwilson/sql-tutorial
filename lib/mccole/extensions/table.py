@@ -45,5 +45,5 @@ def table_def(pargs, kwargs, node):
         f'<div class="table" id="{slug}">',
         content,
         f'<p class="table-caption">{prefix}: {caption}</p>',
-        f'</div>',
+        '</div>',
     ])

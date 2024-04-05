@@ -42,6 +42,9 @@
     --spacing-small: 0.25rem;
     --spacing-medium: 0.5rem;
     --spacing-large: 1rem;
+
+    /* Image properties */
+    --splash-width: 80%;
 }
 
 /* Flex grid */
@@ -178,6 +181,11 @@ h1 {
 /* Entire page */
 html {
     font-family: "Atkinson Hyperlegible", sans-serif;
+}
+
+/* Splash image */
+img.splash {
+    width: var(--splash-width);
 }
 
 /* Appendix list */
