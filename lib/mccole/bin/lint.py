@@ -10,6 +10,16 @@ import re
 import shortcodes
 import yaml
 
+
+# File types ignored when checking for inclusions
+IGNORED_SUFFIXES = {
+    ".md",
+    ".png",
+    ".svg",
+    ".tbl"
+}
+
+# Shortcode keys that are required to be unique
 UNIQUE_KEYS = {
     "fig_def",
     "gloss",
@@ -35,6 +45,7 @@ def main():
     for func in [
         check_bib,
         check_fig,
+        check_inc,
         check_tbl,
         check_xref,
     ]:
@@ -55,7 +66,7 @@ def check_colophon(options):
     expected_keys = set([e["key"] for e in expected])
     missing = expected_keys - actual_keys
     if missing:
-        print(f"Missing colophon link keys: {listify(missing)}")
+        print(f"Missing colophon link(s): {listify(missing)}")
 
 
 def check_fig(options, found):
@@ -87,6 +98,12 @@ def check_gloss_internal(options):
     return internal
 
 
+def check_inc(options, found):
+    """Check file inclusions."""
+    expected = get_includable_files(options)
+    compare_keys("inc", expected, found["inc"])
+
+
 def check_tbl(options, found):
     """Check table definitions and citations."""
     compare_keys("table", set(found["tbl_def"].keys()), found["tbl_ref"])
@@ -105,6 +122,7 @@ def collect_all():
     parser.register(collect_fig_def, "figure")
     parser.register(collect_fig_ref, "f")
     parser.register(collect_gloss, "g")
+    parser.register(collect_inc, "inc")
     parser.register(collect_tbl_def, "table")
     parser.register(collect_tbl_ref, "t")
     parser.register(collect_xref, "x")
@@ -113,6 +131,7 @@ def collect_all():
         "fig_def": {},
         "fig_ref": {},
         "gloss": {},
+        "inc": {},
         "tbl_def": {},
         "tbl_ref": {},
         "xref": {},
@@ -147,6 +166,11 @@ def collect_gloss(pargs, kwargs, found):
     found["gloss"].add(pargs[0])
 
 
+def collect_inc(pargs, kwargs, found):
+    """Collect data from an inclusion shortcode."""
+    found["inc"].add(f"{found['_dirname_']}/{pargs[0]}")
+
+
 def collect_tbl_def(pargs, kwargs, found):
     """Collect data from a table definition shortcode."""
     slug = kwargs["slug"]
@@ -170,32 +194,25 @@ def collect_visitor(node, parser, collected):
     """Visit each node, collecting data."""
     if node.ext != "md":
         return
-
-    found = {
-        "bib": set(),
-        "fig_def": set(),
-        "fig_ref": set(),
-        "gloss": set(),
-        "tbl_def": set(),
-        "tbl_ref": set(),
-        "xref": set(),
-    }
+    found = {key: set() for key in collected.keys()}
+    found["_dirname_"] = f"src/{node.slug}"
     parser.parse(node.text, found)
     for kind in found:
-        reorganize_found(node, kind, collected, found)
+        if kind != "_dirname_":
+            reorganize_found(node, kind, collected, found)
 
 
 def compare_keys(kind, expected, actual, extra=None, unused=True):
     """Check two sets of keys."""
     for key, slugs in actual.items():
         if key not in expected:
-            print(f"unknown {kind} key {key} used in {listify(slugs)}")
+            print(f"unknown {kind} {key} used in {listify(slugs)}")
         else:
             expected.remove(key)
     if extra:
         expected -= extra
     if unused and expected:
-        print(f"unused {kind} keys {listify(expected)}")
+        print(f"unused {kind} {listify(expected)}")
 
 
 def get_bib_keys(options):
@@ -211,6 +228,27 @@ def get_gloss_keys(options):
     if isinstance(glossary, dict):
         glossary = [glossary]
     return {entry["key"] for entry in glossary}
+
+
+def get_includable_files(options):
+    """Get all includable files from source directory."""
+    result = set()
+    for slug in options.config.chapters + options.config.appendices:
+        for filename in Path(options.root, "src", slug).rglob("**/*"):
+            if is_includable(options, filename):
+                result.add(str(filename))
+    return result
+
+
+def is_includable(options, filename):
+    """Might this thing be included?"""
+    if filename.is_dir():
+        return False
+    if str(filename).endswith("~"):
+        return False
+    if filename.suffix in IGNORED_SUFFIXES:
+        return False
+    return True
 
 
 def listify(values):
