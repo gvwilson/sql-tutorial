@@ -102,6 +102,7 @@ div[class*='language'] {
     border-left: solid var(--border-heavy);
     border-top: solid var(--border-thin);
     border-bottom: solid var(--border-thin);
+    border-right: 0px;
     padding-left: var(--border-heavy);
 }
 div.highlight {
@@ -112,39 +113,44 @@ div[class*='language'] pre {
     margin-bottom: var(--border-heavy);
 }
 
-/* Output fragments */
+/* CSV */
+div.language-csv {
+    border-color: var(--stamp-orange-light);
+}
+
+/* JSON */
+div.language-json {
+    border-color: var(--stamp-orange-light);
+}
+
+/* Output */
 div.language-out {
-    border-left-color: var(--stamp-brown-light);
-    border-top-color: var(--stamp-brown-light);
-    border-bottom-color: var(--stamp-brown-light);
+    border-color: var(--stamp-brown-light);
 }
 
-/* Python fragments */
+/* Python */
 div.language-py {
-    border-left-color: var(--stamp-blue-light);
-    border-top-color: var(--stamp-blue-light);
-    border-bottom-color: var(--stamp-blue-light);
+    border-color: var(--stamp-blue-light);
 }
 
-/* Shell fragments */
+/* Shell */
 div.language-sh {
-    border-left-color: var(--stamp-green-light);
-    border-top-color: var(--stamp-green-light);
-    border-bottom-color: var(--stamp-green-light);
+    border-color: var(--stamp-green-light);
 }
 
-/* SQL fragments */
+/* SQL */
 div.language-sql {
-    border-left-color: var(--stamp-red-light);
-    border-top-color: var(--stamp-red-light);
-    border-bottom-color: var(--stamp-red-light);
+    border-color: var(--stamp-red-light);
 }
 
-/* Transcript fragments */
+/* Transcripts */
 div.language-text {
-    border-left-color: var(--stamp-purple-light);
-    border-top-color: var(--stamp-purple-light);
-    border-bottom-color: var(--stamp-purple-light);
+    border-color: var(--stamp-purple-light);
+}
+
+/* YAML */
+div.language-text {
+    border-color: var(--stamp-orange-light);
 }
 
 /* Bibliography key definitions */

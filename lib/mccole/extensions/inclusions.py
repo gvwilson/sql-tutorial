@@ -42,18 +42,17 @@ def inclusion(pargs, kwargs, node):
     path = Path(ark.site.config["src_dir"], *node.path) / name
     kind = path.suffix.lstrip(".")
     indent = kwargs.get("indent", False)
+    ellipsis = "\n…" if kwargs.get("ellipsis", "False") == "True" else ""
     try:
-        if not kwargs:
-            body = _whole(path)
-        elif "pattern" in kwargs:
+        if "pattern" in kwargs:
             body = _match(node, path, kwargs["pattern"], indent)
         elif "mark" in kwargs:
             body = _extract(node, path, kwargs["mark"], indent)
         else:
-            util.fail(f"Badly-formed inclusion for '{path}' in {node} with '{kwargs}'")
+            body = _whole(path)
         body = f"```{kind}\n{body}\n```\n"
         cls = f'class="language-{kind}"'
-        return f'<div {cls} title="{name}" markdown="1">\n{body}</div>'
+        return f'<div {cls} title="{name}" markdown="1">\n{body}{ellipsis}</div>'
     except OSError:
         util.fail(f"Unable to read inclusion '{path}' in {node}.")
 
