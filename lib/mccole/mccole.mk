@@ -14,16 +14,20 @@ THEME_BIN := ${ROOT}/lib/mccole/bin
 # Standard GitHub pages (in root directory rather than website source directory)
 GITHUB_PAGES := ${ROOT}/CODE_OF_CONDUCT.md ${ROOT}/LICENSE.md
 
+# Information files
+INFO_GLOSSARY := ${ROOT}/info/glossary.yml
+INFO_BIB := info/bibliography.bib
+TMP_BIB := tmp/bibliography.html
+
 # All Markdown source pages
 SRC_PAGES := $(wildcard ${ROOT}/src/*.md) $(wildcard ${ROOT}/src/*/index.md)
 
 # Generated HTML pages
 DOCS_PAGES := $(patsubst ${ROOT}/src/%.md,${ROOT}/docs/%.html,$(SRC_PAGES))
 
-# Information files
-INFO_GLOSSARY := ${ROOT}/info/glossary.yml
-INFO_BIB := info/bibliography.bib
-TMP_BIB := tmp/bibliography.html
+# All SVG diagrams
+SVG_FILES := $(wildcard ${ROOT}/src/*/*.svg)
+SVG_WIDTH := 640
 
 ## commands: show available commands
 .PHONY: commands
@@ -67,6 +71,9 @@ lint:
 	'Attribute "ix-ref" not allowed on element "a"' \
 	'Attribute "markdown" not allowed on element "a"' \
 	'Attribute "markdown" not allowed on element "span"'
+	@python ${THEME_BIN}/lint_svg.py \
+	--width ${SVG_WIDTH} \
+	--files ${SVG_FILES}
 
 ## style: check Python code style
 .PHONY: style

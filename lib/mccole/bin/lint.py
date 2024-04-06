@@ -13,6 +13,7 @@ import yaml
 
 # File types ignored when checking for inclusions
 IGNORED_SUFFIXES = {
+    ".bkp",
     ".md",
     ".png",
     ".svg",
