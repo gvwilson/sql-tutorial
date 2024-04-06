@@ -148,6 +148,11 @@ div.language-text {
     border-color: var(--stamp-purple-light);
 }
 
+/* TOML */
+div.language-toml {
+    border-color: var(--stamp-orange-light);
+}
+
 /* YAML */
 div.language-text {
     border-color: var(--stamp-orange-light);

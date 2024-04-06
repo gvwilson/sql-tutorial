@@ -19,4 +19,7 @@ def keep_dir(value, path):
 @ark.filters.register(ark.filters.Filter.LOAD_NODE_FILE)
 def keep_file(value, path):
     """Only process .md Markdown files."""
-    return path.suffix == ".md"
+    if path.suffix != ".md":
+        return False
+    path = str(path).replace(ark.site.src(), "").lstrip("/")
+    return path not in ark.site.config["exclude"]
