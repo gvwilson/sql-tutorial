@@ -113,13 +113,11 @@ div[class*='language'] pre {
     margin-bottom: var(--border-heavy);
 }
 
-/* CSV */
-div.language-csv {
-    border-color: var(--stamp-orange-light);
-}
-
-/* JSON */
-div.language-json {
+/* Data files */
+div.language-csv,
+div.language-json,
+div.language-toml,
+div.language-yml {
     border-color: var(--stamp-orange-light);
 }
 
@@ -146,16 +144,6 @@ div.language-sql {
 /* Transcripts */
 div.language-text {
     border-color: var(--stamp-purple-light);
-}
-
-/* TOML */
-div.language-toml {
-    border-color: var(--stamp-orange-light);
-}
-
-/* YAML */
-div.language-text {
-    border-color: var(--stamp-orange-light);
 }
 
 /* Bibliography key definitions */
