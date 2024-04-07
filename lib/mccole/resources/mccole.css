@@ -232,6 +232,11 @@ p.table-caption {
     text-align: center;
 }
 
+/* Term definitions */
+p.terms {
+    font-style: italic;
+}
+
 /* Index entry */
 span.ix-entry {
 }
