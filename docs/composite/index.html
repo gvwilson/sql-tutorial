@@ -310,16 +310,12 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 </code></pre></div>
 </div>
 <div class="language-sql" title="active_penguins.sql">
-<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">make_active</span><span class="p">.</span><span class="k">sql</span>
-
-<span class="c1">-- [keep]</span>
-<span class="k">select</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num</span>
 <span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
 <span class="k">where</span><span class="w"> </span><span class="n">active</span>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
-<span class="c1">-- [/keep]</span>
 </code></pre></div>
 </div>
 <div class="language-out" title="active_penguins.out">
@@ -363,10 +359,7 @@ created by the CSV import shown above?
 How can you correct the ones that need correcting?</p>
 <h2>Views</h2>
 <div class="language-sql" title="views.sql">
-<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">make_active</span><span class="p">.</span><span class="k">sql</span>
-
-<span class="c1">-- [keep]</span>
-<span class="k">create</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span>
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span>
 <span class="n">active_penguins</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">island</span><span class="p">,</span>
@@ -392,7 +385,6 @@ How can you correct the ones that need correcting?</p>
 <span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num</span>
 <span class="k">from</span><span class="w"> </span><span class="n">active_penguins</span>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
-<span class="c1">-- [/keep]</span>
 </code></pre></div>
 </div>
 <div class="language-out" title="views.out">

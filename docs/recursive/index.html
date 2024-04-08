@@ -69,10 +69,7 @@
 </code></pre></div>
 </div>
 <div class="language-sql" title="represent_graph.sql">
-<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">lineage_setup</span><span class="p">.</span><span class="k">sql</span>
-<span class="c1">-- [keep]</span>
-<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">lineage</span><span class="p">;</span>
-<span class="c1">-- [/keep]</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">lineage</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="language-out" title="represent_graph.out">
@@ -96,10 +93,7 @@
 <p>Write a query that uses a self join to find every person&rsquo;s grandchildren.</p>
 <h2>Recursive Queries</h2>
 <div class="language-sql" title="recursive_lineage.sql">
-<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">read</span><span class="w"> </span><span class="n">src</span><span class="o">/</span><span class="n">lineage_setup</span><span class="p">.</span><span class="k">sql</span>
-
-<span class="c1">-- [keep]</span>
-<span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">descendent</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">descendent</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="s1">&#39;Clemente&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
 <span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">generations</span>
@@ -115,7 +109,6 @@
 <span class="w">    </span><span class="n">person</span><span class="p">,</span>
 <span class="w">    </span><span class="n">generations</span>
 <span class="k">from</span><span class="w"> </span><span class="n">descendent</span><span class="p">;</span>
-<span class="c1">-- [/keep]</span>
 </code></pre></div>
 </div>
 <div class="language-out" title="recursive_lineage.out">
@@ -192,8 +185,7 @@ Why or why not?</p>
 
 <h2>Bidirectional Contacts</h2>
 <div class="language-sql" title="bidirectional.sql">
-<div class="highlight"><pre><span></span><code><span class="c1">-- [keep]</span>
-<span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">left</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
 <span class="w">    </span><span class="k">right</span><span class="w"> </span><span class="nb">text</span>
 <span class="p">);</span>
@@ -204,11 +196,6 @@ Why or why not?</p>
 <span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">right</span><span class="p">,</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
 <span class="p">;</span>
-<span class="c1">-- [/keep]</span>
-
-<span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">original_count</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span><span class="p">;</span>
-<span class="p">.</span><span class="n">print</span>
-<span class="k">select</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num_contact</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <div class="language-out" title="bidirectional.out">
@@ -230,20 +217,7 @@ Why or why not?</p>
 </ul>
 <h2>Updating Group Identifiers</h2>
 <div class="language-sql" title="update_group_ids.sql">
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">left</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
-<span class="w">    </span><span class="k">right</span><span class="w"> </span><span class="nb">text</span>
-<span class="p">);</span>
-
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">bi_contact</span>
-<span class="k">select</span>
-<span class="w">    </span><span class="k">left</span><span class="p">,</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
-<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">right</span><span class="p">,</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
-<span class="p">;</span>
-
-<span class="c1">-- [keep]</span>
-<span class="k">select</span>
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="k">left</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">left_name</span><span class="p">,</span>
 <span class="w">    </span><span class="k">left</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">left_ident</span><span class="p">,</span>
 <span class="w">    </span><span class="k">right</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">right_name</span><span class="p">,</span>
@@ -252,7 +226,6 @@ Why or why not?</p>
 <span class="k">from</span>
 <span class="w">    </span><span class="p">(</span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">left</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">left</span><span class="p">)</span>
 <span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">right</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
-<span class="c1">-- [/keep]</span>
 </code></pre></div>
 </div>
 <div class="language-out" title="update_group_ids.out">
@@ -282,20 +255,7 @@ Why or why not?</p>
 </ul>
 <h2>Recursive Labeling</h2>
 <div class="language-sql" title="recursive_labeling.sql">
-<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">left</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
-<span class="w">    </span><span class="k">right</span><span class="w"> </span><span class="nb">text</span>
-<span class="p">);</span>
-
-<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">bi_contact</span>
-<span class="k">select</span>
-<span class="w">    </span><span class="k">left</span><span class="p">,</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
-<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
-<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">right</span><span class="p">,</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
-<span class="p">;</span>
-
-<span class="c1">-- [keep]</span>
-<span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">labeled</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">labeled</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
 <span class="w">        </span><span class="n">person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">label</span>
@@ -314,7 +274,6 @@ Why or why not?</p>
 <span class="k">from</span><span class="w"> </span><span class="n">labeled</span>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
-<span class="c1">-- [/keep]</span>
 </code></pre></div>
 </div>
 <div class="language-out" title="recursive_labeling.out">

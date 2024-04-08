@@ -111,12 +111,12 @@ write a query that adds or modifies people in the `staff` table as shown:
 
 ## Trigger Not Firing
 
-[%inc trigger_successful.sql %]
+[%inc trigger_successful.sql mark=keep %]
 [%inc trigger_successful.out %]
 
 ## Trigger Firing
 
-[%inc trigger_firing.sql %]
+[%inc trigger_firing.sql mark=keep %]
 [%inc trigger_firing.out %]
 
 ## Exercise {: .exercise}

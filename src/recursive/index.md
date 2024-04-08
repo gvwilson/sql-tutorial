@@ -6,7 +6,7 @@ tagline: "Representing and querying graphs."
 ## Representing Graphs {: .aside}
 
 [%inc lineage_setup.sql %]
-[%inc represent_graph.sql %]
+[%inc represent_graph.sql mark=keep %]
 [%inc represent_graph.out %]
 
 [% figure
@@ -22,7 +22,7 @@ Write a query that uses a self join to find every person's grandchildren.
 
 ## Recursive Queries
 
-[%inc recursive_lineage.sql %]
+[%inc recursive_lineage.sql mark=keep %]
 [%inc recursive_lineage.out %]
 
 -   Use a [%g recursive_cte "recursive CTE" %] to create a temporary table (`descendent`)
@@ -55,7 +55,7 @@ Why or why not?
 
 ## Bidirectional Contacts
 
-[%inc bidirectional.sql %]
+[%inc bidirectional.sql mark=keep %]
 [%inc bidirectional.out %]
 
 -   Create a [%g temporary_table "temporary table" %] rather than using a long chain of CTEs
@@ -64,7 +64,7 @@ Why or why not?
 
 ## Updating Group Identifiers
 
-[%inc update_group_ids.sql %]
+[%inc update_group_ids.sql mark=keep %]
 [%inc update_group_ids.out %]
 
 -   `new_ident` is minimum of own identifier and identifiers one step away
@@ -72,7 +72,7 @@ Why or why not?
 
 ## Recursive Labeling
 
-[%inc recursive_labeling.sql %]
+[%inc recursive_labeling.sql mark=keep %]
 [%inc recursive_labeling.out %]
 
 -   Use `union` instead of `union all` to prevent [%g infinite_recursion "infinite recursion" %]

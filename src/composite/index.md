@@ -107,7 +107,7 @@ with the corresopnding machine IDs from the `machine` table.
 ## Tombstones
 
 [%inc make_active.sql %]
-[%inc active_penguins.sql %]
+[%inc active_penguins.sql mark=keep %]
 [%inc active_penguins.out %]
 
 -   Use a tombstone to mark (in)active records
@@ -132,7 +132,7 @@ How can you correct the ones that need correcting?
 
 ## Views
 
-[%inc views.sql %]
+[%inc views.sql mark=keep %]
 [%inc views.out %]
 
 -   A [%g view "view" %] is a saved query that other queries can invoke
