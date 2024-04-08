@@ -42,24 +42,32 @@
     --spacing-small: 0.25rem;
     --spacing-medium: 0.5rem;
     --spacing-large: 1rem;
+    --spacing-large-negative: -1.1rem;
 
     /* Image properties */
     --splash-width: 80%;
 }
 
-/* Small screen: display rows with one column. */
+/* Small screen: display rows with one column */
 @media screen {
-  .row {
-      width: 100%
-  }
+    .row {
+	width: 100%
+    }
 }
 
-/* Wide screen: display rows as rows. */
+/* Wide screen: display rows as rows */
 @media screen and (min-width: 60rem) {
-  .row {
-      display: flex;
-      flex-flow: row wrap;
-  }
+    .row {
+	display: flex;
+	flex-flow: row wrap;
+    }
+}
+
+/* Always display as row */
+.row-always {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 /* Flex grid */
@@ -197,6 +205,12 @@ img.splash {
     width: var(--splash-width);
 }
 
+/* Reduce list indentation */
+li {
+    list-style-type: disc;
+    margin-left: var(--spacing-large-negative);
+}
+
 /* Make navigation controls larger */
 nav {
     font-size: var(--size-subtitle);
@@ -232,6 +246,11 @@ p.table-caption {
     text-align: center;
 }
 
+/* Term definitions */
+p.terms {
+    font-style: italic;
+}
+
 /* Index entry */
 span.ix-entry {
 }
@@ -253,7 +272,7 @@ th, td {
     border: solid var(--border-thin) var(--gray-light);
 }
 
-/* Key points listing at chapter start. */
+/* Key points listing at chapter start */
 ul.keypoints {
     background-color: var(--gray-light);
     border: var(--border-medium) var(--gray-dark) solid;
