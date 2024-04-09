@@ -30,11 +30,11 @@ tagline: "Inserting, changing, and deleting values."
 
 ## Following Along {: .aside}
 
+-   [Download the examples]([% config "release" %])
+-   Unzip that file
 -   To re-create this database:
-    -   [Download the examples]([% config "release" %])
-    -   Unzip that file
-    -   `.read src/create_work_job.sql`
-    -   `.read src/populate_work_job.sql`
+    -   `.read create_work_job.sql`
+    -   `.read populate_work_job.sql`
 
 ## Exercise {: .exercise}
 

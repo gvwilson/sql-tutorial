@@ -1,6 +1,6 @@
-.read src/create_work_job.sql
-.read src/populate_work_job.sql
-.read src/update_work_job.sql
+.read create_work_job.sql
+.read populate_work_job.sql
+.read update_work_job.sql
 
 -- [keep]
 create table backup (

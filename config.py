@@ -56,7 +56,9 @@ copy = [
 ]
 
 # Files and directories to skip
-exclude = {}
+exclude = {
+    "composite/img",
+}
 
 # Theme information.
 theme = "mccole"

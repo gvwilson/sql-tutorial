@@ -1,5 +1,6 @@
-from typing import Optional
 from sqlmodel import Field, Session, SQLModel, create_engine, select
+import sys
+from typing import Optional
 
 
 class Department(SQLModel, table=True):
@@ -17,7 +18,8 @@ class Staff(SQLModel, table=True):
     age: int
 
 
-engine = create_engine("sqlite:///db/assays.db")
+db_uri = f"sqlite:///{sys.argv[1]}"
+engine = create_engine(db_uri)
 SQLModel.metadata.create_all(engine)
 with Session(engine) as session:
     statement = select(Department, Staff).where(Staff.dept == Department.ident)
