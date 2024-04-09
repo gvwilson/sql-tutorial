@@ -65,15 +65,15 @@ lint:
 	--dom ${ROOT}/lib/mccole/dom.yml \
 	--html ${DOCS_PAGES} \
 	--root ${ROOT}
+	@python ${THEME_BIN}/lint_svg.py \
+	--width ${SVG_WIDTH} \
+	--files ${SVG_FILES}
 	@html5validator --root ${ROOT}/docs ${DOCS_PAGES} \
 	--ignore \
 	'Attribute "ix-key" not allowed on element "span"' \
 	'Attribute "ix-ref" not allowed on element "a"' \
 	'Attribute "markdown" not allowed on element "a"' \
 	'Attribute "markdown" not allowed on element "span"'
-	@python ${THEME_BIN}/lint_svg.py \
-	--width ${SVG_WIDTH} \
-	--files ${SVG_FILES}
 
 ## style: check Python code style
 .PHONY: style

@@ -2,7 +2,7 @@
 
 import argparse
 import ark
-from bs4 import BeautifulSoup, Tag
+from bs4 import BeautifulSoup, NavigableString, Tag
 from collections import Counter
 import importlib.util
 from pathlib import Path
@@ -52,6 +52,8 @@ def main():
     ]:
         func(options, found)
 
+    check_html(options)
+
 
 def check_bib(options, found):
     """Check bibliography citations."""
@@ -97,6 +99,14 @@ def check_gloss_internal(options):
         print(f"unknown internal glossary key(s) {listify(unknown)}")
 
     return internal
+
+
+def check_html(options):
+    """Check generated HTML pages."""
+    for filename in options.html:
+        with open(filename, "r") as reader:
+            dom = BeautifulSoup(reader.read(), "html.parser")
+            visit_html(filename, dom)
 
 
 def check_inc(options, found):
@@ -284,6 +294,19 @@ def reorganize_found(node, kind, collected, found):
             print(f"{kind} key {key} redefined")
         slug = node.slug if node.slug else "@root"
         collected[kind][key].add(slug)
+
+
+def visit_html(filename, node):
+    """Recursively check nodes of DOM tree."""
+    if isinstance(node, NavigableString):
+        if "][" in node.text:
+            print(f"{filename}: '{node.text}'")
+    elif not isinstance(node, Tag):
+        return
+    elif node.name in {"code", "pre"}:
+        return
+    for child in node:
+        visit_html(filename, child)
 
 
 if __name__ == "__main__":
