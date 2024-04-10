@@ -1,4 +1,4 @@
-.read src/make_active.sql
+.read make_active.sql
 
 -- [keep]
 select

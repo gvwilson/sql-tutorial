@@ -1,4 +1,5 @@
 from sqlmodel import Field, Session, SQLModel, create_engine, select
+import sys
 
 
 class Department(SQLModel, table=True):
@@ -7,7 +8,8 @@ class Department(SQLModel, table=True):
     building: str
 
 
-engine = create_engine("sqlite:///db/assays.db")
+db_uri = f"sqlite:///{sys.argv[1]}"
+engine = create_engine(db_uri)
 with Session(engine) as session:
     statement = select(Department)
     for result in session.exec(statement).all():

@@ -1,4 +1,4 @@
-.read src/trigger_setup.sql
+.read trigger_setup.sql
 
 -- [keep]
 insert into job values

@@ -23,7 +23,7 @@ When might it be misleading?
 
 ## Null Equality
 
--   Repeated from earlier (so it doesn't count against our query limit)
+-   Repeated from earlier
 
 [%inc filter.sql %]
 [%inc filter.out %]
