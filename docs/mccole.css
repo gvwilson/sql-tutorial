@@ -134,6 +134,7 @@ div[class*='language'] pre {
 /* Data files */
 div.language-csv,
 div.language-json,
+div.language-md,
 div.language-toml,
 div.language-yml {
     border-color: var(--stamp-orange-light);
