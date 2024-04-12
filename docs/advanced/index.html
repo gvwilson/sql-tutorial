@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../logo.svg">
+<link rel="stylesheet" href="../tango.css" type="text/css">
+<link rel="stylesheet" href="../mccole.css" type="text/css">
+<title>The Querynomicon &middot; Advanced Features</title>
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['\\(', '\\)']]
+    }
+  };
+</script>
+<script
+  type="text/javascript"
+  id="MathJax-script"
+  async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+  <script defer data-domain="gvwilson.github.io/sql-tutorial" src="https://plausible.io/js/plausible.js"></script>
+
+
+  </head>
+  <body>
+    <main>
+      <div class="row notex">
+  <div class="col-12 center">
+    
+      <h1>Advanced Features</h1>
+    
+  </div>
+</div>
+
+      
+<nav class="row-always notex">
+  <div class="col-1 left">
+    <a href="../tools/" title="previous" class="undecorated">&#8678;</a>
+  </div>
+  <div class="col-10 center">
+    <a href="../" title="home" class="undecorated">&#9737;</a>
+  </div>
+  <div class="col-1 right">
+    <a href="../python/" title="next" class="undecorated">&#8680;</a>
+  </div>
+</nav>
+
+
+      
+      <p class="terms">Terms defined: 
+<a class="gl-ref" href="../glossary/#gl:atomic" markdown="1">atomic</a>, <a class="gl-ref" href="../glossary/#gl:base_case" markdown="1">base case</a>, <a class="gl-ref" href="../glossary/#gl:blob" markdown="1">Binary Large Object</a>, <a class="gl-ref" href="../glossary/#gl:consistent" markdown="1">consistent</a>, <a class="gl-ref" href="../glossary/#gl:csv" markdown="1">comma-separated values</a>, <a class="gl-ref" href="../glossary/#gl:denormalization" markdown="1">denormalization</a>, <a class="gl-ref" href="../glossary/#gl:durable" markdown="1">durable</a>, <a class="gl-ref" href="../glossary/#gl:infinite_recursion" markdown="1">infinite recursion</a>, <a class="gl-ref" href="../glossary/#gl:isolated" markdown="1">isolated</a>, <a class="gl-ref" href="../glossary/#gl:json" markdown="1">JavaScript Object Notation</a>, <a class="gl-ref" href="../glossary/#gl:materialized_view" markdown="1">materialized view</a>, <a class="gl-ref" href="../glossary/#gl:normal_form" markdown="1">normal form</a>, <a class="gl-ref" href="../glossary/#gl:path_expression" markdown="1">path expression</a>, <a class="gl-ref" href="../glossary/#gl:recursive_case" markdown="1">recursive case</a>, <a class="gl-ref" href="../glossary/#gl:recursive_cte" markdown="1">recursive CTE</a>, <a class="gl-ref" href="../glossary/#gl:temporary_table" markdown="1">temporary table</a>, <a class="gl-ref" href="../glossary/#gl:trigger" markdown="1">trigger</a>, <a class="gl-ref" href="../glossary/#gl:upsert" markdown="1">upsert</a>, <a class="gl-ref" href="../glossary/#gl:view" markdown="1">view</a>
+</p>
+      <h2>Blobs</h2>
+<div class="language-sql" title="blob.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">images</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">content</span><span class="w"> </span><span class="nb">blob</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">images</span><span class="w"> </span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">content</span><span class="p">)</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;biohazard&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">readfile</span><span class="p">(</span><span class="s1">&#39;img/biohazard.png&#39;</span><span class="p">)),</span>
+<span class="p">(</span><span class="s1">&#39;crush&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">readfile</span><span class="p">(</span><span class="s1">&#39;img/crush.png&#39;</span><span class="p">)),</span>
+<span class="p">(</span><span class="s1">&#39;fire&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">readfile</span><span class="p">(</span><span class="s1">&#39;img/fire.png&#39;</span><span class="p">)),</span>
+<span class="p">(</span><span class="s1">&#39;radioactive&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">readfile</span><span class="p">(</span><span class="s1">&#39;img/radioactive.png&#39;</span><span class="p">)),</span>
+<span class="p">(</span><span class="s1">&#39;tripping&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">readfile</span><span class="p">(</span><span class="s1">&#39;img/tripping.png&#39;</span><span class="p">));</span>
+
+<span class="k">select</span>
+<span class="w">    </span><span class="n">name</span><span class="p">,</span>
+<span class="w">    </span><span class="k">length</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+<span class="k">from</span><span class="w"> </span><span class="n">images</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="blob.out">
+<div class="highlight"><pre><span></span><code>|    name     | length(content) |
+|-------------|-----------------|
+| biohazard   | 19629           |
+| crush       | 15967           |
+| fire        | 18699           |
+| radioactive | 16661           |
+| tripping    | 17208           |
+</code></pre></div>
+</div>
+<ul>
+<li>A <a class="gl-ref" href="../glossary/#gl:blob" markdown="1">blob</a> is a binary large object<ul>
+<li>Bytes in, bytes out…</li>
+</ul>
+</li>
+<li>If you think that&rsquo;s odd, check out <a href="https://fossil-scm.org/">Fossil</a></li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Modify the query shown above to select the value of <code>content</code>
+rather than its length.
+How intelligible is the output?
+Does using SQLite&rsquo;s <code>hex()</code> function make it any more readable?</p>
+<h2 class="aside">Yet Another Database</h2>
+<div class="language-sh" title="lab_log_db.sh">
+<div class="highlight"><pre><span></span><code>sqlite3<span class="w"> </span>db/lab_log.db
+</code></pre></div>
+</div>
+<div class="language-sql" title="lab_log_schema.sql">
+<div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">schema</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="lab_log_schema.out">
+<div class="highlight"><pre><span></span><code>CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE person(
+       ident            integer primary key autoincrement,
+       details          text not null
+);
+CREATE TABLE machine(
+       ident            integer primary key autoincrement,
+       name             text not null,
+       details          text not null
+);
+CREATE TABLE usage(
+       ident            integer primary key autoincrement,
+       log              text not null
+);
+</code></pre></div>
+</div>
+<h2>Storing JSON</h2>
+<div class="language-sql" title="json_in_table.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="json_in_table.out">
+<div class="highlight"><pre><span></span><code>| ident |      name      |                         details                         |
+|-------|----------------|---------------------------------------------------------|
+| 1     | WY401          | {&quot;acquired&quot;: &quot;2023-05-01&quot;}                              |
+| 2     | Inphormex      | {&quot;acquired&quot;: &quot;2021-07-15&quot;, &quot;refurbished&quot;: &quot;2023-10-22&quot;} |
+| 3     | AutoPlate 9000 | {&quot;note&quot;: &quot;needs software update&quot;}                       |
+</code></pre></div>
+</div>
+<ul>
+<li>Store heterogeneous data as <a class="gl-ref" href="../glossary/#gl:json" markdown="1">JSON</a>-formatted text
+    (with double-quoted strings)<ul>
+<li>Database parses the text each time it is queried,
+    so performance can be an issue</li>
+</ul>
+</li>
+<li>Can alternatively store as blob (<code>jsonb</code>)<ul>
+<li>Can&rsquo;t view it directly</li>
+<li>But more efficient</li>
+</ul>
+</li>
+</ul>
+<h2>Select Fields from JSON</h2>
+<div class="language-sql" title="json_field.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">details</span><span class="o">-&gt;</span><span class="s1">&#39;$.acquired&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">single_arrow</span><span class="p">,</span>
+<span class="w">    </span><span class="n">details</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;$.acquired&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">double_arrow</span>
+<span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="json_field.out">
+<div class="highlight"><pre><span></span><code>| single_arrow | double_arrow |
+|--------------|--------------|
+| &quot;2023-05-01&quot; | 2023-05-01   |
+| &quot;2021-07-15&quot; | 2021-07-15   |
+|              |              |
+</code></pre></div>
+</div>
+<ul>
+<li>Single arrow <code>-&gt;</code> returns JSON representation of result</li>
+<li>Double arrow <code>-&gt;&gt;</code> returns SQL text, integer, real, or null</li>
+<li>Left side is column</li>
+<li>Right side is <a class="gl-ref" href="../glossary/#gl:path_expression" markdown="1">path expression</a><ul>
+<li>Start with <code>$</code> (meaning &ldquo;root&rdquo;)</li>
+<li>Fields separated by <code>.</code></li>
+</ul>
+</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Write a query that selects the year from the <code>"refurbished"</code> field
+of the JSON data associated with the Inphormex plate reader.</p>
+<h2>JSON Array Access</h2>
+<div class="language-sql" title="json_array.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">ident</span><span class="p">,</span>
+<span class="w">    </span><span class="n">json_array_length</span><span class="p">(</span><span class="n">log</span><span class="o">-&gt;</span><span class="s1">&#39;$&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">length</span><span class="p">,</span>
+<span class="w">    </span><span class="n">log</span><span class="o">-&gt;</span><span class="s1">&#39;$[0]&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">first</span>
+<span class="k">from</span><span class="w"> </span><span class="k">usage</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="json_array.out">
+<div class="highlight"><pre><span></span><code>| ident | length |                            first                             |
+|-------|--------|--------------------------------------------------------------|
+| 1     | 4      | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Gabrielle&quot;,&quot;Dub\u00e9&quot;]}   |
+| 2     | 5      | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Marianne&quot;,&quot;Richer&quot;]}       |
+| 3     | 2      | {&quot;machine&quot;:&quot;sterilizer&quot;,&quot;person&quot;:[&quot;Josette&quot;,&quot;Villeneuve&quot;]}   |
+| 4     | 1      | {&quot;machine&quot;:&quot;sterilizer&quot;,&quot;person&quot;:[&quot;Maude&quot;,&quot;Goulet&quot;]}         |
+| 5     | 2      | {&quot;machine&quot;:&quot;AutoPlate 9000&quot;,&quot;person&quot;:[&quot;Brigitte&quot;,&quot;Michaud&quot;]} |
+| 6     | 1      | {&quot;machine&quot;:&quot;sterilizer&quot;,&quot;person&quot;:[&quot;Marianne&quot;,&quot;Richer&quot;]}      |
+| 7     | 3      | {&quot;machine&quot;:&quot;WY401&quot;,&quot;person&quot;:[&quot;Maude&quot;,&quot;Goulet&quot;]}              |
+| 8     | 1      | {&quot;machine&quot;:&quot;AutoPlate 9000&quot;}                                 |
+</code></pre></div>
+</div>
+<ul>
+<li>SQLite and other database managers have many <a href="https://sqlite.org/json1.html">JSON manipulation functions</a></li>
+<li><code>json_array_length</code> gives number of elements in selected array</li>
+<li>Subscripts start with 0</li>
+<li>Characters outside 7-bit ASCII represented as Unicode escapes</li>
+</ul>
+<h2>Unpacking JSON Arrays</h2>
+<div class="language-sql" title="json_unpack.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">ident</span><span class="p">,</span>
+<span class="w">    </span><span class="n">json_each</span><span class="p">.</span><span class="k">key</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
+<span class="w">    </span><span class="n">json_each</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">value</span>
+<span class="k">from</span><span class="w"> </span><span class="k">usage</span><span class="p">,</span><span class="w"> </span><span class="n">json_each</span><span class="p">(</span><span class="k">usage</span><span class="p">.</span><span class="n">log</span><span class="p">)</span>
+<span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="json_unpack.out">
+<div class="highlight"><pre><span></span><code>| ident | key |                            value                             |
+|-------|-----|--------------------------------------------------------------|
+| 1     | 0   | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Gabrielle&quot;,&quot;Dub\u00e9&quot;]}   |
+| 1     | 1   | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Gabrielle&quot;,&quot;Dub\u00e9&quot;]}   |
+| 1     | 2   | {&quot;machine&quot;:&quot;WY401&quot;,&quot;person&quot;:[&quot;Gabrielle&quot;,&quot;Dub\u00e9&quot;]}       |
+| 1     | 3   | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Gabrielle&quot;,&quot;Dub\u00e9&quot;]}   |
+| 2     | 0   | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Marianne&quot;,&quot;Richer&quot;]}       |
+| 2     | 1   | {&quot;machine&quot;:&quot;AutoPlate 9000&quot;,&quot;person&quot;:[&quot;Marianne&quot;,&quot;Richer&quot;]}  |
+| 2     | 2   | {&quot;machine&quot;:&quot;sterilizer&quot;,&quot;person&quot;:[&quot;Marianne&quot;,&quot;Richer&quot;]}      |
+| 2     | 3   | {&quot;machine&quot;:&quot;AutoPlate 9000&quot;,&quot;person&quot;:[&quot;Monique&quot;,&quot;Marcotte&quot;]} |
+| 2     | 4   | {&quot;machine&quot;:&quot;sterilizer&quot;,&quot;person&quot;:[&quot;Marianne&quot;,&quot;Richer&quot;]}      |
+| 3     | 0   | {&quot;machine&quot;:&quot;sterilizer&quot;,&quot;person&quot;:[&quot;Josette&quot;,&quot;Villeneuve&quot;]}   |
+</code></pre></div>
+</div>
+<ul>
+<li><code>json_each</code> is another table-valued function</li>
+<li>Use <code>json_each.<em>name</em></code> to get properties of unpacked array</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Write a query that counts how many times each person appears
+in the first log entry associated with any piece of equipment.</p>
+<h2>Selecting the Last Element of an  Array</h2>
+<div class="language-sql" title="json_array_last.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">ident</span><span class="p">,</span>
+<span class="w">    </span><span class="n">log</span><span class="o">-&gt;</span><span class="s1">&#39;$[#-1].machine&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">final</span>
+<span class="k">from</span><span class="w"> </span><span class="k">usage</span>
+<span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="json_array_last.out">
+<div class="highlight"><pre><span></span><code>| ident |    final     |
+|-------|--------------|
+| 1     | &quot;Inphormex&quot;  |
+| 2     | &quot;sterilizer&quot; |
+| 3     | &quot;Inphormex&quot;  |
+| 4     | &quot;sterilizer&quot; |
+| 5     | &quot;sterilizer&quot; |
+</code></pre></div>
+</div>
+<h2>Modifying JSON</h2>
+<div class="language-sql" title="json_modify.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">ident</span><span class="p">,</span>
+<span class="w">    </span><span class="n">name</span><span class="p">,</span>
+<span class="w">    </span><span class="n">json_set</span><span class="p">(</span><span class="n">details</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;$.sold&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">json_quote</span><span class="p">(</span><span class="s1">&#39;2024-01-25&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">updated</span>
+<span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="json_modify.out">
+<div class="highlight"><pre><span></span><code>| ident |      name      |                           updated                            |
+|-------|----------------|--------------------------------------------------------------|
+| 1     | WY401          | {&quot;acquired&quot;:&quot;2023-05-01&quot;,&quot;sold&quot;:&quot;2024-01-25&quot;}                |
+| 2     | Inphormex      | {&quot;acquired&quot;:&quot;2021-07-15&quot;,&quot;refurbished&quot;:&quot;2023-10-22&quot;,&quot;sold&quot;:&quot; |
+|       |                | 2024-01-25&quot;}                                                 |
+| 3     | AutoPlate 9000 | {&quot;note&quot;:&quot;needs software update&quot;,&quot;sold&quot;:&quot;2024-01-25&quot;}         |
+</code></pre></div>
+</div>
+<ul>
+<li>Updates the in-memory copy of the JSON, <em>not</em> the database record</li>
+<li>Please use <code>json_quote</code> rather than trying to format JSON with string operations</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>As part of cleaning up the lab log database,
+replace the machine names in the JSON records in <code>usage</code>
+with the corresopnding machine IDs from the <code>machine</code> table.</p>
+<h2 class="aside">Refreshing the Penguins Database</h2>
+<div class="language-sql" title="count_penguins.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">species</span><span class="p">,</span>
+<span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="count_penguins.out">
+<div class="highlight"><pre><span></span><code>|  species  | num |
+|-----------|-----|
+| Adelie    | 152 |
+| Chinstrap | 68  |
+| Gentoo    | 124 |
+</code></pre></div>
+</div>
+<ul>
+<li>We will restore full database after each example</li>
+</ul>
+<h2>Tombstones</h2>
+<div class="language-sql" title="make_active.sql">
+<div class="highlight"><pre><span></span><code><span class="k">alter</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">add</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="k">update</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">set</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iif</span><span class="p">(</span><span class="n">species</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Adelie&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-sql" title="active_penguins.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="n">species</span><span class="p">,</span>
+<span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">where</span><span class="w"> </span><span class="n">active</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="active_penguins.out">
+<div class="highlight"><pre><span></span><code>|  species  | num |
+|-----------|-----|
+| Chinstrap | 68  |
+| Gentoo    | 124 |
+</code></pre></div>
+</div>
+<ul>
+<li>Use a tombstone to mark (in)active records</li>
+<li>Every query must now include it</li>
+</ul>
+<h2 class="aside">Importing CSV Data</h2>
+<ul>
+<li>SQLite and most other database managers have tools for importing and exporting <a class="gl-ref" href="../glossary/#gl:csv" markdown="1">CSV</a></li>
+<li>In SQLite:<ul>
+<li>Define table</li>
+<li>Import data</li>
+<li>Convert empty strings to nulls (if desired)</li>
+<li>Convert types from text to whatever (not shown below)</li>
+</ul>
+</li>
+</ul>
+<div class="language-sql" title="create_penguins.sql">
+<div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
+<span class="p">.</span><span class="k">mode</span><span class="w"> </span><span class="n">csv</span><span class="w"> </span><span class="n">penguins</span>
+<span class="p">.</span><span class="n">import</span><span class="w"> </span><span class="n">misc</span><span class="o">/</span><span class="n">penguins</span><span class="p">.</span><span class="n">csv</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">update</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">species</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">species</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="k">update</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="k">update</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">bill_length_mm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">bill_length_mm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="k">update</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">bill_depth_mm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">bill_depth_mm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="k">update</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">flipper_length_mm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">flipper_length_mm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="k">update</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="k">update</span><span class="w"> </span><span class="n">penguins</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<h2 class="exercise">Exercise</h2>
+<p>What are the data types of the columns in the <code>penguins</code> table
+created by the CSV import shown above?
+How can you correct the ones that need correcting?</p>
+<h2>Views</h2>
+<div class="language-sql" title="views.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">view</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span>
+<span class="n">active_penguins</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">species</span><span class="p">,</span>
+<span class="w">    </span><span class="n">island</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bill_length_mm</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bill_depth_mm</span><span class="p">,</span>
+<span class="w">    </span><span class="n">flipper_length_mm</span><span class="p">,</span>
+<span class="w">    </span><span class="n">body_mass_g</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sex</span>
+<span class="p">)</span><span class="w"> </span><span class="k">as</span>
+<span class="k">select</span>
+<span class="w">    </span><span class="n">species</span><span class="p">,</span>
+<span class="w">    </span><span class="n">island</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bill_length_mm</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bill_depth_mm</span><span class="p">,</span>
+<span class="w">    </span><span class="n">flipper_length_mm</span><span class="p">,</span>
+<span class="w">    </span><span class="n">body_mass_g</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sex</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">where</span><span class="w"> </span><span class="n">active</span><span class="p">;</span>
+
+<span class="k">select</span>
+<span class="w">    </span><span class="n">species</span><span class="p">,</span>
+<span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num</span>
+<span class="k">from</span><span class="w"> </span><span class="n">active_penguins</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="views.out">
+<div class="highlight"><pre><span></span><code>|  species  | num |
+|-----------|-----|
+| Chinstrap | 68  |
+| Gentoo    | 124 |
+</code></pre></div>
+</div>
+<ul>
+<li>A <a class="gl-ref" href="../glossary/#gl:view" markdown="1">view</a> is a saved query that other queries can invoke</li>
+<li>View is re-run each time it&rsquo;s used</li>
+<li>Like a CTE, but:<ul>
+<li>Can be shared between queries</li>
+<li>Views came first</li>
+</ul>
+</li>
+<li>Some databases offer <a class="gl-ref" href="../glossary/#gl:materialized_view" markdown="1">materialized views</a><ul>
+<li>Update-on-demand temporary tables</li>
+</ul>
+</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Create a view in the lab log database called <code>busy</code> with two columns:
+<code>machine_id</code> and <code>total_log_length</code>.
+The first column records the numeric ID of each machine;
+the second shows the total number of log entries for that machine.</p>
+<h2 class="aside">Check Understanding</h2>
+<figure id="composite_temp_concept_map">
+<img src="./composite_temp_concept_map.svg" alt="box and arrow diagram showing different kinds of temporary &lsquo;tables&rsquo; in SQL"/>
+<figcaption>Figure&nbsp;4.1: temporary tables</figcaption>
+</figure>
+
+<h2 class="aside">Hours Reminder</h2>
+<div class="language-sql" title="all_jobs.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="all_jobs.out">
+<div class="highlight"><pre><span></span><code>|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+| clean     | 0.5      |
+</code></pre></div>
+</div>
+<h2>Adding Checks</h2>
+<div class="language-sql" title="all_jobs_check.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">billable</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="all_jobs_check.out">
+<div class="highlight"><pre><span></span><code>Runtime error near line 9: CHECK constraint failed: billable &gt; 0.0 (19)
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+</code></pre></div>
+</div>
+<ul>
+<li><code>check</code> adds constraint to table<ul>
+<li>Must produce a Boolean result</li>
+<li>Run each time values added or modified</li>
+</ul>
+</li>
+<li>But changes made before the error have taken effect</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Rewrite the definition of the <code>penguins</code> table to add the following constraints:</p>
+<ol>
+<li>
+<p><code>body_mass_g</code> must be null or non-negative.</p>
+</li>
+<li>
+<p><code>island</code> must be one of <code>"Biscoe"</code>, <code>"Dream"</code>, or <code>"Torgersen"</code>.
+    (Hint: the <code>in</code> operator will be useful here.)</p>
+</li>
+</ol>
+<h2 class="aside">ACID</h2>
+<ul>
+<li><a class="gl-ref" href="../glossary/#gl:atomic" markdown="1">Atomic</a>: change cannot be broken down into smaller ones (i.e., all or nothing)</li>
+<li><a class="gl-ref" href="../glossary/#gl:consistent" markdown="1">Consistent</a>: database goes from one consistent state to another</li>
+<li><a class="gl-ref" href="../glossary/#gl:isolated" markdown="1">Isolated</a>: looks like changes happened one after another</li>
+<li><a class="gl-ref" href="../glossary/#gl:durable" markdown="1">Durable</a>: if change takes place, it&rsquo;s still there after a restart</li>
+</ul>
+<h2>Transactions</h2>
+<div class="language-sql" title="transaction.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">billable</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="k">begin</span><span class="w"> </span><span class="k">transaction</span><span class="p">;</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">rollback</span><span class="p">;</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="transaction.out">
+<div class="highlight"><pre><span></span><code>|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+</code></pre></div>
+</div>
+<ul>
+<li>Statements outside transaction execute and are committed immediately</li>
+<li>Statement(s) inside transaction don&rsquo;t take effect until:<ul>
+<li><code>end transaction</code> (success)</li>
+<li><code>rollback</code> (undo)</li>
+</ul>
+</li>
+<li>Can have any number of statements inside a transaction</li>
+<li>But <em>cannot</em> nest transactions in SQLite<ul>
+<li>Other databases support this</li>
+</ul>
+</li>
+</ul>
+<h2>Rollback in Constraints</h2>
+<div class="language-sql" title="rollback_constraint.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">billable</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">conflict</span><span class="w"> </span><span class="k">rollback</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="rollback_constraint.out">
+<div class="highlight"><pre><span></span><code>Runtime error near line 11: CHECK constraint failed: billable &gt; 0.0 (19)
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+</code></pre></div>
+</div>
+<ul>
+<li>All of second <code>insert</code> rolled back as soon as error occurred</li>
+<li>But first <code>insert</code> took effect</li>
+</ul>
+<h2>Rollback in Statements</h2>
+<div class="language-sql" title="rollback_statement.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">billable</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">rollback</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;calibrate&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">rollback</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;clean&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="rollback_statement.out">
+<div class="highlight"><pre><span></span><code>Runtime error near line 11: CHECK constraint failed: billable &gt; 0.0 (19)
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+</code></pre></div>
+</div>
+<ul>
+<li>Constraint is in table definition</li>
+<li>Action is in statement</li>
+</ul>
+<h2>Upsert</h2>
+<div class="language-sql" title="upsert.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span><span class="p">,</span>
+<span class="w">    </span><span class="n">num</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="mi">0</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;zia&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">.</span><span class="n">print</span><span class="w"> </span><span class="s1">&#39;after first&#39;</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">jobs_done</span><span class="p">;</span>
+<span class="p">.</span><span class="n">print</span>
+
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;zia&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="p">.</span><span class="n">print</span><span class="w"> </span><span class="s1">&#39;after failed&#39;</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">jobs_done</span><span class="p">;</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">jobs_done</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;zia&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="k">on</span><span class="w"> </span><span class="n">conflict</span><span class="p">(</span><span class="n">person</span><span class="p">)</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">.</span><span class="n">print</span><span class="w"> </span><span class="s1">&#39;\nafter upsert&#39;</span>
+<span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">jobs_done</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="upsert.out">
+<div class="highlight"><pre><span></span><code>after first
+| person | num |
+|--------|-----|
+| zia    | 1   |
+
+Runtime error near line 15: UNIQUE constraint failed: jobs_done.person (19)
+after failed
+| person | num |
+|--------|-----|
+| zia    | 1   |
+\nafter upsert
+| person | num |
+|--------|-----|
+| zia    | 2   |
+</code></pre></div>
+</div>
+<ul>
+<li><a class="gl-ref" href="../glossary/#gl:upsert" markdown="1">upsert</a> stands for &ldquo;update or insert&rdquo;<ul>
+<li>Create if record doesn&rsquo;t exist</li>
+<li>Update if it does</li>
+</ul>
+</li>
+<li>Not standard SQL but widely implemented</li>
+<li>Example also shows use of SQLite <code>.print</code> command</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Using the assay database,
+write a query that adds or modifies people in the <code>staff</code> table as shown:</p>
+<table>
+<thead>
+<tr>
+<th>personal</th>
+<th>family</th>
+<th>dept</th>
+<th>age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pranay</td>
+<td>Khanna</td>
+<td>mb</td>
+<td>41</td>
+</tr>
+<tr>
+<td>Riaan</td>
+<td>Dua</td>
+<td>gen</td>
+<td>23</td>
+</tr>
+<tr>
+<td>Parth</td>
+<td>Johel</td>
+<td>gen</td>
+<td>27</td>
+</tr>
+</tbody>
+</table>
+<h2 class="aside">Normalization</h2>
+<ul>
+<li>
+<p>First <a class="gl-ref" href="../glossary/#gl:normal_form" markdown="1">normal form</a> (1NF):
+    every field of every record contains one indivisible value.</p>
+</li>
+<li>
+<p>Second normal form (2NF) and third normal form (3NF):
+    every value in a record that isn&rsquo;t a key depends solely on the key,
+    not on other values.</p>
+</li>
+<li>
+<p><a class="gl-ref" href="../glossary/#gl:denormalization" markdown="1">Denormalization</a>: explicitly store values that could be calculated on the fly</p>
+<ul>
+<li>To simplify queries and/or make processing faster</li>
+</ul>
+</li>
+</ul>
+<h2>Creating Triggers</h2>
+<div class="language-sql" title="trigger_setup.sql">
+<div class="highlight"><pre><span></span><code><span class="c1">-- Track hours of lab work.</span>
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">reported</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="k">check</span><span class="w"> </span><span class="p">(</span><span class="n">reported</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+
+<span class="c1">-- Explicitly store per-person total rather than using sum().</span>
+<span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">hours</span><span class="w"> </span><span class="nb">real</span>
+<span class="p">);</span>
+
+<span class="c1">-- Initialize totals.</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;august&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c1">-- Define a trigger.</span>
+<span class="k">create</span><span class="w"> </span><span class="k">trigger</span><span class="w"> </span><span class="n">total_trigger</span>
+<span class="k">before</span><span class="w"> </span><span class="k">insert</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">job</span>
+<span class="k">begin</span>
+<span class="w">    </span><span class="c1">-- Check that the person exists.</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">case</span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">.</span><span class="n">person</span><span class="p">)</span>
+<span class="w">        </span><span class="k">then</span><span class="w"> </span><span class="n">raise</span><span class="p">(</span><span class="k">rollback</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Unknown person &#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">-- Update their total hours (or fail if non-negative constraint violated).</span>
+<span class="w">    </span><span class="k">update</span><span class="w"> </span><span class="n">total</span>
+<span class="w">    </span><span class="k">set</span><span class="w"> </span><span class="n">hours</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hours</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">new</span><span class="p">.</span><span class="n">reported</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">total</span><span class="p">.</span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="p">.</span><span class="n">person</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<ul>
+<li>A <a class="gl-ref" href="../glossary/#gl:trigger" markdown="1">trigger</a> automatically runs before or after a specified operation</li>
+<li>Can have side effects (e.g., update some other table)</li>
+<li>And/or implement checks (e.g., make sure other records exist)</li>
+<li>Add processing overhead…</li>
+<li>…but data is either cheap or correct, never both</li>
+<li>Inside trigger, refer to old and new versions of record
+    as <code>old.<em>column</em></code> and <code>new.<em>column</em></code></li>
+</ul>
+<h2>Trigger Not Firing</h2>
+<div class="language-sql" title="trigger_successful.sql">
+<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;august&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="trigger_successful.out">
+<div class="highlight"><pre><span></span><code>| person | reported |
+|--------|----------|
+| gene   | 1.5      |
+| august | 0.5      |
+| gene   | 1.0      |
+
+| person | hours |
+|--------|-------|
+| gene   | 2.5   |
+| august | 0.5   |
+</code></pre></div>
+</div>
+<h2>Trigger Firing</h2>
+<div class="language-sql" title="trigger_firing.sql">
+<div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;august&#39;</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="trigger_firing.out">
+<div class="highlight"><pre><span></span><code>Runtime error near line 6: CHECK constraint failed: reported &gt;= 0.0 (19)
+
+| person | hours |
+|--------|-------|
+| gene   | 0.0   |
+| august | 0.0   |
+</code></pre></div>
+</div>
+<h2 class="exercise">Exercise</h2>
+<p>Using the penguins database:</p>
+<ol>
+<li>
+<p>create a table called <code>species</code> with columns <code>name</code> and <code>count</code>; and</p>
+</li>
+<li>
+<p>define a trigger that increments the count associated with each species
+    each time a new penguin is added to the <code>penguins</code> table.</p>
+</li>
+</ol>
+<p>Does your solution behave correctly when several penguins are added
+by a single <code>insert</code> statement?</p>
+<h2 class="aside">Representing Graphs</h2>
+<div class="language-sql" title="lineage_setup.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">lineage</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">parent</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
+<span class="w">    </span><span class="n">child</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
+<span class="p">);</span>
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">lineage</span><span class="w"> </span><span class="k">values</span>
+<span class="p">(</span><span class="s1">&#39;Arturo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Clemente&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Darío&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Clemente&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Clemente&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Homero&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Clemente&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Ivonne&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Ivonne&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Lourdes&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Soledad&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Lourdes&#39;</span><span class="p">),</span>
+<span class="p">(</span><span class="s1">&#39;Lourdes&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Santiago&#39;</span><span class="p">);</span>
+</code></pre></div>
+</div>
+<div class="language-sql" title="represent_graph.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">lineage</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="represent_graph.out">
+<div class="highlight"><pre><span></span><code>|  parent  |  child   |
+|----------|----------|
+| Arturo   | Clemente |
+| Darío    | Clemente |
+| Clemente | Homero   |
+| Clemente | Ivonne   |
+| Ivonne   | Lourdes  |
+| Soledad  | Lourdes  |
+| Lourdes  | Santiago |
+</code></pre></div>
+</div>
+<figure id="recursive_lineage">
+<img src="./recursive_lineage.svg" alt="box and arrow diagram showing who is descended from whom in the lineage database"/>
+<figcaption>Figure&nbsp;4.2: lineage diagram</figcaption>
+</figure>
+
+<h2 class="exercise">Exercise</h2>
+<p>Write a query that uses a self join to find every person&rsquo;s grandchildren.</p>
+<h2>Recursive Queries</h2>
+<div class="language-sql" title="recursive_lineage.sql">
+<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">descendent</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">select</span>
+<span class="w">        </span><span class="s1">&#39;Clemente&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">generations</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
+<span class="w">    </span><span class="k">select</span>
+<span class="w">        </span><span class="n">lineage</span><span class="p">.</span><span class="n">child</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
+<span class="w">        </span><span class="n">descendent</span><span class="p">.</span><span class="n">generations</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">generations</span>
+<span class="w">    </span><span class="k">from</span><span class="w"> </span><span class="n">descendent</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">lineage</span>
+<span class="w">        </span><span class="k">on</span><span class="w"> </span><span class="n">descendent</span><span class="p">.</span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lineage</span><span class="p">.</span><span class="n">parent</span>
+<span class="p">)</span>
+
+<span class="k">select</span>
+<span class="w">    </span><span class="n">person</span><span class="p">,</span>
+<span class="w">    </span><span class="n">generations</span>
+<span class="k">from</span><span class="w"> </span><span class="n">descendent</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="recursive_lineage.out">
+<div class="highlight"><pre><span></span><code>|  person  | generations |
+|----------|-------------|
+| Clemente | 0           |
+| Homero   | 1           |
+| Ivonne   | 1           |
+| Lourdes  | 2           |
+| Santiago | 3           |
+</code></pre></div>
+</div>
+<ul>
+<li>Use a <a class="gl-ref" href="../glossary/#gl:recursive_cte" markdown="1">recursive CTE</a> to create a temporary table (<code>descendent</code>)</li>
+<li><a class="gl-ref" href="../glossary/#gl:base_case" markdown="1">Base case</a> seeds this table</li>
+<li><a class="gl-ref" href="../glossary/#gl:recursive_case" markdown="1">Recursive case</a> relies on value(s) already in that table and external table(s)</li>
+<li><code>union all</code> to combine rows<ul>
+<li>Can use <code>union</code> but that has lower performance (must check uniqueness each time)</li>
+</ul>
+</li>
+<li>Stops when the recursive case yields an empty row set (nothing new to add)</li>
+<li>Then select the desired values from the CTE</li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Modify the recursive query shown above to use <code>union</code> instead of <code>union all</code>.
+Does this affect the result?
+Why or why not?</p>
+<h2 class="aside">Contact Tracing Database</h2>
+<div class="language-sql" title="contact_person.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">person</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="contact_person.out">
+<div class="highlight"><pre><span></span><code>| ident |         name          |
+|-------|-----------------------|
+| 1     | Juana Baeza           |
+| 2     | Agustín Rodríquez     |
+| 3     | Ariadna Caraballo     |
+| 4     | Micaela Laboy         |
+| 5     | Verónica Altamirano   |
+| 6     | Reina Rivero          |
+| 7     | Elias Merino          |
+| 8     | Minerva Guerrero      |
+| 9     | Mauro Balderas        |
+| 10    | Pilar Alarcón         |
+| 11    | Daniela Menéndez      |
+| 12    | Marco Antonio Barrera |
+| 13    | Cristal Soliz         |
+| 14    | Bernardo Narváez      |
+| 15    | Óscar Barrios         |
+</code></pre></div>
+</div>
+<div class="language-sql" title="contact_contacts.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="contact_contacts.out">
+<div class="highlight"><pre><span></span><code>|       left        |         right         |
+|-------------------|-----------------------|
+| Agustín Rodríquez | Ariadna Caraballo     |
+| Agustín Rodríquez | Verónica Altamirano   |
+| Juana Baeza       | Verónica Altamirano   |
+| Juana Baeza       | Micaela Laboy         |
+| Pilar Alarcón     | Reina Rivero          |
+| Cristal Soliz     | Marco Antonio Barrera |
+| Cristal Soliz     | Daniela Menéndez      |
+| Daniela Menéndez  | Marco Antonio Barrera |
+</code></pre></div>
+</div>
+<figure id="recursive_contacts">
+<img src="./recursive_contacts.svg" alt="box and line diagram showing who has had contact with whom"/>
+<figcaption>Figure&nbsp;4.3: contact diagram</figcaption>
+</figure>
+
+<h2>Bidirectional Contacts</h2>
+<div class="language-sql" title="bidirectional.sql">
+<div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">temporary</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">left</span><span class="w"> </span><span class="nb">text</span><span class="p">,</span>
+<span class="w">    </span><span class="k">right</span><span class="w"> </span><span class="nb">text</span>
+<span class="p">);</span>
+
+<span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">bi_contact</span>
+<span class="k">select</span>
+<span class="w">    </span><span class="k">left</span><span class="p">,</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
+<span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="k">right</span><span class="p">,</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span>
+<span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="bidirectional.out">
+<div class="highlight"><pre><span></span><code>| original_count |
+|----------------|
+| 8              |
+
+| num_contact |
+|-------------|
+| 16          |
+</code></pre></div>
+</div>
+<ul>
+<li>Create a <a class="gl-ref" href="../glossary/#gl:temporary_table" markdown="1">temporary table</a> rather than using a long chain of CTEs<ul>
+<li>Only lasts as long as the session (not saved to disk)</li>
+</ul>
+</li>
+<li>Duplicate information rather than writing more complicated query</li>
+</ul>
+<h2>Updating Group Identifiers</h2>
+<div class="language-sql" title="update_group_ids.sql">
+<div class="highlight"><pre><span></span><code><span class="k">select</span>
+<span class="w">    </span><span class="k">left</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">left_name</span><span class="p">,</span>
+<span class="w">    </span><span class="k">left</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">left_ident</span><span class="p">,</span>
+<span class="w">    </span><span class="k">right</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">right_name</span><span class="p">,</span>
+<span class="w">    </span><span class="k">right</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">right_ident</span><span class="p">,</span>
+<span class="w">    </span><span class="k">min</span><span class="p">(</span><span class="k">left</span><span class="p">.</span><span class="n">ident</span><span class="p">,</span><span class="w"> </span><span class="k">right</span><span class="p">.</span><span class="n">ident</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">new_ident</span>
+<span class="k">from</span>
+<span class="w">    </span><span class="p">(</span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">left</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">left</span><span class="p">)</span>
+<span class="w">    </span><span class="k">join</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">right</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">right</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="update_group_ids.out">
+<div class="highlight"><pre><span></span><code>|       left_name       | left_ident |      right_name       | right_ident | new_ident |
+|-----------------------|------------|-----------------------|-------------|-----------|
+| Juana Baeza           | 1          | Micaela Laboy         | 4           | 1         |
+| Juana Baeza           | 1          | Verónica Altamirano   | 5           | 1         |
+| Agustín Rodríquez     | 2          | Ariadna Caraballo     | 3           | 2         |
+| Agustín Rodríquez     | 2          | Verónica Altamirano   | 5           | 2         |
+| Ariadna Caraballo     | 3          | Agustín Rodríquez     | 2           | 2         |
+| Micaela Laboy         | 4          | Juana Baeza           | 1           | 1         |
+| Verónica Altamirano   | 5          | Agustín Rodríquez     | 2           | 2         |
+| Verónica Altamirano   | 5          | Juana Baeza           | 1           | 1         |
+| Reina Rivero          | 6          | Pilar Alarcón         | 10          | 6         |
+| Pilar Alarcón         | 10         | Reina Rivero          | 6           | 6         |
+| Daniela Menéndez      | 11         | Cristal Soliz         | 13          | 11        |
+| Daniela Menéndez      | 11         | Marco Antonio Barrera | 12          | 11        |
+| Marco Antonio Barrera | 12         | Cristal Soliz         | 13          | 12        |
+| Marco Antonio Barrera | 12         | Daniela Menéndez      | 11          | 11        |
+| Cristal Soliz         | 13         | Daniela Menéndez      | 11          | 11        |
+| Cristal Soliz         | 13         | Marco Antonio Barrera | 12          | 12        |
+</code></pre></div>
+</div>
+<ul>
+<li><code>new_ident</code> is minimum of own identifier and identifiers one step away</li>
+<li>Doesn&rsquo;t keep people with no contacts</li>
+</ul>
+<h2>Recursive Labeling</h2>
+<div class="language-sql" title="recursive_labeling.sql">
+<div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">labeled</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">select</span>
+<span class="w">        </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
+<span class="w">        </span><span class="n">person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">label</span>
+<span class="w">    </span><span class="k">from</span>
+<span class="w">        </span><span class="n">person</span>
+<span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="c1">-- not &#39;union all&#39;</span>
+<span class="w">    </span><span class="k">select</span>
+<span class="w">        </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
+<span class="w">        </span><span class="n">labeled</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">label</span>
+<span class="w">    </span><span class="k">from</span>
+<span class="w">        </span><span class="p">(</span><span class="n">person</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">bi_contact</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">left</span><span class="p">)</span>
+<span class="w">        </span><span class="k">join</span><span class="w"> </span><span class="n">labeled</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">bi_contact</span><span class="p">.</span><span class="k">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">labeled</span><span class="p">.</span><span class="n">name</span>
+<span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">labeled</span><span class="p">.</span><span class="n">label</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">person</span><span class="p">.</span><span class="n">ident</span>
+<span class="p">)</span>
+<span class="k">select</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">min</span><span class="p">(</span><span class="n">label</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">group_id</span>
+<span class="k">from</span><span class="w"> </span><span class="n">labeled</span>
+<span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span>
+<span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
+</code></pre></div>
+</div>
+<div class="language-out" title="recursive_labeling.out">
+<div class="highlight"><pre><span></span><code>|         name          | group_id |
+|-----------------------|----------|
+| Agustín Rodríquez     | 1        |
+| Ariadna Caraballo     | 1        |
+| Juana Baeza           | 1        |
+| Micaela Laboy         | 1        |
+| Verónica Altamirano   | 1        |
+| Pilar Alarcón         | 6        |
+| Reina Rivero          | 6        |
+| Elias Merino          | 7        |
+| Minerva Guerrero      | 8        |
+| Mauro Balderas        | 9        |
+| Cristal Soliz         | 11       |
+| Daniela Menéndez      | 11       |
+| Marco Antonio Barrera | 11       |
+| Bernardo Narváez      | 14       |
+| Óscar Barrios         | 15       |
+</code></pre></div>
+</div>
+<ul>
+<li>Use <code>union</code> instead of <code>union all</code> to prevent <a class="gl-ref" href="../glossary/#gl:infinite_recursion" markdown="1">infinite recursion</a></li>
+</ul>
+<h2 class="exercise">Exercise</h2>
+<p>Modify the query above to use <code>union all</code> instead of <code>union</code> to trigger infinite recursion.
+How can you modify the query so that it stops at a certain depth
+so that you can trace its output?</p>
+<h2 class="aside">Check Understanding</h2>
+<figure id="recursive_concept_map">
+<img src="./recursive_concept_map.svg" alt="box and arrow diagram showing concepts related to common table expressions in SQL"/>
+<figcaption>Figure&nbsp;4.4: common table expressions</figcaption>
+</figure>
+    </main>
+    <footer>
+  © 2024 <a href="https://third-bit.com/">Greg Wilson</a>
+  &middot;
+  <a href="../">home</a>
+  &middot;
+  <a href="https://github.com/gvwilson/sql-tutorial">repository</a>
+  &middot;
+  <a href="../license/">license</a>
+</footer>
+
+  </body>
+</html>
