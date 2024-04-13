@@ -13,44 +13,22 @@ all: ${OUT}
 admin_commands.out: admin_commands.sql
 	cat $< | ${PENGUINS} > $@
 
-aggregate_join.out: aggregate_join.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
-aggregate_left_join.out: aggregate_left_join.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
-backing_up.out: backing_up.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
-coalesce.out: coalesce.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
-cross_join.out: cross_join.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
-delete_rows.out: delete_rows.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
-full_outer_join.out: full_outer_join.sql
-	cat ${MODE} $< | ${MEMORY} > $@
-
-inner_join.out: inner_join.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
-left_join.out: left_join.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
-show_after_update.out: show_after_update.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
-show_work_job.out: show_work_job.sql ${EXCLUDED_SQL}
-	cat ${MODE} $< | ${MEMORY} > $@
-
 select_1.out: select_1.sql
 	cat $< | ${PENGUINS} > $@
 
 select_star.out: select_star.sql
 	cat $< | ${PENGUINS} > $@
+
+aggregate_join.out: ${EXCLUDED_SQL}
+aggregate_left_join.out: ${EXCLUDED_SQL}
+backing_up.out: ${EXCLUDED_SQL}
+coalesce.out: ${EXCLUDED_SQL}
+cross_join.out: ${EXCLUDED_SQL}
+delete_rows.out: ${EXCLUDED_SQL}
+inner_join.out: ${EXCLUDED_SQL}
+left_join.out: ${EXCLUDED_SQL}
+show_after_update.out: ${EXCLUDED_SQL}
+show_work_job.out: ${EXCLUDED_SQL}
 
 %.out: %.sql
 	cat ${MODE} $< | ${PENGUINS} > $@

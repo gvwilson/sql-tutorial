@@ -125,7 +125,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <li>And as mentioned earlier, use <code>.quit</code> to quit</li>
 </ul>
 <h2>Specifying Columns</h2>
-<div class="language-sql" title="specify_columns.sql">
+<div class="language-sql" title="specify_columns.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">island</span><span class="p">,</span>
@@ -133,7 +133,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <span class="k">from</span><span class="w"> </span><span class="n">little_penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="specify_columns.out">
+<div class="language-out" title="specify_columns.penguins.out">
 <div class="highlight"><pre><span></span><code>|  species  |  island   |  sex   |
 |-----------|-----------|--------|
 | Gentoo    | Biscoe    | MALE   |
@@ -157,7 +157,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <li>Line breaks encouraged for readability</li>
 </ul>
 <h2>Sorting</h2>
-<div class="language-sql" title="sort.sql">
+<div class="language-sql" title="sort.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -166,7 +166,7 @@ Adelie|Torgersen|36.7|18.8|187.0|3800.0|FEMALE
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="k">asc</span><span class="p">,</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="sort.out">
+<div class="language-out" title="sort.penguins.out">
 <div class="highlight"><pre><span></span><code>|  species  |  sex   |  island   |
 |-----------|--------|-----------|
 | Gentoo    | MALE   | Biscoe    |
@@ -195,7 +195,7 @@ sorted such that the largest body mass appears first.</p>
 <ul>
 <li>Full dataset has 344 rows</li>
 </ul>
-<div class="language-sql" title="limit.sql">
+<div class="language-sql" title="limit.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -205,7 +205,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="limit.out">
+<div class="language-out" title="limit.penguins.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   |  island   |
 |---------|--------|-----------|
 | Adelie  |        | Dream     |
@@ -225,7 +225,7 @@ sorted such that the largest body mass appears first.</p>
 <li><code>limit <em>N</em></code> specifies maximum number of rows returned by query</li>
 </ul>
 <h2>Paging Output</h2>
-<div class="language-sql" title="page.sql">
+<div class="language-sql" title="page.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -235,7 +235,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">offset</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="page.out">
+<div class="language-out" title="page.penguins.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   |  island   |
 |---------|--------|-----------|
 | Adelie  |        | Torgersen |
@@ -256,7 +256,7 @@ sorted such that the largest body mass appears first.</p>
 <li>So this query skips the first 3 and shows the next 10</li>
 </ul>
 <h2>Removing Duplicates</h2>
-<div class="language-sql" title="distinct.sql">
+<div class="language-sql" title="distinct.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -264,7 +264,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="distinct.out">
+<div class="language-out" title="distinct.penguins.out">
 <div class="highlight"><pre><span></span><code>|  species  |  sex   |  island   |
 |-----------|--------|-----------|
 | Adelie    | MALE   | Torgersen |
@@ -307,7 +307,7 @@ sorted such that the largest body mass appears first.</p>
 </li>
 </ol>
 <h2>Filtering Results</h2>
-<div class="language-sql" title="filter.sql">
+<div class="language-sql" title="filter.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -316,7 +316,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="filter.out">
+<div class="language-out" title="filter.penguins.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   | island |
 |---------|--------|--------|
 | Adelie  | FEMALE | Biscoe |
@@ -346,7 +346,7 @@ sorted such that the largest body mass appears first.</p>
 </li>
 </ol>
 <h2>Filtering with More Complex Conditions</h2>
-<div class="language-sql" title="filter_and.sql">
+<div class="language-sql" title="filter_and.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -355,7 +355,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;MALE&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="filter_and.out">
+<div class="language-out" title="filter_and.penguins.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   | island |
 |---------|--------|--------|
 | Adelie  | FEMALE | Biscoe |
@@ -385,7 +385,7 @@ sorted such that the largest body mass appears first.</p>
 </li>
 </ol>
 <h2>Doing Calculations</h2>
-<div class="language-sql" title="calculations.sql">
+<div class="language-sql" title="calculations.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">flipper_length_mm</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span>
 <span class="w">    </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span>
@@ -393,7 +393,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="calculations.out">
+<div class="language-out" title="calculations.penguins.out">
 <div class="highlight"><pre><span></span><code>| flipper_length_mm / 10.0 | body_mass_g / 1000.0 |
 |--------------------------|----------------------|
 | 18.1                     | 3.75                 |
@@ -409,7 +409,7 @@ sorted such that the largest body mass appears first.</p>
 <li>Column name shows the calculation done</li>
 </ul>
 <h2>Renaming Columns</h2>
-<div class="language-sql" title="rename_columns.sql">
+<div class="language-sql" title="rename_columns.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">flipper_length_mm</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">flipper_cm</span><span class="p">,</span>
 <span class="w">    </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">weight_kg</span><span class="p">,</span>
@@ -418,7 +418,7 @@ sorted such that the largest body mass appears first.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="rename_columns.out">
+<div class="language-out" title="rename_columns.penguins.out">
 <div class="highlight"><pre><span></span><code>| flipper_cm | weight_kg | where_found |
 |------------|-----------|-------------|
 | 18.1       | 3.75      | Torgersen   |
@@ -447,7 +447,7 @@ or look at <a href="https://sqlite.org/printf.html">the documentation for SQLite
 </figure>
 
 <h2>Calculating with Missing Values</h2>
-<div class="language-sql" title="show_missing_values.sql">
+<div class="language-sql" title="show_missing_values.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">flipper_length_mm</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">10</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">flipper_cm</span><span class="p">,</span>
 <span class="w">    </span><span class="n">body_mass_g</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">1000</span><span class="p">.</span><span class="mi">0</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">weight_kg</span><span class="p">,</span>
@@ -456,7 +456,7 @@ or look at <a href="https://sqlite.org/printf.html">the documentation for SQLite
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="show_missing_values.out">
+<div class="language-out" title="show_missing_values.penguins.out">
 <div class="highlight"><pre><span></span><code>| flipper_cm | weight_kg | where_found |
 |------------|-----------|-------------|
 | 18.1       | 3.75      | Torgersen   |
@@ -484,7 +484,7 @@ When might it be misleading?</p>
 <ul>
 <li>Repeated from earlier</li>
 </ul>
-<div class="language-sql" title="filter.sql">
+<div class="language-sql" title="filter.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -493,7 +493,7 @@ When might it be misleading?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="filter.out">
+<div class="language-out" title="filter.penguins.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   | island |
 |---------|--------|--------|
 | Adelie  | FEMALE | Biscoe |
@@ -506,7 +506,7 @@ When might it be misleading?</p>
 <ul>
 <li>If we ask for female penguins the row with the missing sex drops out</li>
 </ul>
-<div class="language-sql" title="null_equality.sql">
+<div class="language-sql" title="null_equality.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -515,7 +515,7 @@ When might it be misleading?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;FEMALE&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="null_equality.out">
+<div class="language-out" title="null_equality.penguins.out">
 <div class="highlight"><pre><span></span><code>| species |  sex   | island |
 |---------|--------|--------|
 | Adelie  | FEMALE | Biscoe |
@@ -526,7 +526,7 @@ When might it be misleading?</p>
 <ul>
 <li>But if we ask for penguins that <em>aren&rsquo;t</em> female it drops out as well</li>
 </ul>
-<div class="language-sql" title="null_inequality.sql">
+<div class="language-sql" title="null_inequality.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -535,7 +535,7 @@ When might it be misleading?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">island</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Biscoe&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;FEMALE&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="null_inequality.out">
+<div class="language-out" title="null_inequality.penguins.out">
 <div class="highlight"><pre><span></span><code>| species | sex  | island |
 |---------|------|--------|
 | Adelie  | MALE | Biscoe |
@@ -543,11 +543,11 @@ When might it be misleading?</p>
 </code></pre></div>
 </div>
 <h2>Ternary Logic</h2>
-<div class="language-sql" title="ternary_logic.sql">
+<div class="language-sql" title="ternary_logic.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="ternary_logic.out">
+<div class="language-out" title="ternary_logic.penguins.out">
 <div class="highlight"><pre><span></span><code>| null = null |
 |-------------|
 |             |
@@ -590,7 +590,7 @@ When might it be misleading?</p>
 </table>
 
 <h2>Handling Null Safely</h2>
-<div class="language-sql" title="safe_null_equality.sql">
+<div class="language-sql" title="safe_null_equality.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
@@ -599,7 +599,7 @@ When might it be misleading?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">sex</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">null</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="safe_null_equality.out">
+<div class="language-out" title="safe_null_equality.penguins.out">
 <div class="highlight"><pre><span></span><code>| species | sex |  island   |
 |---------|-----|-----------|
 | Adelie  |     | Torgersen |
@@ -635,12 +635,12 @@ When might it be misleading?</p>
 </figure>
 
 <h2>Aggregating</h2>
-<div class="language-sql" title="simple_sum.sql">
+<div class="language-sql" title="simple_sum.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">sum</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_mass</span>
 <span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="simple_sum.out">
+<div class="language-out" title="simple_sum.penguins.out">
 <div class="highlight"><pre><span></span><code>| total_mass |
 |------------|
 | 1437000.0  |
@@ -652,7 +652,7 @@ When might it be misleading?</p>
 <li>Combines corresponding values from multiple rows</li>
 </ul>
 <h2>Common Aggregation Functions</h2>
-<div class="language-sql" title="common_aggregations.sql">
+<div class="language-sql" title="common_aggregations.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="k">max</span><span class="p">(</span><span class="n">bill_length_mm</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">longest_bill</span><span class="p">,</span>
 <span class="w">    </span><span class="k">min</span><span class="p">(</span><span class="n">flipper_length_mm</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">shortest_flipper</span><span class="p">,</span>
@@ -660,7 +660,7 @@ When might it be misleading?</p>
 <span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="common_aggregations.out">
+<div class="language-out" title="common_aggregations.penguins.out">
 <div class="highlight"><pre><span></span><code>| longest_bill | shortest_flipper |   weird_ratio    |
 |--------------|------------------|------------------|
 | 59.6         | 172.0            | 2.56087082530644 |
@@ -674,7 +674,7 @@ When might it be misleading?</p>
 <h2 class="exercise">Exercise</h2>
 <p>What is the average body mass of penguins that weight more than 3000.0 grams?</p>
 <h2>Counting</h2>
-<div class="language-sql" title="count_behavior.sql">
+<div class="language-sql" title="count_behavior.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">count_star</span><span class="p">,</span>
 <span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="n">sex</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">count_specific</span><span class="p">,</span>
@@ -682,7 +682,7 @@ When might it be misleading?</p>
 <span class="k">from</span><span class="w"> </span><span class="n">penguins</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="count_behavior.out">
+<div class="language-out" title="count_behavior.penguins.out">
 <div class="highlight"><pre><span></span><code>| count_star | count_specific | count_distinct |
 |------------|----------------|----------------|
 | 344        | 333            | 2              |
@@ -696,13 +696,13 @@ When might it be misleading?</p>
 <h2 class="exercise">Exercise</h2>
 <p>How many different body masses are in the penguins dataset?</p>
 <h2>Grouping</h2>
-<div class="language-sql" title="simple_group.sql">
+<div class="language-sql" title="simple_group.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
 <span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="simple_group.out">
+<div class="language-out" title="simple_group.penguins.out">
 <div class="highlight"><pre><span></span><code>|  average_mass_g  |
 |------------------|
 | 4005.55555555556 |
@@ -716,7 +716,7 @@ When might it be misleading?</p>
 <li>But which is which?</li>
 </ul>
 <h2>Behavior of Unaggregated Columns</h2>
-<div class="language-sql" title="unaggregated_columns.sql">
+<div class="language-sql" title="unaggregated_columns.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
 <span class="w">    </span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
@@ -724,7 +724,7 @@ When might it be misleading?</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="unaggregated_columns.out">
+<div class="language-out" title="unaggregated_columns.penguins.out">
 <div class="highlight"><pre><span></span><code>|  sex   |  average_mass_g  |
 |--------|------------------|
 |        | 4005.55555555556 |
@@ -736,7 +736,7 @@ When might it be misleading?</p>
 <li>All rows in each group have the same value for <code>sex</code>, so no need to aggregate</li>
 </ul>
 <h2>Arbitrary Choice in Aggregation</h2>
-<div class="language-sql" title="arbitrary_in_aggregation.sql">
+<div class="language-sql" title="arbitrary_in_aggregation.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
 <span class="w">    </span><span class="n">body_mass_g</span>
@@ -744,7 +744,7 @@ When might it be misleading?</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="arbitrary_in_aggregation.out">
+<div class="language-out" title="arbitrary_in_aggregation.penguins.out">
 <div class="highlight"><pre><span></span><code>|  sex   | body_mass_g |
 |--------|-------------|
 |        |             |
@@ -771,7 +771,7 @@ has a blank line before the rows for female and male penguins.</p>
 <p>Write a query that shows each distinct body mass in the penguin dataset
 and the number of penguins that weigh that much.</p>
 <h2>Filtering Aggregated Values</h2>
-<div class="language-sql" title="filter_aggregation.sql">
+<div class="language-sql" title="filter_aggregation.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
 <span class="w">    </span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
@@ -780,7 +780,7 @@ and the number of penguins that weigh that much.</p>
 <span class="k">having</span><span class="w"> </span><span class="n">average_mass_g</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4000</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="filter_aggregation.out">
+<div class="language-out" title="filter_aggregation.penguins.out">
 <div class="highlight"><pre><span></span><code>| sex  |  average_mass_g  |
 |------|------------------|
 |      | 4005.55555555556 |
@@ -791,7 +791,7 @@ and the number of penguins that weigh that much.</p>
 <li>Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates</li>
 </ul>
 <h2>Readable Output</h2>
-<div class="language-sql" title="readable_aggregation.sql">
+<div class="language-sql" title="readable_aggregation.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
 <span class="w">    </span><span class="n">round</span><span class="p">(</span><span class="k">avg</span><span class="p">(</span><span class="n">body_mass_g</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">average_mass_g</span>
@@ -800,7 +800,7 @@ and the number of penguins that weigh that much.</p>
 <span class="k">having</span><span class="w"> </span><span class="n">average_mass_g</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">4000</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="readable_aggregation.out">
+<div class="language-out" title="readable_aggregation.penguins.out">
 <div class="highlight"><pre><span></span><code>| sex  | average_mass_g |
 |------|----------------|
 |      | 4005.6         |
@@ -811,7 +811,7 @@ and the number of penguins that weigh that much.</p>
 <li>Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number</li>
 </ul>
 <h2>Filtering Aggregate Inputs</h2>
-<div class="language-sql" title="filter_aggregate_inputs.sql">
+<div class="language-sql" title="filter_aggregate_inputs.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">sex</span><span class="p">,</span>
 <span class="w">    </span><span class="n">round</span><span class="p">(</span>
@@ -822,7 +822,7 @@ and the number of penguins that weigh that much.</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sex</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="filter_aggregate_inputs.out">
+<div class="language-out" title="filter_aggregate_inputs.penguins.out">
 <div class="highlight"><pre><span></span><code>|  sex   | average_mass_g |
 |--------|----------------|
 |        | 3362.5         |
@@ -896,7 +896,7 @@ Is it possible to do this using <code>where</code> instead of <code>filter</code
 <span class="p">(</span><span class="s1">&#39;tay&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;complain&#39;</span><span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="show_work_job.out">
+<div class="language-out" title="show_work_job.memory.out">
 <div class="highlight"><pre><span></span><code>|   name    | billable |
 |-----------|----------|
 | calibrate | 1.5      |
@@ -936,7 +936,7 @@ What happens if you insert a number instead of a string into the <code>note</cod
 <span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;tay&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="show_after_update.out">
+<div class="language-out" title="show_after_update.memory.out">
 <div class="highlight"><pre><span></span><code>| person |    job    |
 |--------|-----------|
 | mik    | calibrate |
@@ -954,14 +954,14 @@ What happens if you insert a number instead of a string into the <code>note</cod
 </li>
 </ul>
 <h2>Deleting Rows</h2>
-<div class="language-sql" title="delete_rows.sql">
+<div class="language-sql" title="delete_rows.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">delete</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">work</span>
 <span class="k">where</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;tae&#39;</span><span class="p">;</span>
 
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="delete_rows.out">
+<div class="language-out" title="delete_rows.memory.out">
 <div class="highlight"><pre><span></span><code>| person |    job    |
 |--------|-----------|
 | mik    | calibrate |
@@ -978,7 +978,7 @@ What happens if you insert a number instead of a string into the <code>note</cod
 <p>What happens if you try to delete rows that don&rsquo;t exist
 (e.g., all entries in <code>work</code> that refer to <code>juna</code>)?</p>
 <h2>Backing Up</h2>
-<div class="language-sql" title="backing_up.sql">
+<div class="language-sql" title="backing_up.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">backup</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">person</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">job</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
@@ -997,7 +997,7 @@ What happens if you insert a number instead of a string into the <code>note</cod
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">backup</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="backing_up.out">
+<div class="language-out" title="backing_up.memory.out">
 <div class="highlight"><pre><span></span><code>| person |   job    |
 |--------|----------|
 | tae    | complain |
@@ -1045,12 +1045,12 @@ What happens if you insert a number instead of a string into the <code>note</cod
 </figure>
 
 <h2>Combining Information</h2>
-<div class="language-sql" title="cross_join.sql">
+<div class="language-sql" title="cross_join.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
 <span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">cross</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="cross_join.out">
+<div class="language-out" title="cross_join.memory.out">
 <div class="highlight"><pre><span></span><code>| person |    job    |   name    | billable |
 |--------|-----------|-----------|----------|
 | mik    | calibrate | calibrate | 1.5      |
@@ -1079,13 +1079,13 @@ What happens if you insert a number instead of a string into the <code>note</cod
 </li>
 </ul>
 <h2>Inner Join</h2>
-<div class="language-sql" title="inner_join.sql">
+<div class="language-sql" title="inner_join.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
 <span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">inner</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span>
 <span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="inner_join.out">
+<div class="language-out" title="inner_join.memory.out">
 <div class="highlight"><pre><span></span><code>| person |    job    |   name    | billable |
 |--------|-----------|-----------|----------|
 | mik    | calibrate | calibrate | 1.5      |
@@ -1106,7 +1106,7 @@ What happens if you insert a number instead of a string into the <code>note</cod
 Is the shortened form easier or harder to read
 and more or less likely to cause errors?</p>
 <h2>Aggregating Joined Data</h2>
-<div class="language-sql" title="aggregate_join.sql">
+<div class="language-sql" title="aggregate_join.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">,</span>
 <span class="w">    </span><span class="k">sum</span><span class="p">(</span><span class="n">job</span><span class="p">.</span><span class="n">billable</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pay</span>
@@ -1115,7 +1115,7 @@ and more or less likely to cause errors?</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="aggregate_join.out">
+<div class="language-out" title="aggregate_join.memory.out">
 <div class="highlight"><pre><span></span><code>| person | pay |
 |--------|-----|
 | mik    | 2.0 |
@@ -1131,13 +1131,13 @@ and more or less likely to cause errors?</p>
 </li>
 </ul>
 <h2>Left Join</h2>
-<div class="language-sql" title="left_join.sql">
+<div class="language-sql" title="left_join.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span>
 <span class="k">from</span><span class="w"> </span><span class="k">work</span><span class="w"> </span><span class="k">left</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">job</span>
 <span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">job</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="left_join.out">
+<div class="language-out" title="left_join.memory.out">
 <div class="highlight"><pre><span></span><code>| person |    job    |   name    | billable |
 |--------|-----------|-----------|----------|
 | mik    | calibrate | calibrate | 1.5      |
@@ -1153,7 +1153,7 @@ and more or less likely to cause errors?</p>
 <li>Fills missing values from right table with null</li>
 </ul>
 <h2>Aggregating Left Joins</h2>
-<div class="language-sql" title="aggregate_left_join.sql">
+<div class="language-sql" title="aggregate_left_join.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">,</span>
 <span class="w">    </span><span class="k">sum</span><span class="p">(</span><span class="n">job</span><span class="p">.</span><span class="n">billable</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pay</span>
@@ -1162,7 +1162,7 @@ and more or less likely to cause errors?</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="aggregate_left_join.out">
+<div class="language-out" title="aggregate_left_join.memory.out">
 <div class="highlight"><pre><span></span><code>| person | pay |
 |--------|-----|
 | mik    | 2.0 |
@@ -1174,7 +1174,7 @@ and more or less likely to cause errors?</p>
 <li>That&rsquo;s better, but we&rsquo;d like to see 0 rather than a blank</li>
 </ul>
 <h2>Coalescing Values</h2>
-<div class="language-sql" title="coalesce.sql">
+<div class="language-sql" title="coalesce.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">,</span>
 <span class="w">    </span><span class="k">coalesce</span><span class="p">(</span><span class="k">sum</span><span class="p">(</span><span class="n">job</span><span class="p">.</span><span class="n">billable</span><span class="p">),</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pay</span>
@@ -1183,7 +1183,7 @@ and more or less likely to cause errors?</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">work</span><span class="p">.</span><span class="n">person</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="coalesce.out">
+<div class="language-out" title="coalesce.memory.out">
 <div class="highlight"><pre><span></span><code>| person | pay |
 |--------|-----|
 | mik    | 2.0 |
@@ -1200,7 +1200,7 @@ and more or less likely to cause errors?</p>
     left outer join and <a class="gl-ref" href="../glossary/#gl:right_outer_join" markdown="1">right outer join</a></li>
 <li>Almost the same as cross join, but consider:</li>
 </ul>
-<div class="language-sql" title="full_outer_join.sql">
+<div class="language-sql" title="full_outer_join.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">s</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
 <span class="p">);</span>
@@ -1213,7 +1213,7 @@ and more or less likely to cause errors?</p>
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">size</span><span class="w"> </span><span class="k">full</span><span class="w"> </span><span class="k">outer</span><span class="w"> </span><span class="k">join</span><span class="w"> </span><span class="n">weight</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="full_outer_join.out">
+<div class="language-out" title="full_outer_join.memory.out">
 <div class="highlight"><pre><span></span><code>|   s   | w |
 |-------|---|
 | light |   |

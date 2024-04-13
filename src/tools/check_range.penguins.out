@@ -1,0 +1,8 @@
+|  species  |   size   | num |
+|-----------|----------|-----|
+| Adelie    | abnormal | 54  |
+| Adelie    | normal   | 97  |
+| Chinstrap | abnormal | 17  |
+| Chinstrap | normal   | 51  |
+| Gentoo    | abnormal | 61  |
+| Gentoo    | normal   | 62  |

@@ -38,8 +38,8 @@ tagline: "Getting values from tables."
 
 ## Specifying Columns
 
-[%inc specify_columns.sql %]
-[%inc specify_columns.out %]
+[%inc specify_columns.penguins.sql %]
+[%inc specify_columns.penguins.out %]
 
 -   Specify column names separated by commas
     -   In any order
@@ -48,8 +48,8 @@ tagline: "Getting values from tables."
 
 ## Sorting
 
-[%inc sort.sql %]
-[%inc sort.out %]
+[%inc sort.penguins.sql %]
+[%inc sort.penguins.out %]
 
 -   `order by` must follow `from` (which must follow `select`)
 -   `asc` is ascending, `desc` is descending
@@ -64,16 +64,16 @@ sorted such that the largest body mass appears first.
 
 -   Full dataset has 344 rows
 
-[%inc limit.sql %]
-[%inc limit.out %]
+[%inc limit.penguins.sql %]
+[%inc limit.penguins.out %]
 
 -   Comments start with `--` and run to the end of the line
 -   <code>limit <em>N</em></code> specifies maximum number of rows returned by query
 
 ## Paging Output
 
-[%inc page.sql %]
-[%inc page.out %]
+[%inc page.penguins.sql %]
+[%inc page.penguins.out %]
 
 -   <code>offset <em>N</em></code> must follow `limit`
 -   Specifies number of rows to skip from the start of the selection
@@ -81,8 +81,8 @@ sorted such that the largest body mass appears first.
 
 ## Removing Duplicates
 
-[%inc distinct.sql %]
-[%inc distinct.out %]
+[%inc distinct.penguins.sql %]
+[%inc distinct.penguins.out %]
 
 -   `distinct` keyword must appear right after `select`
     -   SQL was supposed to read like English
@@ -102,8 +102,8 @@ sorted such that the largest body mass appears first.
 
 ## Filtering Results
 
-[%inc filter.sql %]
-[%inc filter.out %]
+[%inc filter.penguins.sql %]
+[%inc filter.penguins.out %]
 
 -   <code>where <em>condition</em></code> [%g filter "filters" %] the rows produced by selection
 -   Condition is evaluated independently for each row
@@ -120,8 +120,8 @@ sorted such that the largest body mass appears first.
 
 ## Filtering with More Complex Conditions
 
-[%inc filter_and.sql %]
-[%inc filter_and.out %]
+[%inc filter_and.penguins.sql %]
+[%inc filter_and.penguins.out %]
 
 -   `and`: both sub-conditions must be true
 -   `or`: either or both part must be true
@@ -141,8 +141,8 @@ sorted such that the largest body mass appears first.
 
 ## Doing Calculations
 
-[%inc calculations.sql %]
-[%inc calculations.out %]
+[%inc calculations.penguins.sql %]
+[%inc calculations.penguins.out %]
 
 -   Can do the usual kinds of arithmetic on individual values
     -   Calculation done for each row independently
@@ -150,8 +150,8 @@ sorted such that the largest body mass appears first.
 
 ## Renaming Columns
 
-[%inc rename_columns.sql %]
-[%inc rename_columns.out %]
+[%inc rename_columns.penguins.sql %]
+[%inc rename_columns.penguins.out %]
 
 -   Use <code><em>expression</em> as <em>name</em></code> to rename
 -   Give result of calculation a meaningful name
@@ -179,8 +179,8 @@ or look at [the documentation for SQLite's `format()` function][sqlite_format].
 
 ## Calculating with Missing Values
 
-[%inc show_missing_values.sql %]
-[%inc show_missing_values.out %]
+[%inc show_missing_values.penguins.sql %]
+[%inc show_missing_values.penguins.out %]
 
 -   SQL uses a special value [%g null "<code>null</code>" %] to representing missing data
     -   Not 0 or empty string, but "I don't know"
@@ -199,25 +199,25 @@ When might it be misleading?
 
 -   Repeated from earlier
 
-[%inc filter.sql %]
-[%inc filter.out %]
+[%inc filter.penguins.sql %]
+[%inc filter.penguins.out %]
 
 -   If we ask for female penguins the row with the missing sex drops out
 
-[%inc null_equality.sql %]
-[%inc null_equality.out %]
+[%inc null_equality.penguins.sql %]
+[%inc null_equality.penguins.out %]
 
 ## Null Inequality
 
 -   But if we ask for penguins that *aren't* female it drops out as well
 
-[%inc null_inequality.sql %]
-[%inc null_inequality.out %]
+[%inc null_inequality.penguins.sql %]
+[%inc null_inequality.penguins.out %]
 
 ## Ternary Logic
 
-[%inc ternary_logic.sql %]
-[%inc ternary_logic.out %]
+[%inc ternary_logic.penguins.sql %]
+[%inc ternary_logic.penguins.out %]
 
 -   If we don't know the left and right values, we don't know if they're equal or not
 -   So the result is `null`
@@ -256,8 +256,8 @@ When might it be misleading?
 
 ## Handling Null Safely
 
-[%inc safe_null_equality.sql %]
-[%inc safe_null_equality.out %]
+[%inc safe_null_equality.penguins.sql %]
+[%inc safe_null_equality.penguins.out %]
 
 -   Use `is null` and `is not null` to handle null safely
 -   Other parts of SQL handle nulls specially
@@ -279,8 +279,8 @@ When might it be misleading?
 
 ## Aggregating
 
-[%inc simple_sum.sql %]
-[%inc simple_sum.out %]
+[%inc simple_sum.penguins.sql %]
+[%inc simple_sum.penguins.out %]
 
 -   [%g aggregation "Aggregation" %] combines many values to produce one
 -   `sum` is an [%g aggregation_func "aggregation function" %]
@@ -288,8 +288,8 @@ When might it be misleading?
 
 ## Common Aggregation Functions
 
-[%inc common_aggregations.sql %]
-[%inc common_aggregations.out %]
+[%inc common_aggregations.penguins.sql %]
+[%inc common_aggregations.penguins.out %]
 
 -   This actually shouldn't work:
     can't calculate maximum or average if any values are null
@@ -301,8 +301,8 @@ What is the average body mass of penguins that weight more than 3000.0 grams?
 
 ## Counting
 
-[%inc count_behavior.sql %]
-[%inc count_behavior.out %]
+[%inc count_behavior.penguins.sql %]
+[%inc count_behavior.penguins.out %]
 
 -   `count(*)` counts rows
 -   <code>count(<em>column</em>)</code> counts non-null entries in column
@@ -314,8 +314,8 @@ How many different body masses are in the penguins dataset?
 
 ## Grouping
 
-[%inc simple_group.sql %]
-[%inc simple_group.out %]
+[%inc simple_group.penguins.sql %]
+[%inc simple_group.penguins.out %]
 
 -   Put rows in [%g group "groups" %] based on distinct combinations of values in columns specified with `group by`
 -   Then perform aggregation separately for each group
@@ -323,15 +323,15 @@ How many different body masses are in the penguins dataset?
 
 ## Behavior of Unaggregated Columns
 
-[%inc unaggregated_columns.sql %]
-[%inc unaggregated_columns.out %]
+[%inc unaggregated_columns.penguins.sql %]
+[%inc unaggregated_columns.penguins.out %]
 
 -   All rows in each group have the same value for `sex`, so no need to aggregate
 
 ## Arbitrary Choice in Aggregation
 
-[%inc arbitrary_in_aggregation.sql %]
-[%inc arbitrary_in_aggregation.out %]
+[%inc arbitrary_in_aggregation.penguins.sql %]
+[%inc arbitrary_in_aggregation.penguins.out %]
 
 -   If we don't specify how to aggregate a column,
     SQLite chooses *any arbitrary value* from the group
@@ -351,22 +351,22 @@ and the number of penguins that weigh that much.
 
 ## Filtering Aggregated Values
 
-[%inc filter_aggregation.sql %]
-[%inc filter_aggregation.out %]
+[%inc filter_aggregation.penguins.sql %]
+[%inc filter_aggregation.penguins.out %]
 
 -   Using <code>having <em>condition</em></code> instead of <code>where <em>condition</em></code> for aggregates
 
 ## Readable Output
 
-[%inc readable_aggregation.sql %]
-[%inc readable_aggregation.out %]
+[%inc readable_aggregation.penguins.sql %]
+[%inc readable_aggregation.penguins.out %]
 
 -   Use <code>round(<em>value</em>, <em>decimals</em>)</code> to round off a number
 
 ## Filtering Aggregate Inputs
 
-[%inc filter_aggregate_inputs.sql %]
-[%inc filter_aggregate_inputs.out %]
+[%inc filter_aggregate_inputs.penguins.sql %]
+[%inc filter_aggregate_inputs.penguins.out %]
 
 -   <code>filter (where <em>condition</em>)</code> applies to *inputs*
 
@@ -410,7 +410,7 @@ Is it possible to do this using `where` instead of `filter`?
 ## Inserting Data
 
 [%inc populate_work_job.sql %]
-[%inc show_work_job.out %]
+[%inc show_work_job.memory.out %]
 
 ## Following Along {: .aside}
 
@@ -434,15 +434,15 @@ What happens if you insert a number instead of a string into the `note` field?
 ## Updating Rows
 
 [%inc update_work_job.sql %]
-[%inc show_after_update.out %]
+[%inc show_after_update.memory.out %]
 
 -   (Almost) always specify row(s) to update using `where`
     -   Otherwise update all rows in table, which is usually not wanted
 
 ## Deleting Rows
 
-[%inc delete_rows.sql mark=keep %]
-[%inc delete_rows.out %]
+[%inc delete_rows.memory.sql mark=keep %]
+[%inc delete_rows.memory.out %]
 
 -   Again, (almost) always specify row(s) to delete using `where`
 
@@ -453,8 +453,8 @@ What happens if you try to delete rows that don't exist
 
 ## Backing Up
 
-[%inc backing_up.sql mark=keep %]
-[%inc backing_up.out %]
+[%inc backing_up.memory.sql mark=keep %]
+[%inc backing_up.memory.out %]
 
 -   We will explore another strategy based on [%g tombstone "tombstones" %] below
 
@@ -496,8 +496,8 @@ Saving and restoring data in binary format:
 
 ## Combining Information
 
-[%inc cross_join.sql mark=keep %]
-[%inc cross_join.out %]
+[%inc cross_join.memory.sql mark=keep %]
+[%inc cross_join.memory.out %]
 
 -   A [%g join "join" %] combines information from two tables
 -   [%g cross_join "cross join" %] constructs their cross product
@@ -507,8 +507,8 @@ Saving and restoring data in binary format:
 
 ## Inner Join
 
-[%inc inner_join.sql mark=keep %]
-[%inc inner_join.out %]
+[%inc inner_join.memory.sql mark=keep %]
+[%inc inner_join.memory.out %]
 
 -   Use <code><em>table</em>.<em>column</em></code> notation to specify columns
     -   A column can have the same name as a table
@@ -523,8 +523,8 @@ and more or less likely to cause errors?
 
 ## Aggregating Joined Data
 
-[%inc aggregate_join.sql mark=keep %]
-[%inc aggregate_join.out %]
+[%inc aggregate_join.memory.sql mark=keep %]
+[%inc aggregate_join.memory.out %]
 
 -   Combines ideas we've seen before
 -   But Tay is missing from the table
@@ -533,23 +533,23 @@ and more or less likely to cause errors?
 
 ## Left Join
 
-[%inc left_join.sql mark=keep %]
-[%inc left_join.out %]
+[%inc left_join.memory.sql mark=keep %]
+[%inc left_join.memory.out %]
 
 -   A [%g left_outer_join "left outer join" %] keeps all rows from the left table
 -   Fills missing values from right table with null
 
 ## Aggregating Left Joins
 
-[%inc aggregate_left_join.sql mark=keep %]
-[%inc aggregate_left_join.out %]
+[%inc aggregate_left_join.memory.sql mark=keep %]
+[%inc aggregate_left_join.memory.out %]
 
 -   That's better, but we'd like to see 0 rather than a blank
 
 ## Coalescing Values
 
-[%inc coalesce.sql mark=keep %]
-[%inc coalesce.out %]
+[%inc coalesce.memory.sql mark=keep %]
+[%inc coalesce.memory.out %]
 
 -   <code>coalesce(<em>val1</em>, <em>val2</em>, …)</code> returns first non-null value
 
@@ -559,8 +559,8 @@ and more or less likely to cause errors?
     left outer join and [%g right_outer_join "right outer join" %]
 -   Almost the same as cross join, but consider:
 
-[%inc full_outer_join.sql %]
-[%inc full_outer_join.out %]
+[%inc full_outer_join.memory.sql %]
+[%inc full_outer_join.memory.out %]
 
 -   A cross join would produce empty result
 

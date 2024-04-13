@@ -208,7 +208,6 @@ img.splash {
 
 /* Reduce list indentation */
 li {
-    list-style-type: disc;
     margin-left: var(--spacing-large-negative);
 }
 
@@ -271,6 +270,11 @@ th, td {
     padding-right: var(--spacing-medium);
     vertical-align: top;
     border: solid var(--border-thin) var(--gray-light);
+}
+
+/* Use solid bullets for unordered lists */
+ul {
+    list-style-type: disc;
 }
 
 /* Key points listing at chapter start */

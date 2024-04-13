@@ -7,8 +7,8 @@ tagline: "Miscellaneous things that make life easier."
 
 -   Who doesn't calibrate?
 
-[%inc negate_incorrectly.sql mark=keep %]
-[%inc negate_incorrectly.out %]
+[%inc negate_incorrectly.memory.sql mark=keep %]
+[%inc negate_incorrectly.memory.out %]
 
 -   But Mik *does* calibrate
 -   Problem is that there's an entry for Mik cleaning
@@ -60,8 +60,8 @@ What about the `work` and `job` tables?
 
 ## Internal Tables {: .aside}
 
-[%inc sequence_table.sql mark=keep %]
-[%inc sequence_table.out %]
+[%inc sequence_table.memory.sql mark=keep %]
+[%inc sequence_table.memory.out %]
 
 -   Sequence numbers are *not* reset when rows are deleted
     -   In part so that they can be used as primary keys
@@ -135,8 +135,8 @@ the same sequence numbers are generated again?
 
 -   Go back to the original penguins database
 
-[%inc compare_individual_aggregate.sql %]
-[%inc compare_individual_aggregate.out %]
+[%inc compare_individual_aggregate.penguins.sql %]
+[%inc compare_individual_aggregate.penguins.out %]
 
 -   Get average body mass in subquery
 -   Compare each row against that
@@ -151,8 +151,8 @@ that weigh the same as the lightest penguin.
 
 ## Comparing Individual Values to Aggregates Within Groups
 
-[%inc compare_within_groups.sql %]
-[%inc compare_within_groups.out %]
+[%inc compare_within_groups.penguins.sql %]
+[%inc compare_within_groups.penguins.out %]
 
 -   Subquery runs first to create temporary table `averaged` with average mass per species
 -   Join that with `penguins`
@@ -165,8 +165,8 @@ that weigh the same as the lightest penguin of the same sex and species.
 
 ## Common Table Expressions
 
-[%inc common_table_expressions.sql %]
-[%inc common_table_expressions.out %]
+[%inc common_table_expressions.penguins.sql %]
+[%inc common_table_expressions.penguins.out %]
 
 -   Use [%g cte "common table expression" %] (CTE) to make queries clearer
     -   Nested subqueries quickly become difficult to understand
@@ -174,8 +174,8 @@ that weigh the same as the lightest penguin of the same sex and species.
 
 ## Explaining Query Plans {: .aside}
 
-[%inc explain_query_plan.sql %]
-[%inc explain_query_plan.out %]
+[%inc explain_query_plan.penguins.sql %]
+[%inc explain_query_plan.penguins.out %]
 
 -   SQLite plans to scan every row of the table
 -   It will build a temporary [%g b_tree "B-tree data structure" %] to group rows
@@ -190,8 +190,8 @@ that weigh the same as the lightest penguin of the same sex and species.
 
 -   Every table has a special column called `rowid`
 
-[%inc rowid.sql %]
-[%inc rowid.out %]
+[%inc rowid.penguins.sql %]
+[%inc rowid.penguins.out %]
 
 -   `rowid` is persistent within a session
     -   I.e., if we delete the first 5 rows we now have row IDs 6…N
@@ -214,8 +214,8 @@ To explore how row IDs behave:
 
 ## Conditionals
 
-[%inc if_else.sql %]
-[%inc if_else.out %]
+[%inc if_else.penguins.sql %]
+[%inc if_else.penguins.out %]
 
 -   <code>iif(<em>condition</em>, <em>true_result</em>, <em>false_result</em>)</code>
     -   Note: `iif` with two i's
@@ -241,8 +241,8 @@ Which ones do you think actually attempt to divide by zero?
 -   What if we want small, medium, and large?
 -   Can nest `iif`, but quickly becomes unreadable
 
-[%inc case_when.sql %]
-[%inc case_when.out %]
+[%inc case_when.penguins.sql %]
+[%inc case_when.penguins.out %]
 
 -   Evaluate `when` options in order and take first
 -   Result of `case` is null if no condition is true
@@ -259,8 +259,8 @@ rather than a [%g statement "statement" %].)
 
 ## Checking a Range
 
-[%inc check_range.sql %]
-[%inc check_range.out %]
+[%inc check_range.penguins.sql %]
+[%inc check_range.penguins.out %]
 
 -   `between` can make queries easier to read
 -   But be careful of the `and` in the middle
@@ -303,8 +303,8 @@ so that it is true in both cases.
    alt="entity-relationship diagram showing logical structure of assay database"
 %]
 
-[%inc assay_staff.sql %]
-[%inc assay_staff.out %]
+[%inc assay_staff.assays.sql %]
+[%inc assay_staff.assays.out %]
 
 ## Exercise {: .exercise}
 
@@ -318,8 +318,8 @@ Draw a table diagram and an ER diagram to represent the following database:
 
 ## Pattern Matching
 
-[%inc like_glob.sql %]
-[%inc like_glob.out %]
+[%inc like_glob.assays.sql %]
+[%inc like_glob.assays.out %]
 
 -   `like` is the original SQL pattern matcher
     -   `%` matches zero or more characters at the start or end of a string
@@ -332,8 +332,8 @@ Rewrite the pattern-matching query shown above using `glob`.
 
 ## Selecting First and Last Rows
 
-[%inc union_all.sql %]
-[%inc union_all.out %]
+[%inc union_all.assays.sql %]
+[%inc union_all.assays.out %]
 
 -   `union all` combines records
     -   Keeps duplicates: `union` on its own only keeps unique records
@@ -348,8 +348,8 @@ How can you check that your query is working correctly?
 
 ## Intersection
 
-[%inc intersect.sql %]
-[%inc intersect.out %]
+[%inc intersect.assays.sql %]
+[%inc intersect.assays.out %]
 
 -   Rows involved must have the same structure
 -   Intersection usually used when pulling values from different sources
@@ -367,8 +367,8 @@ Why do you believe this?
 
 ## Exclusion
 
-[%inc except.sql %]
-[%inc except.out %]
+[%inc except.assays.sql %]
+[%inc except.assays.out %]
 
 -   Again, tables must have same structure
     -   And this would be clearer with `where`
@@ -381,8 +381,8 @@ How can you check that your query is working correctly?
 
 ## Random Numbers and Why Not
 
-[%inc random_numbers.sql %]
-[%inc random_numbers.out %]
+[%inc random_numbers.assays.sql %]
+[%inc random_numbers.assays.out %]
 
 -   There is no way to seed SQLite's random number generator
 -   Which means there is no way to reproduce its pseudo-random sequences
@@ -413,22 +413,22 @@ Write a query that:
 
 ## Generating Sequences
 
-[%inc generate_sequence.sql %]
-[%inc generate_sequence.out %]
+[%inc generate_sequence.assays.sql %]
+[%inc generate_sequence.assays.out %]
 
 -   A (non-standard) [%g table_valued_func "table-valued function" %]
 
 ## Generating Sequences Based on Data
 
-[%inc data_range_sequence.sql %]
-[%inc data_range_sequence.out %]
+[%inc data_range_sequence.memory.sql %]
+[%inc data_range_sequence.memory.out %]
 
 -   Must have the parentheses around the `min` and `max` selections to keep SQLite happy
 
 ## Generating Sequences of Dates
 
-[%inc date_sequence.sql %]
-[%inc date_sequence.out %]
+[%inc date_sequence.assays.sql %]
+[%inc date_sequence.assays.out %]
 
 -   SQLite represents dates as YYYY-MM-DD strings
     or as Julian days or as Unix milliseconds or…
@@ -439,8 +439,8 @@ Write a query that:
 
 ## Counting Experiments Started per Day Without Gaps
 
-[%inc experiments_per_day.sql %]
-[%inc experiments_per_day.out %]
+[%inc experiments_per_day.assays.sql %]
+[%inc experiments_per_day.assays.out %]
 
 ## Exercise {: .exercise}
 
@@ -449,8 +449,8 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 
 ## Self Join
 
-[%inc self_join.sql %]
-[%inc self_join.out %]
+[%inc self_join.assays.sql %]
+[%inc self_join.assays.out %]
 
 -   Join a table to itself
     -   Use `as` to create [%g alias "aliases" %] for copies of tables to distinguish them
@@ -459,8 +459,8 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 
 ## Generating Unique Pairs
 
-[%inc unique_pairs.sql %]
-[%inc unique_pairs.out %]
+[%inc unique_pairs.assays.sql %]
+[%inc unique_pairs.assays.out %]
 
 -   `left.ident < right.ident` ensures distinct pairs without duplicates
     -   Query uses `left.ident <= 4 and right.ident <= 4` to shorten output
@@ -468,13 +468,13 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 
 ## Filtering Pairs
 
-[%inc filter_pairs.sql %]
-[%inc filter_pairs.out %]
+[%inc filter_pairs.assays.sql %]
+[%inc filter_pairs.assays.out %]
 
 ## Existence and Correlated Subqueries
 
-[%inc correlated_subquery.sql %]
-[%inc correlated_subquery.out %]
+[%inc correlated_subquery.assays.sql %]
+[%inc correlated_subquery.assays.out %]
 
 -   Endocrinology is missing from the list
 -   `select 1` could equally be `select true` or any other value
@@ -483,8 +483,8 @@ What does the expression `date('now', 'start of month', '+1 month', '-1 day')` p
 
 ## Nonexistence
 
-[%inc nonexistence.sql %]
-[%inc nonexistence.out %]
+[%inc nonexistence.assays.sql %]
+[%inc nonexistence.assays.out %]
 
 ## Exercise {: .exercise}
 
@@ -494,16 +494,16 @@ If the query cannot be rewritten, why not?
 
 ## Avoiding Correlated Subqueries {: .aside}
 
-[%inc avoid_correlated_subqueries.sql %]
-[%inc avoid_correlated_subqueries.out %]
+[%inc avoid_correlated_subqueries.assays.sql %]
+[%inc avoid_correlated_subqueries.assays.out %]
 
 -   The join might or might not be faster than the correlated subquery
 -   Hard to find unstaffed departments without either `not exists` or `count` and a check for 0
 
 ## Lead and Lag
 
-[%inc lead_lag.sql %]
-[%inc lead_lag.out %]
+[%inc lead_lag.assays.sql %]
+[%inc lead_lag.assays.out %]
 
 -   Use `strftime` to extract year and month
     -   Clumsy, but date/time handling is not SQLite's strong point
@@ -518,8 +518,8 @@ If the query cannot be rewritten, why not?
 
 ## Windowing Functions
 
-[%inc window_functions.sql %]
-[%inc window_functions.out %]
+[%inc window_functions.assays.sql %]
+[%inc window_functions.assays.out %]
 
 -   `sum() over` does a running total
 -   `cume_dist()` is fraction *of rows seen so far*
@@ -529,15 +529,15 @@ If the query cannot be rewritten, why not?
 
 ## Explaining Another Query Plan {: .aside}
 
-[%inc explain_window_function.sql %]
-[%inc explain_window_function.out %]
+[%inc explain_window_function.assays.sql %]
+[%inc explain_window_function.assays.out %]
 
 -   Becomes useful…eventually
 
 ## Partitioned Windows
 
-[%inc partition_window.sql %]
-[%inc partition_window.out %]
+[%inc partition_window.assays.sql %]
+[%inc partition_window.assays.out %]
 
 -   `partition by` creates groups
 -   So this counts experiments started since the beginning of each year

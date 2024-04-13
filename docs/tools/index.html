@@ -56,13 +56,13 @@
 <ul>
 <li>Who doesn&rsquo;t calibrate?</li>
 </ul>
-<div class="language-sql" title="negate_incorrectly.sql">
+<div class="language-sql" title="negate_incorrectly.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span><span class="w"> </span><span class="n">person</span>
 <span class="k">from</span><span class="w"> </span><span class="k">work</span>
 <span class="k">where</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;calibrate&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="negate_incorrectly.out">
+<div class="language-out" title="negate_incorrectly.memory.out">
 <div class="highlight"><pre><span></span><code>| person |
 |--------|
 | mik    |
@@ -188,11 +188,11 @@ Runtime error near line 12: UNIQUE constraint failed: person.ident (19)
 <li>Downside: manual queries are harder to read (who is person 17?)</li>
 </ul>
 <h2 class="aside">Internal Tables</h2>
-<div class="language-sql" title="sequence_table.sql">
+<div class="language-sql" title="sequence_table.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">sqlite_sequence</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="sequence_table.out">
+<div class="language-out" title="sequence_table.memory.out">
 <div class="highlight"><pre><span></span><code>|  name  | seq |
 |--------|-----|
 | person | 3   |
@@ -349,7 +349,7 @@ CREATE TABLE IF NOT EXISTS &quot;work&quot; (
 <ul>
 <li>Go back to the original penguins database</li>
 </ul>
-<div class="language-sql" title="compare_individual_aggregate.sql">
+<div class="language-sql" title="compare_individual_aggregate.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">body_mass_g</span>
 <span class="k">from</span><span class="w"> </span><span class="n">penguins</span>
 <span class="k">where</span>
@@ -360,7 +360,7 @@ CREATE TABLE IF NOT EXISTS &quot;work&quot; (
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="compare_individual_aggregate.out">
+<div class="language-out" title="compare_individual_aggregate.penguins.out">
 <div class="highlight"><pre><span></span><code>| body_mass_g |
 |-------------|
 | 4675.0      |
@@ -383,7 +383,7 @@ CREATE TABLE IF NOT EXISTS &quot;work&quot; (
 <p>Use a subquery to find the number of penguins
 that weigh the same as the lightest penguin.</p>
 <h2>Comparing Individual Values to Aggregates Within Groups</h2>
-<div class="language-sql" title="compare_within_groups.sql">
+<div class="language-sql" title="compare_within_groups.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">penguins</span><span class="p">.</span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="n">penguins</span><span class="p">.</span><span class="n">body_mass_g</span><span class="p">,</span>
@@ -400,7 +400,7 @@ that weigh the same as the lightest penguin.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="compare_within_groups.out">
+<div class="language-out" title="compare_within_groups.penguins.out">
 <div class="highlight"><pre><span></span><code>| species | body_mass_g | avg_mass_g |
 |---------|-------------|------------|
 | Adelie  | 3750.0      | 3700.7     |
@@ -419,7 +419,7 @@ that weigh the same as the lightest penguin.</p>
 <p>Use a subquery to find the number of penguins
 that weigh the same as the lightest penguin of the same sex and species.</p>
 <h2>Common Table Expressions</h2>
-<div class="language-sql" title="common_table_expressions.sql">
+<div class="language-sql" title="common_table_expressions.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">grouped</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">species</span><span class="p">,</span>
@@ -437,7 +437,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="common_table_expressions.out">
+<div class="language-out" title="common_table_expressions.penguins.out">
 <div class="highlight"><pre><span></span><code>| species | body_mass_g | avg_mass_g |
 |---------|-------------|------------|
 | Adelie  | 3750.0      | 3700.7     |
@@ -455,7 +455,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <li>Database decides how to optimize</li>
 </ul>
 <h2 class="aside">Explaining Query Plans</h2>
-<div class="language-sql" title="explain_query_plan.sql">
+<div class="language-sql" title="explain_query_plan.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">explain</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">plan</span>
 <span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
@@ -464,7 +464,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="explain_query_plan.out">
+<div class="language-out" title="explain_query_plan.penguins.out">
 <div class="highlight"><pre><span></span><code>QUERY PLAN
 |--SCAN penguins
 `--USE TEMP B-TREE FOR GROUP BY
@@ -482,7 +482,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <ul>
 <li>Every table has a special column called <code>rowid</code></li>
 </ul>
-<div class="language-sql" title="rowid.sql">
+<div class="language-sql" title="rowid.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">rowid</span><span class="p">,</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
@@ -491,7 +491,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="rowid.out">
+<div class="language-out" title="rowid.penguins.out">
 <div class="highlight"><pre><span></span><code>| rowid | species |  island   |
 |-------|---------|-----------|
 | 1     | Adelie  | Torgersen |
@@ -528,7 +528,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 </li>
 </ol>
 <h2>Conditionals</h2>
-<div class="language-sql" title="if_else.sql">
+<div class="language-sql" title="if_else.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">sized_penguins</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">species</span><span class="p">,</span>
@@ -550,7 +550,7 @@ that weigh the same as the lightest penguin of the same sex and species.</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="if_else.out">
+<div class="language-out" title="if_else.penguins.out">
 <div class="highlight"><pre><span></span><code>|  species  | size  | num |
 |-----------|-------|-----|
 | Adelie    | small | 54  |
@@ -585,7 +585,7 @@ Which ones do you think actually attempt to divide by zero?</p>
 <li>What if we want small, medium, and large?</li>
 <li>Can nest <code>iif</code>, but quickly becomes unreadable</li>
 </ul>
-<div class="language-sql" title="case_when.sql">
+<div class="language-sql" title="case_when.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">sized_penguins</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">species</span><span class="p">,</span>
@@ -607,7 +607,7 @@ Which ones do you think actually attempt to divide by zero?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="case_when.out">
+<div class="language-out" title="case_when.penguins.out">
 <div class="highlight"><pre><span></span><code>|  species  |  size  | num |
 |-----------|--------|-----|
 | Adelie    | small  | 54  |
@@ -631,7 +631,7 @@ rather than to the individual <code>when</code> branches.
 (This exercise shows that <code>case</code>/<code>when</code> is an <a class="gl-ref" href="../glossary/#gl:expression" markdown="1">expression</a>
 rather than a <a class="gl-ref" href="../glossary/#gl:statement" markdown="1">statement</a>.)</p>
 <h2>Checking a Range</h2>
-<div class="language-sql" title="check_range.sql">
+<div class="language-sql" title="check_range.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">sized_penguins</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">species</span><span class="p">,</span>
@@ -652,7 +652,7 @@ rather than a <a class="gl-ref" href="../glossary/#gl:statement" markdown="1">st
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">,</span><span class="w"> </span><span class="n">num</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="check_range.out">
+<div class="language-out" title="check_range.penguins.out">
 <div class="highlight"><pre><span></span><code>|  species  |   size   | num |
 |-----------|----------|-----|
 | Adelie    | abnormal | 54  |
@@ -733,11 +733,11 @@ so that it is true in both cases.</p>
 <figcaption>Figure&nbsp;3.2: assay ER diagram</figcaption>
 </figure>
 
-<div class="language-sql" title="assay_staff.sql">
+<div class="language-sql" title="assay_staff.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">staff</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="assay_staff.out">
+<div class="language-out" title="assay_staff.assays.out">
 <div class="highlight"><pre><span></span><code>| ident | personal |  family   | dept | age |
 |-------|----------|-----------|------|-----|
 | 1     | Kartik   | Gupta     |      | 46  |
@@ -762,7 +762,7 @@ so that it is true in both cases.</p>
 <li><code>student</code> has <code>person_id</code>, <code>section_id</code>, and <code>status</code></li>
 </ul>
 <h2>Pattern Matching</h2>
-<div class="language-sql" title="like_glob.sql">
+<div class="language-sql" title="like_glob.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">personal</span><span class="p">,</span>
 <span class="w">    </span><span class="n">family</span>
@@ -770,7 +770,7 @@ so that it is true in both cases.</p>
 <span class="k">where</span><span class="w"> </span><span class="n">personal</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="s1">&#39;%ya%&#39;</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="like_glob.out">
+<div class="language-out" title="like_glob.assays.out">
 <div class="highlight"><pre><span></span><code>| personal | family |
 |----------|--------|
 | Nitya    | Lal    |
@@ -787,7 +787,7 @@ so that it is true in both cases.</p>
 <h2 class="exercise">Exercise</h2>
 <p>Rewrite the pattern-matching query shown above using <code>glob</code>.</p>
 <h2>Selecting First and Last Rows</h2>
-<div class="language-sql" title="union_all.sql">
+<div class="language-sql" title="union_all.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="p">(</span><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">experiment</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="k">asc</span><span class="w"> </span><span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span>
 <span class="w">    </span><span class="k">union</span><span class="w"> </span><span class="k">all</span>
@@ -796,7 +796,7 @@ so that it is true in both cases.</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="k">asc</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="union_all.out">
+<div class="language-out" title="union_all.assays.out">
 <div class="highlight"><pre><span></span><code>| ident |    kind     |  started   |   ended    |
 |-------|-------------|------------|------------|
 | 17    | trial       | 2023-01-29 | 2023-01-30 |
@@ -824,7 +824,7 @@ so that it is true in both cases.</p>
 in the <code>penguins</code> database.
 How can you check that your query is working correctly?</p>
 <h2>Intersection</h2>
-<div class="language-sql" title="intersect.sql">
+<div class="language-sql" title="intersect.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">personal</span><span class="p">,</span>
 <span class="w">    </span><span class="n">family</span><span class="p">,</span>
@@ -841,7 +841,7 @@ How can you check that your query is working correctly?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="intersect.out">
+<div class="language-out" title="intersect.assays.out">
 <div class="highlight"><pre><span></span><code>| personal |  family   | dept | age |
 |----------|-----------|------|-----|
 | Indrans  | Sridhar   | mb   | 47  |
@@ -863,7 +863,7 @@ with one that uses <code>where</code>.
 Which query looks like it will be more efficient?
 Why do you believe this?</p>
 <h2>Exclusion</h2>
-<div class="language-sql" title="except.sql">
+<div class="language-sql" title="except.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">personal</span><span class="p">,</span>
 <span class="w">    </span><span class="n">family</span><span class="p">,</span>
@@ -880,7 +880,7 @@ Why do you believe this?</p>
 <span class="w">    </span><span class="k">where</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">50</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="except.out">
+<div class="language-out" title="except.assays.out">
 <div class="highlight"><pre><span></span><code>| personal | family | dept | age |
 |----------|--------|------|-----|
 | Pranay   | Khanna | mb   | 51  |
@@ -897,7 +897,7 @@ Why do you believe this?</p>
 <p>Use <code>exclude</code> to find all Gentoo penguins that <em>aren&rsquo;t</em> male.
 How can you check that your query is working correctly?</p>
 <h2>Random Numbers and Why Not</h2>
-<div class="language-sql" title="random_numbers.sql">
+<div class="language-sql" title="random_numbers.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">decorated</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">random</span><span class="p">()</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">rand</span><span class="p">,</span>
 <span class="w">    </span><span class="n">personal</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span>
@@ -912,14 +912,16 @@ How can you check that your query is working correctly?</p>
 <span class="k">where</span><span class="w"> </span><span class="n">selector</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="random_numbers.out">
-<div class="highlight"><pre><span></span><code>|         rand         | selector |       name       |
-|----------------------|----------|------------------|
-| 7426078941363754876  | 3        | Kartik Gupta     |
-| -5761100050465271371 | 7        | Pranay Khanna    |
-| -4601876829797026250 | 8        | Riaan Dua        |
-| -4292267434119599993 | 3        | Vedika Rout      |
-| 8143751937287675544  | 6        | Ishaan Ramaswamy |
+<div class="language-out" title="random_numbers.assays.out">
+<div class="highlight"><pre><span></span><code>|         rand         | selector |      name       |
+|----------------------|----------|-----------------|
+| -5088363674211922423 | 0        | Divit Dhaliwal  |
+| 6557666280550701355  | 1        | Indrans Sridhar |
+| -2149788664940846734 | 3        | Pranay Khanna   |
+| -3941247926715736890 | 8        | Riaan Dua       |
+| -3101076015498625604 | 5        | Vedika Rout     |
+| -7884339441528700576 | 4        | Abram Chokshi   |
+| -2718521057113461678 | 4        | Romil Kapoor    |
 </code></pre></div>
 </div>
 <ul>
@@ -978,11 +980,11 @@ QUERY PLAN
 <li>Unlike primary keys, SQLite supports defining indexes after the fact</li>
 </ul>
 <h2>Generating Sequences</h2>
-<div class="language-sql" title="generate_sequence.sql">
+<div class="language-sql" title="generate_sequence.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="generate_sequence.out">
+<div class="language-out" title="generate_sequence.assays.out">
 <div class="highlight"><pre><span></span><code>| value |
 |-------|
 | 1     |
@@ -996,7 +998,7 @@ QUERY PLAN
 <li>A (non-standard) <a class="gl-ref" href="../glossary/#gl:table_valued_func" markdown="1">table-valued function</a></li>
 </ul>
 <h2>Generating Sequences Based on Data</h2>
-<div class="language-sql" title="data_range_sequence.sql">
+<div class="language-sql" title="data_range_sequence.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">num</span><span class="w"> </span><span class="nb">integer</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
 <span class="p">);</span>
@@ -1007,7 +1009,7 @@ QUERY PLAN
 <span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="data_range_sequence.out">
+<div class="language-out" title="data_range_sequence.memory.out">
 <div class="highlight"><pre><span></span><code>| value |
 |-------|
 | 1     |
@@ -1021,7 +1023,7 @@ QUERY PLAN
 <li>Must have the parentheses around the <code>min</code> and <code>max</code> selections to keep SQLite happy</li>
 </ul>
 <h2>Generating Sequences of Dates</h2>
-<div class="language-sql" title="date_sequence.sql">
+<div class="language-sql" title="date_sequence.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="nb">date</span><span class="p">((</span><span class="k">select</span><span class="w"> </span><span class="n">julianday</span><span class="p">(</span><span class="k">min</span><span class="p">(</span><span class="n">started</span><span class="p">))</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">experiment</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">some_day</span>
 <span class="k">from</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">generate_series</span><span class="p">(</span>
@@ -1032,7 +1034,7 @@ QUERY PLAN
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="date_sequence.out">
+<div class="language-out" title="date_sequence.assays.out">
 <div class="highlight"><pre><span></span><code>|  some_day  |
 |------------|
 | 2023-01-29 |
@@ -1055,7 +1057,7 @@ QUERY PLAN
 </li>
 </ul>
 <h2>Counting Experiments Started per Day Without Gaps</h2>
-<div class="language-sql" title="experiments_per_day.sql">
+<div class="language-sql" title="experiments_per_day.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span>
 <span class="c1">-- complete sequence of days with 0 as placeholder for number of experiments</span>
 <span class="n">all_days</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
@@ -1088,7 +1090,7 @@ QUERY PLAN
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="experiments_per_day.out">
+<div class="language-out" title="experiments_per_day.assays.out">
 <div class="highlight"><pre><span></span><code>|    day     | num_exp |
 |------------|---------|
 | 2023-01-29 | 1       |
@@ -1102,7 +1104,7 @@ QUERY PLAN
 <p>What does the expression <code>date('now', 'start of month', '+1 month', '-1 day')</code> produce?
 (You may find <a href="https://www.sqlite.org/lang_datefunc.html">the documentation on SQLite&rsquo;s date and time functions</a> helpful.)</p>
 <h2>Self Join</h2>
-<div class="language-sql" title="self_join.sql">
+<div class="language-sql" title="self_join.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">ident</span><span class="p">,</span>
@@ -1117,7 +1119,7 @@ QUERY PLAN
 <span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="self_join.out">
+<div class="language-out" title="self_join.assays.out">
 <div class="highlight"><pre><span></span><code>|     name     |       name       |
 |--------------|------------------|
 | Kartik Gupta | Kartik Gupta     |
@@ -1141,7 +1143,7 @@ QUERY PLAN
 <li>Get all \( n^2 \) pairs, including person with themself</li>
 </ul>
 <h2>Generating Unique Pairs</h2>
-<div class="language-sql" title="unique_pairs.sql">
+<div class="language-sql" title="unique_pairs.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">ident</span><span class="p">,</span>
@@ -1157,7 +1159,7 @@ QUERY PLAN
 <span class="k">where</span><span class="w"> </span><span class="n">left_person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">right_person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="unique_pairs.out">
+<div class="language-out" title="unique_pairs.assays.out">
 <div class="highlight"><pre><span></span><code>|      name       |      name       |
 |-----------------|-----------------|
 | Kartik Gupta    | Divit Dhaliwal  |
@@ -1176,7 +1178,7 @@ QUERY PLAN
 <li>Quick check: \( n(n-1)/2 \) pairs</li>
 </ul>
 <h2>Filtering Pairs</h2>
-<div class="language-sql" title="filter_pairs.sql">
+<div class="language-sql" title="filter_pairs.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span>
 <span class="n">person</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
@@ -1201,7 +1203,7 @@ QUERY PLAN
 <span class="w">    </span><span class="k">on</span><span class="w"> </span><span class="n">left_person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">left_staff</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">right_person</span><span class="p">.</span><span class="n">ident</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">right_staff</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="filter_pairs.out">
+<div class="language-out" title="filter_pairs.assays.out">
 <div class="highlight"><pre><span></span><code>|    person_1     |     person_2     |
 |-----------------|------------------|
 | Kartik Gupta    | Vedika Rout      |
@@ -1222,7 +1224,7 @@ QUERY PLAN
 </code></pre></div>
 </div>
 <h2>Existence and Correlated Subqueries</h2>
-<div class="language-sql" title="correlated_subquery.sql">
+<div class="language-sql" title="correlated_subquery.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">name</span><span class="p">,</span>
 <span class="w">    </span><span class="n">building</span>
@@ -1236,7 +1238,7 @@ QUERY PLAN
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="correlated_subquery.out">
+<div class="language-out" title="correlated_subquery.assays.out">
 <div class="highlight"><pre><span></span><code>|       name        |     building     |
 |-------------------|------------------|
 | Genetics          | Chesson          |
@@ -1253,7 +1255,7 @@ QUERY PLAN
 </li>
 </ul>
 <h2>Nonexistence</h2>
-<div class="language-sql" title="nonexistence.sql">
+<div class="language-sql" title="nonexistence.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">name</span><span class="p">,</span>
 <span class="w">    </span><span class="n">building</span>
@@ -1267,7 +1269,7 @@ QUERY PLAN
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="nonexistence.out">
+<div class="language-out" title="nonexistence.assays.out">
 <div class="highlight"><pre><span></span><code>|     name      | building |
 |---------------|----------|
 | Endocrinology | TGVH     |
@@ -1278,7 +1280,7 @@ QUERY PLAN
 If so, is your new query easier to understand?
 If the query cannot be rewritten, why not?</p>
 <h2 class="aside">Avoiding Correlated Subqueries</h2>
-<div class="language-sql" title="avoid_correlated_subqueries.sql">
+<div class="language-sql" title="avoid_correlated_subqueries.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="k">distinct</span>
 <span class="w">    </span><span class="n">department</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
 <span class="w">    </span><span class="n">department</span><span class="p">.</span><span class="n">building</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">building</span>
@@ -1287,7 +1289,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="avoid_correlated_subqueries.out">
+<div class="language-out" title="avoid_correlated_subqueries.assays.out">
 <div class="highlight"><pre><span></span><code>|       name        |     building     |
 |-------------------|------------------|
 | Genetics          | Chesson          |
@@ -1300,7 +1302,7 @@ If the query cannot be rewritten, why not?</p>
 <li>Hard to find unstaffed departments without either <code>not exists</code> or <code>count</code> and a check for 0</li>
 </ul>
 <h2>Lead and Lag</h2>
-<div class="language-sql" title="lead_lag.sql">
+<div class="language-sql" title="lead_lag.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">ym_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">started</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ym</span><span class="p">,</span>
@@ -1318,7 +1320,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">ym</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="lead_lag.out">
+<div class="language-out" title="lead_lag.assays.out">
 <div class="highlight"><pre><span></span><code>|   ym    | prev_num | num | next_num |
 |---------|----------|-----|----------|
 | 2023-01 |          | 2   | 5        |
@@ -1353,7 +1355,7 @@ If the query cannot be rewritten, why not?</p>
 <li>It feels very ad hoc, but so does the real world</li>
 </ul>
 <h2>Windowing Functions</h2>
-<div class="language-sql" title="window_functions.sql">
+<div class="language-sql" title="window_functions.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">ym_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">started</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">ym</span><span class="p">,</span>
@@ -1372,7 +1374,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">ym</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="window_functions.out">
+<div class="language-out" title="window_functions.assays.out">
 <div class="highlight"><pre><span></span><code>|   ym    | num | num_done | completed_progress |  linear_progress   |
 |---------|-----|----------|--------------------|--------------------|
 | 2023-01 | 2   | 2        | 0.04               | 0.0769230769230769 |
@@ -1398,7 +1400,7 @@ If the query cannot be rewritten, why not?</p>
 <li>…and <code>linear_progress</code> is the fraction of time passed</li>
 </ul>
 <h2 class="aside">Explaining Another Query Plan</h2>
-<div class="language-sql" title="explain_window_function.sql">
+<div class="language-sql" title="explain_window_function.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">explain</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">plan</span>
 <span class="k">with</span><span class="w"> </span><span class="n">ym_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
@@ -1416,7 +1418,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">ym</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="explain_window_function.out">
+<div class="language-out" title="explain_window_function.assays.out">
 <div class="highlight"><pre><span></span><code>QUERY PLAN
 |--CO-ROUTINE (subquery-3)
 |  |--CO-ROUTINE (subquery-4)
@@ -1433,7 +1435,7 @@ If the query cannot be rewritten, why not?</p>
 <li>Becomes useful…eventually</li>
 </ul>
 <h2>Partitioned Windows</h2>
-<div class="language-sql" title="partition_window.sql">
+<div class="language-sql" title="partition_window.assays.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="n">y_m_num</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">started</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">year</span><span class="p">,</span>
@@ -1452,7 +1454,7 @@ If the query cannot be rewritten, why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">year</span><span class="p">,</span><span class="w"> </span><span class="k">month</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="partition_window.out">
+<div class="language-out" title="partition_window.assays.out">
 <div class="highlight"><pre><span></span><code>| year | month | num | num_done |
 |------|-------|-----|----------|
 | 2023 | 01    | 2   | 2        |

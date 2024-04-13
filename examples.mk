@@ -19,6 +19,15 @@ ASSAYS_TMP := ${SQLITE} /tmp/assays.db
 CONTACTS_TMP := ${SQLITE} /tmp/contact_tracing.db
 PENGUINS_TMP := ${SQLITE} /tmp/penguins.db
 
+%.assays.out: %.assays.sql
+	cat ${MODE} $< | ${ASSAYS} > $@
+
+%.memory.out: %.memory.sql
+	cat ${MODE} $< | ${MEMORY} > $@
+
+%.penguins.out: %.penguins.sql
+	cat ${MODE} $< | ${PENGUINS} > $@
+
 .PHONY: root_settings
 root_settings:
 	@echo "DB" ${DB}
