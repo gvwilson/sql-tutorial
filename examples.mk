@@ -22,6 +22,12 @@ PENGUINS_TMP := ${SQLITE} /tmp/penguins.db
 %.assays.out: %.assays.sql
 	cat ${MODE} $< | ${ASSAYS} > $@
 
+%.contacts.out: %.contacts.sql
+	cat ${MODE} $< | ${CONTACTS} > $@
+
+%.lab_log.out: %.lab_log.sql
+	cat ${MODE} $< | ${LAB_LOG} > $@
+
 %.memory.out: %.memory.sql
 	cat ${MODE} $< | ${MEMORY} > $@
 

@@ -68,7 +68,6 @@ tagline: "Client-server computing and permissions"
 1.  Open a terminal window.
 2.  Run `open ~/.zshrc` (or `~/.bashrc` depending on your shell).
 3.  Add the following line to the bottom of the file:
-    <br>
     `export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin`
 4.  Run `source ~/.zshrc`.
 5.  Verify installation by running `psql`.

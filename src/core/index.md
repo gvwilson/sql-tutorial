@@ -225,33 +225,35 @@ When might it be misleading?
 -   [%g ternary_logic "Ternary logic" %]
 
 <table>
-  <tr>
-    <th colspan="4">equality</th>
-  </tr>
-  <tr>
-    <th></th>
-    <th>X</th>
-    <th>Y</th>
-    <th>null</th>
-  </tr>
-  <tr>
-    <th>X</th>
-    <td>true</td>
-    <td>false</td>
-    <td>null</td>
-  </tr>
-  <tr>
-    <th>Y</th>
-    <td>false</td>
-    <td>true</td>
-    <td>null</td>
-  </tr>
-  <tr>
-    <th>null</th>
-    <td>null</td>
-    <td>null</td>
-    <td>null</td>
-  </tr>
+  <tbody>
+    <tr>
+      <th colspan="4">equality</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>X</th>
+      <th>Y</th>
+      <th>null</th>
+    </tr>
+    <tr>
+      <th>X</th>
+      <td>true</td>
+      <td>false</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <th>Y</th>
+      <td>false</td>
+      <td>true</td>
+      <td>null</td>
+    </tr>
+    <tr>
+      <th>null</th>
+      <td>null</td>
+      <td>null</td>
+      <td>null</td>
+    </tr>
+  </tbody>
 </table>
 
 ## Handling Null Safely

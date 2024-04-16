@@ -109,6 +109,11 @@ body {
     max-width: var(--width-page);
 }
 
+/* Caption on table */
+caption {
+    text-align: center;
+}
+
 /* Code fragments */
 code {
     font-family: "Source Code Pro", monospace;
@@ -175,6 +180,11 @@ dl.glossary dt {
     font-weight: bold;
 }
 
+/* Caption on figure */
+figcaption {
+    text-align: center;
+}
+
 /* Figures */
 figure {
     text-align: center;
@@ -208,6 +218,7 @@ img.splash {
 
 /* Reduce list indentation */
 li {
+    list-style-type: disc;
     margin-left: var(--spacing-large-negative);
 }
 
@@ -241,11 +252,6 @@ p.subtitle {
     margin-bottom: var(--border-heavy);
 }
 
-/* Caption on table */
-p.table-caption {
-    text-align: center;
-}
-
 /* Term definitions */
 p.terms {
     font-style: italic;
@@ -270,11 +276,6 @@ th, td {
     padding-right: var(--spacing-medium);
     vertical-align: top;
     border: solid var(--border-thin) var(--gray-light);
-}
-
-/* Use solid bullets for unordered lists */
-ul {
-    list-style-type: disc;
 }
 
 /* Key points listing at chapter start */

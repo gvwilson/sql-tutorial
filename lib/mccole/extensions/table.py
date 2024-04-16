@@ -44,6 +44,6 @@ def table_def(pargs, kwargs, node):
     return "\n".join([
         f'<div class="table" id="{slug}">',
         content,
-        f'<p class="table-caption">{prefix}: {caption}</p>',
+        f'<caption>{prefix}: {caption}</caption>',
         '</div>',
     ])

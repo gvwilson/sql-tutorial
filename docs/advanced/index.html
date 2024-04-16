@@ -53,7 +53,7 @@
 <a class="gl-ref" href="../glossary/#gl:atomic" markdown="1">atomic</a>, <a class="gl-ref" href="../glossary/#gl:base_case" markdown="1">base case</a>, <a class="gl-ref" href="../glossary/#gl:blob" markdown="1">Binary Large Object</a>, <a class="gl-ref" href="../glossary/#gl:consistent" markdown="1">consistent</a>, <a class="gl-ref" href="../glossary/#gl:csv" markdown="1">comma-separated values</a>, <a class="gl-ref" href="../glossary/#gl:denormalization" markdown="1">denormalization</a>, <a class="gl-ref" href="../glossary/#gl:durable" markdown="1">durable</a>, <a class="gl-ref" href="../glossary/#gl:infinite_recursion" markdown="1">infinite recursion</a>, <a class="gl-ref" href="../glossary/#gl:isolated" markdown="1">isolated</a>, <a class="gl-ref" href="../glossary/#gl:json" markdown="1">JavaScript Object Notation</a>, <a class="gl-ref" href="../glossary/#gl:materialized_view" markdown="1">materialized view</a>, <a class="gl-ref" href="../glossary/#gl:normal_form" markdown="1">normal form</a>, <a class="gl-ref" href="../glossary/#gl:path_expression" markdown="1">path expression</a>, <a class="gl-ref" href="../glossary/#gl:recursive_case" markdown="1">recursive case</a>, <a class="gl-ref" href="../glossary/#gl:recursive_cte" markdown="1">recursive CTE</a>, <a class="gl-ref" href="../glossary/#gl:temporary_table" markdown="1">temporary table</a>, <a class="gl-ref" href="../glossary/#gl:trigger" markdown="1">trigger</a>, <a class="gl-ref" href="../glossary/#gl:upsert" markdown="1">upsert</a>, <a class="gl-ref" href="../glossary/#gl:view" markdown="1">view</a>
 </p>
       <h2>Blobs</h2>
-<div class="language-sql" title="blob.sql">
+<div class="language-sql" title="blob.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">images</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">content</span><span class="w"> </span><span class="nb">blob</span>
@@ -72,7 +72,7 @@
 <span class="k">from</span><span class="w"> </span><span class="n">images</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="blob.out">
+<div class="language-out" title="blob.memory.out">
 <div class="highlight"><pre><span></span><code>|    name     | length(content) |
 |-------------|-----------------|
 | biohazard   | 19629           |
@@ -99,11 +99,11 @@ Does using SQLite&rsquo;s <code>hex()</code> function make it any more readable?
 <div class="highlight"><pre><span></span><code>sqlite3<span class="w"> </span>db/lab_log.db
 </code></pre></div>
 </div>
-<div class="language-sql" title="lab_log_schema.sql">
+<div class="language-sql" title="lab_log_schema.lab_log.sql">
 <div class="highlight"><pre><span></span><code><span class="p">.</span><span class="k">schema</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="lab_log_schema.out">
+<div class="language-out" title="lab_log_schema.lab_log.out">
 <div class="highlight"><pre><span></span><code>CREATE TABLE sqlite_sequence(name,seq);
 CREATE TABLE person(
        ident            integer primary key autoincrement,
@@ -121,11 +121,11 @@ CREATE TABLE usage(
 </code></pre></div>
 </div>
 <h2>Storing JSON</h2>
-<div class="language-sql" title="json_in_table.sql">
+<div class="language-sql" title="json_in_table.lab_log.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="json_in_table.out">
+<div class="language-out" title="json_in_table.lab_log.out">
 <div class="highlight"><pre><span></span><code>| ident |      name      |                         details                         |
 |-------|----------------|---------------------------------------------------------|
 | 1     | WY401          | {&quot;acquired&quot;: &quot;2023-05-01&quot;}                              |
@@ -147,14 +147,14 @@ CREATE TABLE usage(
 </li>
 </ul>
 <h2>Select Fields from JSON</h2>
-<div class="language-sql" title="json_field.sql">
+<div class="language-sql" title="json_field.lab_log.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">details</span><span class="o">-&gt;</span><span class="s1">&#39;$.acquired&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">single_arrow</span><span class="p">,</span>
 <span class="w">    </span><span class="n">details</span><span class="o">-&gt;&gt;</span><span class="s1">&#39;$.acquired&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">double_arrow</span>
 <span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="json_field.out">
+<div class="language-out" title="json_field.lab_log.out">
 <div class="highlight"><pre><span></span><code>| single_arrow | double_arrow |
 |--------------|--------------|
 | &quot;2023-05-01&quot; | 2023-05-01   |
@@ -176,7 +176,7 @@ CREATE TABLE usage(
 <p>Write a query that selects the year from the <code>"refurbished"</code> field
 of the JSON data associated with the Inphormex plate reader.</p>
 <h2>JSON Array Access</h2>
-<div class="language-sql" title="json_array.sql">
+<div class="language-sql" title="json_array.lab_log.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">ident</span><span class="p">,</span>
 <span class="w">    </span><span class="n">json_array_length</span><span class="p">(</span><span class="n">log</span><span class="o">-&gt;</span><span class="s1">&#39;$&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">length</span><span class="p">,</span>
@@ -184,7 +184,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 <span class="k">from</span><span class="w"> </span><span class="k">usage</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="json_array.out">
+<div class="language-out" title="json_array.lab_log.out">
 <div class="highlight"><pre><span></span><code>| ident | length |                            first                             |
 |-------|--------|--------------------------------------------------------------|
 | 1     | 4      | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Gabrielle&quot;,&quot;Dub\u00e9&quot;]}   |
@@ -204,7 +204,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 <li>Characters outside 7-bit ASCII represented as Unicode escapes</li>
 </ul>
 <h2>Unpacking JSON Arrays</h2>
-<div class="language-sql" title="json_unpack.sql">
+<div class="language-sql" title="json_unpack.lab_log.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">ident</span><span class="p">,</span>
 <span class="w">    </span><span class="n">json_each</span><span class="p">.</span><span class="k">key</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">key</span><span class="p">,</span>
@@ -213,7 +213,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="json_unpack.out">
+<div class="language-out" title="json_unpack.lab_log.out">
 <div class="highlight"><pre><span></span><code>| ident | key |                            value                             |
 |-------|-----|--------------------------------------------------------------|
 | 1     | 0   | {&quot;machine&quot;:&quot;Inphormex&quot;,&quot;person&quot;:[&quot;Gabrielle&quot;,&quot;Dub\u00e9&quot;]}   |
@@ -236,7 +236,7 @@ of the JSON data associated with the Inphormex plate reader.</p>
 <p>Write a query that counts how many times each person appears
 in the first log entry associated with any piece of equipment.</p>
 <h2>Selecting the Last Element of an  Array</h2>
-<div class="language-sql" title="json_array_last.sql">
+<div class="language-sql" title="json_array_last.lab_log.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">ident</span><span class="p">,</span>
 <span class="w">    </span><span class="n">log</span><span class="o">-&gt;</span><span class="s1">&#39;$[#-1].machine&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="k">final</span>
@@ -244,7 +244,7 @@ in the first log entry associated with any piece of equipment.</p>
 <span class="k">limit</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="json_array_last.out">
+<div class="language-out" title="json_array_last.lab_log.out">
 <div class="highlight"><pre><span></span><code>| ident |    final     |
 |-------|--------------|
 | 1     | &quot;Inphormex&quot;  |
@@ -255,7 +255,7 @@ in the first log entry associated with any piece of equipment.</p>
 </code></pre></div>
 </div>
 <h2>Modifying JSON</h2>
-<div class="language-sql" title="json_modify.sql">
+<div class="language-sql" title="json_modify.lab_log.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">ident</span><span class="p">,</span>
 <span class="w">    </span><span class="n">name</span><span class="p">,</span>
@@ -263,7 +263,7 @@ in the first log entry associated with any piece of equipment.</p>
 <span class="k">from</span><span class="w"> </span><span class="n">machine</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="json_modify.out">
+<div class="language-out" title="json_modify.lab_log.out">
 <div class="highlight"><pre><span></span><code>| ident |      name      |                           updated                            |
 |-------|----------------|--------------------------------------------------------------|
 | 1     | WY401          | {&quot;acquired&quot;:&quot;2023-05-01&quot;,&quot;sold&quot;:&quot;2024-01-25&quot;}                |
@@ -281,7 +281,7 @@ in the first log entry associated with any piece of equipment.</p>
 replace the machine names in the JSON records in <code>usage</code>
 with the corresopnding machine IDs from the <code>machine</code> table.</p>
 <h2 class="aside">Refreshing the Penguins Database</h2>
-<div class="language-sql" title="count_penguins.sql">
+<div class="language-sql" title="count_penguins.penguins.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span>
 <span class="w">    </span><span class="n">species</span><span class="p">,</span>
 <span class="w">    </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num</span>
@@ -289,7 +289,7 @@ with the corresopnding machine IDs from the <code>machine</code> table.</p>
 <span class="k">group</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">species</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="count_penguins.out">
+<div class="language-out" title="count_penguins.penguins.out">
 <div class="highlight"><pre><span></span><code>|  species  | num |
 |-----------|-----|
 | Adelie    | 152 |
@@ -419,7 +419,7 @@ the second shows the total number of log entries for that machine.</p>
 </figure>
 
 <h2 class="aside">Hours Reminder</h2>
-<div class="language-sql" title="all_jobs.sql">
+<div class="language-sql" title="all_jobs.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span>
@@ -430,7 +430,7 @@ the second shows the total number of log entries for that machine.</p>
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="all_jobs.out">
+<div class="language-out" title="all_jobs.memory.out">
 <div class="highlight"><pre><span></span><code>|   name    | billable |
 |-----------|----------|
 | calibrate | 1.5      |
@@ -483,7 +483,7 @@ the second shows the total number of log entries for that machine.</p>
 <li><a class="gl-ref" href="../glossary/#gl:durable" markdown="1">Durable</a>: if change takes place, it&rsquo;s still there after a restart</li>
 </ul>
 <h2>Transactions</h2>
-<div class="language-sql" title="transaction.sql">
+<div class="language-sql" title="transaction.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">create</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">name</span><span class="w"> </span><span class="nb">text</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
 <span class="w">    </span><span class="n">billable</span><span class="w"> </span><span class="nb">real</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">null</span><span class="p">,</span>
@@ -499,7 +499,7 @@ the second shows the total number of log entries for that machine.</p>
 <span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">job</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="transaction.out">
+<div class="language-out" title="transaction.memory.out">
 <div class="highlight"><pre><span></span><code>|   name    | billable |
 |-----------|----------|
 | calibrate | 1.5      |
@@ -722,14 +722,14 @@ write a query that adds or modifies people in the <code>staff</code> table as sh
     as <code>old.<em>column</em></code> and <code>new.<em>column</em></code></li>
 </ul>
 <h2>Trigger Not Firing</h2>
-<div class="language-sql" title="trigger_successful.sql">
+<div class="language-sql" title="trigger_successful.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">insert</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="k">values</span>
 <span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
 <span class="p">(</span><span class="s1">&#39;august&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">),</span>
 <span class="p">(</span><span class="s1">&#39;gene&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="trigger_successful.out">
+<div class="language-out" title="trigger_successful.memory.out">
 <div class="highlight"><pre><span></span><code>| person | reported |
 |--------|----------|
 | gene   | 1.5      |
@@ -787,11 +787,11 @@ by a single <code>insert</code> statement?</p>
 <span class="p">(</span><span class="s1">&#39;Lourdes&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Santiago&#39;</span><span class="p">);</span>
 </code></pre></div>
 </div>
-<div class="language-sql" title="represent_graph.sql">
+<div class="language-sql" title="represent_graph.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">lineage</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="represent_graph.out">
+<div class="language-out" title="represent_graph.memory.out">
 <div class="highlight"><pre><span></span><code>|  parent  |  child   |
 |----------|----------|
 | Arturo   | Clemente |
@@ -811,7 +811,7 @@ by a single <code>insert</code> statement?</p>
 <h2 class="exercise">Exercise</h2>
 <p>Write a query that uses a self join to find every person&rsquo;s grandchildren.</p>
 <h2>Recursive Queries</h2>
-<div class="language-sql" title="recursive_lineage.sql">
+<div class="language-sql" title="recursive_lineage.memory.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">descendent</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="s1">&#39;Clemente&#39;</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">person</span><span class="p">,</span>
@@ -830,7 +830,7 @@ by a single <code>insert</code> statement?</p>
 <span class="k">from</span><span class="w"> </span><span class="n">descendent</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="recursive_lineage.out">
+<div class="language-out" title="recursive_lineage.memory.out">
 <div class="highlight"><pre><span></span><code>|  person  | generations |
 |----------|-------------|
 | Clemente | 0           |
@@ -856,11 +856,11 @@ by a single <code>insert</code> statement?</p>
 Does this affect the result?
 Why or why not?</p>
 <h2 class="aside">Contact Tracing Database</h2>
-<div class="language-sql" title="contact_person.sql">
+<div class="language-sql" title="contact_person.contacts.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">person</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="contact_person.out">
+<div class="language-out" title="contact_person.contacts.out">
 <div class="highlight"><pre><span></span><code>| ident |         name          |
 |-------|-----------------------|
 | 1     | Juana Baeza           |
@@ -880,11 +880,11 @@ Why or why not?</p>
 | 15    | Óscar Barrios         |
 </code></pre></div>
 </div>
-<div class="language-sql" title="contact_contacts.sql">
+<div class="language-sql" title="contact_contacts.contacts.sql">
 <div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">contact</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="contact_contacts.out">
+<div class="language-out" title="contact_contacts.contacts.out">
 <div class="highlight"><pre><span></span><code>|       left        |         right         |
 |-------------------|-----------------------|
 | Agustín Rodríquez | Ariadna Caraballo     |
@@ -973,7 +973,7 @@ Why or why not?</p>
 <li>Doesn&rsquo;t keep people with no contacts</li>
 </ul>
 <h2>Recursive Labeling</h2>
-<div class="language-sql" title="recursive_labeling.sql">
+<div class="language-sql" title="recursive_labeling.contacts.sql">
 <div class="highlight"><pre><span></span><code><span class="k">with</span><span class="w"> </span><span class="k">recursive</span><span class="w"> </span><span class="n">labeled</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="k">select</span>
 <span class="w">        </span><span class="n">person</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">name</span><span class="p">,</span>
@@ -995,7 +995,7 @@ Why or why not?</p>
 <span class="k">order</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">label</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">;</span>
 </code></pre></div>
 </div>
-<div class="language-out" title="recursive_labeling.out">
+<div class="language-out" title="recursive_labeling.contacts.out">
 <div class="highlight"><pre><span></span><code>|         name          | group_id |
 |-----------------------|----------|
 | Agustín Rodríquez     | 1        |

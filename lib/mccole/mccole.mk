@@ -5,11 +5,22 @@
 # By default, show available commands (by finding '##' comments)
 .DEFAULT: commands
 
+# LaTeX engines
+LATEX=xelatex
+BIBTEX=biber
+MAKEINDEX=makeindex
+
 # Project root directory
 ROOT := .
 
+# Project theme
+THEME := $(shell python ${ROOT}/config.py)
+
 # Where to find tools
-THEME_BIN := ${ROOT}/lib/mccole/bin
+THEME_BIN := ${ROOT}/lib/${THEME}/bin
+
+# LaTeX auxiliary files
+LATEX_FILES := $(wildcard ${ROOT}/lib/${THEME}/latex/*.*)
 
 # Standard GitHub pages (in root directory rather than website source directory)
 GITHUB_PAGES := ${ROOT}/CODE_OF_CONDUCT.md ${ROOT}/LICENSE.md
@@ -25,9 +36,19 @@ SRC_PAGES := $(wildcard ${ROOT}/src/*.md) $(wildcard ${ROOT}/src/*/index.md)
 # Generated HTML pages
 DOCS_PAGES := $(patsubst ${ROOT}/src/%.md,${ROOT}/docs/%.html,$(SRC_PAGES))
 
+# Generated LaTeX file
+LATEX_PAGE := ${ROOT}/docs/${THEME}.tex
+
 # All SVG diagrams
-SVG_FILES := $(wildcard ${ROOT}/src/*/*.svg)
+SRC_SVG := $(wildcard ${ROOT}/src/*/*.svg)
 SVG_WIDTH := 640
+
+# Generated PDFs
+SRC_PDF := $(patsubst ${ROOT}/src/%.svg,${ROOT}/src/%.pdf,${SRC_SVG})
+DOCS_PDF := $(patsubst ${ROOT}/src/%.pdf,${ROOT}/docs/%.pdf,${SRC_PDF})
+
+# Keep the PDF versions of diagrams under the 'src' directory between builds
+.PRECIOUS: ${SRC_PDF}
 
 ## commands: show available commands
 .PHONY: commands
@@ -46,6 +67,29 @@ build: ${TMP_BIB}
 .PHONY: serve
 serve:
 	ark watch
+
+## latex: regenerate LaTeX file
+latex: ${LATEX_PAGE}
+${LATEX_PAGE}: ${DOCS_PAGES} ${THEME_BIN}/latex.py ${LATEX_FILES}
+	@python ${THEME_BIN}/latex.py --root ${ROOT} > ${LATEX_PAGE}
+
+## pdf: create PDF version of material
+pdf: ${LATEX_PAGE} ${INFO_BIB} ${DOCS_PDF}
+	cp ${INFO_BIB} ${ROOT}/docs
+	cp ${ROOT}/lib/${THEME}/latex/krantz.cls ${ROOT}/docs
+	rm -f ${ROOT}/docs/${THEME}.idx ${ROOT}/docs/${THEME}.ind
+	cd ${ROOT}/docs && ${LATEX} ${THEME}
+	cd ${ROOT}/docs && ${BIBTEX} ${THEME}
+	cd ${ROOT}/docs && ${MAKEINDEX} ${THEME}
+	cd ${ROOT}/docs && ${LATEX} ${THEME}
+	cd ${ROOT}/docs && ${LATEX} ${THEME}
+
+## diagrams: convert diagrams from SVG to PDF
+diagrams: ${DOCS_PDF}
+${ROOT}/src/%.pdf: ${ROOT}/src/%.svg ${THEME_BIN}/convert_drawio.sh
+	bash ${THEME_BIN}/convert_drawio.sh $< $@
+${ROOT}/docs/%.pdf: ${ROOT}/src/%.pdf
+	cp $< $@
 
 ## profile: profile compilation
 .PHONY: profile
@@ -67,7 +111,7 @@ lint:
 	--root ${ROOT}
 	@python ${THEME_BIN}/lint_svg.py \
 	--width ${SVG_WIDTH} \
-	--files ${SVG_FILES}
+	--files ${SRC_SVG}
 	@html5validator --root ${ROOT}/docs ${DOCS_PAGES} \
 	--ignore \
 	'Attribute "ix-key" not allowed on element "span"' \

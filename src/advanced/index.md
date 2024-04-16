@@ -5,8 +5,8 @@ tagline: "When you need 'em, you need 'em."
 
 ## Blobs
 
-[%inc blob.sql %]
-[%inc blob.out %]
+[%inc blob.memory.sql %]
+[%inc blob.memory.out %]
 
 -   A [%g blob "blob" %] is a binary large object
     -   Bytes in, bytes out…
@@ -22,13 +22,13 @@ Does using SQLite's `hex()` function make it any more readable?
 ## Yet Another Database {: .aside}
 
 [%inc lab_log_db.sh %]
-[%inc lab_log_schema.sql %]
-[%inc lab_log_schema.out %]
+[%inc lab_log_schema.lab_log.sql %]
+[%inc lab_log_schema.lab_log.out %]
 
 ## Storing JSON
 
-[%inc json_in_table.sql %]
-[%inc json_in_table.out %]
+[%inc json_in_table.lab_log.sql %]
+[%inc json_in_table.lab_log.out %]
 
 -   Store heterogeneous data as [%g json "JSON" %]-formatted text
     (with double-quoted strings)
@@ -40,8 +40,8 @@ Does using SQLite's `hex()` function make it any more readable?
 
 ## Select Fields from JSON
 
-[%inc json_field.sql %]
-[%inc json_field.out %]
+[%inc json_field.lab_log.sql %]
+[%inc json_field.lab_log.out %]
 
 -   Single arrow `->` returns JSON representation of result
 -   Double arrow `->>` returns SQL text, integer, real, or null
@@ -57,8 +57,8 @@ of the JSON data associated with the Inphormex plate reader.
 
 ## JSON Array Access
 
-[%inc json_array.sql %]
-[%inc json_array.out %]
+[%inc json_array.lab_log.sql %]
+[%inc json_array.lab_log.out %]
 
 -   SQLite and other database managers have many [JSON manipulation functions][sqlite_json]
 -   `json_array_length` gives number of elements in selected array
@@ -67,8 +67,8 @@ of the JSON data associated with the Inphormex plate reader.
 
 ## Unpacking JSON Arrays
 
-[%inc json_unpack.sql %]
-[%inc json_unpack.out %]
+[%inc json_unpack.lab_log.sql %]
+[%inc json_unpack.lab_log.out %]
 
 -   `json_each` is another table-valued function
 -   Use <code>json_each.<em>name</em></code> to get properties of unpacked array
@@ -80,13 +80,13 @@ in the first log entry associated with any piece of equipment.
 
 ## Selecting the Last Element of an  Array
 
-[%inc json_array_last.sql %]
-[%inc json_array_last.out %]
+[%inc json_array_last.lab_log.sql %]
+[%inc json_array_last.lab_log.out %]
 
 ## Modifying JSON
 
-[%inc json_modify.sql %]
-[%inc json_modify.out %]
+[%inc json_modify.lab_log.sql %]
+[%inc json_modify.lab_log.out %]
 
 -   Updates the in-memory copy of the JSON, *not* the database record
 -   Please use `json_quote` rather than trying to format JSON with string operations
@@ -99,8 +99,8 @@ with the corresopnding machine IDs from the `machine` table.
 
 ## Refreshing the Penguins Database {: .aside}
 
-[%inc count_penguins.sql %]
-[%inc count_penguins.out %]
+[%inc count_penguins.penguins.sql %]
+[%inc count_penguins.penguins.out %]
 
 -   We will restore full database after each example
 
@@ -161,8 +161,8 @@ the second shows the total number of log entries for that machine.
 
 ## Hours Reminder {: .aside}
 
-[%inc all_jobs.sql %]
-[%inc all_jobs.out %]
+[%inc all_jobs.memory.sql %]
+[%inc all_jobs.memory.out %]
 
 ## Adding Checks
 
@@ -192,8 +192,8 @@ Rewrite the definition of the `penguins` table to add the following constraints:
 
 ## Transactions
 
-[%inc transaction.sql %]
-[%inc transaction.out %]
+[%inc transaction.memory.sql %]
+[%inc transaction.memory.out %]
 
 -   Statements outside transaction execute and are committed immediately
 -   Statement(s) inside transaction don't take effect until:
@@ -267,8 +267,8 @@ write a query that adds or modifies people in the `staff` table as shown:
 
 ## Trigger Not Firing
 
-[%inc trigger_successful.sql mark=keep %]
-[%inc trigger_successful.out %]
+[%inc trigger_successful.memory.sql mark=keep %]
+[%inc trigger_successful.memory.out %]
 
 ## Trigger Firing
 
@@ -290,8 +290,8 @@ by a single `insert` statement?
 ## Representing Graphs {: .aside}
 
 [%inc lineage_setup.sql %]
-[%inc represent_graph.sql mark=keep %]
-[%inc represent_graph.out %]
+[%inc represent_graph.memory.sql mark=keep %]
+[%inc represent_graph.memory.out %]
 
 [% figure
    slug="recursive_lineage"
@@ -306,8 +306,8 @@ Write a query that uses a self join to find every person's grandchildren.
 
 ## Recursive Queries
 
-[%inc recursive_lineage.sql mark=keep %]
-[%inc recursive_lineage.out %]
+[%inc recursive_lineage.memory.sql mark=keep %]
+[%inc recursive_lineage.memory.out %]
 
 -   Use a [%g recursive_cte "recursive CTE" %] to create a temporary table (`descendent`)
 -   [%g base_case "Base case" %] seeds this table
@@ -325,10 +325,10 @@ Why or why not?
 
 ## Contact Tracing Database {: .aside}
 
-[%inc contact_person.sql %]
-[%inc contact_person.out %]
-[%inc contact_contacts.sql %]
-[%inc contact_contacts.out %]
+[%inc contact_person.contacts.sql %]
+[%inc contact_person.contacts.out %]
+[%inc contact_contacts.contacts.sql %]
+[%inc contact_contacts.contacts.out %]
 
 [% figure
    slug="recursive_contacts"
@@ -356,8 +356,8 @@ Why or why not?
 
 ## Recursive Labeling
 
-[%inc recursive_labeling.sql mark=keep %]
-[%inc recursive_labeling.out %]
+[%inc recursive_labeling.contacts.sql mark=keep %]
+[%inc recursive_labeling.contacts.out %]
 
 -   Use `union` instead of `union all` to prevent [%g infinite_recursion "infinite recursion" %]
 

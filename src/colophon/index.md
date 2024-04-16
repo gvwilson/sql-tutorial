@@ -1,5 +1,5 @@
 ---
-title: Colophon
+title: "Colophon"
 ---
 
 -   The tutorial text uses [Atkinson Hyperlegible][atkinson],
