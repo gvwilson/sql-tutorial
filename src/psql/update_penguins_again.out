@@ -1,1 +1,1 @@
-ERROR: permission denied for table penguins 
+psql:update_penguins_again.sql:3: ERROR:  permission denied for table penguins
