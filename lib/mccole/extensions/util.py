@@ -52,6 +52,14 @@ def fail(msg):
     raise AssertionError(msg)
 
 
+def get_table_slug(kwargs, filename):
+    """Extract slug from kwargs or use stem of filename."""
+    if "slug" in kwargs:
+        return kwargs["slug"]
+    require("tbl" in kwargs, f"Bad table with kwargs '{kwargs}' in {filename}")
+    return str(Path(kwargs["tbl"]).stem)
+
+
 def kind(part_name):
     """Localize name of part."""
     lang = ark.site.config["lang"]

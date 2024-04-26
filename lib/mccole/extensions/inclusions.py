@@ -11,6 +11,7 @@ import util
 
 
 COMMENT = {
+    "js": "//",
     "py": "#",
     "sql": "--",
 }

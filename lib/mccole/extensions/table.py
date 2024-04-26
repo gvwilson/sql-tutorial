@@ -32,18 +32,13 @@ def table_def(pargs, kwargs, node):
         f"Bad 'table' in {node.path}: '{pargs}' and '{kwargs}'",
     )
 
-    slug = kwargs["slug"]
+    slug = util.get_table_slug(kwargs, node.path)
     tbl = kwargs["tbl"]
     caption = util.markdownify(kwargs["caption"])
 
     util.require_file(node, tbl, "table")
     known = ark.site.config["_tables_"]
-    content = util.markdownify(Path(Path(node.filepath).parent, tbl).read_text())
     prefix = f"{util.kind('table')}&nbsp;{known[slug]['slug']}"
-
-    return "\n".join([
-        f'<div class="table" id="{slug}">',
-        content,
-        f'<caption>{prefix}: {caption}</caption>',
-        '</div>',
-    ])
+    content = util.markdownify(Path(Path(node.filepath).parent, tbl).read_text())
+    content = content.replace("<table>", f'<table id="{slug}"><caption>{prefix}: {caption}</caption>')
+    return content

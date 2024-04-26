@@ -55,7 +55,9 @@ def get_attr(node, name):
 def get_size(doc):
     """Get width and height of document."""
     result = (get_attr(doc, "width"), get_attr(doc, "height"))
-    if result[0].endswith("px"):
+    if result[0].endswith("mm"):
+        result = ("mm", int(result[0][:-2]), int(result[1][:-2]))
+    elif result[0].endswith("px"):
         result = ("px", int(result[0][:-2]), int(result[1][:-2]))
     elif result[0].endswith("pt"):
         result = ("pt", int(result[0][:-2]), int(result[1][:-2]))

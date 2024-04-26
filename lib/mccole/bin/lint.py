@@ -37,12 +37,14 @@ def keep_file(value, path):
 def main():
     options = parse_args()
     options.config = load_config(options)
+    options.html = find_html_files(options)
 
-    check_colophon(options)
-    gloss_internal_keys = check_gloss_internal(options)
+    check_html(options)
+
+    links = check_redundant_links(options)
+    check_colophon(options, links)
 
     found = collect_all()
-    check_gloss(options, found, gloss_internal_keys)
     for func in [
         check_bib,
         check_fig,
@@ -52,7 +54,8 @@ def main():
     ]:
         func(options, found)
 
-    check_html(options)
+    gloss_internal_keys = check_gloss_internal(options)
+    check_gloss(options, found, gloss_internal_keys)
 
 
 def check_bib(options, found):
@@ -61,9 +64,8 @@ def check_bib(options, found):
     compare_keys("bibliography", expected, found["bib"])
 
 
-def check_colophon(options):
+def check_colophon(options, actual):
     """Check all colophon links are present."""
-    actual = yaml.safe_load(Path(options.root, "info", "links.yml").read_text()) or []
     actual_keys = set([e["key"] for e in actual])
     expected = yaml.safe_load(Path(options.root, "lib", "mccole", "colophon.yml").read_text())
     expected_keys = set([e["key"] for e in expected])
@@ -113,6 +115,16 @@ def check_inc(options, found):
     """Check file inclusions."""
     expected = get_includable_files(options)
     compare_keys("inc", expected, found["inc"])
+
+
+def check_redundant_links(options):
+    """Look for redundant link definitions."""
+    links = yaml.safe_load(Path(options.root, "info", "links.yml").read_text()) or []
+    count = Counter(entry["url"] for entry in links)
+    problems = [url for url in count if count[url] > 1]
+    if problems:
+        print(f"redundant link definitions: {', '.join(sorted(problems))}")
+    return links
 
 
 def check_tbl(options, found):
@@ -184,7 +196,7 @@ def collect_inc(pargs, kwargs, found):
 
 def collect_tbl_def(pargs, kwargs, found):
     """Collect data from a table definition shortcode."""
-    slug = kwargs["slug"]
+    slug = kwargs.get("slug", None) or str(Path(kwargs["tbl"]).stem)
     if slug in found["tbl_def"]:
         print("Duplicate definition of table slug {slug}")
     else:
@@ -224,6 +236,11 @@ def compare_keys(kind, expected, actual, extra=None, unused=True):
         expected -= extra
     if unused and expected:
         print(f"unused {kind} {listify(expected)}")
+
+
+def find_html_files(options):
+    """Get list of all generated HTML files."""
+    return list(Path(options.htmldir).rglob("**/*.html"))
 
 
 def get_bib_keys(options):
@@ -280,7 +297,7 @@ def parse_args():
     """Parse arguments."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--dom", required=True, help="DOM specification file")
-    parser.add_argument("--html", nargs="+", default=[], help="HTML pages")
+    parser.add_argument("--htmldir", required=True, help="HTML directory")
     parser.add_argument("--root", required=True, help="Root directory")
     return parser.parse_args()
 

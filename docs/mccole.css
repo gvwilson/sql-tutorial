@@ -112,12 +112,31 @@ body {
 /* Caption on table */
 caption {
     text-align: center;
+    text-wrap-mode: nowrap;
+}
+
+/* Citations */
+cite {
+    font-style: italic;
 }
 
 /* Code fragments */
 code {
     font-family: "Source Code Pro", monospace;
     font-size: var(--size-code);
+}
+
+/* Add space below definitions in definition list. */
+dd {
+    margin-bottom: var(--spacing-medium);
+}
+dd:last-of-type {
+    margin-bottom: 0px;
+}
+
+/* Callouts */
+div.callout {
+    background-color: var(--gray-faint);
 }
 
 /* Generic output */
@@ -143,6 +162,11 @@ div.language-md,
 div.language-toml,
 div.language-yml {
     border-color: var(--stamp-orange-light);
+}
+
+/* JavaScript */
+div.language-js {
+    border-color: var(--stamp-blue-light);
 }
 
 /* Output */
@@ -219,7 +243,6 @@ img.splash {
 /* Reduce list indentation */
 li {
     list-style-type: disc;
-    margin-left: var(--spacing-large-negative);
 }
 
 /* Make navigation controls larger */
@@ -228,12 +251,12 @@ nav {
 }
 
 /* Appendix list */
-ol.toc-appendices {
+ol.toc-appendices li {
     list-style-type: upper-latin;
 }
 
 /* Chapter list */
-ol.toc-chapters {
+ol.toc-chapters li {
     list-style-type: decimal;
 }
 
@@ -264,6 +287,7 @@ span.ix-entry {
 /* Tables */
 table {
     border-collapse: collapse;
+    caption-side: bottom;
     margin-left: auto;
     margin-right: auto;
 }
