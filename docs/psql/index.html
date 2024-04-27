@@ -234,7 +234,7 @@ but not modify or delete existing records.</li>
 <li>Grant permissions in the terminal:</li>
 </ul>
 <div class="language-sql" title="grant_select_update.sql">
-<div class="highlight"><pre><span></span><code><span class="k">grant</span><span class="w"> </span><span class="k">select</span><span class="p">,</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">penguins</span><span class="p">,</span><span class="w"> </span><span class="n">little_penguins</span>
+<div class="highlight"><pre><span></span><code><span class="k">grant</span><span class="w"> </span><span class="k">select</span><span class="p">,</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">penguins</span>
 <span class="k">to</span><span class="w"> </span><span class="n">penguin_reader_writer</span><span class="p">;</span>
 </code></pre></div>
 </div>
@@ -291,7 +291,7 @@ but not modify or delete existing records.</li>
 </code></pre></div>
 </div>
 <div class="language-out" title="delete_penguins.out">
-<div class="highlight"><pre><span></span><code>ERROR: permission denied for table penguins
+<div class="highlight"><pre><span></span><code>psql:delete_penguins.sql:2: ERROR:  permission denied for table penguins
 </code></pre></div>
 </div>
 <ul>
@@ -310,8 +310,8 @@ but not modify or delete existing records.</li>
 <li>In the terminal:</li>
 </ul>
 <div class="language-sql" title="revoke_update.sql">
-<div class="highlight"><pre><span></span><code><span class="k">revoke</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">penguins</span><span class="p">,</span><span class="w"> </span><span class="n">little_penguins</span>
-<span class="k">to</span><span class="w"> </span><span class="n">penguin_reader_writer</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">revoke</span><span class="w"> </span><span class="k">update</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">penguins</span>
+<span class="k">from</span><span class="w"> </span><span class="n">penguin_reader_writer</span><span class="p">;</span>
 </code></pre></div>
 </div>
 <ul>
@@ -324,7 +324,7 @@ but not modify or delete existing records.</li>
 </code></pre></div>
 </div>
 <div class="language-out" title="update_penguins_again.out">
-<div class="highlight"><pre><span></span><code>ERROR: permission denied for table penguins
+<div class="highlight"><pre><span></span><code>psql:update_penguins_again.sql:3: ERROR:  permission denied for table penguins
 </code></pre></div>
 </div>
     </main>

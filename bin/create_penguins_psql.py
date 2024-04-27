@@ -1,7 +1,11 @@
+"""Create PostgreSQL penguins database."""
+
 import psycopg2
 import sys
 
 def main(dbname, csv_file_path):
+    """Main driver."""
+
     conn_string     = f"dbname=postgres"
     conn            = psycopg2.connect(conn_string)
     conn.autocommit = True
@@ -12,8 +16,6 @@ def main(dbname, csv_file_path):
         # To start from scratch we need to cleanup both the role and the database
         cur.execute(f"DROP DATABASE IF EXISTS {dbname};") # database
         cur.execute(f"DROP ROLE IF EXISTS {role_name};")  # role
-
-
         cur.execute(f"CREATE DATABASE {dbname};")
     except Exception as e:
         print(f"Error creating database: {e}")
@@ -22,7 +24,7 @@ def main(dbname, csv_file_path):
         cur.close()
         conn.close()
 
-    # Connect to the new database to create tables and import data
+g    # Connect to the new database to create tables and import data
     conn_string     = f"dbname={dbname}"
     conn            = psycopg2.connect(conn_string)
     conn.autocommit = True
@@ -43,8 +45,8 @@ def main(dbname, csv_file_path):
         """)
 
         # Import data from CSV into the database
-        with open(csv_file_path, 'r') as f:
-            cur.copy_expert(f"COPY penguins FROM STDIN WITH CSV HEADER DELIMITER ','", f)
+        with open(csv_file_path, 'r') as reader:
+            cur.copy_expert(f"COPY penguins FROM STDIN WITH CSV HEADER DELIMITER ','", reader)
     except Exception as e:
         print(f"Error in database setup: {e}")
     finally:

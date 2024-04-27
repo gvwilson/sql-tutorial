@@ -1,2 +1,2 @@
-revoke update on penguins, little_penguins
-to penguin_reader_writer;
+revoke update on penguins
+from penguin_reader_writer;
