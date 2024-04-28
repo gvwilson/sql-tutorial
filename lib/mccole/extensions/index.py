@@ -6,10 +6,10 @@ import shortcodes
 import util
 
 
-@shortcodes.register("i", "/i")
-def index_ref(pargs, kwargs, node, content):
+@shortcodes.register("i")
+def index_ref(pargs, kwargs, node):
     """Format index shortcode."""
-    return content
+    return ""
 
 
 @shortcodes.register("index")

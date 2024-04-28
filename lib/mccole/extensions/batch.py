@@ -3,10 +3,12 @@
 import ark
 from datetime import datetime
 from pathlib import Path
+import re
 import shortcodes
 from shutil import copyfile
-
 import util
+
+WHITESPACE = re.compile(r'\s+')
 
 
 @ark.events.register(ark.events.Event.INIT_BUILD)
@@ -56,7 +58,7 @@ def _collect_shortcodes():
     parser = shortcodes.Parser(inherit_globals=False, ignore_unknown=True)
     parser.register(_collect_shortcodes_figures, "figure")
     parser.register(_collect_shortcodes_glossary, "g")
-    parser.register(_collect_shortcodes_index, "i", "/i")
+    parser.register(_collect_shortcodes_index, "i")
     parser.register(_collect_shortcodes_tables, "table")
 
     collector = {}
@@ -95,9 +97,10 @@ def _collect_shortcodes_glossary(pargs, kwargs, extra):
     extra["terms"].append(pargs[0])
 
 
-def _collect_shortcodes_index(pargs, kwargs, extra, _):
+def _collect_shortcodes_index(pargs, kwargs, extra):
     """Collect data from an index reference shortcode."""
-    extra["index"].extend(pargs)
+    for term in pargs:
+        extra["index"].append(WHITESPACE.sub(' ', term).strip())
 
 
 def _collect_shortcodes_tables(pargs, kwargs, extra):
