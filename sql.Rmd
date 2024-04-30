@@ -1,0 +1,317 @@
+---
+title: "Untitled"
+author: "Pao"
+date: "2024-04-18"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+```
+
+* Use dplyr to create queries.
+* DBI handles the backend associated to the database. In this case SQLite.
+
+```{r}
+connection <- DBI::dbConnect(RSQLite::SQLite(), 'data/penguins.db')
+
+DBI::dbListTables(connection)
+```
+* Database connections are coordinated by the DBI package
+* List tables with dbListTables()
+
+```{r}
+penguins <- dplyr::tbl(connection, 'penguins')
+```
+
+* Retrieve a table with tbl()
+* It need a connection and the name of the table.
+
+```{r}
+penguins
+
+penguins |> 
+  dplyr::show_query()
+```
+
+* All dplyr functions (and call to the table) generates a `SELECT` statement.
+* `show_query()` runs the SQL `EXPLAIN` command to show the SQL query.
+
+## Filtering 
+
+```{r}
+penguins |> 
+  filter(species == "Adelie")
+```
+* `filter()` generates a query using `WHERE <condition>` 
+* dbplyr call are lazy. 
+* The SQL query is only evaluated when is send to the database
+* running the dplyr call only returns a preview of the result
+
+```{r}
+penguins |> 
+  filter(species == "Adelie") |> 
+  collect()
+```
+
+* The collect() function retrieve the complete result of the query (note that now the table has 152 rows).
+
+## Selecting columns
+
+```{r}
+penguins |> 
+  select(species, island, contains('bill'))
+```
+
+* `select()` modifies the `SELECT` statement.
+* Selection helpers from dplyr (like `contains()`) works ok.
+
+## Sorting
+
+```{r}
+penguins |> 
+  select(species, body_mass_g) |> 
+  arrange(body_mass_g)
+```
+
+* With `arrange()` you `ORDER BY` the data.
+* There is a `desc()` function.
+
+### Exersise
+
+Find the lightest penguin in Dream Island by arranging the table accordingly. Only show the specie, island and body mass.
+
+```{r}
+penguins |> 
+  select(species, island, body_mass_g) |> 
+  filter(island == 'Dream') |> 
+  arrange(desc(body_mass_g))
+```
+## Transforming columns 
+
+```{r}
+penguins |> 
+  mutate(weight_kg = body_mass_g/1000)
+```
+
+* `mutate()` also modifies the `SELECT` statement.
+  * Naming the new variable works as the `AS` statement. It is optional, but desirable. 
+* If `select()` it not present the query will call all the columns.
+
+## Agregating 
+
+```{r}
+penguins |> 
+  group_by(species) |> 
+  summarise(avg_body_mas = mean(body_mass_g))
+```
+
+* `summarise()` and `group_by()` work together to generate a `GROUP BY` clause.
+* dplyr defaults to SQL to handle missing values unless you use the `na.rm` argument in aggregation functions.
+
+### Excersise
+
+* Calculate the bill ration (length/depth) for each penguin.
+* Using the previous result, calculate the average ration for each specie.
+
+## Creating a table
+
+```{r}
+library(DBI)
+
+another_connection <- dbConnect(RSQLite::SQLite(), ':memory:')
+
+table1 <- tibble(
+  person = c('mik', 'mik', 'mik', 'po', 'po', 'tay'),
+  job = c('calibrate', 'clean', 'complain', 'clean', 'complain', 'complain')
+)
+
+dbWriteTable(another_connection, "work", table1, row.names = FALSE, overwrite = TRUE)
+
+work <- tbl(another_connection, "work")
+```
+
+* Writes, overwrites or appends a data frame to a database table with `dbWriteTable()` 
+* `':memory:'` is a path that creates an in-memory database.
+
+### Exersise
+
+Create the job table, it should look like this:
+
+|   name    | billable |
+|-----------|----------|
+| calibrate | 1.5      |
+| clean     | 0.5      |
+
+```{r}
+table2 <- tibble(
+  name = c('calibrate', 'clean'),
+  billable = c(1.5, 0.5)
+)
+
+dbWriteTable(another_connection, "job", table2, row.names = FALSE, overwrite = TRUE)
+
+job <- tbl(another_connection, "job")
+```
+
+
+
+Who doesn’t calibrate?
+
+```{r}
+work |> 
+  filter(job != 'calibrate') |> 
+  distinct(person)
+```
+* Similar to pure SQL, the result is wrong. Mik does calibrate. 
+  * But using subqueries with dplyr is not that simple.
+
+```{r eval=FALSE, include=FALSE}
+work |> 
+  filter(!job %in% (
+    #subquery
+    work |> 
+      filter(job == 'calibrate') |> 
+      distinct(person) |> 
+      collect()
+  )) |> 
+  distinct(person)
+```
+
+* This does not work.
+
+```{r}
+work |> 
+  filter(!person %in% sql(
+    #subquery
+    "(SELECT DISTINCT person FROM work
+    where job = 'calibrate')"
+  )) |> 
+  distinct(person) 
+```
+* You can use literal SQL inside `sql()`. It returns an SQL object.
+  * Useful when R code is not enough to write a query.
+
+## Joining tables
+
+```{r}
+does_calibrate <- work |> 
+  filter(job == 'calibrate')
+
+work |> 
+  anti_join(does_calibrate, by = join_by(person)) |> 
+  distinct(person) |> 
+  collect() 
+```
+
+* Joining tables with dplyr works similar to SQL. 
+  * The `by` argument works as the `ON` statement. In this case we join by `person`.
+* Use `left_join()`, `right_join()`, `inner_join()` or `full_join()`.
+  
+### Exersise 
+
+How may hours each person works summing all jobs?
+
+```{r}
+work |> 
+  left_join(job, by = join_by(job == name)) |> 
+  group_by(person) |> 
+  summarise(total_hours = sum(billable))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
