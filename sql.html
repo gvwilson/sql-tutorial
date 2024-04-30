@@ -13,7 +13,7 @@
 
 <meta name="date" content="2024-04-18" />
 
-<title>Untitled</title>
+<title>R and dplyr</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,13 +350,22 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">Untitled</h1>
+<h1 class="title toc-ignore">R and dplyr</h1>
 <h4 class="author">Pao</h4>
 <h4 class="date">2024-04-18</h4>
 
 </div>
 
 
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
 <ul>
 <li>Use dplyr to create queries.</li>
 <li>DBI handles the backend associated to the database. In this case
@@ -555,7 +564,7 @@ accordingly. Only show the specie, island and body mass.</p>
 statement.
 <ul>
 <li>Naming the new variable works as the <code>AS</code> statement. It
-is optional, but desireable.</li>
+is optional, but desirable.</li>
 </ul></li>
 <li>If <code>select()</code> it not present the query will call all the
 columns.</li>
