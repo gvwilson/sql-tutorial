@@ -19,6 +19,7 @@ chapters = [
     "tools",
     "advanced",
     "python",
+    "r",
     "psql",
     "finale",
 ]
@@ -42,6 +43,7 @@ copy = [
     "*.out",
     "*.png",
     "*.py",
+    "*.r",
     "*.sh",
     "*.sql",
     "*.svg",

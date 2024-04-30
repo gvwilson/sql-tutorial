@@ -1,0 +1,15 @@
+## # Source:   SQL [?? x 4]
+## # Database: sqlite 3.45.2 [C:\Users\tonin\Documents\Courses\r-sql\data\penguins.db]
+##    species island    bill_length_mm bill_depth_mm
+##    <chr>   <chr>              <dbl>         <dbl>
+##  1 Adelie  Torgersen           39.1          18.7
+##  2 Adelie  Torgersen           39.5          17.4
+##  3 Adelie  Torgersen           40.3          18  
+##  4 Adelie  Torgersen           NA            NA  
+##  5 Adelie  Torgersen           36.7          19.3
+##  6 Adelie  Torgersen           39.3          20.6
+##  7 Adelie  Torgersen           38.9          17.8
+##  8 Adelie  Torgersen           39.2          19.6
+##  9 Adelie  Torgersen           34.1          18.1
+## 10 Adelie  Torgersen           42            20.2
+## # ℹ more rows

@@ -1,0 +1,6 @@
+## # Source:   SQL [2 x 1]
+## # Database: sqlite 3.45.2 [:memory:]
+##   person
+##   <chr> 
+## 1 po    
+## 2 tay

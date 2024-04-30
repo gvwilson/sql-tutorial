@@ -179,6 +179,11 @@ div.language-py {
     border-color: var(--stamp-blue-light);
 }
 
+/* R */
+div.language-r {
+    border-color: var(--stamp-blue-light);
+}
+
 /* Shell */
 div.language-sh {
     border-color: var(--stamp-green-light);

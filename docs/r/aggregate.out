@@ -1,0 +1,11 @@
+## Warning: Missing values are always removed in SQL aggregation functions.
+## Use `na.rm = TRUE` to silence this warning
+## This warning is displayed once every 8 hours.
+
+## # Source:   SQL [3 x 2]
+## # Database: sqlite 3.45.2 [C:\Users\tonin\Documents\Courses\r-sql\data\penguins.db]
+##   species   avg_body_mas
+##   <chr>            <dbl>
+## 1 Adelie           3701.
+## 2 Chinstrap        3733.
+## 3 Gentoo           5076.

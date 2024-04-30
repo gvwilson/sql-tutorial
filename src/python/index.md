@@ -1,6 +1,6 @@
 ---
 title: "Python"
-tagline: "Using databases from other languages."
+tagline: "Using databases from Python."
 ---
 
 ## Querying from Python
