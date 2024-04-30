@@ -28,6 +28,10 @@
   url: "https://swcarpentry.github.io/shell-novice/"
   title: "Software Carpentry lesson on the Unix shell for novices"
 
+- key: "corrales_pao"
+  url: "https://paocorrales.github.io/"
+  title: "Pao Corrales"
+
 # D
 
 - key: "draw_io"

@@ -1,5 +1,5 @@
 ---
-title: "Python"
+title: "R"
 tagline: "Using databases from R."
 ---
 

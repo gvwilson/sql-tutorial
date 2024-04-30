@@ -28,14 +28,6 @@
 
 [% toc %]
 
-<p>
-  <em>
-    "[% config "title" %]" is a <a href="[% config "author.site" %]">Third Bit</a> production.
-    You may also enjoy <a href="https://gvwilson.github.io/rsdx/">Research Software Design by Example</a>
-    and <a href="https://gvwilson.github.io/sys-tutorial/">The Sudonomicon</a>.
-  </em>
-</p>
-
 ## Help Wanted
 
 If you would like to help get this tutorial to a usable state,
