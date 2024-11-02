@@ -1,2 +1,0 @@
-penguins |> 
-  filter(species == "Adelie")

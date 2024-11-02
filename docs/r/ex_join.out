@@ -1,7 +1,0 @@
-## # Source:   SQL [3 x 2]
-## # Database: sqlite 3.45.2 [:memory:]
-##   person total_hours
-##   <chr>        <dbl>
-## 1 mik            2  
-## 2 po             0.5
-## 3 tay           NA

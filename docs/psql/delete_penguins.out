@@ -1,1 +1,0 @@
-psql:delete_penguins.sql:2: ERROR:  permission denied for table penguins

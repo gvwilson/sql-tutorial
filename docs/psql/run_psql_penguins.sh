@@ -1,1 +1,0 @@
-psql -d penguins 
